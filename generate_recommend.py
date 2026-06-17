@@ -18,6 +18,7 @@ SCAN_RESULT = os.path.join(DATA_DIR, "scan_result.json")
 WATCH_RESULT = os.path.join(DATA_DIR, "watch_result.json")
 RECOMMEND_OUT = os.path.join(DATA_DIR, "recommend.json")
 RESONANCE_HIST = os.path.join(DATA_DIR, "resonance_history.json")
+GOLD_POOL = os.path.join(DATA_DIR, "gold_pool.json")
 
 # 保留最近 90 天的历史（足够计算连续天数）
 MAX_HISTORY_DAYS = 90
@@ -65,13 +66,46 @@ def extract_triple_signals(scan_data, watch_data):
 
 
 def build_recommend_item(stock):
-    """将扫描结果转换为 recommend.json 格式"""
-    # 计算止损/目标价（基于ATR或固定比例）
+    """将扫描结果转换为 recommend.json 格式（基于波动率调整止损/目标）"""
     close = stock.get("close", 0)
     pct_chg = stock.get("pct_chg", 0)
-    # 简单策略：止损 -7%，目标 +15%
-    stop_loss = round(close * 0.93, 2) if close else 0
-    target = round(close * 1.15, 2) if close else 0
+    board = stock.get("board_label", stock.get("board", ""))
+    pct20 = stock.get("pct_chg_20d", stock.get("pct20", 0))
+
+    # 基于板块和波动率动态调整止损/目标
+    if board in ("创业板", "科创板"):
+        base_stop = 0.10   # 基础止损 -10%
+        base_target = 0.20  # 基础目标 +20%
+    elif board == "港股":
+        base_stop = 0.08
+        base_target = 0.15
+    else:
+        base_stop = 0.07
+        base_target = 0.15
+
+    # 高波动股票（近20日涨幅>30%或<-20%）放宽止损
+    if pct20 and abs(pct20) > 30:
+        base_stop = min(base_stop + 0.03, 0.15)  # 最多放宽到-15%
+
+    # 涨停当日股票，建议延迟1天再推荐（避免追板）
+    涨停阈值 = 20.0 if board in ("创业板", "科创板") else 10.0
+    涨停延迟 = abs(pct_chg) >= 涨停阈值
+    action = "WATCH" if 涨停延迟 else "BUY"
+
+    stop_loss = round(close * (1 - base_stop), 2) if close else 0
+    target = round(close * (1 + base_target), 2) if close else 0
+
+    # 评分二次调整：连续共振天数奖励 + 研报覆盖加分
+    score = stock.get("score", stock.get("signal_score", 0))
+    days_in_resonance = stock.get("days_in_resonance", 1)
+    if days_in_resonance >= 3:
+        score += 2.0
+    elif days_in_resonance >= 2:
+        score += 1.0
+    sources = stock.get("sources", ["三足鼎立"])
+    if "投行研报" in sources:
+        score += 1.0
+    score = round(max(0, score), 1)
 
     # 获取 board / fund_type
     board = stock.get("board_label", stock.get("board", ""))
@@ -107,10 +141,10 @@ def build_recommend_item(stock):
         "name": stock.get("name", ""),
         "board": board_tag,
         "fund_type": stock.get("fund_type", "混合"),
-        "score": stock.get("score", 0),
+        "score": score,
         "sig_count": stock.get("signal_count", 0),
         "max_sig": stock.get("max_signal", stock.get("signal_count", 0)),
-        "action": "BUY",
+        "action": action,
         "stop_loss": stop_loss,
         "target": target,
         "close": close,
@@ -121,7 +155,8 @@ def build_recommend_item(stock):
         "sources": sources,
         "days_in_pool": stock.get("days_in_pool", 1),
         "pct20": stock.get("pct_chg_20d", stock.get("pct20", 0)),
-        "_raw": stock,  # 保留原始数据，方便调试
+        "涨停延迟": 涨停延迟,
+        "_raw": stock,
     }
 
 
@@ -166,10 +201,45 @@ def main():
     # 读取扫描结果
     scan_data = load_json(SCAN_RESULT, {})
     watch_data = load_json(WATCH_RESULT, {})
+    gold_pool = load_json(GOLD_POOL, {"stocks": {}})
 
-    # 提取三线共振
+    # 提取当前三线共振（来自扫描和精监）
     triple_list = extract_triple_signals(scan_data, watch_data)
-    print(f"\n📊 三线共振股票: {len(triple_list)} 只")
+    existing_codes = {s.get("code", "") for s in triple_list}
+
+    # 补充金股池中 max_signal >= 3 的股票（统一标准：历史达到过三线的都算）
+    for key, s in gold_pool.get("stocks", {}).items():
+        code = s.get("code", "").replace("sh_", "").replace("sz_", "").replace("hk_", "")
+        if not code or code in existing_codes:
+            continue
+        if s.get("max_signal", 0) >= 3:
+            # 只有最新信号 >= 3 的才算当前三线共振
+            history = s.get("history", [])
+            latest = history[-1] if history else {}
+            if latest.get("signal_count", 0) < 3:
+                continue
+            entry = {
+                "code": code,
+                "name": s.get("name", ""),
+                "close": latest.get("close", s.get("close", 0)),
+                "pct_chg": latest.get("pct_chg", 0),
+                "pct_chg_20d": latest.get("pct_chg_20d", 0),
+                "signal_count": latest.get("signal_count", s.get("max_signal", 3)),
+                "signal_score": s.get("max_signal", 3) * 3,
+                "score": s.get("max_signal", 3) * 3,
+                "board_label": s.get("board_label", ""),
+                "fund_type": s.get("fund_type", "混合"),
+                "volume_str": "-",
+                "开盘_标签": "—",
+                "sources": s.get("sources", ["三足鼎立"]),
+                "max_signal": s.get("max_signal", 3),
+                "days_in_resonance": len([h for h in history if h.get("signal_count", 0) >= 3]),
+                "_sources": ["gold_pool"],
+            }
+            triple_list.append(entry)
+            existing_codes.add(code)
+
+    print(f"\n📊 三线共振股票: {len(triple_list)} 只（含金股池历史max_signal>=3）")
     for s in triple_list:
         print(f"  • {s.get('code')} {s.get('name')} 评分:{s.get('score',0)}")
 

@@ -47,7 +47,7 @@ RATE_LIMIT_WATCH = 0.01 # 金股精监限速 (极小延迟避免拥塞)
 MAX_RETRIES = 1   # 只重试1次，之前3次太慢
 
 # 金股池保留天数
-GOLD_POOL_DAYS = 10  # 保留10个交易日（排除周末节假日）的信号股，足够观察持续性
+GOLD_POOL_DAYS = 20  # 保留20个交易日（排除周末节假日）的信号股，兼顾观察持续性
 
 
 def get_n_trade_days_ago(n):
@@ -588,17 +588,18 @@ def calc_uptrend_signal(df):
     趋势向上 = 趋势向上 & (MA10 > ref(MA10, 1))
     条件1 = 多头排列 & 趋势向上
 
-    # 条件2: 中期趋势+金叉启动
+    # 条件2: 中期趋势+金叉启动（收紧门槛）
     中期打底 = MA60 > ref(MA60, 1)
     中期打底 = 中期打底 & (C > MA60)
     金叉突破 = cross(MA5, MA20)
-    量能确认 = V > ref(V, 1) * 1.3
-    条件2 = 中期打底 & 金叉突破 & 量能确认
+    短期强势 = MA5 > MA10  # 新增：金叉后必须保持短期强势
+    量能确认 = V > ref(V, 1) * 1.5  # 从1.3提高到1.5
+    条件2 = 中期打底 & 金叉突破 & 短期强势 & 量能确认
 
-    # 条件3: 主升浪强势
+    # 条件3: 主升浪强势（收紧量价健康门槛）
     价格强势 = C > MA5
-    量价健康 = V > MAV5
-    量价健康 = 量价健康 & (MAV5 > MAV10)
+    量价健康 = V > MAV5 * 1.2  # 成交量必须高于5日均量20%
+    量价健康 = 量价健康 & (MAV5 > MAV10 * 1.1)  # 5日均量高于10日均量10%
     条件3 = 多头排列 & 价格强势 & 量价健康
 
     # 条件4: 风控过滤(剔除停牌及无效数据)
@@ -632,13 +633,46 @@ def calc_rsi(close_series, period=14):
     rsi = 100 - (100 / (1 + rs))
     return rsi
 
-def calc_signal_score(signal_count, rsi_val, turnover_rate):
-    """信号评分：信号数x3为基准，RSI>70扣1分，换手>3%加0.5分"""
+def calc_signal_score(signal_count, rsi_val, turnover_rate, pct20=0, fund_type="", has_report=False):
+    """信号评分：多因子综合评分（信号数 + 动量 + 机构背书 + 风控）"""
     base = signal_count * 3
+
+    # RSI 过热扣分 / 超卖加分
     if rsi_val and rsi_val > 70:
-        base -= 1
-    if turnover_rate and turnover_rate > 3:
+        base -= 1.0
+    elif rsi_val and rsi_val < 30:
         base += 0.5
+
+    # 换手率活跃度加分
+    if turnover_rate and turnover_rate > 5:
+        base += 1.0
+    elif turnover_rate and turnover_rate > 3:
+        base += 0.5
+
+    # 动量适中加分（10%~30%是最佳区间）
+    if pct20 and 10 < pct20 < 30:
+        base += 1.0
+    elif pct20 and 5 < pct20 < 50:
+        base += 0.5
+
+    # 过热惩罚（>50%或<-20%）
+    if pct20 and pct20 > 50:
+        base -= 3.0
+    elif pct20 and pct20 > 30:
+        base -= 1.0
+    if pct20 and pct20 < -20:
+        base -= 2.0
+
+    # 机构资金加分
+    if fund_type == "机构":
+        base += 0.5
+    elif fund_type == "游资":
+        base += 0.3
+
+    # 研报覆盖加分
+    if has_report:
+        base += 1.0
+
     return round(max(0, base), 1)
 
 
@@ -1683,12 +1717,22 @@ def check_stock_signals(code, name, market="sh", board_label="", volume_amount=0
         except Exception:
             current_rsi = 50.0
 
-        # 信号评分(信号质量: RSI>70扣分, 换手>3%加分)
-        signal_score = calc_signal_score(signal_count, current_rsi, turnover_rate)
+        # 近20日涨幅（用于评分动量因子）
+        try:
+            pct20 = calc_pct_chg_n(df, 20)
+        except Exception:
+            pct20 = 0
+
+        # 信号评分(多因子: 信号数 + 动量 + 机构 + 风控)
+        signal_score = calc_signal_score(signal_count, current_rsi, turnover_rate, pct20, fund_type, False)
 
         # 涨跌幅
         pct = float(last.get("pct_chg", 0)) if "pct_chg" in df.columns else 0
         close_price = float(last["close"])
+
+        # 市场环境过滤：涨停股票标记
+        涨停阈值 = 20.0 if (board_label in ("创业板", "科创板") or code.startswith(("300", "688"))) else 10.0
+        当日涨停 = abs(pct) >= 涨停阈值
 
         # 近5日缠论买字次数(信号强度)
         recent5 = df.tail(5)
@@ -1733,6 +1777,8 @@ def check_stock_signals(code, name, market="sh", board_label="", volume_amount=0
             "三线共振": 三线共振,
             "三足鼎立": 三足鼎立,
             "signal_count": signal_count,
+            "当日涨停": 当日涨停,
+            "涨停延迟": 当日涨停,
             "开盘_标签": 开盘_标签,
             "开盘_高开": 开盘_高开,
             "开盘_低开": 开盘_低开,
@@ -1761,6 +1807,8 @@ def check_stock_signals(code, name, market="sh", board_label="", volume_amount=0
                 "三线共振": 三线共振,
                 "三足鼎立": 三足鼎立,
                 "signal_count": signal_count,
+                "当日涨停": 当日涨停,
+                "涨停延迟": 当日涨停,
                 "开盘_标签": 开盘_标签,
                 "开盘_高开": 开盘_高开,
                 "开盘_低开": 开盘_低开,
@@ -1890,16 +1938,15 @@ def update_gold_pool_from_scan(output):
     today = datetime.now().strftime("%Y-%m-%d")
     cutoff = get_n_trade_days_ago(GOLD_POOL_DAYS)
 
-    # 清理过期股票（投行研报来源的不过期，它们没有first_date限制）
+    # 清理过期股票（所有来源统一按 GOLD_POOL_DAYS 个交易日过期）
     expired_keys = [k for k, v in pool["stocks"].items()
-                    if v.get("first_date", "") < cutoff
-                    and "投行研报" not in v.get("sources", [])]
+                    if v.get("first_date", "") < cutoff]
     for k in expired_keys:
         del pool["stocks"][k]
 
     # 添加/更新本次扫描中有信号的股票
     for s in output.get("all_results", []):
-        if s.get("signal_count", 0) >= 1:
+        if s.get("signal_count", 0) >= 2:
             key = f"{s['market']}_{s['code']}"
             if key not in pool["stocks"]:
                 pool["stocks"][key] = {

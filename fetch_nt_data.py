@@ -523,6 +523,14 @@ def generate_calendar():
             if nd.startswith(ym_str):
                 calendar_events.append({'date': nd, 'title': ntitle, 'type': 'product_launch'})
 
+        # ── 重大IPO/市场事件 ──
+        ipo_events = [
+            ('2026-06-12', 'SpaceX IPO'),
+        ]
+        for nd, ntitle in ipo_events:
+            if nd.startswith(ym_str):
+                calendar_events.append({'date': nd, 'title': ntitle, 'type': 'product_launch'})
+
     # 去重并按日期排序
     seen = set()
     unique_events = []

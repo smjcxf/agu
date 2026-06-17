@@ -340,6 +340,28 @@ def main():
     # 加载推荐数据（在提取 triple_signals 之前，因为推荐可能含港股）
     recommend   = load_json(os.path.join(DATA_DIR, "recommend.json"), [])
 
+    # 【统一标准】scan_data 的三线共振数量 = 推荐列表数量（权威数据源）
+    if isinstance(recommend, list) and len(recommend) > 0:
+        # 从推荐列表构建 triple_signals
+        triple_from_rec = []
+        for s in recommend:
+            triple_from_rec.append({
+                "code": s.get("code", ""),
+                "name": s.get("name", ""),
+                "signal_count": s.get("sig_count", s.get("signal_count", 3)),
+                "close": s.get("close", 0),
+                "pct_chg": s.get("pct_chg", 0),
+                "board": s.get("board", ""),
+                "action": s.get("action", ""),
+                "signal_score": s.get("score", 0),
+                "score": s.get("score", 0),
+            })
+        scan_data["triple_signals"] = triple_from_rec
+        scan_data["triple_count"] = len(triple_from_rec)
+    elif not scan_data.get("triple_signals"):
+        scan_data["triple_signals"] = []
+        scan_data["triple_count"] = 0
+
     # 从 results 中提取 triple_signals 和 quad_signals（前端依赖这些字段）
     if "results" in scan_data and "triple_signals" not in scan_data:
         triple = [s for s in scan_data["results"] if s.get("signal_count", 0) >= 3]
@@ -600,21 +622,6 @@ def main():
         return False
     print("  ✓ 密码页完好")
 
-    # ===== 注入宏观异动速报HTML（整合自 inject_macro.py）=====
-    alert_html, alert_time, alert_count = generate_macro_alert_html(macro_data)
-    # 替换 macroAlertContent div 内容
-    import re as _re
-    content = _re.sub(
-        r'<div id="macroAlertContent"[^>]*>\s*</div>',
-        f'<div id="macroAlertContent" style="font-size:13px;line-height:1.8;">{alert_html}</div>',
-        content
-    )
-    # 更新时间戳
-    content = content.replace(
-        'id="macroAlertTime"></span>',
-        f'id="macroAlertTime">{alert_time}</span>'
-    )
-    print(f'  ✓ 宏观异动速报已注入（{alert_count}条分析结论）')
     # ===== 注入宏观观测表格渲染JS（幂等）=====
     render_js = get_macro_render_js()
     # 强制重新注入（从母版生成，不存在重复）

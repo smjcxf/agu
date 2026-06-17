@@ -105,8 +105,93 @@ tr:hover { background:#f5f7fa; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
-var EMBEDDED_HISTORY_DATA = {"2026-06-01": [], "2026-06-02": [], "2026-06-03": [], "2026-06-04": [], "2026-06-05": [], "2026-06-08": [], "2026-06-09": [], "2026-06-10": [], "2026-06-11": [], "2026-06-12": [], "2026-06-15": [], "2026-06-16": [{"code": "sz_300433", "name": "蓝思科技", "close": 50.0, "pct_chg": 8.74, "缠论买_日K": true, "金钻_起涨": false, "四量图_机构变红": true, "上涨趋势": true, "signal_count": 3, "enter_date": "", "duration_days": 0}, {"code": "sz_300292", "name": "吴通控股", "close": 6.28, "pct_chg": 14.39, "缠论买_日K": true, "金钻_起涨": false, "四量图_机构变红": true, "上涨趋势": true, "signal_count": 3, "enter_date": "", "duration_days": 0}, {"code": "sh_601958", "name": "金钼股份", "close": 28.07, "pct_chg": 9.99, "缠论买_日K": true, "金钻_起涨": false, "四量图_机构变红": true, "上涨趋势": true, "signal_count": 3, "enter_date": "", "duration_days": 0}, {"code": "sh_688603", "name": "天承科技", "close": 199.43, "pct_chg": 7.61, "缠论买_日K": true, "金钻_起涨": false, "四量图_机构变红": true, "上涨趋势": true, "signal_count": 3, "enter_date": "", "duration_days": 0}, {"code": "688661", "name": "和林微纳", "close": 130.57, "pct_chg": 1.37, "缠论买_日K": true, "金钻_起涨": false, "四量图_机构变红": true, "上涨趋势": true, "signal_count": 3, "enter_date": "", "duration_days": 0}, {"code": "06886", "name": "华泰证券", "close": 17.22, "pct_chg": 1.77, "缠论买_日K": true, "金钻_起涨": false, "四量图_机构变红": true, "上涨趋势": true, "signal_count": 3, "enter_date": "", "duration_days": 0}]};
+var EMBEDDED_HISTORY_DATA = {"2026-06-01": [], "2026-06-02": [], "2026-06-03": [], "2026-06-04": [], "2026-06-05": [], "2026-06-08": [], "2026-06-09": [], "2026-06-10": [], "2026-06-11": [], "2026-06-12": [], "2026-06-14": [{"code": "000776", "name": "广发证券", "close": 20.08, "pct_chg": 4.86, "signal_count": 3, "缠论买_日K": true, "金钻_起涨": false, "四量图_机构变红": true, "上涨趋势": true, "score": 9, "days_in_resonance": 1}, {"code": "01109", "name": "华润置地", "close": 37.28, "pct_chg": 1.08, "signal_count": 3, "缠论买_日K": true, "金钻_起涨": false, "四量图_机构变红": true, "上涨趋势": true, "score": 9, "days_in_resonance": 1}, {"code": "002129", "name": "TCL中环", "close": 9.98, "pct_chg": -1.48, "signal_count": 3, "缠论买_日K": true, "金钻_起涨": false, "四量图_机构变红": true, "上涨趋势": true, "score": 9, "days_in_resonance": 1}], "2026-06-15": [], "2026-06-16": [{"code": "688661", "name": "和林微纳", "close": 130.8, "pct_chg": 1.55, "signal_count": 3, "缠论买_日K": true, "金钻_起涨": false, "四量图_机构变红": true, "上涨趋势": true, "score": 9, "days_in_resonance": 1}, {"code": "300292", "name": "吴通控股", "close": 6.36, "pct_chg": 1.27, "signal_count": 3, "缠论买_日K": true, "金钻_起涨": false, "四量图_机构变红": true, "上涨趋势": true, "score": 9, "days_in_resonance": 1}, {"code": "688603", "name": "天承科技", "close": 195.76, "pct_chg": 5.63, "signal_count": 3, "缠论买_日K": true, "金钻_起涨": false, "四量图_机构变红": true, "上涨趋势": true, "score": 9, "days_in_resonance": 1}]};
 </script>
 </head>
 <body>
@@ -204,7 +289,7 @@ var EMBEDDED_HISTORY_DATA = {"2026-06-01": [], "2026-06-02": [], "2026-06-03": [
 
   <div id="tabCalendar" class="tab-content" style="display:none;">
     <div class="card">
-      <div class="card-title"><span class="icon">📅</span> 持续出现日历（仅显示出现≥2天的标的）</div>
+      <div class="card-title"><span class="icon">📅</span> 持续出现日历（全部出现过三线共振的标的）</div>
       <div id="calendarContent" style="overflow-x:auto;"></div>
       <div class="empty-state" id="emptyCalendar" style="display:none;">
         <div class="icon">📭</div>
@@ -323,6 +408,11 @@ function renderList() {
 
 // 计算股票评分
 function calcStockScore(s) {
+  // 优先使用后端综合评分（多因子：信号数 + 动量 + 连续性 + 机构背书 + 风控）
+  if (s.score !== undefined && s.score !== null) {
+    return s.score.toFixed(1);
+  }
+  // 兼容旧数据
   var signalCount = s.signal_count || 0;
   var pctChg = s.pct_chg || 0;
   var pctChg20d = s.pct_chg_20d || 0;
@@ -346,12 +436,9 @@ function renderTimeline() {
 
   var allDates = Object.keys(historyData).sort();
   var todayStr = new Date().toISOString().split('T')[0];
-  var todayIdx = allDates.indexOf(todayStr);
-  var dates = [];
-  if (todayIdx >= 0) {
-    dates.push(allDates.splice(todayIdx, 1)[0]);
-  }
-  dates = dates.concat(allDates.reverse()).slice(0, 31);
+  
+  // 取最近31天，倒序（最新在前）
+  var dates = allDates.slice(-31).reverse();
 
   if (dates.length === 0) {
     timelineContent.innerHTML = '';
@@ -380,7 +467,9 @@ function renderTimeline() {
     html += '<div class="timeline-content">';
 
     var currentList = stocks.map(function(s) {
-      return s.name + ' <span style="color:#999;font-size:11px;">(' + calcStockScore(s) + '分)</span>';
+      var score = calcStockScore(s);
+      var daysText = s.days_in_resonance ? ' <span style="color:#ff8a65;font-size:11px;">🔥连续' + s.days_in_resonance + '天</span>' : '';
+      return s.name + ' <span style="color:#999;font-size:11px;">(' + score + '分)</span>' + daysText;
     }).join('、');
     html += '<div style="margin-bottom:8px;font-size:' + (isToday ? '15px' : '13px') + ';color:#5ec3ff;font-weight:' + (isToday ? '600' : '500') + ';line-height:1.6;">📍 当前：' + currentList + '</div>';
 
@@ -430,7 +519,7 @@ function renderCalendar() {
 
   var persistentStocks = [];
   for (var key in stockDays) {
-    if (stockDays[key].dates.length >= 2) {
+    if (stockDays[key].dates.length >= 1) {
       persistentStocks.push(stockDays[key]);
     }
   }
