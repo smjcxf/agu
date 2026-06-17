@@ -340,24 +340,40 @@ def main():
     # 加载推荐数据（在提取 triple_signals 之前，因为推荐可能含港股）
     recommend   = load_json(os.path.join(DATA_DIR, "recommend.json"), [])
 
-    # 【统一标准】scan_data 的三线共振数量 = 推荐列表数量（权威数据源）
-    if isinstance(recommend, list) and len(recommend) > 0:
-        # 从推荐列表构建 triple_signals
-        triple_from_rec = []
-        for s in recommend:
-            triple_from_rec.append({
-                "code": s.get("code", ""),
-                "name": s.get("name", ""),
-                "signal_count": s.get("sig_count", s.get("signal_count", 3)),
-                "close": s.get("close", 0),
-                "pct_chg": s.get("pct_chg", 0),
-                "board": s.get("board", ""),
-                "action": s.get("action", ""),
-                "signal_score": s.get("score", 0),
-                "score": s.get("score", 0),
+    # 【统一标准】金股池是唯一权威数据源 — 从中提取三线共振
+    # 这样无论 scan/watch/recommend 各自有多少，所有页面始终显示同一份数据
+    triple_from_pool = []
+    double_from_pool = []
+    for key, stock in gold_pool.get("stocks", {}).items():
+        hist = stock.get("history", [])
+        if not hist:
+            continue
+        latest = hist[-1]
+        sc = latest.get("signal_count", 0)
+        if sc >= 3:
+            triple_from_pool.append({
+                "code": stock["code"],
+                "name": stock["name"],
+                "market": stock.get("market", ""),
+                "signal_count": sc,
+                "close": latest.get("close", 0),
+                "pct_chg": latest.get("pct_chg", 0),
+                "缠论买_日K": latest.get("缠论买_日K", False),
+                "金钻_起涨": latest.get("金钻_起涨", False),
+                "金钻_黄柱": latest.get("金钻_黄柱", False),
+                "四量图_机构变红": latest.get("四量图_机构变红", False),
+                "上涨趋势": latest.get("上涨趋势", False),
+                "三线共振": True,
             })
-        scan_data["triple_signals"] = triple_from_rec
-        scan_data["triple_count"] = len(triple_from_rec)
+        elif sc >= 2:
+            double_from_pool.append({"code": stock["code"], "name": stock["name"], "signal_count": sc})
+
+    if triple_from_pool:
+        scan_data["triple_signals"] = triple_from_pool
+        scan_data["triple_count"] = len(triple_from_pool)
+        scan_data["double_signals"] = double_from_pool
+        scan_data["double_count"] = len(double_from_pool)
+        print(f"  ✓ 金股池统一: triple={len(triple_from_pool)}, double={len(double_from_pool)}")
     elif not scan_data.get("triple_signals"):
         scan_data["triple_signals"] = []
         scan_data["triple_count"] = 0
