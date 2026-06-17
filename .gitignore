@@ -16,8 +16,11 @@ __pycache__/
 worker/
 backup/
 backup_*/
-/data/
+!/data/
 # 数据文件通过 git 跨机同步，见 data/.gitignore
+!generate_triple_resonance_history.py
+!update_triple_resonance_daily.py
+!inject_macro.py
 deploy_log.txt
 scanner_full.log
 .workbuddy/
