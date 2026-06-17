@@ -47,7 +47,7 @@ RATE_LIMIT_WATCH = 0.01 # 金股精监限速 (极小延迟避免拥塞)
 MAX_RETRIES = 1   # 只重试1次，之前3次太慢
 
 # 金股池保留天数
-GOLD_POOL_DAYS = 20  # 保留20个交易日（排除周末节假日）的信号股，兼顾观察持续性
+GOLD_POOL_DAYS = 45  # 保留约两个自然月的交易日（~45个交易日），支持回看上个月数据
 
 
 def get_n_trade_days_ago(n):
