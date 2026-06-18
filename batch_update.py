@@ -179,6 +179,56 @@ def run_step(command, timeout):
         return False, elapsed, str(e)[:150]
 
 
+def _sync_dual_machine_code(workspace):
+    """双机代码同步：阿狸咪↔小九，每次任务执行前拉取对方最新版本。
+    
+    流程：
+      1. git add + commit（确保本地数据改动不丢失）
+      2. git pull --autostash（自动暂存未提交改动，拉取对端）
+      3. git push（把本地上次的数据改动推回去通知对端）
+    """
+    print("  [0/1] 🔄 双机代码同步...", end="", flush=True)
+    start = time.time()
+
+    # 1. 暂存本地所有变更（包括 data/ 中的新数据）
+    r1 = subprocess.run(
+        "git add -A",
+        shell=True, cwd=workspace, capture_output=True, text=True, timeout=30
+    )
+    # 轻量 commit，有真正改动才创建
+    r2 = subprocess.run(
+        "git commit -m 'auto: pre-sync data' --allow-empty",
+        shell=True, cwd=workspace, capture_output=True, text=True, timeout=30
+    )
+
+    # 2. 拉取对端最新代码（自动 stash 未提交改动）
+    r3 = subprocess.run(
+        "git pull --autostash --no-rebase origin main",
+        shell=True, cwd=workspace, capture_output=True, text=True, timeout=120
+    )
+    pull_ok = r3.returncode == 0
+
+    if pull_ok:
+        # 3. 推回，让对端下次也能拉到我们的改动
+        subprocess.run(
+            "git push origin main",
+            shell=True, cwd=workspace, capture_output=True, timeout=60
+        )
+        elapsed = time.time() - start
+        print(f"✓  {elapsed:.1f}s")
+    else:
+        # pull 冲突/失败：用本地版继续，不阻塞流程
+        err = r3.stderr.strip()[-150:] if r3.stderr else "未知错误"
+        print(f"⚠  ({err[:80]})")
+        print(f"    继续使用本地代码，不影响本次执行")
+
+    # 恢复 stash（如果有未跟踪文件也被 stash 了）
+    subprocess.run(
+        "git stash pop", shell=True, cwd=workspace,
+        capture_output=True, timeout=30
+    )
+
+
 def print_header(title):
     print(f"\n{'=' * 60}")
     print(f"  {title}  —  {time.strftime('%Y-%m-%d %H:%M:%S')}")
@@ -218,6 +268,9 @@ def main():
 
     cfg = MODES[mode]
     print_header(f"📊 {cfg['desc']}")
+
+    # ── Step 0: 双机代码同步（阿狸咪 ↔ 小九互相识别对方最新版） ──
+    _sync_dual_machine_code(WORKSPACE)
 
     results = []
     failed_indices = []
