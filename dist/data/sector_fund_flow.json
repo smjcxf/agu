@@ -1,246 +1,217 @@
 {
-  "update_time": "2026-06-18 10:11",
+  "update_time": "2026-06-18 19:28",
   "data_type": "mock",
   "summary": {
-    "in_count": 7,
+    "in_count": 4,
     "out_count": 6,
-    "in_text": "半导体(26.9亿)、光伏(24.1亿)、AI算力(19.6亿)、医疗器械(18.3亿)、通信设备(13.2亿)",
-    "out_text": "机器人(-5.6亿)、地产(-6.1亿)、农业(-7.7亿)、银行(-9.9亿)、电力(-13.6亿)",
-    "alert": "🔥 7个板块大幅流入；⚠️ 6个板块大幅流出；🚀 半导体+26.9亿、光伏+24.1亿(连3天)、AI算力+19.6亿(连3天)"
+    "in_text": "锂电池(25.9亿)、AI算力(14.7亿)、白酒(14.5亿)、机器人(12.4亿)",
+    "out_text": "农业(-6.5亿)、军工(-13.6亿)、光伏(-14.9亿)、银行(-18.8亿)、汽车零部件(-25.0亿)",
+    "alert": "🔥 4个板块大幅流入；⚠️ 6个板块大幅流出；🚀 锂电池+25.9亿(连2天)、AI算力+14.7亿(连3天)、白酒+14.5亿(连2天)；💨 军工-13.6亿(连2天)、光伏-14.9亿"
   },
   "sectors_in": [
     {
-      "name": "半导体",
-      "net": 26.9,
-      "type": "行业",
-      "consecutive_days": 1,
-      "trend": "in"
-    },
-    {
-      "name": "光伏",
-      "net": 24.1,
-      "type": "行业",
-      "consecutive_days": 3,
+      "name": "锂电池",
+      "net": 25.9,
+      "type": "概念",
+      "consecutive_days": 2,
       "trend": "in"
     },
     {
       "name": "AI算力",
-      "net": 19.6,
+      "net": 14.7,
       "type": "概念",
       "consecutive_days": 3,
       "trend": "in"
     },
     {
-      "name": "医疗器械",
-      "net": 18.3,
-      "type": "行业",
-      "consecutive_days": 2,
-      "trend": "in"
-    },
-    {
-      "name": "通信设备",
-      "net": 13.2,
-      "type": "行业",
-      "consecutive_days": 7,
-      "trend": "in"
-    },
-    {
-      "name": "汽车零部件",
-      "net": 12.1,
-      "type": "行业",
-      "consecutive_days": 1,
-      "trend": "in"
-    },
-    {
       "name": "白酒",
-      "net": 5.0,
+      "net": 14.5,
       "type": "行业",
       "consecutive_days": 2,
+      "trend": "in"
+    },
+    {
+      "name": "机器人",
+      "net": 12.4,
+      "type": "概念",
+      "consecutive_days": 3,
       "trend": "in"
     }
   ],
   "sectors_out": [
     {
-      "name": "机器人",
-      "net": -5.6,
-      "type": "概念",
-      "consecutive_days": 1,
-      "trend": "out"
-    },
-    {
-      "name": "地产",
-      "net": -6.1,
-      "type": "行业",
-      "consecutive_days": 1,
-      "trend": "out"
-    },
-    {
       "name": "农业",
-      "net": -7.7,
+      "net": -6.5,
       "type": "行业",
       "consecutive_days": 3,
       "trend": "out"
     },
     {
-      "name": "银行",
-      "net": -9.9,
-      "type": "行业",
-      "consecutive_days": 1,
-      "trend": "out"
-    },
-    {
-      "name": "电力",
+      "name": "军工",
       "net": -13.6,
       "type": "行业",
       "consecutive_days": 2,
       "trend": "out"
     },
     {
-      "name": "锂电池",
-      "net": -15.1,
-      "type": "概念",
+      "name": "光伏",
+      "net": -14.9,
+      "type": "行业",
+      "consecutive_days": 1,
+      "trend": "out"
+    },
+    {
+      "name": "银行",
+      "net": -18.8,
+      "type": "行业",
+      "consecutive_days": 1,
+      "trend": "out"
+    },
+    {
+      "name": "汽车零部件",
+      "net": -25.0,
+      "type": "行业",
+      "consecutive_days": 2,
+      "trend": "out"
+    },
+    {
+      "name": "地产",
+      "net": -27.4,
+      "type": "行业",
       "consecutive_days": 1,
       "trend": "out"
     }
   ],
   "top_list": [
     {
-      "name": "半导体",
-      "net": 26.9,
-      "type": "行业",
-      "consecutive_days": 1,
-      "trend": "in"
-    },
-    {
-      "name": "光伏",
-      "net": 24.1,
-      "type": "行业",
-      "consecutive_days": 3,
+      "name": "锂电池",
+      "net": 25.9,
+      "type": "概念",
+      "consecutive_days": 2,
       "trend": "in"
     },
     {
       "name": "AI算力",
-      "net": 19.6,
+      "net": 14.7,
       "type": "概念",
       "consecutive_days": 3,
       "trend": "in"
     },
     {
-      "name": "医疗器械",
-      "net": 18.3,
+      "name": "白酒",
+      "net": 14.5,
       "type": "行业",
       "consecutive_days": 2,
       "trend": "in"
     },
     {
+      "name": "机器人",
+      "net": 12.4,
+      "type": "概念",
+      "consecutive_days": 3,
+      "trend": "in"
+    },
+    {
       "name": "通信设备",
-      "net": 13.2,
+      "net": 3.1,
       "type": "行业",
       "consecutive_days": 7,
       "trend": "in"
     },
     {
-      "name": "汽车零部件",
-      "net": 12.1,
+      "name": "半导体",
+      "net": 1.9,
       "type": "行业",
       "consecutive_days": 1,
       "trend": "in"
     },
     {
-      "name": "白酒",
-      "net": 5.0,
+      "name": "电力",
+      "net": -1.0,
       "type": "行业",
       "consecutive_days": 2,
-      "trend": "in"
-    },
-    {
-      "name": "军工",
-      "net": 1.5,
-      "type": "行业",
-      "consecutive_days": 1,
-      "trend": "in"
-    },
-    {
-      "name": "机器人",
-      "net": -5.6,
-      "type": "概念",
-      "consecutive_days": 1,
       "trend": "out"
     },
     {
-      "name": "地产",
-      "net": -6.1,
+      "name": "医疗器械",
+      "net": -4.1,
       "type": "行业",
       "consecutive_days": 1,
       "trend": "out"
     },
     {
       "name": "农业",
-      "net": -7.7,
+      "net": -6.5,
       "type": "行业",
       "consecutive_days": 3,
       "trend": "out"
     },
     {
-      "name": "银行",
-      "net": -9.9,
-      "type": "行业",
-      "consecutive_days": 1,
-      "trend": "out"
-    },
-    {
-      "name": "电力",
+      "name": "军工",
       "net": -13.6,
       "type": "行业",
       "consecutive_days": 2,
       "trend": "out"
     },
     {
-      "name": "锂电池",
-      "net": -15.1,
-      "type": "概念",
+      "name": "光伏",
+      "net": -14.9,
+      "type": "行业",
+      "consecutive_days": 1,
+      "trend": "out"
+    },
+    {
+      "name": "银行",
+      "net": -18.8,
+      "type": "行业",
+      "consecutive_days": 1,
+      "trend": "out"
+    },
+    {
+      "name": "汽车零部件",
+      "net": -25.0,
+      "type": "行业",
+      "consecutive_days": 2,
+      "trend": "out"
+    },
+    {
+      "name": "地产",
+      "net": -27.4,
+      "type": "行业",
       "consecutive_days": 1,
       "trend": "out"
     }
   ],
   "consecutive": {
-    "半导体": {
-      "days": 1,
-      "trend": "in"
-    },
-    "光伏": {
-      "days": 3,
+    "锂电池": {
+      "days": 2,
       "trend": "in"
     },
     "AI算力": {
       "days": 3,
       "trend": "in"
     },
-    "医疗器械": {
+    "白酒": {
       "days": 2,
+      "trend": "in"
+    },
+    "机器人": {
+      "days": 3,
       "trend": "in"
     },
     "通信设备": {
       "days": 7,
       "trend": "in"
     },
-    "汽车零部件": {
+    "半导体": {
       "days": 1,
       "trend": "in"
     },
-    "白酒": {
+    "电力": {
       "days": 2,
-      "trend": "in"
-    },
-    "军工": {
-      "days": 1,
-      "trend": "in"
-    },
-    "机器人": {
-      "days": 1,
       "trend": "out"
     },
-    "地产": {
+    "医疗器械": {
       "days": 1,
       "trend": "out"
     },
@@ -248,15 +219,23 @@
       "days": 3,
       "trend": "out"
     },
+    "军工": {
+      "days": 2,
+      "trend": "out"
+    },
+    "光伏": {
+      "days": 1,
+      "trend": "out"
+    },
     "银行": {
       "days": 1,
       "trend": "out"
     },
-    "电力": {
+    "汽车零部件": {
       "days": 2,
       "trend": "out"
     },
-    "锂电池": {
+    "地产": {
       "days": 1,
       "trend": "out"
     }

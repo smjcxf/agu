@@ -3,10 +3,67 @@
 - 处理history数组中的重复日期（使用最后一次出现）
 - 历史日期：从history数组读取
 - 今天：从顶层字段读取
+- 缺失pct_chg自动从新浪日K线API补全
 """
 import json
 import os
+import urllib.request
 from datetime import datetime, timedelta
+
+# 新浪日K线缓存（symbol → [{day, close}]）
+_SINA_CACHE = {}
+
+def _fetch_day_pct_chg(code, date_str):
+    """从新浪/Tencent日K线API获取指定日期涨跌幅。返回 float 或 None"""
+    market_map = {'sh_': 'sh', 'sz_': 'sz', 'bj_': 'bj', 'hk_': 'hk'}
+    prefix = ''
+    for p in market_map:
+        if code.startswith(p):
+            prefix = market_map[p]
+            code_short = code[len(p):]
+            break
+    if not prefix:
+        return None
+
+    # 港股用腾讯API
+    if prefix == 'hk':
+        cache_key = f'hk_{code_short}'
+        if cache_key not in _SINA_CACHE:
+            try:
+                url = f'http://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk{code_short},day,,,60,qfq'
+                req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+                resp = urllib.request.urlopen(req, timeout=10)
+                data = json.loads(resp.read().decode('utf-8'))
+                klines = data.get('data', {}).get(f'hk{code_short}', {}).get('day', [])
+                _SINA_CACHE[cache_key] = klines
+            except Exception:
+                _SINA_CACHE[cache_key] = []
+        klines = _SINA_CACHE[cache_key]
+        for i, k in enumerate(klines):
+            if k[0] == date_str and i > 0:
+                prev_close = float(klines[i - 1][2])
+                close = float(k[2])
+                return round((close - prev_close) / prev_close * 100, 2)
+        return None
+
+    # A股用新浪API
+    symbol = f'{prefix}{code_short}'
+    if symbol not in _SINA_CACHE:
+        try:
+            url = f'http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?symbol={symbol}&scale=240&ma=no&datalen=60'
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            resp = urllib.request.urlopen(req, timeout=10)
+            data = json.loads(resp.read().decode('utf-8'))
+            _SINA_CACHE[symbol] = data
+        except Exception:
+            _SINA_CACHE[symbol] = []
+    data = _SINA_CACHE[symbol]
+    for i, d in enumerate(data):
+        if d.get('day') == date_str and i > 0:
+            prev_close = float(data[i - 1]['close'])
+            close = float(d['close'])
+            return round((close - prev_close) / prev_close * 100, 2)
+    return None
 
 INDEX_HTML = 'E:/workspace/stock-scanner/index_master.html'
 GOLD_POOL_FILE = 'E:/workspace/stock-scanner/data/gold_pool.json'
@@ -98,14 +155,21 @@ def generate_snapshots(gold_pool):
                         use_data = stock_daily[code][date_str]
                     else:
                         # 最近的历史: 在股票的历史数据中找到信号最强的entries
+                        # pct_chg不可继承，先设为None，后续从API补全
                         candidate_dates = sorted(
                             [d for d in stock_daily.get(code, {}).keys() if d <= date_str],
                             reverse=True
                         )
                         if candidate_dates:
-                            use_data = stock_daily[code][candidate_dates[0]]
+                            use_data = dict(stock_daily[code][candidate_dates[0]])
+                            use_data['pct_chg'] = None
                     
                     if use_data and use_data['signal_count'] >= 3:
+                        # fallback时尝试从新浪API补全pct_chg
+                        if use_data.get('pct_chg') is None:
+                            fetched = _fetch_day_pct_chg(code, date_str)
+                            if fetched is not None:
+                                use_data['pct_chg'] = fetched
                         # 计算连续共振天数
                         consecutive = 0
                         for d in reversed(sorted(stock_daily.get(code, {}).keys())):

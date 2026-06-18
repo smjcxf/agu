@@ -447,5 +447,6 @@ def main():
         print(f"  → 本月已更新: {fresh_count}/{len(status)} 项")
 
 
+fetch_all = fetch_macro_data
 if __name__ == '__main__':
     main()

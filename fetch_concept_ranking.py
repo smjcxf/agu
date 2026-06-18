@@ -13,6 +13,7 @@ import os
 import time
 
 OUT = "data/concept_ranking.json"
+HISTORY = "data/concept_history.json"
 MAX_RETRY = 3
 TOP_N = 20  # 涨幅/跌幅各取前N名
 
@@ -116,6 +117,24 @@ def main():
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, 'w', encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
+
+    # 追加历史记录（用于前端"连X天"统计）
+    today_str = datetime.datetime.now().strftime('%Y-%m-%d')
+    concept_day = {}
+    for item in ranking:
+        concept_day[item['name']] = item['pct']
+    history = {}
+    if os.path.exists(HISTORY):
+        with open(HISTORY, 'r', encoding='utf-8') as f:
+            history = json.load(f)
+    history[today_str] = concept_day
+    # 只保留最近10个交易日（两周）
+    keys = sorted(history.keys())
+    if len(keys) > 10:
+        for old in keys[:-10]:
+            del history[old]
+    with open(HISTORY, 'w', encoding='utf-8') as f:
+        json.dump(history, f, ensure_ascii=False, indent=2)
 
     log(f"✓ 完成！共 {len(ranking)} 个概念")
     for i, x in enumerate(ranking, 1):

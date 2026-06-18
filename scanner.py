@@ -1948,40 +1948,56 @@ def update_gold_pool_from_scan(output):
 
     # 添加/更新本次扫描中有信号的股票
     for s in output.get("all_results", []):
-        if s.get("signal_count", 0) >= 2:
-            key = f"{s['market']}_{s['code']}"
-            if key not in pool["stocks"]:
-                pool["stocks"][key] = {
-                    "code": s["code"],
-                    "name": s["name"],
-                    "market": s["market"],
-                    "board_label": s.get("board_label", ""),
-                    "fund_type": s.get("fund_type", ""),
-                    "first_date": today,
-                    "first_signal": s["signal_count"],
-                    "max_signal": s["signal_count"],
-                    "history": [],
-                    "sources": ["三足鼎立"],
-                }
-            else:
-                pool["stocks"][key]["max_signal"] = max(
-                    pool["stocks"][key]["max_signal"], s["signal_count"]
-                )
-                # 更新板块/资金类型
-                pool["stocks"][key]["board_label"] = s.get("board_label", pool["stocks"][key].get("board_label", ""))
-                pool["stocks"][key]["fund_type"] = s.get("fund_type", pool["stocks"][key].get("fund_type", ""))
-                # 确保sources列表存在，添加三足鼎立来源
-                if "sources" not in pool["stocks"][key]:
-                    pool["stocks"][key]["sources"] = ["三足鼎立"]
-                elif "三足鼎立" not in pool["stocks"][key]["sources"]:
-                    pool["stocks"][key]["sources"].append("三足鼎立")
+        key = f"{s['market']}_{s['code']}"
+        is_new = key not in pool["stocks"]
 
-            # 记录每日信号
-            history_entry = {
-                "date": today,
-                "signal_count": s["signal_count"],
-                "close": s["close"],
-                "pct_chg": s["pct_chg"],
+        # 新股票：必须信号≥2才入池
+        if is_new and s.get("signal_count", 0) < 2:
+            continue
+
+        if is_new:
+            pool["stocks"][key] = {
+                "code": s["code"],
+                "name": s["name"],
+                "market": s["market"],
+                "board_label": s.get("board_label", ""),
+                "fund_type": s.get("fund_type", ""),
+                "first_date": today,
+                "first_signal": s["signal_count"],
+                "max_signal": s["signal_count"],
+                "history": [],
+                "sources": ["三足鼎立"],
+            }
+        else:
+            # 已有股票：总是记录每日快照（pct_chg/signal），即使当天信号弱
+            pool["stocks"][key]["max_signal"] = max(
+                pool["stocks"][key]["max_signal"], s["signal_count"]
+            )
+            pool["stocks"][key]["board_label"] = s.get("board_label", pool["stocks"][key].get("board_label", ""))
+            pool["stocks"][key]["fund_type"] = s.get("fund_type", pool["stocks"][key].get("fund_type", ""))
+            if "sources" not in pool["stocks"][key]:
+                pool["stocks"][key]["sources"] = ["三足鼎立"]
+            elif "三足鼎立" not in pool["stocks"][key]["sources"]:
+                pool["stocks"][key]["sources"].append("三足鼎立")
+
+        # 记录每日信号（新入池和已有股票都记录，保证每天有pct_chg）
+        history_entry = {
+            "date": today,
+            "signal_count": s["signal_count"],
+            "close": s["close"],
+            "pct_chg": s["pct_chg"],
+            "缠论买_日K": s.get("缠论买_日K", False),
+            "金钻_黄柱": s.get("金钻_黄柱", False),
+            "金钻_起涨": s.get("金钻_起涨", False),
+            "四量图_机构变红": s.get("四量图_机构变红", False),
+            "上涨趋势_条件1": s.get("上涨趋势_条件1", False),
+            "上涨趋势_条件2": s.get("上涨趋势_条件2", False),
+            "上涨趋势_条件3": s.get("上涨趋势_条件3", False),
+            "上涨趋势_条件4": s.get("上涨趋势_条件4", False),
+            "上涨趋势": s.get("上涨趋势", False),
+            "三线共振": s.get("三线共振", False),
+            # latest 副本（供 dashboard JS 直接使用）
+            "latest": {
                 "缠论买_日K": s.get("缠论买_日K", False),
                 "金钻_黄柱": s.get("金钻_黄柱", False),
                 "金钻_起涨": s.get("金钻_起涨", False),
@@ -1991,24 +2007,12 @@ def update_gold_pool_from_scan(output):
                 "上涨趋势_条件3": s.get("上涨趋势_条件3", False),
                 "上涨趋势_条件4": s.get("上涨趋势_条件4", False),
                 "上涨趋势": s.get("上涨趋势", False),
-                "三线共振": s.get("三线共振", False),
-                # latest 副本（供 dashboard JS 直接使用）
-                "latest": {
-                    "缠论买_日K": s.get("缠论买_日K", False),
-                    "金钻_黄柱": s.get("金钻_黄柱", False),
-                    "金钻_起涨": s.get("金钻_起涨", False),
-                    "四量图_机构变红": s.get("四量图_机构变红", False),
-                    "上涨趋势_条件1": s.get("上涨趋势_条件1", False),
-                    "上涨趋势_条件2": s.get("上涨趋势_条件2", False),
-                    "上涨趋势_条件3": s.get("上涨趋势_条件3", False),
-                    "上涨趋势_条件4": s.get("上涨趋势_条件4", False),
-                    "上涨趋势": s.get("上涨趋势", False),
-                    "signal_count": s["signal_count"],
-                },
-            }
-            pool["stocks"][key]["history"].append(history_entry)
-            # 更新名称(可能有变化)
-            pool["stocks"][key]["name"] = s["name"]
+                "signal_count": s["signal_count"],
+            },
+        }
+        pool["stocks"][key]["history"].append(history_entry)
+        # 更新名称(可能有变化)
+        pool["stocks"][key]["name"] = s["name"]
 
     # 合并投行研报推荐股票到金股池
     guanlan_count = 0

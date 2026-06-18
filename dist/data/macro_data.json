@@ -1,16 +1,16 @@
 {
-  "update_time": "2026-06-18 09:53:31",
+  "update_time": "2026-06-19 07:19:30",
   "monetary": {
     "cn_bond_10y": {
-      "value": 1.727,
-      "date": "2026-06-17"
+      "value": 1.7299,
+      "date": "2026-06-18"
     },
     "us_bond_10y": {
-      "value": 4.49,
-      "date": "2026-06-17"
+      "value": 4.46,
+      "date": "2026-06-18"
     },
     "cn_us_spread": {
-      "value": -2.76
+      "value": -2.73
     },
     "lpr": {
       "lpr_1y": 3.0,
@@ -30,7 +30,7 @@
     },
     "open_market_operation": {
       "net_inflow": null,
-      "date": "2026-06-18"
+      "date": "2026-06-19"
     }
   },
   "economy": {
@@ -51,8 +51,8 @@
       "date": "2025-09-10"
     },
     "social_financing": {
-      "value": 2781,
-      "change_pct": -10.3,
+      "value": 2785,
+      "change_pct": -10.6,
       "date": "2026-05-01"
     },
     "export_yoy": {
@@ -63,25 +63,25 @@
     "ipo": {
       "count": 10,
       "amount": 0,
-      "date": "2026-06-18"
+      "date": "2026-06-19"
     }
   },
   "market_sentiment": {
     "new_investors": {
       "value": 99.59,
       "change": 0.09,
-      "date": "2026-06-18"
+      "date": "2026-06-19"
     }
   },
   "global_macro": {
     "vix": {
-      "value": 18.7,
-      "date": "2026-06-18"
+      "value": 18.55,
+      "date": "2026-06-19"
     },
     "usdcnh": {
-      "price": 6.7759,
-      "prev_close": 6.7667,
-      "date": "2026-06-18",
+      "price": 6.7776,
+      "prev_close": 6.7775,
+      "date": "2026-06-19",
       "source": "Sina实时"
     },
     "dxy": {
@@ -91,27 +91,27 @@
   },
   "indicator_status": {
     "lpr": {
-      "last_updated": "2026-06-18",
+      "last_updated": "2026-06-19",
       "is_fresh": true,
       "name": "LPR利率"
     },
     "pmi": {
-      "last_updated": "2026-06-18",
+      "last_updated": "2026-06-19",
       "is_fresh": false,
       "name": "制造业PMI"
     },
     "social_financing": {
-      "last_updated": "2026-06-18",
-      "is_fresh": true,
+      "last_updated": "2026-06-19",
+      "is_fresh": false,
       "name": "社融规模"
     },
     "export_yoy": {
-      "last_updated": "2026-06-18",
+      "last_updated": "2026-06-19",
       "is_fresh": false,
       "name": "出口增速"
     },
     "new_investors": {
-      "last_updated": "2026-06-18",
+      "last_updated": "2026-06-19",
       "is_fresh": true,
       "name": "新增投资者"
     }

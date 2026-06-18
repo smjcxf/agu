@@ -1,0 +1,2 @@
+*.html text eol=lf
+data/*.json text eol=lf

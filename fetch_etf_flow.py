@@ -150,27 +150,14 @@ def main():
     up_count = sum(1 for etf in etf_data if etf['change_pct'] > 0) if etf_data else 0
     down_count = len(etf_data) - up_count if etf_data else 0
     
-    # 4. 重要日历事件（手动维护，每月更新）
-    calendar_events = [
-        {"date": "2026-06-05", "title": "美国非农", "type": "data"},
-        {"date": "2026-06-08", "title": "中国5月出口", "type": "data"},
-        {"date": "2026-06-09", "title": "CPI/PPI", "type": "data"},
-        {"date": "2026-06-10", "title": "期权交割", "type": "option"},
-        {"date": "2026-06-11", "title": "股指期货交割", "type": "futures"},
-        {"date": "2026-06-12", "title": "SpaceX IPO", "type": "data"},
-        {"date": "2026-06-15", "title": "MLF操作", "type": "central_bank"},
-        {"date": "2026-06-17", "title": "美联储议息", "type": "fomc"},
-        {"date": "2026-06-18", "title": "A50交割", "type": "a50"},
-        {"date": "2026-06-19", "title": "LPR报价", "type": "central_bank"},
-        {"date": "2026-06-22", "title": "中国PMI", "type": "data"},
-        {"date": "2026-06-25", "title": "期权交割", "type": "option"},
-        {"date": "2026-06-30", "title": "股指期货交割", "type": "futures"},
-        {"date": "2026-07-02", "title": "F34窗口", "type": "data"},
-        {"date": "2026-07-15", "title": "MLF操作", "type": "central_bank"},
-        {"date": "2026-07-16", "title": "美联储议息", "type": "fomc"},
-        {"date": "2026-07-20", "title": "LPR报价", "type": "central_bank"},
-        {"date": "2026-07-31", "title": "F55窗口", "type": "data"},
-    ]
+    # 4. 保留已有的日历数据（由 fetch_nt_data.py 维护），不覆盖
+    output_file = "data/nt_data.json"
+    try:
+        with open(output_file, 'r', encoding='utf-8') as f:
+            existing = json.load(f)
+        calendar_events = existing.get('calendar', [])
+    except Exception:
+        calendar_events = []
     
     # 5. 保存数据
     result = {
@@ -189,7 +176,6 @@ def main():
         "calendar": calendar_events,
     }
     
-    output_file = "data/nt_data.json"
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
     
