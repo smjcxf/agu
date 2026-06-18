@@ -1,12 +1,12 @@
 {
   "current": {
-    "index": 4108.08,
+    "index": 4090.48,
     "change_pct": 0,
     "change_points": 0,
-    "days_down": 26,
-    "total_pct": -3.17,
-    "total_points": -134.5,
-    "avg_pct": 0.12,
+    "days_down": 27,
+    "total_pct": -3.58,
+    "total_points": -152.09,
+    "avg_pct": 0.13,
     "peak_date": "2026-05-13",
     "peak_close": 4242.57,
     "date": "2026-06-18",
@@ -83,15 +83,14 @@
       "days_left": -6,
       "observation": {
         "index": 3993.23,
-        "change_pct": 1.9,
+        "change_pct": 1.5,
         "volume_yi": 598.7,
-        "reversal": "confirmed",
-        "verified": true,
-        "note": "反弹2.5%，反转确认",
-        "rebound_pct": 2.5,
-        "low_point": 4008.18
+        "reversal": "tracking",
+        "verified": false,
+        "note": "追踪中(涨1.5%，待确认)",
+        "rebound_pct": 2.1
       },
-      "status": "triggered"
+      "status": "tracking"
     },
     {
       "name": "F(34)",
@@ -110,39 +109,29 @@
   ],
   "next_cycle": [
     {
-      "name": "F(5)",
-      "date": "2026-06-19",
-      "desc": "下轮5日"
-    },
-    {
-      "name": "F(8)",
-      "date": "2026-06-23",
-      "desc": "下轮8日"
-    },
-    {
       "name": "F(13)",
-      "date": "2026-06-30",
+      "date": "2026-06-22",
       "desc": "下轮13日"
     },
     {
       "name": "F(21)",
-      "date": "2026-07-13",
+      "date": "2026-07-01",
       "desc": "下轮21日"
     },
     {
       "name": "F(34)",
-      "date": "2026-07-29",
+      "date": "2026-07-20",
       "desc": "下轮34日"
     },
     {
       "name": "F(55)",
-      "date": "2026-08-28",
+      "date": "2026-08-18",
       "desc": "下轮55日"
     }
   ],
   "judgement": {
-    "summary": "从2026-05-13高点跌26天（-3.17%），阴跌磨底",
-    "key_window": "⚡ F(21)窗口(2026-06-12)反转确认，下轮周期已推算"
+    "summary": "从2026-05-13高点跌27天（-3.58%），阴跌磨底",
+    "key_window": "⚡ F(21)窗口(2026-06-02)反转确认，下轮周期已推算"
   },
-  "update_time": "2026-06-18 10:03"
+  "update_time": "2026-06-18 23:01"
 }

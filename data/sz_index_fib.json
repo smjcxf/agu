@@ -1,12 +1,12 @@
 {
   "current": {
-    "index": 15880.95,
+    "index": 16030.7,
     "change_pct": 0,
     "change_points": 0,
-    "days_down": 26,
-    "total_pct": -1.3,
-    "total_points": -208.8,
-    "avg_pct": 0.05,
+    "days_down": 27,
+    "total_pct": -0.37,
+    "total_points": -59.05,
+    "avg_pct": 0.01,
     "peak_date": "2026-05-13",
     "peak_close": 16089.75,
     "date": "2026-06-18",
@@ -88,12 +88,12 @@
       "days_left": -6,
       "observation": {
         "index": 14954.1,
-        "change_pct": 6.1,
+        "change_pct": 7.1,
         "volume_yi": 710.5,
         "reversal": "confirmed",
         "verified": true,
-        "note": "反弹6.3%，反转确认",
-        "rebound_pct": 6.3,
+        "note": "反弹7.3%，反转确认",
+        "rebound_pct": 7.3,
         "low_point": 14943.43
       },
       "status": "triggered"
@@ -146,8 +146,8 @@
     }
   ],
   "judgement": {
-    "summary": "从2026-05-13高点跌26天（-1.3%），震荡整理",
+    "summary": "从2026-05-13高点跌27天（-0.37%），震荡整理",
     "key_window": "⚡ F(21)窗口(2026-06-12)反转确认，下轮周期已推算"
   },
-  "update_time": "2026-06-18 10:03"
+  "update_time": "2026-06-18 23:01"
 }
