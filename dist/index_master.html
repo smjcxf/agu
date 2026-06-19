@@ -1029,7 +1029,7 @@ tr:hover td { background: #fafbfc; }
           </table>
         </div>
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-top:8px;">
-          <b>展示范围</b>：分两大体系——<b style="color:#c62828;">短线信号</b>（四喜临门、三线共振、双线金钻/金柱，侧重技术面爆破）和<b style="color:#42a5f5;">中长线确认</b>（机构变红+上涨趋势，侧重趋势跟随），金股池中信号强度≥2的股票按此分栏展示，短线全量展示，中长线按5日涨幅排序取前30。
+          <b>展示范围</b>：分两大体系——<b style="color:#c62828;">短线信号</b>（四喜临门、三线共振、双线金钻/金柱，侧重技术面爆破）和<b style="color:#42a5f5;">中长线确认</b>（机构变红+上涨趋势，侧重趋势跟随），金股池中信号强度≥2的股票按此分栏展示，短线全量展示，中长线按评分排序取前30。
         </div>
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-top:8px;">
           <b>排序优先级</b>：信号等级 → 信号评分 → 以下同分排序
@@ -175979,10 +175979,10 @@ function getStaleNote(ft, source) {
     herding:  'API暂无新数据',
     lhb:      days <= 1 ? 'T+1数据' : 'API暂无新数据',
     north:    days >= 2 ? '北向API已移除' : 'API暂无新数据',
-    main:     '盘后更新',
+    main:     'T+1数据',
     summary:  '',
-    sector:   '盘后更新',
-    etf:      '盘后更新',
+    sector:   '',
+    etf:      '',
     concept:  '盘后更新',
     macro:    '盘后更新',
     gold:     '',
@@ -176122,7 +176122,7 @@ function render() {
       h += '<div style="font-size:12px;color:#c62828;font-weight:700;margin-bottom:8px;">短线信号</div>';
       h += '<div style="display:flex;gap:8px;">';
       h += '<div style="flex:1;padding:10px 8px;border-radius:8px;background:linear-gradient(135deg,#fffde7,#fff8e1);border:1px solid #f9a825;text-align:center;">';
-      h += '<div style="font-size:12px;color:#f57f17;font-weight:700;">🏮 四喜</div>';
+      h += '<div style="font-size:12px;display:inline-block;background:#fff3e0;color:#e65100;padding:1px 6px;border-radius:3px;font-weight:600;font-size:11px;margin-left:2px;font-weight:700;">🏮 四喜</div>';
       h += '<div style="font-size:24px;font-weight:700;color:#f9a825;">' + sanzuCount + '</div>';
       h += '<div style="font-size:10px;color:#888;">4信号全满</div></div>';
       h += '<div style="flex:1;padding:10px 8px;border-radius:8px;background:linear-gradient(135deg,#fce4ec,#fff0f3);border:1px solid #e94560;text-align:center;">';
@@ -177402,7 +177402,7 @@ function renderAISummary() {
 
   if (sectIn.length > 0) {
     const inNames = sectIn.map(s => {
-      const days = s.consecutive_days > 1 ? '<span style="color:#f57f17;">(连' + s.consecutive_days + '天)</span>' : '';
+      const days = s.consecutive_days > 1 ? '<span style="display:inline-block;background:#fff3e0;color:#e65100;padding:1px 6px;border-radius:3px;font-weight:600;font-size:11px;margin-left:2px;">连' + s.consecutive_days + '天</span>' : '';
       return s.name + '<span style="color:#c62828;font-weight:600;">+' + s.net + '亿</span>' + days;
     }).join('、');
     const outNames = sectOut.map(s => s.name + '<span style="color:#2e7d32">' + s.net + '亿</span>').join('、');
@@ -178420,7 +178420,7 @@ function renderGoldPool(gp, activeData) {
       const score = getDisplayScore(c);
       // 信号标签
       const isJigouTrend = c.sigCount === 2 && !!l['四量图_机构变红'] && !!l['上涨趋势'];
-      const sigTag = isJigouTrend ? '趋势确认' : (c.sigCount >= 3 ? '三线' : (c.sigCount >= 2 ? '双线' : '单信号'));
+      const sigTag = isJigouTrend ? '中长线确认' : (c.sigCount >= 3 ? '三线' : (c.sigCount >= 2 ? '双线' : '单信号'));
       const sigColor = c.sigCount >= 4 ? '#FFD700' : (c.sigCount >= 3 ? '#e94560' : (isJigouTrend ? '#42a5f5' : '#f39c12'));
       const sigBg = c.sigCount >= 4 ? 'linear-gradient(135deg,#FFD700,#FFA500)' : (c.sigCount >= 3 ? '#e94560' : (isJigouTrend ? '#42a5f5' : '#f39c12'));
       const sigText = c.sigCount >= 4 ? '四喜临门' : (c.sigCount >= 3 ? '三线共振' : sigTag);
@@ -178474,8 +178474,8 @@ function renderGoldPool(gp, activeData) {
     const shortListFull = list.filter(c => !isMidLong(c));
     let midList = list.filter(c => isMidLong(c));
 
-    // 中长线按20日涨幅排序，取前30
-    midList.sort((a, b) => ((b.latest.pct_chg_5d || b.latest.pct_chg || 0) - (a.latest.pct_chg_5d || a.latest.pct_chg || 0)));
+    // 中长线按评分排序，取前30
+    midList.sort((a, b) => getScore(b) - getScore(a));
     const midShow = midList.slice(0, 30);
     const midTotal = midList.length;
 
@@ -178514,9 +178514,9 @@ function renderGoldPool(gp, activeData) {
     html += '<div style="background:#fefafa;border-radius:8px;padding:4px;">';
     html += buildGoldTable(shortShow);
     html += '</div></div>';
-    // 右栏：中长线（按20日涨幅排序，显示前30）
+    // 右栏：中长线（按评分排序，显示前30）
     html += '<div style="flex:1;min-width:0;">';
-    html += '<div style="font-size:12px;color:#42a5f5;font-weight:700;margin-bottom:6px;padding:4px 10px;background:#e8f0fe;border-radius:6px;">中长线确认 ' + midTotal + ' 只' + (midTotal > 30 ? '（显示前30·按5日涨幅排序）' : '（按5日涨幅排序）') + '</div>';
+    html += '<div style="font-size:12px;color:#42a5f5;font-weight:700;margin-bottom:6px;padding:4px 10px;background:#e8f0fe;border-radius:6px;">中长线确认 ' + midTotal + ' 只' + (midTotal > 30 ? '（显示前30·按评分排序）' : '（按评分排序）') + '</div>';
     html += '<div style="background:#f6fdfb;border-radius:8px;padding:4px;">';
     html += buildGoldTable(midShow);
     html += '</div></div>';
