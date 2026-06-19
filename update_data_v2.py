@@ -138,7 +138,7 @@ def get_macro_render_js():
   if(typeof window.MACRO_DATA === "undefined") return;
   const m = window.MACRO_DATA;
   var el = document.getElementById("macroUpdateTime");
-  if(el) el.textContent = "更新时间：" + (m.update_time||"").slice(0,16);
+  if(el && m.update_time) { var ft = (typeof fmtDataTime === 'function') ? fmtDataTime(m.update_time) : {text: (m.update_time||'').slice(0,16)}; el.textContent = '更新于 ' + ft.text; }
   var leg = document.getElementById("macroStarLegend");
   if(leg) {
     var st = m.indicator_status || {};
