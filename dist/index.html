@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620071525 -->
+<!-- build: 20260620073754 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -180109,7 +180109,7 @@ function renderMainStock() {
     h += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">';
     d.top_main_in.forEach(function(s){
       var dc = s.day_count || 0;
-      var bg = dc >= 15 ? '#ef5350' : dc >= 10 ? '#ef9a9a' : dc >= 7 ? '#ffcdd2' : dc >= 4 ? '#ffebee' : dc >= 2 ? '#fff5f5' : '#fff';
+      var bg = dc >= 15 ? '#c62828' : dc >= 10 ? '#e53935' : dc >= 7 ? '#ef5350' : dc >= 4 ? '#ef9a9a' : dc >= 2 ? '#ffcdd2' : '#fff';
       h += '<span style="color:#333;font-size:12px;background:'+bg+';padding:2px 6px;border-radius:4px;">' + s.name + ' 连' + s.day_count + '日 <b>+' + s.net_in + s.unit + '</b></span>';
     });
     h += '</div>';
@@ -180119,7 +180119,7 @@ function renderMainStock() {
     h += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
     d.top_main_out.forEach(function(s){
       var dc = s.day_count || 0;
-      var bg = dc >= 15 ? '#81c784' : dc >= 10 ? '#a5d6a7' : dc >= 7 ? '#c8e6c9' : dc >= 4 ? '#e8f5e9' : dc >= 2 ? '#f1f8e9' : '#fff';
+      var bg = dc >= 15 ? '#2e7d32' : dc >= 10 ? '#43a047' : dc >= 7 ? '#66bb6a' : dc >= 4 ? '#a5d6a7' : dc >= 2 ? '#c8e6c9' : '#fff';
       h += '<span style="color:#333;font-size:12px;background:'+bg+';padding:2px 6px;border-radius:4px;">' + s.name + ' 连' + s.day_count + '日 <b>-' + s.net_out + s.unit + '</b></span>';
     });
     h += '</div>';
