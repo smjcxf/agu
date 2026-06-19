@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620001606 -->
+<!-- build: 20260620002258 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -175980,7 +175980,7 @@ function getStaleNote(ft, source) {
     herding:  'API暂无新数据',
     lhb:      days <= 1 ? 'T+1数据' : 'API暂无新数据',
     north:    days >= 2 ? '北向API已移除' : 'API暂无新数据',
-    main:     'T+1数据',
+    main:     '盘后更新',
     summary:  '',
     sector:   '盘后更新',
     etf:      '盘后更新',
@@ -176221,7 +176221,10 @@ function render() {
     const bs = document.getElementById('boardSummary');
     if (bs) bs.innerHTML = boardHtml;
     var boardTimeEl = document.getElementById('boardSummaryTime');
-    if (boardTimeEl && d.update_time) { var ft = fmtDataTime(d.update_time); boardTimeEl.textContent = '更新于 ' + ft.text; }
+    if (boardTimeEl) {
+      var ut = d.update_time || (window.SCAN_DATA && window.SCAN_DATA.scan_time) || '';
+      if (ut) { var ft = fmtDataTime(ut); boardTimeEl.textContent = '更新于 ' + ft.text; }
+    }
 
     // 金股观测
     try { renderGoldPool(gp, d); } catch(e) { console.error('金股观测渲染失败:', e); catchErr('金股观测', e); }
