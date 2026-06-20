@@ -77,12 +77,6 @@
       "event": "端午假期后首个交易日",
       "type": "市场",
       "status": "即将"
-    },
-    {
-      "date": "6下旬",
-      "event": "中报业绩预告窗口开启",
-      "type": "财报",
-      "status": "即将"
     }
   ],
   "broker_views": [
