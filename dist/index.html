@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620143356 -->
+<!-- build: 20260620143647 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -150198,7 +150198,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-20 14:33:30",
+"update_time": "2026-06-20 14:36:18",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
@@ -182244,12 +182244,15 @@ function renderPredictSummary() {
   // 主力抱团（含接力）
   if (hd.current_clusters && hd.current_clusters.length) {
     var clusterNames = hd.current_clusters.map(function(c){return c.sector + ' ' + c.amount.toFixed(1) + c.unit;}).join('、');
-    var hpText = '';
+    var alertHtml = '<b style="color:#6a1b9a;">主力抱团</b>：'+clusterNames;
     if (hd.high_prob && hd.high_prob.length) {
-      var hpNames = hd.high_prob.map(function(p){return '<b style="color:#d05ce3;">'+p.tag+'→'+p.sector+'</b>';}).join(' ');
-      hpText = '  「'+hpNames+'」';
+      var hpItems = hd.high_prob.map(function(p){
+        var tagColor = p.tag==='机构共识'?'#1565c0':p.tag==='事件驱动'?'#e65100':p.tag==='蓄力中'?'#7b1fa2':'#c62828';
+        return '<span style="color:'+tagColor+';font-weight:500;">'+p.tag+'→'+p.sector+'</span>';
+      });
+      alertHtml += '<br><span style="font-size:11px;color:#666;">'+hpItems.join(' &nbsp;·&nbsp; ')+'</span>';
     }
-    alerts.push('<b style="color:#6a1b9a;">主力抱团</b>：'+clusterNames + hpText);
+    alerts.push(alertHtml);
   }
 
   // 北向资金
