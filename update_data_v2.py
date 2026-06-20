@@ -437,6 +437,12 @@ def main():
     etf_subscription = load_json(os.path.join(DATA_DIR, "etf_subscription.json"), {"sh": [], "update_time": ""})
     macro_data   = load_json(os.path.join(DATA_DIR, "macro_data.json"), {"update_time": "", "monetary": {}, "economy": {}, "market_sentiment": {}, "global_macro": {}})
     herding_data = load_json(os.path.join(DATA_DIR, "herding_data.json"), {"update_time": ""})
+    # 计算龙虎榜连续买入天数（依赖 lhb_history.json）
+    try:
+        subprocess.run([sys.executable, os.path.join(BASE_DIR, "compute_lhb_consecutive.py")],
+                       capture_output=True, timeout=30)
+    except Exception as e:
+        print(f"  [WARN] LHB连续天数计算跳过: {e}")
     lhb_data     = load_json(os.path.join(DATA_DIR, "lhb_result.json"), {"stocks": [], "scan_time": ""})
     main_stock   = load_json(os.path.join(DATA_DIR, "main_stock.json"), {"update_time": ""})
     north_fund   = load_json(os.path.join(DATA_DIR, "north_fund.json"), {"update_time": ""})

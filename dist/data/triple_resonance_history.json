@@ -674,7 +674,7 @@
   ],
   "2026-06-19": [
     {
-      "code": "002938",
+      "code": "sz_002938",
       "name": "鹏鼎控股",
       "close": 119.91,
       "pct_chg": 0.76,
@@ -684,7 +684,7 @@
       "上涨趋势": true,
       "signal_count": 3,
       "score": 9,
-      "days_in_resonance": 1,
+      "days_in_resonance": 2,
       "enter_date": "",
       "duration_days": 0
     }

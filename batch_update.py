@@ -123,6 +123,7 @@ MODES = {
             ("fetch_concept_ranking.py", 180),
             ("fetch_lhb.py", 300),
             ("fetch_main_stock.py", 300),
+            ("fetch_north_fund.py", 300),
             ("fetch_herding_data.py", 180),
             ("scanner.py full", 600),
             ("generate_recommend.py", 120),

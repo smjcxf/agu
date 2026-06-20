@@ -14,7 +14,8 @@
       "inst_net_万": 27454.1,
       "yz_buy_万": 120631.6,
       "yz_sell_万": 68773.2,
-      "yz_net_万": 51858.4
+      "yz_net_万": 51858.4,
+      "consecutive_days": 1
     },
     {
       "code": "002579",
@@ -28,7 +29,8 @@
       "inst_net_万": 2156.5,
       "yz_buy_万": 37038.8,
       "yz_sell_万": 19745.4,
-      "yz_net_万": 17293.5
+      "yz_net_万": 17293.5,
+      "consecutive_days": 1
     },
     {
       "code": "300166",
@@ -42,7 +44,8 @@
       "inst_net_万": 14293.2,
       "yz_buy_万": 43525.9,
       "yz_sell_万": 15936.2,
-      "yz_net_万": 27589.7
+      "yz_net_万": 27589.7,
+      "consecutive_days": 1
     },
     {
       "code": "300861",
@@ -56,7 +59,8 @@
       "inst_net_万": 1125.8,
       "yz_buy_万": 23019.5,
       "yz_sell_万": 17093.0,
-      "yz_net_万": 5926.4
+      "yz_net_万": 5926.4,
+      "consecutive_days": 1
     },
     {
       "code": "301310",
@@ -70,7 +74,8 @@
       "inst_net_万": 19311.0,
       "yz_buy_万": 58321.8,
       "yz_sell_万": 54689.6,
-      "yz_net_万": 3632.2
+      "yz_net_万": 3632.2,
+      "consecutive_days": 1
     },
     {
       "code": "000539",
@@ -84,7 +89,8 @@
       "inst_net_万": -8961.1,
       "yz_buy_万": 13247.4,
       "yz_sell_万": 11447.0,
-      "yz_net_万": 1800.3
+      "yz_net_万": 1800.3,
+      "consecutive_days": 1
     },
     {
       "code": "000679",
@@ -98,7 +104,8 @@
       "inst_net_万": 1805.7,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "000691",
@@ -112,7 +119,8 @@
       "inst_net_万": 4398.9,
       "yz_buy_万": 0,
       "yz_sell_万": 1323.5,
-      "yz_net_万": -1323.5
+      "yz_net_万": -1323.5,
+      "consecutive_days": 1
     },
     {
       "code": "001257",
@@ -126,7 +134,8 @@
       "inst_net_万": 25961.5,
       "yz_buy_万": 8837.0,
       "yz_sell_万": 13742.6,
-      "yz_net_万": -4905.6
+      "yz_net_万": -4905.6,
+      "consecutive_days": 1
     },
     {
       "code": "001282",
@@ -140,7 +149,8 @@
       "inst_net_万": 7641.8,
       "yz_buy_万": 1659.1,
       "yz_sell_万": 790.6,
-      "yz_net_万": 868.5
+      "yz_net_万": 868.5,
+      "consecutive_days": 1
     },
     {
       "code": "002281",
@@ -154,7 +164,8 @@
       "inst_net_万": -17598.5,
       "yz_buy_万": 136770.3,
       "yz_sell_万": 129736.7,
-      "yz_net_万": 7033.7
+      "yz_net_万": 7033.7,
+      "consecutive_days": 1
     },
     {
       "code": "002297",
@@ -168,7 +179,8 @@
       "inst_net_万": 242244.8,
       "yz_buy_万": 30488.1,
       "yz_sell_万": 31253.1,
-      "yz_net_万": -765.0
+      "yz_net_万": -765.0,
+      "consecutive_days": 1
     },
     {
       "code": "002354",
@@ -182,7 +194,8 @@
       "inst_net_万": -12693.8,
       "yz_buy_万": 30037.4,
       "yz_sell_万": 18510.7,
-      "yz_net_万": 11526.6
+      "yz_net_万": 11526.6,
+      "consecutive_days": 1
     },
     {
       "code": "002404",
@@ -196,7 +209,8 @@
       "inst_net_万": -4201.3,
       "yz_buy_万": 1886.8,
       "yz_sell_万": 732.5,
-      "yz_net_万": 1154.3
+      "yz_net_万": 1154.3,
+      "consecutive_days": 1
     },
     {
       "code": "002436",
@@ -210,7 +224,8 @@
       "inst_net_万": 105943.7,
       "yz_buy_万": 94836.8,
       "yz_sell_万": 96165.3,
-      "yz_net_万": -1328.5
+      "yz_net_万": -1328.5,
+      "consecutive_days": 1
     },
     {
       "code": "002568",
@@ -224,7 +239,8 @@
       "inst_net_万": -1575.6,
       "yz_buy_万": 2666.3,
       "yz_sell_万": 1211.6,
-      "yz_net_万": 1454.7
+      "yz_net_万": 1454.7,
+      "consecutive_days": 1
     },
     {
       "code": "002741",
@@ -238,7 +254,8 @@
       "inst_net_万": 20037.4,
       "yz_buy_万": 25443.7,
       "yz_sell_万": 68498.9,
-      "yz_net_万": -43055.1
+      "yz_net_万": -43055.1,
+      "consecutive_days": 1
     },
     {
       "code": "002842",
@@ -252,7 +269,8 @@
       "inst_net_万": 82805.4,
       "yz_buy_万": 0,
       "yz_sell_万": 12238.7,
-      "yz_net_万": -12238.7
+      "yz_net_万": -12238.7,
+      "consecutive_days": 1
     },
     {
       "code": "002910",
@@ -266,7 +284,8 @@
       "inst_net_万": -11383.1,
       "yz_buy_万": 13485.7,
       "yz_sell_万": 2815.8,
-      "yz_net_万": 10669.9
+      "yz_net_万": 10669.9,
+      "consecutive_days": 1
     },
     {
       "code": "002975",
@@ -280,7 +299,8 @@
       "inst_net_万": 3245.0,
       "yz_buy_万": 37514.8,
       "yz_sell_万": 47166.8,
-      "yz_net_万": -9652.0
+      "yz_net_万": -9652.0,
+      "consecutive_days": 1
     },
     {
       "code": "300319",
@@ -294,7 +314,8 @@
       "inst_net_万": -7327.5,
       "yz_buy_万": 66281.7,
       "yz_sell_万": 35680.3,
-      "yz_net_万": 30601.4
+      "yz_net_万": 30601.4,
+      "consecutive_days": 1
     },
     {
       "code": "301580",
@@ -308,7 +329,8 @@
       "inst_net_万": -1171.1,
       "yz_buy_万": 17073.2,
       "yz_sell_万": 12852.8,
-      "yz_net_万": 4220.4
+      "yz_net_万": 4220.4,
+      "consecutive_days": 1
     },
     {
       "code": "301669",
@@ -322,7 +344,8 @@
       "inst_net_万": 7258.6,
       "yz_buy_万": 2071.7,
       "yz_sell_万": 3544.9,
-      "yz_net_万": -1473.2
+      "yz_net_万": -1473.2,
+      "consecutive_days": 1
     },
     {
       "code": "301687",
@@ -336,7 +359,8 @@
       "inst_net_万": -1154.9,
       "yz_buy_万": 33017.5,
       "yz_sell_万": 13956.7,
-      "yz_net_万": 19060.8
+      "yz_net_万": 19060.8,
+      "consecutive_days": 1
     },
     {
       "code": "600110",
@@ -350,7 +374,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 132700.7,
       "yz_sell_万": 130402.7,
-      "yz_net_万": 2298.0
+      "yz_net_万": 2298.0,
+      "consecutive_days": 1
     },
     {
       "code": "600162",
@@ -364,7 +389,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 16888.2,
       "yz_sell_万": 8876.9,
-      "yz_net_万": 8011.2
+      "yz_net_万": 8011.2,
+      "consecutive_days": 1
     },
     {
       "code": "600172",
@@ -378,7 +404,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 53995.1,
       "yz_sell_万": 37379.5,
-      "yz_net_万": 16615.6
+      "yz_net_万": 16615.6,
+      "consecutive_days": 1
     },
     {
       "code": "600549",
@@ -392,7 +419,8 @@
       "inst_net_万": 110681.5,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600791",
@@ -406,7 +434,8 @@
       "inst_net_万": 2233.5,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603166",
@@ -420,7 +449,8 @@
       "inst_net_万": 35875.8,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603324",
@@ -434,7 +464,8 @@
       "inst_net_万": 7140.5,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603459",
@@ -448,7 +479,8 @@
       "inst_net_万": 10772.7,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603929",
@@ -462,7 +494,8 @@
       "inst_net_万": 9061.1,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "000037",
@@ -476,7 +509,8 @@
       "inst_net_万": -2121.6,
       "yz_buy_万": 0,
       "yz_sell_万": 410.8,
-      "yz_net_万": -410.8
+      "yz_net_万": -410.8,
+      "consecutive_days": 1
     },
     {
       "code": "000777",
@@ -490,7 +524,8 @@
       "inst_net_万": 36.4,
       "yz_buy_万": 5449.5,
       "yz_sell_万": 8657.6,
-      "yz_net_万": -3208.1
+      "yz_net_万": -3208.1,
+      "consecutive_days": 1
     },
     {
       "code": "000955",
@@ -504,7 +539,8 @@
       "inst_net_万": 695.6,
       "yz_buy_万": 978.4,
       "yz_sell_万": 0,
-      "yz_net_万": 978.4
+      "yz_net_万": 978.4,
+      "consecutive_days": 1
     },
     {
       "code": "001339",
@@ -518,7 +554,8 @@
       "inst_net_万": -18961.0,
       "yz_buy_万": 38721.3,
       "yz_sell_万": 38429.7,
-      "yz_net_万": 291.6
+      "yz_net_万": 291.6,
+      "consecutive_days": 1
     },
     {
       "code": "002137",
@@ -532,7 +569,8 @@
       "inst_net_万": -2047.8,
       "yz_buy_万": 8543.0,
       "yz_sell_万": 8381.7,
-      "yz_net_万": 161.3
+      "yz_net_万": 161.3,
+      "consecutive_days": 1
     },
     {
       "code": "002667",
@@ -546,7 +584,8 @@
       "inst_net_万": 532.6,
       "yz_buy_万": 726.5,
       "yz_sell_万": 2721.0,
-      "yz_net_万": -1994.5
+      "yz_net_万": -1994.5,
+      "consecutive_days": 1
     },
     {
       "code": "002856",
@@ -560,7 +599,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 3456.3,
       "yz_sell_万": 6033.3,
-      "yz_net_万": -2577.0
+      "yz_net_万": -2577.0,
+      "consecutive_days": 1
     },
     {
       "code": "111001",
@@ -574,7 +614,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 27707.9,
       "yz_sell_万": 27530.7,
-      "yz_net_万": 177.1
+      "yz_net_万": 177.1,
+      "consecutive_days": 1
     },
     {
       "code": "123271",
@@ -588,7 +629,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 8394.5,
       "yz_sell_万": 13580.4,
-      "yz_net_万": -5186.0
+      "yz_net_万": -5186.0,
+      "consecutive_days": 1
     },
     {
       "code": "300029",
@@ -602,7 +644,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 348.0,
       "yz_sell_万": 463.5,
-      "yz_net_万": -115.5
+      "yz_net_万": -115.5,
+      "consecutive_days": 1
     },
     {
       "code": "300411",
@@ -616,7 +659,8 @@
       "inst_net_万": -6145.1,
       "yz_buy_万": 1466.1,
       "yz_sell_万": 4888.7,
-      "yz_net_万": -3422.6
+      "yz_net_万": -3422.6,
+      "consecutive_days": 1
     },
     {
       "code": "301563",
@@ -630,7 +674,8 @@
       "inst_net_万": -14043.9,
       "yz_buy_万": 7933.1,
       "yz_sell_万": 9608.6,
-      "yz_net_万": -1675.5
+      "yz_net_万": -1675.5,
+      "consecutive_days": 1
     },
     {
       "code": "301630",
@@ -644,7 +689,8 @@
       "inst_net_万": 454.7,
       "yz_buy_万": 9930.3,
       "yz_sell_万": 16913.3,
-      "yz_net_万": -6983.0
+      "yz_net_万": -6983.0,
+      "consecutive_days": 1
     },
     {
       "code": "600193",
@@ -658,7 +704,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600226",
@@ -672,7 +719,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600370",
@@ -686,7 +734,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600392",
@@ -700,7 +749,8 @@
       "inst_net_万": -30678.4,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600399",
@@ -714,7 +764,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600421",
@@ -728,7 +779,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600539",
@@ -742,7 +794,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600545",
@@ -756,7 +809,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600599",
@@ -770,7 +824,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600608",
@@ -784,7 +839,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600636",
@@ -798,7 +854,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600667",
@@ -812,7 +869,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600696",
@@ -826,7 +884,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "600753",
@@ -840,7 +899,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603065",
@@ -854,7 +914,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603082",
@@ -868,7 +929,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603177",
@@ -882,7 +944,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603211",
@@ -896,7 +959,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603212",
@@ -910,7 +974,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603261",
@@ -924,7 +989,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603271",
@@ -938,7 +1004,8 @@
       "inst_net_万": -12145.3,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603313",
@@ -952,7 +1019,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603335",
@@ -966,7 +1034,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603517",
@@ -980,7 +1049,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603567",
@@ -994,7 +1064,8 @@
       "inst_net_万": -6235.1,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603580",
@@ -1008,7 +1079,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603586",
@@ -1022,7 +1094,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603616",
@@ -1036,7 +1109,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603778",
@@ -1050,7 +1124,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "603986",
@@ -1064,7 +1139,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "605006",
@@ -1078,7 +1154,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "605081",
@@ -1092,7 +1169,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "688333",
@@ -1106,7 +1184,8 @@
       "inst_net_万": -19350.5,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "688478",
@@ -1120,7 +1199,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "688485",
@@ -1134,7 +1214,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "688496",
@@ -1148,7 +1229,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "688515",
@@ -1162,7 +1244,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "688598",
@@ -1176,7 +1259,8 @@
       "inst_net_万": -12025.0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "688729",
@@ -1190,7 +1274,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "920009",
@@ -1204,7 +1289,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "920083",
@@ -1218,7 +1304,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "920126",
@@ -1232,7 +1319,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "920161",
@@ -1246,7 +1334,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "920178",
@@ -1260,7 +1349,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     },
     {
       "code": "920206",
@@ -1274,7 +1364,8 @@
       "inst_net_万": 0,
       "yz_buy_万": 0,
       "yz_sell_万": 0,
-      "yz_net_万": 0
+      "yz_net_万": 0,
+      "consecutive_days": 1
     }
   ],
   "summary": {
