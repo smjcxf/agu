@@ -1,5 +1,5 @@
 {
-  "fetch_time": "2026-06-20 12:37:15",
+  "fetch_time": "2026-06-20 19:27:02",
   "total_signals": 3,
   "banks": [
     "三菱UFJ摩根士丹利",
@@ -164,7 +164,7 @@
           "rating": "hold",
           "target_price": null,
           "tp_currency": null,
-          "ref_price": null,
+          "ref_price": 7700.0,
           "ref_date": "2026-06-18",
           "price_note": "T-1收盘价(2026-06-18)"
         },
