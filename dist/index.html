@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620224745 -->
+<!-- build: 20260620225915 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -150364,7 +150364,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-20 22:47:12",
+"update_time": "2026-06-20 22:58:40",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
@@ -182445,8 +182445,8 @@ function renderStatsPanel() {
       '.admin-only',                 // 管理员专用Tab/面板（统计）
     ];
     hideSelectors.forEach(function(sel) {
-      var el = document.querySelector(sel);
-      if (el) el.style.display = 'none';
+      var els = document.querySelectorAll(sel);
+      els.forEach(function(el) { el.style.display = 'none'; });
     });
     // 隐藏选股逻辑详解（页面底部的全部逻辑说明）
     var els = document.querySelectorAll('.sh-section, .table-wrap');
