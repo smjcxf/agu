@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620133119 -->
+<!-- build: 20260620133433 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -793,8 +793,8 @@ tr:hover td { background: #fafbfc; }
 
       <!-- ===== 预判总览卡片 ===== -->
       <div class="predict-card accent-bar accent-gold" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);padding-top:0;">
-        <div style="background:linear-gradient(135deg,#fff8e7,#fef3d0);color:#7a6a2b;padding:10px 18px;font-size:14px;font-weight:700;display:flex;justify-content:space-between;align-items:center;">
-          <span><span style="font-size:18px;">⚡</span><span style="font-size:16px;font-weight:700;"> 一眼结论 </span><span style="font-size:12px;font-weight:400;" id="summaryTime" class="card-time">分析中...</span></span>
+        <div style="background:linear-gradient(135deg,#fff8e7,#fef3d0);color:#7a6a2b;padding:10px 18px;font-size:16px;font-weight:700;text-align:center;">
+          ⚡ 一眼结论 <span style="font-size:12px;font-weight:400;" id="summaryTime" class="card-time">分析中...</span>
         </div>
         <div style="padding:16px 18px;font-size:14px;line-height:1.8;color:#555;" id="summaryContent">
           <div style="color:#999;text-align:center;">加载中...</div>
@@ -802,39 +802,38 @@ tr:hover td { background: #fafbfc; }
       </div>
 
       <!-- ⚠️ 异动停牌观测 -->
-      <div id="suspensionCard" style="display:none;background:#fff;border-radius:10px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-          <span style="font-size:18px;">⚠️</span>
-          <span style="font-weight:700;font-size:14px;color:#333;">异动停牌观测</span>
-          <span id="suspensionTime" style="font-size:11px;color:#888;"></span>
+      <div id="suspensionCard" style="display:none;background:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+        <div style="text-align:center;font-weight:700;font-size:15px;color:#333;margin-bottom:12px;">
+          <span style="font-size:18px;">⚠️</span> 异动停牌观测
+          <span id="suspensionTime" style="font-size:11px;font-weight:400;color:#888;margin-left:6px;"></span>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <div style="background:#ffebee;border-radius:8px;padding:10px;">
-            <div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:6px;">🔒 已停牌 <b id="suspCount">0</b>只</div>
-            <div id="suspList" style="font-size:11px;color:#555;line-height:1.6;">暂无</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div style="background:#ffebee;border-radius:10px;padding:12px;">
+            <div style="font-size:13px;font-weight:600;color:#c62828;margin-bottom:8px;">🔒 已停牌 <b id="suspCount">0</b>只</div>
+            <div id="suspList" style="font-size:13px;color:#555;line-height:1.8;">暂无</div>
           </div>
-          <div style="background:#fff3e0;border-radius:8px;padding:10px;">
-            <div style="font-size:12px;font-weight:600;color:#e65100;margin-bottom:6px;">⚡ 近触发 <b id="nearCount">0</b>只</div>
-            <div id="nearList" style="font-size:11px;color:#555;line-height:1.6;">暂无</div>
+          <div style="background:#fff3e0;border-radius:10px;padding:12px;">
+            <div style="font-size:13px;font-weight:600;color:#e65100;margin-bottom:8px;">⚡ 近触发 <b id="nearCount">0</b>只</div>
+            <div id="nearList" style="font-size:13px;color:#555;line-height:1.8;">暂无</div>
           </div>
         </div>
       </div>
 
       <!-- 卡片1: 机游共振（龙虎榜） -->
       <div class="predict-card" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-        <div style="background:linear-gradient(135deg,#dbeafe,#c8e6f5);color:#2a6496;padding:10px 18px;font-size:14px;font-weight:700;">🐉 机游共振·龙虎榜监控 <span style="font-size:11px;font-weight:400;" id="lhbPredictTime" class="card-time"></span></div>
+        <div style="background:linear-gradient(135deg,#dbeafe,#c8e6f5);color:#2a6496;padding:10px 18px;font-size:15px;font-weight:700;text-align:center;">🐉 机游共振·龙虎榜监控 <span style="font-size:11px;font-weight:400;" id="lhbPredictTime" class="card-time"></span></div>
         <div style="padding:14px 18px;font-size:13px;line-height:1.8;background:#fafbfc;" id="lhbPredictContent"></div>
       </div>
 
       <!-- 卡片2: 主力资金抱团监控（合并） -->
       <div class="predict-card" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-        <div style="background:linear-gradient(135deg,#d4edda,#c8ece0);color:#2d6b5e;padding:10px 18px;font-size:14px;font-weight:700;">🔥 主力资金抱团监控<span style="font-size:10px;font-weight:400;color:#888;margin-left:4px;">（T+1）</span> <span style="font-size:11px;font-weight:400;" id="herdingMainTime" class="card-time"></span></div>
+        <div style="background:linear-gradient(135deg,#d4edda,#c8ece0);color:#2d6b5e;padding:10px 18px;font-size:15px;font-weight:700;text-align:center;">🔥 主力资金抱团监控<span style="font-size:10px;font-weight:400;color:#888;margin-left:4px;">（T+1）</span> <span style="font-size:11px;font-weight:400;" id="herdingMainTime" class="card-time"></span></div>
         <div style="padding:14px 18px;font-size:13px;line-height:1.8;background:#fafbfc;" id="herdingMainContent"></div>
       </div>
 
       <!-- 卡片3: 北向资金监控 -->
       <div class="predict-card" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-        <div style="background:linear-gradient(135deg,#dce6f8,#e0eaf5);color:#2a4986;padding:10px 18px;font-size:14px;font-weight:700;">🌏 北向资金监控<span style="font-size:10px;font-weight:400;color:#888;margin-left:4px;">（T+1）</span> <span style="font-size:11px;font-weight:400;" id="northFundTime" class="card-time"></span></div>
+        <div style="background:linear-gradient(135deg,#dce6f8,#e0eaf5);color:#2a4986;padding:10px 18px;font-size:15px;font-weight:700;text-align:center;">🌏 北向资金监控<span style="font-size:10px;font-weight:400;color:#888;margin-left:4px;">（T+1）</span> <span style="font-size:11px;font-weight:400;" id="northFundTime" class="card-time"></span></div>
         <div style="padding:14px 18px;font-size:13px;line-height:1.8;background:#fafbfc;" id="northFundContent"></div>
       </div>
 
@@ -150194,7 +150193,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-20 13:30:50",
+"update_time": "2026-06-20 13:34:06",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
