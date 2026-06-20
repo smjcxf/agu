@@ -1,29 +1,29 @@
 {
-  "update_time": "2026-06-20 12:37",
+  "update_time": "2026-06-20 18:46",
   "alerts": [
     {
       "type": "summary",
       "severity": "low",
       "message": "ETF监测中，11涨1跌",
-      "time": "12:37"
+      "time": "18:46"
     },
     {
       "type": "etf",
       "severity": "medium",
       "message": "华夏科创50ETF 大涨 4.02%",
-      "time": "12:37"
+      "time": "18:47"
     },
     {
       "type": "etf",
       "severity": "medium",
       "message": "5G通信ETF 大涨 3.75%",
-      "time": "12:37"
+      "time": "18:47"
     },
     {
       "type": "etf",
       "severity": "medium",
       "message": "芯片ETF 大涨 4.68%",
-      "time": "12:37"
+      "time": "18:47"
     }
   ],
   "etfFlow": {
@@ -194,6 +194,11 @@
       "type": "data"
     },
     {
+      "date": "2026-01-07",
+      "title": "美光Q1财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2026-01-09",
       "title": "CPI/PPI",
       "type": "data"
@@ -279,6 +284,16 @@
       "type": "earnings_korea"
     },
     {
+      "date": "2026-01-28",
+      "title": "ASML Q4财报",
+      "type": "earnings_europe"
+    },
+    {
+      "date": "2026-01-28",
+      "title": "博通Q4财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2026-01-29",
       "title": "A50交割",
       "type": "a50"
@@ -312,6 +327,11 @@
       "date": "2026-02-09",
       "title": "中国出口",
       "type": "data"
+    },
+    {
+      "date": "2026-02-12",
+      "title": "铠侠Q3财报",
+      "type": "earnings_japan"
     },
     {
       "date": "2026-02-13",
@@ -504,6 +524,11 @@
       "type": "option"
     },
     {
+      "date": "2026-03-25",
+      "title": "美光Q2财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2026-03-30",
       "title": "A50交割",
       "type": "a50"
@@ -609,6 +634,11 @@
       "type": "option"
     },
     {
+      "date": "2026-04-22",
+      "title": "ASML Q1财报",
+      "type": "earnings_europe"
+    },
+    {
       "date": "2026-04-28",
       "title": "谷歌Q1财报",
       "type": "earnings_calendar"
@@ -654,6 +684,11 @@
       "type": "earnings_korea"
     },
     {
+      "date": "2026-04-29",
+      "title": "博通Q1财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2026-04-30",
       "title": "中国PMI",
       "type": "data"
@@ -692,6 +727,11 @@
       "date": "2026-05-13",
       "title": "美国CPI",
       "type": "data"
+    },
+    {
+      "date": "2026-05-13",
+      "title": "铠侠Q4财报",
+      "type": "earnings_japan"
     },
     {
       "date": "2026-05-15",
@@ -879,6 +919,11 @@
       "type": "data"
     },
     {
+      "date": "2026-06-30",
+      "title": "美光Q3财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2026-07-01",
       "title": "港股休市",
       "type": "hk_holiday"
@@ -959,6 +1004,11 @@
       "type": "option"
     },
     {
+      "date": "2026-07-22",
+      "title": "ASML Q2财报",
+      "type": "earnings_europe"
+    },
+    {
       "date": "2026-07-28",
       "title": "谷歌Q2财报",
       "type": "earnings_calendar"
@@ -994,6 +1044,11 @@
       "type": "earnings_korea"
     },
     {
+      "date": "2026-07-29",
+      "title": "博通Q2财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2026-07-30",
       "title": "A50交割",
       "type": "a50"
@@ -1022,6 +1077,11 @@
       "date": "2026-08-10",
       "title": "CPI/PPI",
       "type": "data"
+    },
+    {
+      "date": "2026-08-12",
+      "title": "铠侠Q1财报",
+      "type": "earnings_japan"
     },
     {
       "date": "2026-08-13",
@@ -1169,6 +1229,11 @@
       "type": "a50"
     },
     {
+      "date": "2026-09-29",
+      "title": "美光Q4财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2026-09-30",
       "title": "中国PMI",
       "type": "data"
@@ -1280,6 +1345,11 @@
     },
     {
       "date": "2026-10-21",
+      "title": "ASML Q3财报",
+      "type": "earnings_europe"
+    },
+    {
+      "date": "2026-10-21",
       "title": "港股休市",
       "type": "hk_holiday"
     },
@@ -1329,6 +1399,11 @@
       "type": "earnings_korea"
     },
     {
+      "date": "2026-10-28",
+      "title": "博通Q3财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2026-10-29",
       "title": "A50交割",
       "type": "a50"
@@ -1357,6 +1432,11 @@
       "date": "2026-11-09",
       "title": "中国出口",
       "type": "data"
+    },
+    {
+      "date": "2026-11-11",
+      "title": "铠侠Q2财报",
+      "type": "earnings_japan"
     },
     {
       "date": "2026-11-13",
@@ -1534,6 +1614,11 @@
       "type": "us_holiday"
     },
     {
+      "date": "2027-01-06",
+      "title": "美光Q1财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2027-01-07",
       "title": "中国出口",
       "type": "data"
@@ -1629,6 +1714,16 @@
       "type": "earnings_korea"
     },
     {
+      "date": "2027-01-27",
+      "title": "ASML Q4财报",
+      "type": "earnings_europe"
+    },
+    {
+      "date": "2027-01-27",
+      "title": "博通Q4财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2027-01-28",
       "title": "A50交割",
       "type": "a50"
@@ -1687,6 +1782,11 @@
       "date": "2027-02-09",
       "title": "港股休市",
       "type": "hk_holiday"
+    },
+    {
+      "date": "2027-02-10",
+      "title": "铠侠Q3财报",
+      "type": "earnings_japan"
     },
     {
       "date": "2027-02-10",
@@ -1844,6 +1944,11 @@
       "type": "option"
     },
     {
+      "date": "2027-03-24",
+      "title": "美光Q2财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2027-03-26",
       "title": "港股休市",
       "type": "hk_holiday"
@@ -1939,6 +2044,11 @@
       "type": "earnings_calendar"
     },
     {
+      "date": "2027-04-21",
+      "title": "ASML Q1财报",
+      "type": "earnings_europe"
+    },
+    {
       "date": "2027-04-27",
       "title": "谷歌Q1财报",
       "type": "earnings_calendar"
@@ -1984,6 +2094,11 @@
       "type": "earnings_korea"
     },
     {
+      "date": "2027-04-28",
+      "title": "博通Q1财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2027-04-29",
       "title": "A50交割",
       "type": "a50"
@@ -2022,6 +2137,11 @@
       "date": "2027-05-10",
       "title": "CPI/PPI",
       "type": "data"
+    },
+    {
+      "date": "2027-05-12",
+      "title": "铠侠Q4财报",
+      "type": "earnings_japan"
     },
     {
       "date": "2027-05-12",
@@ -2204,6 +2324,11 @@
       "type": "a50"
     },
     {
+      "date": "2027-06-29",
+      "title": "美光Q3财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2027-06-30",
       "title": "中国PMI",
       "type": "data"
@@ -2284,6 +2409,11 @@
       "type": "earnings_calendar"
     },
     {
+      "date": "2027-07-21",
+      "title": "ASML Q2财报",
+      "type": "earnings_europe"
+    },
+    {
       "date": "2027-07-27",
       "title": "谷歌Q2财报",
       "type": "earnings_calendar"
@@ -2324,6 +2454,11 @@
       "type": "earnings_korea"
     },
     {
+      "date": "2027-07-28",
+      "title": "博通Q2财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2027-07-29",
       "title": "A50交割",
       "type": "a50"
@@ -2352,6 +2487,11 @@
       "date": "2027-08-09",
       "title": "中国出口",
       "type": "data"
+    },
+    {
+      "date": "2027-08-11",
+      "title": "铠侠Q1财报",
+      "type": "earnings_japan"
     },
     {
       "date": "2027-08-13",
@@ -2494,6 +2634,11 @@
       "type": "hk_holiday"
     },
     {
+      "date": "2027-09-28",
+      "title": "美光Q4财报",
+      "type": "earnings_calendar"
+    },
+    {
       "date": "2027-09-29",
       "title": "A50交割",
       "type": "a50"
@@ -2604,6 +2749,11 @@
       "type": "central_bank"
     },
     {
+      "date": "2027-10-20",
+      "title": "ASML Q3财报",
+      "type": "earnings_europe"
+    },
+    {
       "date": "2027-10-27",
       "title": "期权交割",
       "type": "option"
@@ -2612,6 +2762,11 @@
       "date": "2027-10-27",
       "title": "美联储议息",
       "type": "fomc"
+    },
+    {
+      "date": "2027-10-27",
+      "title": "博通Q3财报",
+      "type": "earnings_calendar"
     },
     {
       "date": "2027-10-28",
@@ -2642,6 +2797,11 @@
       "date": "2027-11-09",
       "title": "CPI/PPI",
       "type": "data"
+    },
+    {
+      "date": "2027-11-10",
+      "title": "铠侠Q2财报",
+      "type": "earnings_japan"
     },
     {
       "date": "2027-11-13",

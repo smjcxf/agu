@@ -464,6 +464,21 @@ def generate_calendar():
             if nd.startswith(ym_str):
                 calendar_events.append({'date': nd, 'title': ntitle, 'type': 'earnings_korea'})
 
+        # ── 日本：铠侠财报 ──
+        kioxia_earnings = [
+            ('2026-02-12', '铠侠Q3财报'),
+            ('2026-05-13', '铠侠Q4财报'),
+            ('2026-08-12', '铠侠Q1财报'),
+            ('2026-11-11', '铠侠Q2财报'),
+            ('2027-02-10', '铠侠Q3财报'),
+            ('2027-05-12', '铠侠Q4财报'),
+            ('2027-08-11', '铠侠Q1财报'),
+            ('2027-11-10', '铠侠Q2财报'),
+        ]
+        for nd, ntitle in kioxia_earnings:
+            if nd.startswith(ym_str):
+                calendar_events.append({'date': nd, 'title': ntitle, 'type': 'earnings_japan'})
+
         # ── 台湾台积电财报 ──
         tsmc_earnings = [
             ('2026-01-15', '台积电Q4财报'),
@@ -477,6 +492,21 @@ def generate_calendar():
         for nd, ntitle in tsmc_earnings:
             if nd.startswith(ym_str):
                 calendar_events.append({'date': nd, 'title': ntitle, 'type': 'earnings_taiwan'})
+
+        # ── 欧洲：ASML财报 ──
+        asml_earnings = [
+            ('2026-01-28', 'ASML Q4财报'),
+            ('2026-04-22', 'ASML Q1财报'),
+            ('2026-07-22', 'ASML Q2财报'),
+            ('2026-10-21', 'ASML Q3财报'),
+            ('2027-01-27', 'ASML Q4财报'),
+            ('2027-04-21', 'ASML Q1财报'),
+            ('2027-07-21', 'ASML Q2财报'),
+            ('2027-10-20', 'ASML Q3财报'),
+        ]
+        for nd, ntitle in asml_earnings:
+            if nd.startswith(ym_str):
+                calendar_events.append({'date': nd, 'title': ntitle, 'type': 'earnings_europe'})
 
         # ── 中国法定节假日（必须在递增月份之前） ──
         # 2026年端午节：6月19日（周五，农历五月初五），连休3天
@@ -611,6 +641,31 @@ def generate_calendar():
             ('2027-11-17', '英伟达Q3财报+指引'),
         ]
         for nd, ntitle in nvidia_events:
+            if nd.startswith(ym_str):
+                calendar_events.append({'date': nd, 'title': ntitle, 'type': 'earnings_calendar'})
+
+        # ── 美股半导体：美光 + 博通财报 ──
+        us_semi_earnings = [
+            # Micron
+            ('2026-01-07', '美光Q1财报'),
+            ('2026-03-25', '美光Q2财报'),
+            ('2026-06-30', '美光Q3财报'),
+            ('2026-09-29', '美光Q4财报'),
+            ('2027-01-06', '美光Q1财报'),
+            ('2027-03-24', '美光Q2财报'),
+            ('2027-06-29', '美光Q3财报'),
+            ('2027-09-28', '美光Q4财报'),
+            # Broadcom
+            ('2026-01-28', '博通Q4财报'),
+            ('2026-04-29', '博通Q1财报'),
+            ('2026-07-29', '博通Q2财报'),
+            ('2026-10-28', '博通Q3财报'),
+            ('2027-01-27', '博通Q4财报'),
+            ('2027-04-28', '博通Q1财报'),
+            ('2027-07-28', '博通Q2财报'),
+            ('2027-10-27', '博通Q3财报'),
+        ]
+        for nd, ntitle in us_semi_earnings:
             if nd.startswith(ym_str):
                 calendar_events.append({'date': nd, 'title': ntitle, 'type': 'earnings_calendar'})
 
