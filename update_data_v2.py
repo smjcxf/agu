@@ -607,6 +607,10 @@ def main():
         if isinstance(data, dict) and name == "LHB_DATA":
             if not data.get("stocks") and not data.get("update_time") and not data.get("scan_time"):
                 is_empty = True
+        if isinstance(data, dict) and name in ("MARGIN_DATA", "NORTH_FUND", "ETF_SUBSCRIPTION", "FOMC_SUMMARY"):
+            if not data.get("update_time") and not data.get("available", True):
+                is_empty = True
+                print(f"  ⚠️  {name} 无新数据且不可用，跳过替换")
         if is_empty:
             print(f"  ⚠️  {name} 数据为空，跳过替换（保留旧数据）")
             continue

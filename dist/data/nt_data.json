@@ -1,35 +1,29 @@
 {
-  "update_time": "2026-06-19 22:38",
+  "update_time": "2026-06-20 11:08",
   "alerts": [
     {
       "type": "summary",
-      "severity": "medium",
+      "severity": "low",
       "message": "ETF监测中，11涨1跌",
-      "time": "11:49"
-    },
-    {
-      "type": "etf",
-      "severity": "high",
-      "message": "华夏科创50ETF 大涨 4.02%",
-      "time": "11:49"
+      "time": "11:08"
     },
     {
       "type": "etf",
       "severity": "medium",
-      "message": "酒ETF 大跌 2.18%",
-      "time": "11:49"
+      "message": "华夏科创50ETF 大涨 4.02%",
+      "time": "11:08"
     },
     {
       "type": "etf",
-      "severity": "high",
+      "severity": "medium",
       "message": "5G通信ETF 大涨 3.75%",
-      "time": "11:49"
+      "time": "11:08"
     },
     {
       "type": "etf",
-      "severity": "high",
+      "severity": "medium",
       "message": "芯片ETF 大涨 4.68%",
-      "time": "11:49"
+      "time": "11:08"
     }
   ],
   "etfFlow": {
@@ -160,7 +154,7 @@
       "valid": 12,
       "up": 11,
       "down": 1,
-      "alerts_count": 4
+      "alerts_count": 3
     }
   },
   "calendar": [
@@ -168,6 +162,16 @@
       "date": "2026-01-01",
       "title": "元旦假期",
       "type": "holiday"
+    },
+    {
+      "date": "2026-01-01",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2026-01-01",
+      "title": "美股休市",
+      "type": "us_holiday"
     },
     {
       "date": "2026-01-01",
@@ -326,6 +330,11 @@
     },
     {
       "date": "2026-02-16",
+      "title": "美股休市",
+      "type": "us_holiday"
+    },
+    {
+      "date": "2026-02-16",
       "title": "美股休市（总统日）",
       "type": "us_holiday"
     },
@@ -333,6 +342,11 @@
       "date": "2026-02-17",
       "title": "春节假期",
       "type": "holiday"
+    },
+    {
+      "date": "2026-02-17",
+      "title": "港股休市",
+      "type": "hk_holiday"
     },
     {
       "date": "2026-02-17",
@@ -346,6 +360,11 @@
     },
     {
       "date": "2026-02-18",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2026-02-18",
       "title": "港股休市（农历年初二）",
       "type": "hk_holiday"
     },
@@ -353,6 +372,11 @@
       "date": "2026-02-19",
       "title": "春节假期",
       "type": "holiday"
+    },
+    {
+      "date": "2026-02-19",
+      "title": "港股休市",
+      "type": "hk_holiday"
     },
     {
       "date": "2026-02-19",
@@ -500,8 +524,23 @@
       "type": "data"
     },
     {
+      "date": "2026-04-03",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2026-04-03",
+      "title": "美股休市",
+      "type": "us_holiday"
+    },
+    {
       "date": "2026-04-04",
       "title": "港股休市（清明节）",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2026-04-06",
+      "title": "港股休市",
       "type": "hk_holiday"
     },
     {
@@ -631,6 +670,11 @@
     },
     {
       "date": "2026-05-01",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2026-05-01",
       "title": "港股休市（劳动节）",
       "type": "hk_holiday"
     },
@@ -676,6 +720,16 @@
     },
     {
       "date": "2026-05-25",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2026-05-25",
+      "title": "美股休市",
+      "type": "us_holiday"
+    },
+    {
+      "date": "2026-05-25",
       "title": "港股休市（佛诞）",
       "type": "hk_holiday"
     },
@@ -715,26 +769,6 @@
       "type": "data"
     },
     {
-      "date": "2026-06-19",
-      "title": "苹果WWDC·Day1",
-      "type": "product_launch"
-    },
-    {
-      "date": "2026-06-20",
-      "title": "苹果WWDC·Day2",
-      "type": "product_launch"
-    },
-    {
-      "date": "2026-06-21",
-      "title": "苹果WWDC·Day3",
-      "type": "product_launch"
-    },
-    {
-      "date": "2026-06-19",
-      "title": "华为开发者大会HDC·Day1",
-      "type": "product_launch"
-    },
-    {
       "date": "2026-06-12",
       "title": "SpaceX IPO",
       "type": "product_launch"
@@ -743,16 +777,6 @@
       "date": "2026-06-13",
       "title": "美国CPI",
       "type": "data"
-    },
-    {
-      "date": "2026-06-20",
-      "title": "华为开发者大会HDC·Day2",
-      "type": "product_launch"
-    },
-    {
-      "date": "2026-06-21",
-      "title": "华为开发者大会HDC·Day3",
-      "type": "product_launch"
     },
     {
       "date": "2026-06-15",
@@ -776,6 +800,21 @@
     },
     {
       "date": "2026-06-19",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2026-06-19",
+      "title": "华为开发者大会HDC·Day1",
+      "type": "product_launch"
+    },
+    {
+      "date": "2026-06-19",
+      "title": "苹果WWDC·Day1",
+      "type": "product_launch"
+    },
+    {
+      "date": "2026-06-19",
       "title": "港股休市（端午节）",
       "type": "hk_holiday"
     },
@@ -790,9 +829,29 @@
       "type": "holiday"
     },
     {
+      "date": "2026-06-20",
+      "title": "华为开发者大会HDC·Day2",
+      "type": "product_launch"
+    },
+    {
+      "date": "2026-06-20",
+      "title": "苹果WWDC·Day2",
+      "type": "product_launch"
+    },
+    {
       "date": "2026-06-21",
       "title": "端午节假期",
       "type": "holiday"
+    },
+    {
+      "date": "2026-06-21",
+      "title": "华为开发者大会HDC·Day3",
+      "type": "product_launch"
+    },
+    {
+      "date": "2026-06-21",
+      "title": "苹果WWDC·Day3",
+      "type": "product_launch"
     },
     {
       "date": "2026-06-22",
@@ -821,6 +880,11 @@
     },
     {
       "date": "2026-07-01",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2026-07-01",
       "title": "港股休市（香港回归纪念日）",
       "type": "hk_holiday"
     },
@@ -828,6 +892,11 @@
       "date": "2026-07-03",
       "title": "美国非农",
       "type": "data"
+    },
+    {
+      "date": "2026-07-03",
+      "title": "美股休市",
+      "type": "us_holiday"
     },
     {
       "date": "2026-07-03",
@@ -1016,6 +1085,11 @@
     },
     {
       "date": "2026-09-07",
+      "title": "美股休市",
+      "type": "us_holiday"
+    },
+    {
+      "date": "2026-09-07",
       "title": "美股休市（劳动节）",
       "type": "us_holiday"
     },
@@ -1085,6 +1159,11 @@
       "type": "holiday"
     },
     {
+      "date": "2026-09-28",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
       "date": "2026-09-29",
       "title": "A50交割",
       "type": "a50"
@@ -1098,6 +1177,11 @@
       "date": "2026-10-01",
       "title": "国庆节假期",
       "type": "holiday"
+    },
+    {
+      "date": "2026-10-01",
+      "title": "港股休市",
+      "type": "hk_holiday"
     },
     {
       "date": "2026-10-01",
@@ -1193,6 +1277,11 @@
       "date": "2026-10-20",
       "title": "特斯拉Q3财报",
       "type": "earnings_calendar"
+    },
+    {
+      "date": "2026-10-21",
+      "title": "港股休市",
+      "type": "hk_holiday"
     },
     {
       "date": "2026-10-27",
@@ -1306,6 +1395,11 @@
     },
     {
       "date": "2026-11-26",
+      "title": "美股休市",
+      "type": "us_holiday"
+    },
+    {
+      "date": "2026-11-26",
       "title": "美股休市（感恩节）",
       "type": "us_holiday"
     },
@@ -1376,6 +1470,16 @@
     },
     {
       "date": "2026-12-25",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2026-12-25",
+      "title": "美股休市",
+      "type": "us_holiday"
+    },
+    {
+      "date": "2026-12-25",
       "title": "港股休市（圣诞节）",
       "type": "hk_holiday"
     },
@@ -1408,6 +1512,16 @@
       "date": "2027-01-01",
       "title": "元旦假期",
       "type": "holiday"
+    },
+    {
+      "date": "2027-01-01",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2027-01-01",
+      "title": "美股休市",
+      "type": "us_holiday"
     },
     {
       "date": "2027-01-01",
@@ -1458,6 +1572,11 @@
       "date": "2027-01-18",
       "title": "GDP",
       "type": "data"
+    },
+    {
+      "date": "2027-01-18",
+      "title": "美股休市",
+      "type": "us_holiday"
     },
     {
       "date": "2027-01-18",
@@ -1551,6 +1670,11 @@
     },
     {
       "date": "2027-02-08",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2027-02-08",
       "title": "港股休市（农历年初三）",
       "type": "hk_holiday"
     },
@@ -1558,6 +1682,16 @@
       "date": "2027-02-09",
       "title": "CPI/PPI",
       "type": "data"
+    },
+    {
+      "date": "2027-02-09",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2027-02-10",
+      "title": "港股休市",
+      "type": "hk_holiday"
     },
     {
       "date": "2027-02-13",
@@ -1573,6 +1707,11 @@
       "date": "2027-02-15",
       "title": "春节假期",
       "type": "holiday"
+    },
+    {
+      "date": "2027-02-15",
+      "title": "美股休市",
+      "type": "us_holiday"
     },
     {
       "date": "2027-02-15",
@@ -1706,8 +1845,23 @@
     },
     {
       "date": "2027-03-26",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2027-03-26",
+      "title": "美股休市",
+      "type": "us_holiday"
+    },
+    {
+      "date": "2027-03-26",
       "title": "美股休市（耶稣受难日）",
       "type": "us_holiday"
+    },
+    {
+      "date": "2027-03-29",
+      "title": "港股休市",
+      "type": "hk_holiday"
     },
     {
       "date": "2027-03-30",
@@ -1723,6 +1877,11 @@
       "date": "2027-04-02",
       "title": "美国非农",
       "type": "data"
+    },
+    {
+      "date": "2027-04-05",
+      "title": "港股休市",
+      "type": "hk_holiday"
     },
     {
       "date": "2027-04-05",
@@ -1845,6 +2004,11 @@
       "type": "hk_holiday"
     },
     {
+      "date": "2027-05-03",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
       "date": "2027-05-07",
       "title": "中国出口",
       "type": "data"
@@ -1858,6 +2022,11 @@
       "date": "2027-05-10",
       "title": "CPI/PPI",
       "type": "data"
+    },
+    {
+      "date": "2027-05-12",
+      "title": "港股休市",
+      "type": "hk_holiday"
     },
     {
       "date": "2027-05-13",
@@ -1911,6 +2080,11 @@
     },
     {
       "date": "2027-05-31",
+      "title": "美股休市",
+      "type": "us_holiday"
+    },
+    {
+      "date": "2027-05-31",
       "title": "美股休市（阵亡将士纪念日）",
       "type": "us_holiday"
     },
@@ -1933,6 +2107,11 @@
       "date": "2027-06-08",
       "title": "端午节假期",
       "type": "holiday"
+    },
+    {
+      "date": "2027-06-08",
+      "title": "港股休市",
+      "type": "hk_holiday"
     },
     {
       "date": "2027-06-08",
@@ -2031,6 +2210,11 @@
     },
     {
       "date": "2027-07-01",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2027-07-01",
       "title": "港股休市（香港回归纪念日）",
       "type": "hk_holiday"
     },
@@ -2038,6 +2222,11 @@
       "date": "2027-07-02",
       "title": "美国非农",
       "type": "data"
+    },
+    {
+      "date": "2027-07-05",
+      "title": "美股休市",
+      "type": "us_holiday"
     },
     {
       "date": "2027-07-05",
@@ -2221,6 +2410,11 @@
     },
     {
       "date": "2027-09-06",
+      "title": "美股休市",
+      "type": "us_holiday"
+    },
+    {
+      "date": "2027-09-06",
       "title": "美股休市（劳动节）",
       "type": "us_holiday"
     },
@@ -2295,6 +2489,11 @@
       "type": "option"
     },
     {
+      "date": "2027-09-27",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
       "date": "2027-09-29",
       "title": "A50交割",
       "type": "a50"
@@ -2313,6 +2512,11 @@
       "date": "2027-10-01",
       "title": "国庆节假期",
       "type": "holiday"
+    },
+    {
+      "date": "2027-10-01",
+      "title": "港股休市",
+      "type": "hk_holiday"
     },
     {
       "date": "2027-10-01",
@@ -2358,6 +2562,11 @@
       "date": "2027-10-11",
       "title": "CPI/PPI",
       "type": "data"
+    },
+    {
+      "date": "2027-10-11",
+      "title": "港股休市",
+      "type": "hk_holiday"
     },
     {
       "date": "2027-10-13",
@@ -2471,6 +2680,11 @@
     },
     {
       "date": "2027-11-25",
+      "title": "美股休市",
+      "type": "us_holiday"
+    },
+    {
+      "date": "2027-11-25",
       "title": "美股休市（感恩节）",
       "type": "us_holiday"
     },
@@ -2546,6 +2760,11 @@
     },
     {
       "date": "2027-12-25",
+      "title": "美股休市",
+      "type": "us_holiday"
+    },
+    {
+      "date": "2027-12-25",
       "title": "港股休市（圣诞节）",
       "type": "hk_holiday"
     },
@@ -2553,6 +2772,16 @@
       "date": "2027-12-26",
       "title": "港股休市（节礼日）",
       "type": "hk_holiday"
+    },
+    {
+      "date": "2027-12-27",
+      "title": "港股休市",
+      "type": "hk_holiday"
+    },
+    {
+      "date": "2027-12-27",
+      "title": "美股休市",
+      "type": "us_holiday"
     },
     {
       "date": "2027-12-30",

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620110429 -->
+<!-- build: 20260620112740 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -792,7 +792,7 @@ tr:hover td { background: #fafbfc; }
       <!-- ===== 预判总览卡片 ===== -->
       <div class="predict-card accent-bar accent-gold" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);padding-top:0;">
         <div style="background:linear-gradient(135deg,#fff8e7,#fef3d0);color:#7a6a2b;padding:10px 18px;font-size:14px;font-weight:700;display:flex;justify-content:space-between;align-items:center;">
-          <span><span style="font-size:18px;">⚡</span> 一眼结论 <span style="font-size:12px;font-weight:400;" id="summaryTime" class="card-time">分析中...</span></span>
+          <span><span style="font-size:18px;">⚡</span><span style="font-size:16px;font-weight:700;"> 一眼结论 </span><span style="font-size:12px;font-weight:400;" id="summaryTime" class="card-time">分析中...</span></span>
         </div>
         <div style="padding:16px 18px;font-size:14px;line-height:1.8;color:#555;" id="summaryContent">
           <div style="color:#999;text-align:center;">加载中...</div>
@@ -921,15 +921,6 @@ tr:hover td { background: #fafbfc; }
         </div>
 
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
-          <b>🌍 宏观观测</b>：追踪四大类宏观指标，辅助判断A股流动性环境与趋势方向。<br>
-          <b>货币政策</b>：10Y中/美国债收益率、LPR、OMO公开市场操作、M1-M2剪刀差。<br>
-          <b>全球宏观</b>：VIX恐慌指数、美元指数DXY、离岸人民币CNH、中美利差。<br>
-          <b>市场情绪</b>：新增投资者人数（月度）。<br>
-          <b>经济基本面</b>：制造业PMI、CPI/PPI同比、社融规模、出口增速。<br>
-          <b>指标标记</b>：月度⭐已更新 / ☆待更新；每日高频（VIX/DXY/CNH/利差）实时显示。
-        </div>
-
-        <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
           <b>🔥 国家队ETF资金流向速报</b>：监测主要ETF，用涨跌幅估算资金流向（上涨ETF成交额计为流入，下跌计为流出），"估算净流入/流出 XX亿"后的分析文字对照表如下：<br>
           <table style="width:100%;margin-top:6px;border-collapse:collapse;font-size:11px;">
             <tr style="background:#eee;"><th style="padding:4px 8px;border:1px solid #ddd;">金额级别</th><th style="padding:4px 8px;border:1px solid #ddd;">净流入分析</th><th style="padding:4px 8px;border:1px solid #ddd;">净流出分析</th></tr>
@@ -949,13 +940,39 @@ tr:hover td { background: #fafbfc; }
         </div>
       </div>
 
+      <!-- 上证数据监控 -->
+      <div style="margin-bottom:16px;">
+        <h4 style="margin:0 0 10px;font-size:14px;color:#42a5f5;border-left:4px solid #42a5f5;padding-left:8px;">📈 数据监控</h4>
+        <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;">
+          <b>当前下跌状态</b>：已跌交易日/累计跌幅/下跌点数/下一窗口跟踪。趋势标签判断：<br>
+          <table style="font-size:11px;margin:4px 0;border-collapse:collapse;">
+            <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">跌幅 ≤ -10%</td><td style="padding:2px 8px;border:1px solid #ddd;">深度回调</td><td style="width:10px;background:#ef5350;"></td></tr>
+            <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">跌幅 ≤ -5% 或 (≥10天 且 ≤ -3%)</td><td style="padding:2px 8px;border:1px solid #ddd;">阴跌磨底</td><td style="width:10px;background:#ffa726;"></td></tr>
+            <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">≥20天下跌</td><td style="padding:2px 8px;border:1px solid #ddd;">持续阴跌</td><td style="width:10px;background:#e65100;"></td></tr>
+            <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">涨幅 ≥ 5%</td><td style="padding:2px 8px;border:1px solid #ddd;">强势上涨</td><td style="width:10px;background:#ef5350;"></td></tr>
+            <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">涨幅 ≥ 2%</td><td style="padding:2px 8px;border:1px solid #ddd;">震荡上行</td><td style="width:10px;background:#42a5f5;"></td></tr>
+            <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">其他</td><td style="padding:2px 8px;border:1px solid #ddd;">震荡整理</td><td style="width:10px;background:#90caf9;"></td></tr>
+          </table>
+          <b>斐波那契时间窗口</b>：以上证指数近期高点/低点为基准，按斐波那契数列（5,8,13,21,34,55...）计算的关键时间节点，用于判断潜在转折点。F21窗口（21个交易日）为最重要观察窗口，±1天容差。<br>
+          <b>核心判断</b>：综合窗口状态、缠论结构、宏观背景的定性结论。<br>
+          <b>缠论视角</b>：15分钟级别结构分析，关注底分型+MACD金叉是否形成"时间+结构"双重共振。<br>
+          <b>窗口失效应对</b>：当前窗口若失效，依次观察34日/55日等更高级别时间窗口。<br>
+          <b>成交金额图</b>：上证（粉色）+ 深证（浅蓝）+ 合计（金色）每日成交金额曲线。<br>
+          <b>涨跌家数图</b>：每日上涨（粉色）/下跌（绿色）/平盘（灰色）家数柱状图。<br>
+          <b>两融余额走势</b>：融资余额 + 融券余额 + 融资融券余额合计三条折线图（亿元）。<br>
+          <b>ETF申购赎回</b>：沪深300/中证500/中证1000/创业板ETF等宽基指数ETF每日净申购赎回份额折线图。<br>
+          <b>🌍 宏观观测</b>：追踪四大类宏观指标——货币（国债/LPR/OMO/M2）/全球（VIX/DXY/CNH/利差）/情绪（新增投资者）/经济（PMI/CPI/PPI/社融/出口）。月度⭐已更新 / ☆待更新；每日高频实时显示。
+        </div>
+      </div>
+
+
       <!-- 预判信号 -->
       <div style="margin-bottom:16px;">
         <h4 style="margin:0 0 10px;font-size:14px;color:#ff9800;border-left:4px solid #ff9800;padding-left:8px;">🔮 预判信号</h4>
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
           <b>⚡ 一眼结论（顶栏总览）</b>：三色块浓缩三个维度（🐉机游共振蓝/🔥主力资金紫/🌏北向资金橙），机游共振显示板块分布（板块集中时标注板块名，分散时显示跨N板块）、主力显示抱团板块名、北向显示板块增持方向（板块级分析，不写个股）。下方"核心关注"预警条汇总机游共振/主力抱团（含接力方向加粗高亮）/北向动态/内外资分歧/谨慎方向，板块级汇总。<br>
           <b>🐉 机游共振·龙虎榜（卡片1）</b>：三色块布局——左🏦机构净买入/中⚡机游共振/右🔥游资净买入，按金额降序排列，支持连续上榜标注（连X日）。盘中实时更新，非T+1。<br>
-          <b>🔥 主力资金抱团监控（卡片2）</b>：五大区块——①方向预判（当前抱团板块/4类接力方向：机构共识/事件驱动/蓄力中/分歧蓄力+谨慎方向+催化剂）→②板块资金实况（当日净流入/流出TOP5）→③个股主力动向（当日净买入/净卖出TOP5及连续天数）。数据T+1盘后更新。<br>
+          <b>🔥 主力资金抱团监控（卡片2）</b>：五大区块——①方向预判（当前抱团板块/4类接力方向：机构共识/事件驱动/蓄力中/分歧蓄力+谨慎方向+催化剂）→②板块资金实况（左当日/右本周，各流入流出TOP5双列并排）→③个股主力动向（当日净买入/净卖出TOP5及连续天数）。数据T+1盘后更新。<br>
           <b>🌏 北向资金监控（卡片3）</b>：当日/本周净流入大数字→方向预判（趋势+增持减持集中度+主力共振）→板块流向（增持/减持TOP5）→个股流向（净买入TOP5/连续加仓）→策略参考（风格偏好/合力信号）。蓝色系独立配色，增持板块排在减持前面。
         </div>
 
@@ -986,29 +1003,6 @@ tr:hover td { background: #fafbfc; }
           <div style="padding:10px 12px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.6;">
             <b>📈 上涨趋势</b>：均线多头排列/金叉启动/主升强势，满足其一即触发。
           </div>
-        </div>
-      </div>
-      <!-- 上证数据监控 -->
-      <div style="margin-bottom:16px;">
-        <h4 style="margin:0 0 10px;font-size:14px;color:#42a5f5;border-left:4px solid #42a5f5;padding-left:8px;">📈 数据监控</h4>
-        <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;">
-          <b>当前下跌状态</b>：已跌交易日/累计跌幅/下跌点数/下一窗口跟踪。趋势标签判断：<br>
-          <table style="font-size:11px;margin:4px 0;border-collapse:collapse;">
-            <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">跌幅 ≤ -10%</td><td style="padding:2px 8px;border:1px solid #ddd;">深度回调</td><td style="width:10px;background:#ef5350;"></td></tr>
-            <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">跌幅 ≤ -5% 或 (≥10天 且 ≤ -3%)</td><td style="padding:2px 8px;border:1px solid #ddd;">阴跌磨底</td><td style="width:10px;background:#ffa726;"></td></tr>
-            <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">≥20天下跌</td><td style="padding:2px 8px;border:1px solid #ddd;">持续阴跌</td><td style="width:10px;background:#e65100;"></td></tr>
-            <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">涨幅 ≥ 5%</td><td style="padding:2px 8px;border:1px solid #ddd;">强势上涨</td><td style="width:10px;background:#ef5350;"></td></tr>
-            <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">涨幅 ≥ 2%</td><td style="padding:2px 8px;border:1px solid #ddd;">震荡上行</td><td style="width:10px;background:#42a5f5;"></td></tr>
-            <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">其他</td><td style="padding:2px 8px;border:1px solid #ddd;">震荡整理</td><td style="width:10px;background:#90caf9;"></td></tr>
-          </table>
-          <b>斐波那契时间窗口</b>：以上证指数近期高点/低点为基准，按斐波那契数列（5,8,13,21,34,55...）计算的关键时间节点，用于判断潜在转折点。F21窗口（21个交易日）为最重要观察窗口，±1天容差。<br>
-          <b>核心判断</b>：综合窗口状态、缠论结构、宏观背景的定性结论。<br>
-          <b>缠论视角</b>：15分钟级别结构分析，关注底分型+MACD金叉是否形成"时间+结构"双重共振。<br>
-          <b>窗口失效应对</b>：当前窗口若失效，依次观察34日/55日等更高级别时间窗口。<br>
-          <b>成交金额图</b>：上证（粉色）+ 深证（浅蓝）+ 合计（金色）每日成交金额曲线。<br>
-          <b>涨跌家数图</b>：每日上涨（粉色）/下跌（绿色）/平盘（灰色）家数柱状图。<br>
-          <b>两融余额走势</b>：融资余额 + 融券余额 + 融资融券余额合计三条折线图（亿元）。<br>
-          <b>ETF申购赎回</b>：沪深300/中证500/中证1000/创业板ETF等宽基指数ETF每日净申购赎回份额折线图。
         </div>
       </div>
 
@@ -151103,31 +151097,31 @@ var RECOMMEND = window.RECOMMEND = [
 "pure_sector_top": "小金属",
 "pure_sector_count": 5
 };window.LHB_HISTORY = {};window.NT_DATA = {
-"update_time": "2026-06-20 10:42",
+"update_time": "2026-06-20 11:08",
 "alerts": [
 {
 "type": "summary",
 "severity": "low",
 "message": "ETF监测中，11涨1跌",
-"time": "10:42"
+"time": "11:08"
 },
 {
 "type": "etf",
 "severity": "medium",
 "message": "华夏科创50ETF 大涨 4.02%",
-"time": "10:43"
+"time": "11:08"
 },
 {
 "type": "etf",
 "severity": "medium",
 "message": "5G通信ETF 大涨 3.75%",
-"time": "10:43"
+"time": "11:08"
 },
 {
 "type": "etf",
 "severity": "medium",
 "message": "芯片ETF 大涨 4.68%",
-"time": "10:43"
+"time": "11:08"
 }
 ],
 "etfFlow": {
@@ -151873,26 +151867,6 @@ var RECOMMEND = window.RECOMMEND = [
 "type": "data"
 },
 {
-"date": "2026-06-09",
-"title": "苹果WWDC·Day1",
-"type": "product_launch"
-},
-{
-"date": "2026-06-10",
-"title": "苹果WWDC·Day2",
-"type": "product_launch"
-},
-{
-"date": "2026-06-11",
-"title": "苹果WWDC·Day3",
-"type": "product_launch"
-},
-{
-"date": "2026-06-12",
-"title": "华为开发者大会HDC·Day1",
-"type": "product_launch"
-},
-{
 "date": "2026-06-12",
 "title": "SpaceX IPO",
 "type": "product_launch"
@@ -151901,16 +151875,6 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2026-06-13",
 "title": "美国CPI",
 "type": "data"
-},
-{
-"date": "2026-06-13",
-"title": "华为开发者大会HDC·Day2",
-"type": "product_launch"
-},
-{
-"date": "2026-06-14",
-"title": "华为开发者大会HDC·Day3",
-"type": "product_launch"
 },
 {
 "date": "2026-06-15",
@@ -151939,6 +151903,16 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2026-06-19",
+"title": "华为开发者大会HDC·Day1",
+"type": "product_launch"
+},
+{
+"date": "2026-06-19",
+"title": "苹果WWDC·Day1",
+"type": "product_launch"
+},
+{
+"date": "2026-06-19",
 "title": "港股休市（端午节）",
 "type": "hk_holiday"
 },
@@ -151953,9 +151927,29 @@ var RECOMMEND = window.RECOMMEND = [
 "type": "holiday"
 },
 {
+"date": "2026-06-20",
+"title": "华为开发者大会HDC·Day2",
+"type": "product_launch"
+},
+{
+"date": "2026-06-20",
+"title": "苹果WWDC·Day2",
+"type": "product_launch"
+},
+{
 "date": "2026-06-21",
 "title": "端午节假期",
 "type": "holiday"
+},
+{
+"date": "2026-06-21",
+"title": "华为开发者大会HDC·Day3",
+"type": "product_launch"
+},
+{
+"date": "2026-06-21",
+"title": "苹果WWDC·Day3",
+"type": "product_launch"
 },
 {
 "date": "2026-06-22",
@@ -176312,10 +176306,10 @@ function getStaleNote(ft, source) {
     herding:  'API暂无新数据',
     lhb:      days <= 1 ? 'T+1数据' : 'API暂无新数据',
     north:    days >= 2 ? '北向API已移除' : 'API暂无新数据',
-    main:     'T+1数据',
+    main:     '盘后更新',
     summary:  '',
     sector:   '',
-    etf:      '',
+    etf:      '盘后更新',
     concept:  '盘后更新',
     macro:    '盘后更新',
     gold:     '',
@@ -180385,62 +180379,67 @@ function renderHerdingMain() {
     }
   }
 
-  // ═══ 区块二：板块资金实况 ═══
-  h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;margin:10px 0 8px 0;padding-bottom:4px;border-bottom:1px solid #e0e0e0;">板块资金实况（当日）</div>';
+  // ═══ 区块二：板块资金实况（当日 + 本周） ═══
+  var mw = window.MAIN_WEEK_DATA || {};
+  var hasWeek = mw.available && (mw.buy_top5 && mw.buy_top5.length || mw.sell_top5 && mw.sell_top5.length);
+  h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;margin:10px 0 8px 0;padding-bottom:4px;border-bottom:1px solid #e0e0e0;">板块资金实况</div>';
   h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">';
-  h += '<div style="background:#fff5f5;border-radius:8px;padding:10px;">';
-  h += '<div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:6px;">净流入 TOP5</div>';
+
+  // ── 左：当日 ──
+  h += '<div style="display:flex;flex-direction:column;gap:8px;">';
+  h += '<div style="font-size:11px;font-weight:600;color:#888;">当日</div>';
+  // 当日流入
+  h += '<div style="background:#fff5f5;border-radius:8px;padding:8px;flex:1;">';
+  h += '<div style="font-size:11px;font-weight:600;color:#c62828;margin-bottom:4px;">流入 TOP5</div>';
   if (sf.top_list && sf.top_list.length) {
     var inSectors = sf.top_list.filter(function(x){return x.net>0;}).slice(0,5);
     if (inSectors.length) {
-      h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
-      inSectors.forEach(function(x,i){ h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:2px 0;color:#c62828;font-weight:600;">+'+x.net.toFixed(1)+'亿</td></tr>'; });
+      h += '<table style="width:100%;font-size:11px;border-collapse:collapse;">';
+      inSectors.forEach(function(x,i){ h += '<tr><td style="padding:1px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:1px 0;color:#c62828;font-weight:600;">+'+x.net.toFixed(1)+'亿</td></tr>'; });
       h += '</table>';
-    } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
-  } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
+    } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
+  } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
   h += '</div>';
-  h += '<div style="background:#f5fff5;border-radius:8px;padding:10px;">';
-  h += '<div style="font-size:12px;font-weight:600;color:#2e7d32;margin-bottom:6px;">净流出 TOP5</div>';
+  // 当日流出
+  h += '<div style="background:#f5fff5;border-radius:8px;padding:8px;flex:1;">';
+  h += '<div style="font-size:11px;font-weight:600;color:#2e7d32;margin-bottom:4px;">流出 TOP5</div>';
   if (sf.top_list && sf.top_list.length) {
     var outSectors = sf.top_list.filter(function(x){return x.net<0;}).reverse().slice(0,5);
     if (outSectors.length) {
-      h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
-      outSectors.forEach(function(x,i){ h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:2px 0;color:#2e7d32;font-weight:600;">'+x.net.toFixed(1)+'亿</td></tr>'; });
+      h += '<table style="width:100%;font-size:11px;border-collapse:collapse;">';
+      outSectors.forEach(function(x,i){ h += '<tr><td style="padding:1px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:1px 0;color:#2e7d32;font-weight:600;">'+x.net.toFixed(1)+'亿</td></tr>'; });
       h += '</table>';
-    } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
-  } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
+    } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
+  } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
   h += '</div></div>';
 
-  // ═══ 区块2.5：本周板块累计 ═══
-  var mw = window.MAIN_WEEK_DATA || {};
-  if (mw.available && (mw.buy_top5 && mw.buy_top5.length || mw.sell_top5 && mw.sell_top5.length)) {
-    h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;margin:10px 0 8px 0;padding-bottom:4px;border-bottom:1px solid #e0e0e0;">本周板块累计</div>';
-    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">';
-    // 本周流入
-    h += '<div style="background:#fff5f5;border-radius:8px;padding:10px;">';
-    h += '<div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:6px;">净流入 TOP5</div>';
-    if (mw.buy_top5 && mw.buy_top5.length) {
-      h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
-      mw.buy_top5.forEach(function(x,i){
-        var pctStr = x.pct ? ' <span style="color:#999;font-size:10px;">'+ (x.pct>0?'+':'') +x.pct+'%</span>' : '';
-        h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+pctStr+'</td><td style="text-align:right;padding:2px 0;color:#c62828;font-weight:600;">+'+x.net+x.unit+'</td></tr>';
-      });
-      h += '</table>';
-    } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
-    h += '</div>';
-    // 本周流出
-    h += '<div style="background:#f5fff5;border-radius:8px;padding:10px;">';
-    h += '<div style="font-size:12px;font-weight:600;color:#2e7d32;margin-bottom:6px;">净流出 TOP5</div>';
-    if (mw.sell_top5 && mw.sell_top5.length) {
-      h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
-      mw.sell_top5.forEach(function(x,i){
-        var pctStr = x.pct ? ' <span style="color:#999;font-size:10px;">'+ (x.pct>0?'+':'') +x.pct+'%</span>' : '';
-        h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+pctStr+'</td><td style="text-align:right;padding:2px 0;color:#2e7d32;font-weight:600;">'+x.net+x.unit+'</td></tr>';
-      });
-      h += '</table>';
-    } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
-    h += '</div></div>';
-  }
+  // ── 右：本周 ──
+  h += '<div style="display:flex;flex-direction:column;gap:8px;">';
+  h += '<div style="font-size:11px;font-weight:600;color:#888;">本周</div>';
+  // 本周流入
+  h += '<div style="background:#fff5f5;border-radius:8px;padding:8px;flex:1;">';
+  h += '<div style="font-size:11px;font-weight:600;color:#c62828;margin-bottom:4px;">流入 TOP5</div>';
+  if (hasWeek && mw.buy_top5 && mw.buy_top5.length) {
+    h += '<table style="width:100%;font-size:11px;border-collapse:collapse;">';
+    mw.buy_top5.forEach(function(x,i){
+      h += '<tr><td style="padding:1px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:1px 0;color:#c62828;font-weight:600;">+'+x.net+x.unit+'</td></tr>';
+    });
+    h += '</table>';
+  } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
+  h += '</div>';
+  // 本周流出
+  h += '<div style="background:#f5fff5;border-radius:8px;padding:8px;flex:1;">';
+  h += '<div style="font-size:11px;font-weight:600;color:#2e7d32;margin-bottom:4px;">流出 TOP5</div>';
+  if (hasWeek && mw.sell_top5 && mw.sell_top5.length) {
+    h += '<table style="width:100%;font-size:11px;border-collapse:collapse;">';
+    mw.sell_top5.forEach(function(x,i){
+      h += '<tr><td style="padding:1px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:1px 0;color:#2e7d32;font-weight:600;">'+x.net+x.unit+'</td></tr>';
+    });
+    h += '</table>';
+  } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
+  h += '</div></div>'; // close 本周流出, close flex column
+
+  h += '</div>'; // end 板块资金实况 grid
 
   // ═══ 区块三：个股主力动向 ═══
   h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;margin:0 0 8px 0;padding-bottom:4px;border-bottom:1px solid #e0e0e0;">个股主力动向（当日）</div>';
@@ -180499,7 +180498,7 @@ function renderLhbPredict() {
     // 按净买入金额降序排列
     var sorted = stocks.slice().sort(function(a,b){ return netFn(b) - netFn(a); });
     b += '<div style="background:'+bg+';border-radius:10px;padding:12px;min-height:100px;">';
-    b += '<div style="font-size:12px;font-weight:700;color:'+color+';margin-bottom:6px;"><span style="font-size:16px;">'+emoji+'</span> '+title+' <b>'+sorted.length+'只</b></div>';
+    b += '<div style="font-size:11px;font-weight:600;color:'+color+';margin-bottom:6px;"><span style="font-size:16px;">'+emoji+'</span> '+title+' <b>'+sorted.length+'只</b></div>';
     if (sorted.length) {
       b += '<div style="display:flex;flex-direction:column;gap:3px;">';
       sorted.slice(0, maxShow).forEach(function(s){
@@ -180703,7 +180702,7 @@ function renderNorthFund() {
     strategyItems.push('加仓板块优先关注');
     strategyItems.push('减持板块短期回避');
 
-    h += '<div style="margin-top:12px;padding:10px 12px;background:#e8eaf6;border-radius:8px;font-size:12px;color:#1a237e;line-height:1.8;">';
+    h += '<div style="margin-top:12px;padding:10px 12px;background:#e8f5e9;border-radius:8px;font-size:12px;color:#2e7d32;line-height:1.8;">';
     h += '<div style="font-weight:600;margin-bottom:4px;">策略参考</div>';
     strategyItems.forEach(function(item, i){
       h += '<div>· '+item+'</div>';
@@ -180763,7 +180762,7 @@ function renderPredictSummary() {
     lhbSub = lhb.stocks.length+'只上榜';
   }
   h += '<div style="background:#e3f2fd;border-radius:8px;padding:10px;text-align:center;">';
-  h += '<div style="font-size:12px;font-weight:700;color:#1565c0;margin-bottom:4px;">🐉 机游共振</div>';
+  h += '<div style="font-size:13px;font-weight:700;color:#1565c0;margin-bottom:4px;">🐉 机游共振</div>';
   h += '<div style="font-size:14px;font-weight:500;color:#1565c0;">'+lhbTitle+'</div>';
   if (lhbSub) h += '<div style="font-size:11px;color:#555;margin-top:2px;">'+lhbSub+'</div>';
   h += '</div>';
@@ -180779,7 +180778,7 @@ function renderPredictSummary() {
     mainSub = ms.top_main_in[0].name + ' +' + ms.top_main_in[0].net_in + ms.top_main_in[0].unit;
   }
   h += '<div style="background:#f3e5f5;border-radius:8px;padding:10px;text-align:center;">';
-  h += '<div style="font-size:12px;font-weight:700;color:#6a1b9a;margin-bottom:4px;">🔥 主力资金</div>';
+  h += '<div style="font-size:13px;font-weight:700;color:#6a1b9a;margin-bottom:4px;">🔥 主力资金</div>';
   h += '<div style="font-size:14px;font-weight:500;color:#6a1b9a;">'+mainTitle+'</div>';
   if (mainSub) h += '<div style="font-size:11px;color:#555;margin-top:2px;">'+mainSub+'</div>';
   h += '</div>';
@@ -180797,7 +180796,7 @@ function renderPredictSummary() {
     }
   }
   h += '<div style="background:#fff3e0;border-radius:8px;padding:10px;text-align:center;">';
-  h += '<div style="font-size:12px;font-weight:700;color:#e65100;margin-bottom:4px;">🌏 北向资金</div>';
+  h += '<div style="font-size:13px;font-weight:700;color:#e65100;margin-bottom:4px;">🌏 北向资金</div>';
   h += '<div style="font-size:14px;font-weight:500;color:#e65100;">'+nfTitle+'</div>';
   if (nfSub) h += '<div style="font-size:11px;color:#555;margin-top:2px;">'+nfSub+'</div>';
   h += '</div>';

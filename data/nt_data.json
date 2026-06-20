@@ -1,29 +1,29 @@
 {
-  "update_time": "2026-06-20 10:42",
+  "update_time": "2026-06-20 11:08",
   "alerts": [
     {
       "type": "summary",
       "severity": "low",
       "message": "ETF监测中，11涨1跌",
-      "time": "10:42"
+      "time": "11:08"
     },
     {
       "type": "etf",
       "severity": "medium",
       "message": "华夏科创50ETF 大涨 4.02%",
-      "time": "10:43"
+      "time": "11:08"
     },
     {
       "type": "etf",
       "severity": "medium",
       "message": "5G通信ETF 大涨 3.75%",
-      "time": "10:43"
+      "time": "11:08"
     },
     {
       "type": "etf",
       "severity": "medium",
       "message": "芯片ETF 大涨 4.68%",
-      "time": "10:43"
+      "time": "11:08"
     }
   ],
   "etfFlow": {
@@ -769,26 +769,6 @@
       "type": "data"
     },
     {
-      "date": "2026-06-09",
-      "title": "苹果WWDC·Day1",
-      "type": "product_launch"
-    },
-    {
-      "date": "2026-06-10",
-      "title": "苹果WWDC·Day2",
-      "type": "product_launch"
-    },
-    {
-      "date": "2026-06-11",
-      "title": "苹果WWDC·Day3",
-      "type": "product_launch"
-    },
-    {
-      "date": "2026-06-12",
-      "title": "华为开发者大会HDC·Day1",
-      "type": "product_launch"
-    },
-    {
       "date": "2026-06-12",
       "title": "SpaceX IPO",
       "type": "product_launch"
@@ -797,16 +777,6 @@
       "date": "2026-06-13",
       "title": "美国CPI",
       "type": "data"
-    },
-    {
-      "date": "2026-06-13",
-      "title": "华为开发者大会HDC·Day2",
-      "type": "product_launch"
-    },
-    {
-      "date": "2026-06-14",
-      "title": "华为开发者大会HDC·Day3",
-      "type": "product_launch"
     },
     {
       "date": "2026-06-15",
@@ -835,6 +805,16 @@
     },
     {
       "date": "2026-06-19",
+      "title": "华为开发者大会HDC·Day1",
+      "type": "product_launch"
+    },
+    {
+      "date": "2026-06-19",
+      "title": "苹果WWDC·Day1",
+      "type": "product_launch"
+    },
+    {
+      "date": "2026-06-19",
       "title": "港股休市（端午节）",
       "type": "hk_holiday"
     },
@@ -849,9 +829,29 @@
       "type": "holiday"
     },
     {
+      "date": "2026-06-20",
+      "title": "华为开发者大会HDC·Day2",
+      "type": "product_launch"
+    },
+    {
+      "date": "2026-06-20",
+      "title": "苹果WWDC·Day2",
+      "type": "product_launch"
+    },
+    {
       "date": "2026-06-21",
       "title": "端午节假期",
       "type": "holiday"
+    },
+    {
+      "date": "2026-06-21",
+      "title": "华为开发者大会HDC·Day3",
+      "type": "product_launch"
+    },
+    {
+      "date": "2026-06-21",
+      "title": "苹果WWDC·Day3",
+      "type": "product_launch"
     },
     {
       "date": "2026-06-22",
