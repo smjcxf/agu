@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620230256 -->
+<!-- build: 20260620230509 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -150363,7 +150363,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-20 23:02:24",
+"update_time": "2026-06-20 23:04:34",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
@@ -181945,8 +181945,8 @@ function renderQueryKlineChart(history, curPrice, code) {
   var last = data[data.length-1];
   var lx = x2val(data.length-1), ly = y2val(last.close);
   ctx.fillStyle = isUp ? '#e53935' : '#2e7d32'; ctx.beginPath(); ctx.arc(lx, ly, 4, 0, Math.PI*2); ctx.fill();
-  ctx.fillStyle = '#333'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'left';
-  ctx.fillText(last.close.toFixed(2), lx + 8, ly + 4);
+  ctx.fillStyle = '#333'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText(last.close.toFixed(2), lx, ly - 10);
 
   // X轴日期
   ctx.fillStyle = '#999'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
