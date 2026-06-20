@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620141456 -->
+<!-- build: 20260620141718 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -150198,7 +150198,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-20 14:14:29",
+"update_time": "2026-06-20 14:16:45",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
@@ -182060,7 +182060,7 @@ function renderSuspensionAlert() {
   var timeEl = document.getElementById('suspensionTime');
   if (timeEl && sa.update_time) {
     var ft = fmtDataTime(sa.update_time);
-    timeEl.textContent = '更新于 ' + ft.text;
+    timeEl.textContent = '更新于 ' + ft.text + '（盘后更新）';
   }
 
   // 停牌列表（两列）
