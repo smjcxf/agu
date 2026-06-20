@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620103928 -->
+<!-- build: 20260620104341 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -953,7 +953,7 @@ tr:hover td { background: #fafbfc; }
       <div style="margin-bottom:16px;">
         <h4 style="margin:0 0 10px;font-size:14px;color:#ff9800;border-left:4px solid #ff9800;padding-left:8px;">🔮 预判信号</h4>
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
-          <b>⚡ 一眼结论（顶栏总览）</b>：三色块浓缩三个维度（🐉机游共振蓝/🔥主力资金紫/🌏北向资金橙），机游共振显示合力净买金额、主力显示抱团板块名、北向显示板块增持方向（板块级分析，不写个股）。下方"核心关注"预警条汇总机游共振/主力抱团（含接力方向加粗高亮）/北向动态/内外资分歧/谨慎方向，板块级汇总。<br>
+          <b>⚡ 一眼结论（顶栏总览）</b>：三色块浓缩三个维度（🐉机游共振蓝/🔥主力资金紫/🌏北向资金橙），机游共振显示板块分布（板块集中时标注板块名，分散时显示跨N板块）、主力显示抱团板块名、北向显示板块增持方向（板块级分析，不写个股）。下方"核心关注"预警条汇总机游共振/主力抱团（含接力方向加粗高亮）/北向动态/内外资分歧/谨慎方向，板块级汇总。<br>
           <b>🐉 机游共振·龙虎榜（卡片1）</b>：三色块布局——左🏦机构净买入/中⚡机游共振/右🔥游资净买入，按金额降序排列，支持连续上榜标注（连X日）。盘中实时更新，非T+1。<br>
           <b>🔥 主力资金抱团监控（卡片2）</b>：五大区块——①方向预判（当前抱团板块/4类接力方向：机构共识/事件驱动/蓄力中/分歧蓄力+谨慎方向+催化剂）→②板块资金实况（当日净流入/流出TOP5）→③个股主力动向（当日净买入/净卖出TOP5及连续天数）。数据T+1盘后更新。<br>
           <b>🌏 北向资金监控（卡片3）</b>：当日/本周净流入大数字→方向预判（趋势+增持减持集中度+主力共振）→板块流向（增持/减持TOP5）→个股流向（净买入TOP5/连续加仓）→策略参考（风格偏好/合力信号）。蓝色系独立配色，增持板块排在减持前面。
@@ -151093,37 +151093,31 @@ var RECOMMEND = window.RECOMMEND = [
 "pure_sector_top": "小金属",
 "pure_sector_count": 5
 };window.LHB_HISTORY = {};window.NT_DATA = {
-"update_time": "2026-06-19 22:38",
+"update_time": "2026-06-20 10:42",
 "alerts": [
 {
 "type": "summary",
-"severity": "medium",
+"severity": "low",
 "message": "ETF监测中，11涨1跌",
-"time": "11:49"
-},
-{
-"type": "etf",
-"severity": "high",
-"message": "华夏科创50ETF 大涨 4.02%",
-"time": "11:49"
+"time": "10:42"
 },
 {
 "type": "etf",
 "severity": "medium",
-"message": "酒ETF 大跌 2.18%",
-"time": "11:49"
+"message": "华夏科创50ETF 大涨 4.02%",
+"time": "10:43"
 },
 {
 "type": "etf",
-"severity": "high",
+"severity": "medium",
 "message": "5G通信ETF 大涨 3.75%",
-"time": "11:49"
+"time": "10:43"
 },
 {
 "type": "etf",
-"severity": "high",
+"severity": "medium",
 "message": "芯片ETF 大涨 4.68%",
-"time": "11:49"
+"time": "10:43"
 }
 ],
 "etfFlow": {
@@ -151254,7 +151248,7 @@ var RECOMMEND = window.RECOMMEND = [
 "valid": 12,
 "up": 11,
 "down": 1,
-"alerts_count": 4
+"alerts_count": 3
 }
 },
 "calendar": [
@@ -151262,6 +151256,16 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2026-01-01",
 "title": "元旦假期",
 "type": "holiday"
+},
+{
+"date": "2026-01-01",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2026-01-01",
+"title": "美股休市",
+"type": "us_holiday"
 },
 {
 "date": "2026-01-01",
@@ -151420,6 +151424,11 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2026-02-16",
+"title": "美股休市",
+"type": "us_holiday"
+},
+{
+"date": "2026-02-16",
 "title": "美股休市（总统日）",
 "type": "us_holiday"
 },
@@ -151427,6 +151436,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2026-02-17",
 "title": "春节假期",
 "type": "holiday"
+},
+{
+"date": "2026-02-17",
+"title": "港股休市",
+"type": "hk_holiday"
 },
 {
 "date": "2026-02-17",
@@ -151440,6 +151454,11 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2026-02-18",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2026-02-18",
 "title": "港股休市（农历年初二）",
 "type": "hk_holiday"
 },
@@ -151447,6 +151466,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2026-02-19",
 "title": "春节假期",
 "type": "holiday"
+},
+{
+"date": "2026-02-19",
+"title": "港股休市",
+"type": "hk_holiday"
 },
 {
 "date": "2026-02-19",
@@ -151594,8 +151618,23 @@ var RECOMMEND = window.RECOMMEND = [
 "type": "data"
 },
 {
+"date": "2026-04-03",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2026-04-03",
+"title": "美股休市",
+"type": "us_holiday"
+},
+{
 "date": "2026-04-04",
 "title": "港股休市（清明节）",
+"type": "hk_holiday"
+},
+{
+"date": "2026-04-06",
+"title": "港股休市",
 "type": "hk_holiday"
 },
 {
@@ -151725,6 +151764,11 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2026-05-01",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2026-05-01",
 "title": "港股休市（劳动节）",
 "type": "hk_holiday"
 },
@@ -151770,6 +151814,16 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2026-05-25",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2026-05-25",
+"title": "美股休市",
+"type": "us_holiday"
+},
+{
+"date": "2026-05-25",
 "title": "港股休市（佛诞）",
 "type": "hk_holiday"
 },
@@ -151809,22 +151863,22 @@ var RECOMMEND = window.RECOMMEND = [
 "type": "data"
 },
 {
-"date": "2026-06-19",
+"date": "2026-06-09",
 "title": "苹果WWDC·Day1",
 "type": "product_launch"
 },
 {
-"date": "2026-06-20",
+"date": "2026-06-10",
 "title": "苹果WWDC·Day2",
 "type": "product_launch"
 },
 {
-"date": "2026-06-21",
+"date": "2026-06-11",
 "title": "苹果WWDC·Day3",
 "type": "product_launch"
 },
 {
-"date": "2026-06-19",
+"date": "2026-06-12",
 "title": "华为开发者大会HDC·Day1",
 "type": "product_launch"
 },
@@ -151839,12 +151893,12 @@ var RECOMMEND = window.RECOMMEND = [
 "type": "data"
 },
 {
-"date": "2026-06-20",
+"date": "2026-06-13",
 "title": "华为开发者大会HDC·Day2",
 "type": "product_launch"
 },
 {
-"date": "2026-06-21",
+"date": "2026-06-14",
 "title": "华为开发者大会HDC·Day3",
 "type": "product_launch"
 },
@@ -151867,6 +151921,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2026-06-19",
 "title": "端午节假期",
 "type": "holiday"
+},
+{
+"date": "2026-06-19",
+"title": "港股休市",
+"type": "hk_holiday"
 },
 {
 "date": "2026-06-19",
@@ -151915,6 +151974,11 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2026-07-01",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2026-07-01",
 "title": "港股休市（香港回归纪念日）",
 "type": "hk_holiday"
 },
@@ -151922,6 +151986,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2026-07-03",
 "title": "美国非农",
 "type": "data"
+},
+{
+"date": "2026-07-03",
+"title": "美股休市",
+"type": "us_holiday"
 },
 {
 "date": "2026-07-03",
@@ -152110,6 +152179,11 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2026-09-07",
+"title": "美股休市",
+"type": "us_holiday"
+},
+{
+"date": "2026-09-07",
 "title": "美股休市（劳动节）",
 "type": "us_holiday"
 },
@@ -152179,6 +152253,11 @@ var RECOMMEND = window.RECOMMEND = [
 "type": "holiday"
 },
 {
+"date": "2026-09-28",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
 "date": "2026-09-29",
 "title": "A50交割",
 "type": "a50"
@@ -152192,6 +152271,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2026-10-01",
 "title": "国庆节假期",
 "type": "holiday"
+},
+{
+"date": "2026-10-01",
+"title": "港股休市",
+"type": "hk_holiday"
 },
 {
 "date": "2026-10-01",
@@ -152287,6 +152371,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2026-10-20",
 "title": "特斯拉Q3财报",
 "type": "earnings_calendar"
+},
+{
+"date": "2026-10-21",
+"title": "港股休市",
+"type": "hk_holiday"
 },
 {
 "date": "2026-10-27",
@@ -152400,6 +152489,11 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2026-11-26",
+"title": "美股休市",
+"type": "us_holiday"
+},
+{
+"date": "2026-11-26",
 "title": "美股休市（感恩节）",
 "type": "us_holiday"
 },
@@ -152470,6 +152564,16 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2026-12-25",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2026-12-25",
+"title": "美股休市",
+"type": "us_holiday"
+},
+{
+"date": "2026-12-25",
 "title": "港股休市（圣诞节）",
 "type": "hk_holiday"
 },
@@ -152502,6 +152606,16 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2027-01-01",
 "title": "元旦假期",
 "type": "holiday"
+},
+{
+"date": "2027-01-01",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2027-01-01",
+"title": "美股休市",
+"type": "us_holiday"
 },
 {
 "date": "2027-01-01",
@@ -152552,6 +152666,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2027-01-18",
 "title": "GDP",
 "type": "data"
+},
+{
+"date": "2027-01-18",
+"title": "美股休市",
+"type": "us_holiday"
 },
 {
 "date": "2027-01-18",
@@ -152645,6 +152764,11 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2027-02-08",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2027-02-08",
 "title": "港股休市（农历年初三）",
 "type": "hk_holiday"
 },
@@ -152652,6 +152776,16 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2027-02-09",
 "title": "CPI/PPI",
 "type": "data"
+},
+{
+"date": "2027-02-09",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2027-02-10",
+"title": "港股休市",
+"type": "hk_holiday"
 },
 {
 "date": "2027-02-13",
@@ -152667,6 +152801,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2027-02-15",
 "title": "春节假期",
 "type": "holiday"
+},
+{
+"date": "2027-02-15",
+"title": "美股休市",
+"type": "us_holiday"
 },
 {
 "date": "2027-02-15",
@@ -152800,8 +152939,23 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2027-03-26",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2027-03-26",
+"title": "美股休市",
+"type": "us_holiday"
+},
+{
+"date": "2027-03-26",
 "title": "美股休市（耶稣受难日）",
 "type": "us_holiday"
+},
+{
+"date": "2027-03-29",
+"title": "港股休市",
+"type": "hk_holiday"
 },
 {
 "date": "2027-03-30",
@@ -152817,6 +152971,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2027-04-02",
 "title": "美国非农",
 "type": "data"
+},
+{
+"date": "2027-04-05",
+"title": "港股休市",
+"type": "hk_holiday"
 },
 {
 "date": "2027-04-05",
@@ -152939,6 +153098,11 @@ var RECOMMEND = window.RECOMMEND = [
 "type": "hk_holiday"
 },
 {
+"date": "2027-05-03",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
 "date": "2027-05-07",
 "title": "中国出口",
 "type": "data"
@@ -152952,6 +153116,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2027-05-10",
 "title": "CPI/PPI",
 "type": "data"
+},
+{
+"date": "2027-05-12",
+"title": "港股休市",
+"type": "hk_holiday"
 },
 {
 "date": "2027-05-13",
@@ -153005,6 +153174,11 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2027-05-31",
+"title": "美股休市",
+"type": "us_holiday"
+},
+{
+"date": "2027-05-31",
 "title": "美股休市（阵亡将士纪念日）",
 "type": "us_holiday"
 },
@@ -153027,6 +153201,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2027-06-08",
 "title": "端午节假期",
 "type": "holiday"
+},
+{
+"date": "2027-06-08",
+"title": "港股休市",
+"type": "hk_holiday"
 },
 {
 "date": "2027-06-08",
@@ -153125,6 +153304,11 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2027-07-01",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2027-07-01",
 "title": "港股休市（香港回归纪念日）",
 "type": "hk_holiday"
 },
@@ -153132,6 +153316,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2027-07-02",
 "title": "美国非农",
 "type": "data"
+},
+{
+"date": "2027-07-05",
+"title": "美股休市",
+"type": "us_holiday"
 },
 {
 "date": "2027-07-05",
@@ -153315,6 +153504,11 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2027-09-06",
+"title": "美股休市",
+"type": "us_holiday"
+},
+{
+"date": "2027-09-06",
 "title": "美股休市（劳动节）",
 "type": "us_holiday"
 },
@@ -153389,6 +153583,11 @@ var RECOMMEND = window.RECOMMEND = [
 "type": "option"
 },
 {
+"date": "2027-09-27",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
 "date": "2027-09-29",
 "title": "A50交割",
 "type": "a50"
@@ -153407,6 +153606,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2027-10-01",
 "title": "国庆节假期",
 "type": "holiday"
+},
+{
+"date": "2027-10-01",
+"title": "港股休市",
+"type": "hk_holiday"
 },
 {
 "date": "2027-10-01",
@@ -153452,6 +153656,11 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2027-10-11",
 "title": "CPI/PPI",
 "type": "data"
+},
+{
+"date": "2027-10-11",
+"title": "港股休市",
+"type": "hk_holiday"
 },
 {
 "date": "2027-10-13",
@@ -153565,6 +153774,11 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2027-11-25",
+"title": "美股休市",
+"type": "us_holiday"
+},
+{
+"date": "2027-11-25",
 "title": "美股休市（感恩节）",
 "type": "us_holiday"
 },
@@ -153640,6 +153854,11 @@ var RECOMMEND = window.RECOMMEND = [
 },
 {
 "date": "2027-12-25",
+"title": "美股休市",
+"type": "us_holiday"
+},
+{
+"date": "2027-12-25",
 "title": "港股休市（圣诞节）",
 "type": "hk_holiday"
 },
@@ -153647,6 +153866,16 @@ var RECOMMEND = window.RECOMMEND = [
 "date": "2027-12-26",
 "title": "港股休市（节礼日）",
 "type": "hk_holiday"
+},
+{
+"date": "2027-12-27",
+"title": "港股休市",
+"type": "hk_holiday"
+},
+{
+"date": "2027-12-27",
+"title": "美股休市",
+"type": "us_holiday"
 },
 {
 "date": "2027-12-30",
@@ -180469,13 +180698,13 @@ function renderPredictSummary() {
   var lhbTitle = pureLhb.length ? pureLhb.length+'只纯共振' : (lhb.stocks && lhb.stocks.length ? '无纯共振' : '暂无数据');
   var lhbSub = '';
   if (pureLhb.length) {
-    if (lhb.pure_sector_top) {
-      if (lhb.pure_sector_count <= 2) {
-        var topSec = lhb.pure_sector_top;
-        var topCnt = lhb.pure_sectors ? lhb.pure_sectors[topSec] : pureLhb.length;
+    if (lhb.pure_sector_top && lhb.pure_sectors) {
+      var topSec = lhb.pure_sector_top;
+      var topCnt = lhb.pure_sectors[topSec] || 1;
+      if (topCnt >= pureLhb.length * 0.5 || topCnt >= 2) {
         lhbSub = topSec + ' ' + topCnt + '只';
       } else {
-        lhbSub = lhb.pure_sector_top + '占优，跨' + lhb.pure_sector_count + '板块';
+        lhbSub = '跨' + lhb.pure_sector_count + '板块分散';
       }
     } else {
       var lhbSum = 0;
@@ -180535,10 +180764,16 @@ function renderPredictSummary() {
     var lhbSum = 0;
     pureLhb.forEach(function(s){ lhbSum += (s.inst_net_万||0) + (s.yz_net_万||0); });
     var lhbMsg = '<b style="color:#1565c0;">机游共振</b>：'+pureLhb.length+'只纯共振';
-    if (lhb.pure_sector_top) {
-      lhbMsg += '（主要集中在' + lhb.pure_sector_top;
-      if (lhb.pure_sector_count > 2) lhbMsg += '等' + lhb.pure_sector_count + '个板块';
-      lhbMsg += '）';
+    if (lhb.pure_sector_top && lhb.pure_sectors) {
+      var topSec = lhb.pure_sector_top;
+      var topCnt = lhb.pure_sectors[topSec] || 1;
+      if (topCnt >= 2) {
+        lhbMsg += '（' + topSec + ' ' + topCnt + '只领衔';
+        if (lhb.pure_sector_count > 2) lhbMsg += '，跨' + lhb.pure_sector_count + '板块';
+        lhbMsg += '）';
+      } else if (lhb.pure_sector_count >= 3) {
+        lhbMsg += '（跨' + lhb.pure_sector_count + '板块分散）';
+      }
     }
     lhbMsg += '，净买'+(lhbSum/10000).toFixed(2)+'亿，短线博弈活跃';
     alerts.push(lhbMsg);

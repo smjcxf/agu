@@ -117,7 +117,12 @@ MODES = {
         "steps": [
             ("guanlan_extractor.py", 300),
             ("fetch_mahoro_signals.py --non-interactive", 120),
+            ("fetch_nt_data.py", 120),
+            ("fetch_margin.py", 120),
+            ("fetch_margin_etf.py", 120),
+            ("fetch_etf_subscription.py", 120),
             ("fetch_sh_index_fib.py", 60),
+            ("fetch_sh_sz_history.py", 120),
             ("fetch_sector_fund_flow.py", 180),
             ("fetch_market_alerts.py", 180),
             ("fetch_concept_ranking.py", 180),
