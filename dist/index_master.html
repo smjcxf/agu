@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620200453 -->
+<!-- build: 20260620200836 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -150286,7 +150286,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-20 20:04:09",
+"update_time": "2026-06-20 20:07:47",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
@@ -181908,15 +181908,19 @@ function addToWatchList() {
   }
   if (!found) { alert('未找到该股票'); return; }
   var wl = getWatchList();
-  var raw = found.replace(/^(sh|sz|bj|hk)/, '');
+  var raw = found.replace(/^(sh|sz|bj|hk)/, '').replace(/_/g, '');
   if (wl.some(function(s) { return s.code === raw; })) { alert('已在列表中'); input.value = ''; return; }
 
-  // 获取名称
+  // 获取名称（STOCK_LIST、GOLD_POOL、停牌股）
   var name = '';
   var stock = (window.STOCK_LIST || []).find(function(s) { return s.code === raw; });
   if (stock) name = stock.name;
-  else {
-    var susp = isSuspended('sz' + raw) || isSuspended('sh' + raw);
+  if (!name && window.GOLD_POOL && window.GOLD_POOL.stocks) {
+    var gpKey = Object.keys(window.GOLD_POOL.stocks).find(function(k) { return k.replace(/_/g,'') === 'hk' + raw; });
+    if (gpKey) name = window.GOLD_POOL.stocks[gpKey].name;
+  }
+  if (!name) {
+    var susp = isSuspended('sz' + raw) || isSuspended('sh' + raw) || isSuspended('hk' + raw);
     if (susp) name = susp.name;
   }
   wl.push({code: raw, name: name || raw, added: new Date().toISOString()});
@@ -181949,6 +181953,15 @@ function queryWatchStock(code) {
   switchTabByName('query');
   var inp = document.getElementById('queryInput');
   if (inp) { inp.value = code; doQueryStock(); }
+  // 添加返回自选按钮
+  var res = document.getElementById('queryResult');
+  if (res && !document.getElementById('wlBackBtn')) {
+    var btn = document.createElement('div');
+    btn.id = 'wlBackBtn';
+    btn.style.cssText = 'margin-bottom:10px;';
+    btn.innerHTML = '<button onclick="switchTabByName(\'watchlist\');var b=document.getElementById(\'wlBackBtn\');if(b)b.remove();" style="padding:6px 14px;border:1px solid #ce93d8;background:#fff;color:#9c27b0;border-radius:6px;font-size:12px;cursor:pointer;">← 返回自选</button>';
+    res.parentNode.insertBefore(btn, res);
+  }
 }
 function switchTabByName(name) {
   var tabs = document.querySelectorAll('.tab');
