@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620133931 -->
+<!-- build: 20260620134142 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -150193,7 +150193,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-20 13:39:03",
+"update_time": "2026-06-20 13:41:14",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
@@ -182071,25 +182071,51 @@ function renderSuspensionAlert() {
     timeEl.textContent = '更新于 ' + ft.text;
   }
 
-  // 停牌列表
+  // 停牌列表（两列）
   var sCount = document.getElementById('suspCount');
   var sList = document.getElementById('suspList');
   if (sCount) sCount.textContent = suspended.length;
   if (sList) {
     if (suspended.length) {
-      sList.innerHTML = suspended.map(function(x){ return x.name + ' (' + x.days + '天)'; }).join('<br>');
+      var pairs = [];
+      for (var i = 0; i < suspended.length; i += 2) {
+        var left = suspended[i].name + ' ' + suspended[i].days + '天';
+        var right = '';
+        if (i + 1 < suspended.length) {
+          right = suspended[i+1].name + ' ' + suspended[i+1].days + '天';
+        }
+        pairs.push('<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 8px;">' +
+          '<span>' + left + '</span>' +
+          '<span>' + right + '</span>' +
+          '</div>');
+      }
+      sList.innerHTML = pairs.join('');
     } else {
       sList.innerHTML = '暂无';
     }
   }
 
-  // 近触发
+  // 近触发（两列）
   var nCount = document.getElementById('nearCount');
   var nList = document.getElementById('nearList');
   if (nCount) nCount.textContent = near.length;
   if (nList) {
     if (near.length) {
-      nList.innerHTML = near.map(function(x){ return x.name + ' ' + x.pct + '% · 距触发 ' + x.gap + '%'; }).join('<br>');
+      var npairs = [];
+      for (var i = 0; i < near.length; i += 2) {
+        var left = near[i].name + ' ' + near[i].pct + '%';
+        if (near[i].gap > 0) left += ' · 距触发 ' + near[i].gap + '%';
+        var right = '';
+        if (i + 1 < near.length) {
+          right = near[i+1].name + ' ' + near[i+1].pct + '%';
+          if (near[i+1].gap > 0) right += ' · 距触发 ' + near[i+1].gap + '%';
+        }
+        npairs.push('<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 8px;">' +
+          '<span>' + left + '</span>' +
+          '<span>' + right + '</span>' +
+          '</div>');
+      }
+      nList.innerHTML = npairs.join('');
     } else {
       nList.innerHTML = '暂无';
     }
