@@ -29,9 +29,9 @@ def _load_lhb_seats():
         return json.load(f)
 
 def _classify_seat(seat_name, seats_db):
-    """分类席位：返回 (类型, 别名或空字符串)
-    知名游资精确匹配 → 类型+别名（如 ('游资', '章盟主')）
-    模式匹配游资 → ('游资', '')
+    """分类席位：返回 (类型, 别名或模式名)
+    知名游资精确匹配 → ('游资', '章盟主')
+    模式匹配游资 → ('游资', '拉萨团结路')  // 具体模式名
     机构/北向/量化 → ('机构', '') 等
     未识别 → ('未识别', '')
     """
@@ -45,13 +45,13 @@ def _classify_seat(seat_name, seats_db):
     for s in seats_db.get("seats", []):
         if s["name"] == seat_name:
             return (s.get("type", "游资"), s.get("alias", ""))
-    # 模糊匹配模式 → 类型匹配但不带别名
+    # 4. 模糊匹配模式 → 返回模式名作为标签（如"拉萨团结路"、"宁波桑田路"）
     for p in seats_db.get("patterns", {}).get("游资", []):
         if p in seat_name:
-            return ('游资', '')
+            return ('游资', p)
     for p in seats_db.get("patterns", {}).get("量化", []):
         if p in seat_name:
-            return ('量化', '')
+            return ('量化', p)
     return ('未识别', '')
 
 def get_date_str(target_date=None):
