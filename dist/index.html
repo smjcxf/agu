@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620112957 -->
+<!-- build: 20260620122140 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -284,7 +284,7 @@ tr:hover td { background: #fafbfc; }
 
 /* 机游共振日历 */
 .lhb-cal-header { text-align:center; margin-bottom:12px; }
-.lhb-cal-title { font-size:18px; font-weight:700; color:#5e35b1; }
+.lhb-cal-title { font-size:20px; font-weight:700; color:#5e35b1; }
 .lhb-cal-sub { font-size:12px; color:#8d6e63; margin-bottom:4px; }
 .lhb-cal-stats { display:flex; gap:10px; justify-content:center; margin-bottom:12px; flex-wrap:wrap; }
 .lhb-stat-card { background:#fff; border-radius:10px; padding:14px 20px; text-align:center; min-width:100px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
@@ -901,6 +901,11 @@ tr:hover td { background: #fafbfc; }
         <h4 style="margin:0 0 10px;font-size:14px;color:#e91e63;border-left:4px solid #e91e63;padding-left:8px;">📋 总览页</h4>
 
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
+          <b>📅 重要日历</b>：月度日历视图，标注当日各类市场事件，以颜色标签区分类型。<br>
+          <b>标签体系</b>：<span style="background:#fff3e0;border:2px solid #e65100;padding:1px 6px;border-radius:3px;font-size:11px;">今天</span> / <span style="background:#fff3e0;padding:1px 6px;border-radius:3px;font-size:11px;color:#e65100;">重要政策</span> / <span style="background:#e3f2fd;padding:1px 6px;border-radius:3px;font-size:11px;color:#1565c0;">央行/LPR</span> / <span style="background:#fff8e1;padding:1px 6px;border-radius:3px;font-size:11px;color:#f57f17;">中国数据</span> / FOMC / 期权交割 / 期货交割 / A50交割 / 休市（港股/美股）/ 财报（美股/韩股/台股）/ <span style="background:#fce4ec;padding:1px 6px;border-radius:3px;font-size:11px;color:#c2185b;">苹果/华为 发布</span>。
+        </div>
+
+        <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
           <b>🌟 强烈关注推荐</b>：基于四大信号，分为 <b>短线信号</b>（四喜临门/三线共振/双线金钻突破）和 <b>中长线确认</b>（机构变红+上涨趋势）。<br>
           <b style="color:#c62828;">━ 短线信号（技术面爆破）━</b><br>
           <b>🏮 四喜临门</b>：缠论买字 + 金钻信号（起涨或黄柱）+ 机构变红 + 上涨趋势确认，四种信号同时出现。<br>
@@ -932,7 +937,7 @@ tr:hover td { background: #fafbfc; }
         </div>
 
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
-          <b>💰 板块资金流向汇总</b>：监测行业板块主力净流入，|净流入|≥5亿为"大幅流入/流出"。绿色=资金流入板块，红色=资金流出板块。
+          <b>💰 板块资金流向汇总</b>：监测行业板块主力净流入，|净流入|≥5亿为"大幅流入/流出"。红色=资金流入板块，绿色=资金流出板块。
         </div>
 
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
@@ -970,10 +975,14 @@ tr:hover td { background: #fafbfc; }
       <div style="margin-bottom:16px;">
         <h4 style="margin:0 0 10px;font-size:14px;color:#ff9800;border-left:4px solid #ff9800;padding-left:8px;">🔮 预判信号</h4>
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
-          <b>⚡ 一眼结论（顶栏总览）</b>：三色块浓缩三个维度（🐉机游共振蓝/🔥主力资金紫/🌏北向资金橙），机游共振显示板块分布（板块集中时标注板块名，分散时显示跨N板块）、主力显示抱团板块名、北向显示板块增持方向（板块级分析，不写个股）。下方"核心关注"预警条汇总机游共振/主力抱团（含接力方向加粗高亮）/北向动态/内外资分歧/谨慎方向，板块级汇总。<br>
+          <b>⚡ 一眼结论（顶栏总览）</b>：预判信号Tab顶部核心卡片，三色块浓缩三个维度（🐉机游共振蓝/🔥主力资金紫/🌏北向资金橙），一目了然当前市场信号强度。<br>
+          <b>🐉 机游共振</b>：板块分布（板块集中时标注板块名，分散时显示跨N板块）+ 纯共振数量 + 机构游资合计净买金额。<br>
+          <b>🔥 主力资金</b>：当前抱团板块TOP3 + 4类接力信号覆盖数 + 板块资金净流入/流出方向。<br>
+          <b>🌏 北向资金</b>：当日净流入/本周累计方向 + 板块增持集中度。<br>
+          <b>核心关注</b>：下方预警条汇总机游共振/主力抱团（含接力方向加粗高亮）/北向动态/内外资分歧/谨慎方向，板块级汇总。<br>
           <b>🐉 机游共振·龙虎榜（卡片1）</b>：三色块布局——左🏦机构净买入/中⚡机游共振/右🔥游资净买入，按金额降序排列，支持连续上榜标注（连X日）。盘中实时更新，非T+1。<br>
-          <b>🔥 主力资金抱团监控（卡片2）</b>：五大区块——①方向预判（当前抱团板块/4类接力方向：机构共识/事件驱动/蓄力中/分歧蓄力+谨慎方向+催化剂）→②板块资金实况（左当日/右本周，各流入流出TOP5双列并排）→③个股主力动向（当日净买入/净卖出TOP5及连续天数）。数据T+1盘后更新。<br>
-          <b>🌏 北向资金监控（卡片3）</b>：当日/本周净流入大数字→方向预判（趋势+增持减持集中度+主力共振）→板块流向（增持/减持TOP5）→个股流向（净买入TOP5/连续加仓）→策略参考（风格偏好/合力信号）。蓝色系独立配色，增持板块排在减持前面。
+          <b>🔥 主力资金抱团监控（卡片2）</b>：三大区块——①方向预判（当前抱团板块/4类接力方向：机构共识/事件驱动/蓄力中/分歧蓄力+谨慎方向+催化剂）→②板块资金实况（左当日/右本周，各流入流出TOP5双列并排）→③个股主力动向（当日净买入/净卖出TOP5及连续天数）。数据T+1盘后更新。<br>
+          <b>🌏 北向资金监控（卡片3）</b>：当日/本周净流入大数字→方向预判（趋势+增持减持集中度+主力共振）→板块流向（增持/减持TOP5）→个股流向（净买入TOP5/连续加仓）→策略参考（风格偏好/合力信号）。蓝+靛蓝+淡粉+淡绿独立配色，增持板块排在减持前面。
         </div>
 
         <!-- 机游共振显示规则 -->
@@ -982,8 +991,7 @@ tr:hover td { background: #fafbfc; }
           纯共振股票按申万行业分组，显示逻辑如下：<br>
           <b>· 板块集中</b>：某行业 ≥2只 或占纯共振总数 >50% → 显示 <code style="background:#e3f2fd;color:#1565c0;padding:1px 4px;border-radius:3px;">XX板块 X只</code><br>
           <b>· 板块分散</b>：各行业均 ≤1只 → 显示 <code style="background:#fce4ec;color:#c62828;padding:1px 4px;border-radius:3px;">跨N板块分散</code>（说明无行业共识，多点试探）<br>
-          <b>· 净买金额</b>：核心关注行始终显示净买合计金额（机构+游资，单位亿）<br>
-          <b>· 数据来源</b>：东方财富F10公司概况页 → 本地 stock_sector_cache.json 缓存
+          <b>· 净买金额</b>：核心关注行始终显示净买合计金额（机构+游资，单位亿）
         </div>
       </div>
 
@@ -1006,6 +1014,16 @@ tr:hover td { background: #fafbfc; }
         </div>
       </div>
 
+
+      <!-- 金股池构成 -->
+      <div style="margin-bottom:16px;">
+        <h4 style="margin:0 0 10px;font-size:14px;color:#1a56db;border-left:4px solid #1a56db;padding-left:8px;">📊 金股池构成</h4>
+        <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;">
+          <b>金股池来源</b>：由全量技术扫描 + 投行研报覆盖共同筛选。<br>
+          <b>三重分类</b>：<span style="color:#1a56db;">🔍 信号股</span>（三足鼎立信号触发，未覆盖研报）/ <span style="color:#0d7d4a;">📰 研报覆盖</span>（纯投行研报覆盖）/ <span style="color:#d97706;">⭐ 双重确认</span>（信号+研报同时满足，最高置信度）。<br>
+          <b>展示规则</b>：金股池中信号强度≥2的股票，按短线（四喜/三线/双线金钻）和中长线（机构变红+趋势）分栏展示，短线全量，中长线取Top30。
+        </div>
+      </div>
 
       <!-- 金股观测排序（基础分规则） -->
       <div style="margin-bottom:16px;">
@@ -180498,7 +180516,7 @@ function renderLhbPredict() {
     // 按净买入金额降序排列
     var sorted = stocks.slice().sort(function(a,b){ return netFn(b) - netFn(a); });
     b += '<div style="background:'+bg+';border-radius:10px;padding:12px;min-height:100px;">';
-    b += '<div style="font-size:11px;font-weight:600;color:'+color+';margin-bottom:6px;"><span style="font-size:16px;">'+emoji+'</span> '+title+' <b>'+sorted.length+'只</b></div>';
+    b += '<div style="font-size:13px;font-weight:700;color:'+color+';margin-bottom:6px;"><span style="font-size:18px;">'+emoji+'</span> '+title+' <b>'+sorted.length+'只</b></div>';
     if (sorted.length) {
       b += '<div style="display:flex;flex-direction:column;gap:3px;">';
       sorted.slice(0, maxShow).forEach(function(s){
@@ -180507,7 +180525,7 @@ function renderLhbPredict() {
         if (s.consecutive_days && s.consecutive_days >= 2) {
           dayTag = ' <span style="font-size:10px;color:#fff;background:'+color+';padding:0 4px;border-radius:3px;">连'+s.consecutive_days+'日</span>';
         }
-        b += '<div style="font-size:12px;color:#333;display:flex;justify-content:space-between;align-items:center;">';
+        b += '<div style="font-size:13px;color:#333;display:flex;justify-content:space-between;align-items:center;">';
         b += '<span>' + s.name + dayTag + '</span>';
         b += '<b style="color:'+color+';">' + formatNet(net) + '</b>';
         b += '</div>';
@@ -180538,7 +180556,7 @@ function renderLhbPredict() {
   // 底部辅助信息
   var others = stocks.filter(function(s){ return s.category !== '纯共振' && (s.inst_net_万||0) <= 1000 && (s.yz_net_万||0) <= 1000; });
   if (others.length) {
-    h += '<div style="font-size:11px;color:#999;text-align:center;">另有 ' + others.length + ' 只不达标（未达到0.1亿门槛），暂不展示</div>';
+    h += '<div style="font-size:12px;color:#999;text-align:center;">另有 ' + others.length + ' 只不达标（未达到0.1亿门槛），暂不展示</div>';
   }
 
   con.innerHTML = h;
