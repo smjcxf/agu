@@ -447,6 +447,7 @@ def main():
     main_stock   = load_json(os.path.join(DATA_DIR, "main_stock.json"), {"update_time": ""})
     main_week    = load_json(os.path.join(DATA_DIR, "main_week.json"), {"update_time": "", "buy_top5": [], "sell_top5": []})
     north_fund   = load_json(os.path.join(DATA_DIR, "north_fund.json"), {"update_time": ""})
+    suspension_alert = load_json(os.path.join(DATA_DIR, "suspension_alert.json"), {"update_time": "", "suspended": [], "near_trigger": []})
     mahoro_sig   = load_json(os.path.join(DATA_DIR, "mahoro_signals.json"), {"gold_pool_matches": []})
     fomc_summary = load_json(os.path.join(DATA_DIR, "fomc_summary.json"), {})
     # 构建投行覆盖映射: code -> stance
@@ -572,12 +573,13 @@ def main():
         ("MAIN_WEEK",      "window.MAIN_WEEK_DATA = ",  "{", "}"),
         ("NORTH_FUND",     "window.NORTH_FUND_DATA = ",  "{", "}"),
         ("MAHORO_COVERAGE", "var MAHORO_COVERAGE = window.MAHORO_COVERAGE = ","{", "}"),
+        ("SUSPENSION_ALERT", "window.SUSPENSION_ALERT = ",  "{", "}"),
         ("FOMC_SUMMARY",   "window.FOMC_SUMMARY = ",  "{", "}"),
     ]
     data_objs = [scan_data, watch_data, gold_pool, stock_list, recommend,
                  sh_fib, sz_fib, sector_flow, sh_sz_history, nt_data,
                  concept_ranking, market_alerts, margin_data, etf_subscription, macro_data,                  herding_data,
-                 lhb_data, main_stock, main_week, north_fund, mahoro_coverage, fomc_summary]
+                 lhb_data, main_stock, main_week, north_fund, suspension_alert, mahoro_coverage, fomc_summary]
     replacements = []
 
     for (name, marker, open_ch, close_ch), data in zip(markers, data_objs):

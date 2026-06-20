@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620122140 -->
+<!-- build: 20260620123617 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -585,7 +585,7 @@ tr:hover td { background: #fafbfc; }
 
     <!-- 强烈关注推荐 -->
     <div class="recommend-section" id="recommendSection">
-      <div class="recommend-title"><span class="icon">🌟</span> 强烈关注推荐 <span id="recUpdateTime" style="font-size:12px;font-weight:400;color:#888;margin-left:8px;"></span></div>
+      <div class="recommend-title"><span class="icon">🌟</span> 强烈关注 <span id="recUpdateTime" style="font-size:12px;font-weight:400;color:#888;margin-left:8px;"></span></div>
 
       <!-- 四喜临门 -->
       <div style="margin-bottom:14px;" id="sanzuContainer">
@@ -607,6 +607,25 @@ tr:hover td { background: #fafbfc; }
         <div class="rec-grid" id="sanxianGrid"></div>
       </div>
 
+    </div>
+
+    <!-- ⚠️ 异动停牌观测 -->
+    <div id="suspensionCard" style="display:none;background:#fff;border-radius:10px;padding:14px 16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="font-size:18px;">⚠️</span>
+        <span style="font-weight:700;font-size:14px;color:#333;">异动停牌观测</span>
+        <span id="suspensionTime" style="font-size:11px;color:#888;"></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:#ffebee;border-radius:8px;padding:10px;">
+          <div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:6px;">🔒 已停牌 <b id="suspCount">0</b>只</div>
+          <div id="suspList" style="font-size:11px;color:#555;line-height:1.6;">暂无</div>
+        </div>
+        <div style="background:#fff3e0;border-radius:8px;padding:10px;">
+          <div style="font-size:12px;font-weight:600;color:#e65100;margin-bottom:6px;">⚡ 近触发 <b id="nearCount">0</b>只</div>
+          <div id="nearList" style="font-size:11px;color:#555;line-height:1.6;">暂无</div>
+        </div>
+      </div>
     </div>
 
     <!-- 🧠 AI市场速览 -->
@@ -906,7 +925,7 @@ tr:hover td { background: #fafbfc; }
         </div>
 
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
-          <b>🌟 强烈关注推荐</b>：基于四大信号，分为 <b>短线信号</b>（四喜临门/三线共振/双线金钻突破）和 <b>中长线确认</b>（机构变红+上涨趋势）。<br>
+          <b>🌟 强烈关注</b>：基于四大信号，分为 <b>短线信号</b>（四喜临门/三线共振/双线金钻突破）和 <b>中长线确认</b>（机构变红+上涨趋势）。<br>
           <b style="color:#c62828;">━ 短线信号（技术面爆破）━</b><br>
           <b>🏮 四喜临门</b>：缠论买字 + 金钻信号（起涨或黄柱）+ 机构变红 + 上涨趋势确认，四种信号同时出现。<br>
           <b>⚡ 三线共振</b>：缠论买字 + 金钻起涨/黄柱 + 机构变红 + 上涨趋势，满足任意三个（信号强度≥3）。<br>
@@ -180197,6 +180216,29 @@ window.HERRING_DATA = {
 "buy_top5": [],
 "sell_top5": [],
 "available": false
+};window.SUSPENSION_ALERT = {
+"002008": "bullish",
+"00688": "neutral",
+"01109": "neutral",
+"603308": "bullish",
+"01888": "bullish",
+"600183": "bullish",
+"603256": "bullish",
+"02338": "bullish",
+"03306": "bullish",
+"01378": "bullish",
+"02600": "bullish",
+"300750": "bullish",
+"300274": "bullish",
+"605117": "bullish",
+"300308": "bullish",
+"300476": "bullish",
+"002371": "bullish",
+"688012": "bullish",
+"09888": "bullish",
+"01211": "bullish",
+"09988": "bullish",
+"00700": "bullish"
 };window.NORTH_FUND_DATA = {
 "update_time": "2026-06-14 22:50",
 "top_buy": [
@@ -180510,26 +180552,41 @@ function renderLhbPredict() {
     return '+' + yi.toFixed(2) + '亿';
   }
 
-  function renderBlock(stocks, netFn, title, bg, color, emoji) {
+  function renderBlock(stocks, netFn, title, bg, color, emoji, twoCol) {
     var b = '';
-    var maxShow = 8;
+    var maxShow = twoCol ? 16 : 8;
     // 按净买入金额降序排列
     var sorted = stocks.slice().sort(function(a,b){ return netFn(b) - netFn(a); });
     b += '<div style="background:'+bg+';border-radius:10px;padding:12px;min-height:100px;">';
-    b += '<div style="font-size:13px;font-weight:700;color:'+color+';margin-bottom:6px;"><span style="font-size:18px;">'+emoji+'</span> '+title+' <b>'+sorted.length+'只</b></div>';
+    b += '<div style="font-size:'+(twoCol?'12':'13')+'px;font-weight:700;color:'+color+';margin-bottom:6px;"><span style="font-size:'+(twoCol?'18':'18')+'px;">'+emoji+'</span> '+title+' <b>'+sorted.length+'只</b></div>';
     if (sorted.length) {
-      b += '<div style="display:flex;flex-direction:column;gap:3px;">';
-      sorted.slice(0, maxShow).forEach(function(s){
-        var net = netFn(s);
-        var dayTag = '';
-        if (s.consecutive_days && s.consecutive_days >= 2) {
-          dayTag = ' <span style="font-size:10px;color:#fff;background:'+color+';padding:0 4px;border-radius:3px;">连'+s.consecutive_days+'日</span>';
-        }
-        b += '<div style="font-size:13px;color:#333;display:flex;justify-content:space-between;align-items:center;">';
-        b += '<span>' + s.name + dayTag + '</span>';
-        b += '<b style="color:'+color+';">' + formatNet(net) + '</b>';
-        b += '</div>';
-      });
+      if (twoCol) {
+        b += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 8px;">';
+        sorted.slice(0, maxShow).forEach(function(s){
+          var net = netFn(s);
+          var dayTag = '';
+          if (s.consecutive_days && s.consecutive_days >= 2) {
+            dayTag = ' <span style="font-size:9px;color:#fff;background:'+color+';padding:0 3px;border-radius:2px;">连'+s.consecutive_days+'日</span>';
+          }
+          b += '<div style="font-size:11px;color:#333;display:flex;justify-content:space-between;align-items:center;padding:1px 0;">';
+          b += '<span>' + s.name + dayTag + '</span>';
+          b += '<b style="font-size:10px;color:'+color+';white-space:nowrap;">' + formatNet(net) + '</b>';
+          b += '</div>';
+        });
+      } else {
+        b += '<div style="display:flex;flex-direction:column;gap:3px;">';
+        sorted.slice(0, maxShow).forEach(function(s){
+          var net = netFn(s);
+          var dayTag = '';
+          if (s.consecutive_days && s.consecutive_days >= 2) {
+            dayTag = ' <span style="font-size:10px;color:#fff;background:'+color+';padding:0 4px;border-radius:3px;">连'+s.consecutive_days+'日</span>';
+          }
+          b += '<div style="font-size:13px;color:#333;display:flex;justify-content:space-between;align-items:center;">';
+          b += '<span>' + s.name + dayTag + '</span>';
+          b += '<b style="color:'+color+';">' + formatNet(net) + '</b>';
+          b += '</div>';
+        });
+      }
       if (sorted.length > maxShow) {
         b += '<div style="font-size:11px;color:#999;margin-top:2px;">...等' + sorted.length + '只</div>';
       }
@@ -180546,11 +180603,11 @@ function renderLhbPredict() {
   // 三色块
   h += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;">';
   // 左：机构净买入
-  h += renderBlock(instStocks, function(s){ return s.inst_net_万; }, '机构净买入', '#e3f2fd', '#1565c0', '🏦');
+  h += renderBlock(instStocks, function(s){ return s.inst_net_万; }, '机构净买入', '#e3f2fd', '#1565c0', '🏦', true);
   // 中：机游共振
   h += renderBlock(resonance, function(s){ return (s.inst_net_万||0) + (s.yz_net_万||0); }, '机游共振', '#fff8e1', '#f57f17', '⚡');
   // 右：游资净买入
-  h += renderBlock(yzStocks, function(s){ return s.yz_net_万; }, '游资净买入', '#fce4ec', '#c62828', '🔥');
+  h += renderBlock(yzStocks, function(s){ return s.yz_net_万; }, '游资净买入', '#fce4ec', '#c62828', '🔥', true);
   h += '</div>';
 
   // 底部辅助信息
@@ -180731,6 +180788,52 @@ function renderNorthFund() {
   con.innerHTML = h;
 }
 
+// ===== 异动停牌观测 =====
+function renderSuspensionAlert() {
+  var card = document.getElementById('suspensionCard');
+  if (!card) return;
+  var sa = window.SUSPENSION_ALERT || {};
+  var suspended = sa.suspended || [];
+  var near = sa.near_trigger || [];
+
+  if (!suspended.length && !near.length) {
+    card.style.display = 'none';
+    return;
+  }
+  card.style.display = 'block';
+
+  // 时间
+  var timeEl = document.getElementById('suspensionTime');
+  if (timeEl && sa.update_time) {
+    var ft = fmtDataTime(sa.update_time);
+    timeEl.textContent = '更新于 ' + ft.text;
+  }
+
+  // 停牌列表
+  var sCount = document.getElementById('suspCount');
+  var sList = document.getElementById('suspList');
+  if (sCount) sCount.textContent = suspended.length;
+  if (sList) {
+    if (suspended.length) {
+      sList.innerHTML = suspended.map(function(x){ return x.name + ' (' + x.days + '天)'; }).join('<br>');
+    } else {
+      sList.innerHTML = '暂无';
+    }
+  }
+
+  // 近触发
+  var nCount = document.getElementById('nearCount');
+  var nList = document.getElementById('nearList');
+  if (nCount) nCount.textContent = near.length;
+  if (nList) {
+    if (near.length) {
+      nList.innerHTML = near.map(function(x){ return x.name + ' ' + x.pct + '% · 距触发' + x.gap + '%'; }).join('<br>');
+    } else {
+      nList.innerHTML = '暂无';
+    }
+  }
+}
+
 // ===== 预判总览 =====
 function renderPredictSummary() {
   var con = document.getElementById('summaryContent');
@@ -180901,6 +181004,7 @@ renderPredictSummary();
 if (HERRING_DATA && HERRING_DATA.update_time) renderHerdingMain();
 if (window.LHB_DATA && window.LHB_DATA.stocks) renderLhbPredict();
 if (window.NORTH_FUND_DATA && window.NORTH_FUND_DATA.update_time) renderNorthFund();
+renderSuspensionAlert();
 </script>
 
 
