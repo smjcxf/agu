@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620185933 -->
+<!-- build: 20260620191000 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -96,10 +96,10 @@ tr:hover td { background: #fafbfc; }
 .resonance-tag.double { background: #ffd54f; color: #795548; }
 .resonance-tag.single { background: #e0e0e0; color: #666; }
 
-/* 来源标签 */
-.source-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; margin-left: 4px; }
-.source-tag.sanzu { background: #e8f0fe; color: #1a56db; }
-.source-tag.guanlan { background: #e6f7f0; color: #0d7d4a; }
+/* 标签 */
+.signal-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; margin-left: 4px; }
+.signal-tag.sanzu { background: #e8f0fe; color: #1a56db; }
+.signal-tag.report { background: #e6f7f0; color: #0d7d4a; }
 
 /* 板块标签 */
 .board-tag { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 13px; font-weight: 700; }
@@ -199,8 +199,8 @@ tr:hover td { background: #fafbfc; }
 /* 底部 */
 .footer { text-align: center; padding: 16px; font-size: 11px; color: #aaa; margin-top: 16px; border-top: 1px solid #eee; }
 /* 买卖点标签：金股观测表内 */
-.tag-buy { display:inline-block;background:#f3e5f5;color:#2e7d32;font-size:11px;font-weight:600;padding:2px 6px;border-radius:4px; }
-.tag-sell { display:inline-block;background:#ffebee;color:#c62828;font-size:11px;font-weight:600;padding:2px 6px;border-radius:4px; }
+.tag-buy { display:inline-block;background:#ffebee;color:#c62828;font-size:11px;font-weight:600;padding:2px 6px;border-radius:4px; }
+.tag-sell { display:inline-block;background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:2px 6px;border-radius:4px; }
 .tag-warn { display:inline-block;background:#fff3e0;color:#e65100;font-size:11px;font-weight:600;padding:2px 6px;border-radius:4px; }
 .tag-neutral { display:inline-block;background:#f5f5f5;color:#616161;font-size:11px;font-weight:600;padding:2px 6px;border-radius:4px; }
 /* 强烈关注推荐 */
@@ -1071,7 +1071,7 @@ tr:hover td { background: #fafbfc; }
       <div style="margin-bottom:16px;">
         <h4 style="margin:0 0 10px;font-size:14px;color:#1a56db;border-left:4px solid #1a56db;padding-left:8px;">📊 金股池构成</h4>
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;">
-          <b>金股池来源</b>：由全量技术扫描 + 投行研报覆盖共同筛选。<br>
+          <b>金股池筛选</b>：由全量技术扫描 + 投行研报覆盖共同筛选。<br>
           <b>三重分类</b>：<span style="color:#1a56db;">🔍 信号股</span>（三足鼎立信号触发，未覆盖研报）/ <span style="color:#0d7d4a;">📰 研报覆盖</span>（纯投行研报覆盖）/ <span style="color:#d97706;">⭐ 双重确认</span>（信号+研报同时满足，最高置信度）。<br>
           <b>展示规则</b>：金股池中信号强度≥2的股票，按短线（四喜/三线/双线金钻）和中长线（机构变红+趋势）分栏展示，短线全量，中长线取Top30。
         </div>
@@ -1178,12 +1178,12 @@ tr:hover td { background: #fafbfc; }
           <!-- 研报覆盖 -->
           <div style="padding:10px 12px;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
             <div style="font-weight:700;color:#6a1b9a;margin-bottom:4px;">📄 研报覆盖</div>
-            <div style="color:#555;">金股池额外来源标签 + 国际投行立场（<b style="color:#c62828;">看多</b>/看空/中性）。去重展示，不重复已出现在金股池/顶级研报中的内容</div>
+            <div style="color:#555;">金股池额外标签 + 国际投行立场（<b style="color:#c62828;">看多</b>/看空/中性）。去重展示，不重复已出现在金股池/顶级研报中的内容</div>
           </div>
           <!-- 主力资金 -->
           <div style="padding:10px 12px;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
             <div style="font-weight:700;color:#b71c1c;margin-bottom:4px;">💰 主力资金监控</div>
-            <div style="color:#555;">净流入/流出方向 + <b>连续X日</b>统计 + 金额。红底=连续净流入（天数越深颜色越重），绿底=连续净流出。数据来源：主力资金个股排行TOP榜</div>
+            <div style="color:#555;">净流入/流出方向 + <b>连续X日</b>统计 + 金额。红底=连续净流入（天数越深颜色越重），绿底=连续净流出</div>
           </div>
         </div>
       </div>
@@ -150262,7 +150262,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-20 18:58:47",
+"update_time": "2026-06-20 19:09:06",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
@@ -179167,10 +179167,10 @@ function openTag(s) {
   let bg = '#f0f0f0', color = '#666', title = '', dir = '';
   if (label.includes('🔥')) { bg = '#fff0f0'; color = '#d32f2f'; title = '🔵 买点：高开高走，延续强势，可关注买入时机'; dir = '🔵'; }
   else if (label.includes('⚡')) { bg = '#fff3e0'; color = '#e65100'; title = '🔵 买点：低开高走，强势反转，关注买入'; dir = '🔵'; }
-  else if (label.includes('📈')) { bg = '#f3e5f5'; color = '#2e7d32'; title = '🔵 买点：高开待确认，若高走可追买'; dir = '🔵'; }
-  else if (label.includes('📉低开低走')) { bg = '#fce4ec'; color = '#c62828'; title = '🔴 卖点：低开低走，延续弱势，回避'; dir = '🔴'; }
+  else if (label.includes('📈')) { bg = '#ffebee'; color = '#c62828'; title = '🔵 买点：高开待确认，若高走可追买'; dir = '🔵'; }
+  else if (label.includes('📉低开低走')) { bg = '#e8f5e9'; color = '#2e7d32'; title = '🔴 卖点：低开低走，延续弱势，回避'; dir = '🔴'; }
   else if (label.includes('⚠️')) { bg = '#fff8e1'; color = '#f57f17'; title = '🔴 卖点：高开低走，见顶信号，警惕卖出'; dir = '🔴'; }
-  else if (label.includes('📉')) { bg = '#fce4ec'; color = '#c62828'; title = '⚪ 观望：低开待确认，若低走回避'; dir = '⚪'; }
+  else if (label.includes('📉')) { bg = '#f5f5f5'; color = '#888'; title = '⚪ 观望：低开待确认，若低走回避'; dir = '⚪'; }
   else if (label.includes('🦵')) {
     bg = '#f3e5f5'; color = '#7b1fa2';
     if (label.includes('收阳')) { title = '🔵 买点：长下影收阳，支撑强，关注买入'; dir = '🔵'; }
@@ -179183,8 +179183,8 @@ function openTag(s) {
 function sourceTags(sources) {
   if (!sources || !sources.length) return '';
   return sources.map(s => {
-    if (s === '投行研报') return '<span class="source-tag guanlan">投行最新研报</span>';
-    return '<span class="source-tag sanzu">鼎立</span>';
+    if (s === '投行研报') return '<span class="signal-tag report">投行最新研报</span>';
+    return '<span class="signal-tag sanzu">鼎立</span>';
   }).join('');
 }
 
@@ -180145,7 +180145,7 @@ function buildTableHTML(stocks, showResonance) {
   html += '<th>代码</th><th>名称</th><th>板块</th>';
   html += '<th>收盘价</th><th>涨跌幅</th><th>成交额</th>';
   html += '<th>缠论</th><th>金钻黄柱</th><th>金钻起涨</th><th>机构</th><th>上涨趋势</th>';
-  html += '<th>资金</th><th>来源</th>';
+  html += '<th>资金</th><th>标记</th>';
   if (showResonance) html += '<th>信号</th>';
   html += '</tr></thead><tbody>';
 
@@ -180329,7 +180329,7 @@ function renderGoldPool(gp, activeData) {
       score += Math.min(consecutive * 2, 8);
     }
 
-    // 国际投行覆盖加分
+    // 国际投行覆盖加分（研报数据）
     if (typeof MAHORO_COVERAGE !== 'undefined' && MAHORO_COVERAGE) {
       const stance = MAHORO_COVERAGE[c.code];
       if (stance === 'bullish') score += 3;
@@ -181130,19 +181130,19 @@ function buildQueryExtras(queryCode, queryName) {
     ]);
   }
 
-  // 3. 研报覆盖（MAHORO 国际投行 + 金股池特有来源，避免重复）
+  // 3. 研报覆盖（国际投行 + 金股池特有标记，避免重复）
   var reportItems = [];
-  // 3a. 金股池中不在信号条已显示的额外来源
+  // 3a. 金股池中不在信号条已显示的额外标记
   if (codeKey) {
     var entrySources = entry.sources || [];
     // 跳过已在 srcTag 中展示的 "三足鼎立"/"投行研报"
     for (var si=0; si<entrySources.length; si++) {
       var x = entrySources[si];
       if (x==='投行研报' || x==='三足鼎立' || x==='watch') continue;
-      reportItems.push('<span class="source-tag sanzu">'+x+'</span>');
+      reportItems.push('<span class="signal-tag sanzu">'+x+'</span>');
     }
   }
-  // 3b. MAHORO 国际投行覆盖
+  // 3b. 国际投行覆盖
   if (typeof MAHORO_DETAIL !== 'undefined' && MAHORO_DETAIL) {
     var md = MAHORO_DETAIL[rawCode] || MAHORO_DETAIL[queryCode] || '';
     if (!md) {
@@ -181154,7 +181154,7 @@ function buildQueryExtras(queryCode, queryName) {
       var s = md.stance || '';
       var sc = s === 'bullish' ? '#c62828' : s === 'bearish' ? '#2e7d32' : s === 'neutral' ? '#f57c00' : '#888';
       var sl = s === 'bullish' ? '看多' : s === 'bearish' ? '看空' : s === 'neutral' ? '中性' : s === 'mixed' ? '混合' : s;
-      reportItems.push('<span class="source-tag" style="background:#fff8e1;color:#e65100;border:1px solid #ff8f00;font-weight:600;">🏦 '+md.bank+' <span style="color:'+sc+';">'+sl+'</span></span>');
+      reportItems.push('<span style="display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:600;margin-left:4px;background:#fff8e1;color:#e65100;border:1px solid #ff8f00;font-weight:600;">🏦 '+md.bank+' <span style="color:'+sc+';">'+sl+'</span></span>');
     }
   }
   if (reportItems.length) {
@@ -181477,7 +181477,7 @@ function calcQueryScoreIdx(s, patterns) {
 }
 
 async function fetchQueryKline(code) {
-  // 腾讯K线API (支持CORS) - 获取m5数据后聚合为日K
+  // K线API (支持CORS) - 获取m5数据后聚合为日K
   try {
     const url = `https://ifzq.gtimg.cn/appstock/app/kline/mkline?param=${code},m5,,60`;
     const resp = await fetch(url);
@@ -181508,7 +181508,7 @@ async function fetchQueryKline(code) {
         if (days.length >= 3) return days;
       }
     }
-  } catch(e) { console.log('腾讯K线失败:', e.message); }
+  } catch(e) { console.log('K线获取失败:', e.message); }
   return null;
 }
 
