@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620104341 -->
+<!-- build: 20260620110429 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -566,6 +566,7 @@ tr:hover td { background: #fafbfc; }
       <div id="calendarGrid"></div>
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;font-size:12px;">
         <span style="padding:2px 8px;border-radius:4px;background:#fff3e0;color:#e65100;border:2px solid #e65100">今天</span>
+        <span style="padding:2px 8px;border-radius:4px;background:#fff3e0;color:#e65100">重要政策</span>
         <span style="padding:2px 8px;border-radius:4px;background:#e3f2fd;color:#1565c0">央行/LPR</span>
         <span style="padding:2px 8px;border-radius:4px;background:#fff8e1;color:#f57f17">中国数据</span>
         <span style="padding:2px 8px;border-radius:4px;background:#e8eaf6;color:#283593">财报截止</span>
@@ -579,7 +580,6 @@ tr:hover td { background: #fafbfc; }
         <span style="padding:2px 8px;border-radius:4px;background:#e8eaf6;color:#283593">美股财报</span>
         <span style="padding:2px 8px;border-radius:4px;background:#f3e5f5;color:#6a1b9a">韩股财报</span>
         <span style="padding:2px 8px;border-radius:4px;background:#e0f7fa;color:#006064">台股财报</span>
-        <span style="padding:2px 8px;border-radius:4px;background:#fff3e0;color:#e65100">政策</span>
       </div>
     </div>
 
@@ -957,6 +957,16 @@ tr:hover td { background: #fafbfc; }
           <b>🐉 机游共振·龙虎榜（卡片1）</b>：三色块布局——左🏦机构净买入/中⚡机游共振/右🔥游资净买入，按金额降序排列，支持连续上榜标注（连X日）。盘中实时更新，非T+1。<br>
           <b>🔥 主力资金抱团监控（卡片2）</b>：五大区块——①方向预判（当前抱团板块/4类接力方向：机构共识/事件驱动/蓄力中/分歧蓄力+谨慎方向+催化剂）→②板块资金实况（当日净流入/流出TOP5）→③个股主力动向（当日净买入/净卖出TOP5及连续天数）。数据T+1盘后更新。<br>
           <b>🌏 北向资金监控（卡片3）</b>：当日/本周净流入大数字→方向预判（趋势+增持减持集中度+主力共振）→板块流向（增持/减持TOP5）→个股流向（净买入TOP5/连续加仓）→策略参考（风格偏好/合力信号）。蓝色系独立配色，增持板块排在减持前面。
+        </div>
+
+        <!-- 机游共振显示规则 -->
+        <div style="padding:10px 14px;background:#fef9e7;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;border-left:3px solid #f57f17;">
+          <b>🐉 机游共振·板块显示规则</b><br>
+          纯共振股票按申万行业分组，显示逻辑如下：<br>
+          <b>· 板块集中</b>：某行业 ≥2只 或占纯共振总数 >50% → 显示 <code style="background:#e3f2fd;color:#1565c0;padding:1px 4px;border-radius:3px;">XX板块 X只</code><br>
+          <b>· 板块分散</b>：各行业均 ≤1只 → 显示 <code style="background:#fce4ec;color:#c62828;padding:1px 4px;border-radius:3px;">跨N板块分散</code>（说明无行业共识，多点试探）<br>
+          <b>· 净买金额</b>：核心关注行始终显示净买合计金额（机构+游资，单位亿）<br>
+          <b>· 数据来源</b>：东方财富F10公司概况页 → 本地 stock_sector_cache.json 缓存
         </div>
       </div>
 
@@ -180168,6 +180178,13 @@ window.HERRING_DATA = {
 "day_count": 14
 }
 ]
+};window.MAIN_WEEK_DATA = {
+"update_time": "2026-06-20 11:02:58",
+"source": "东方财富-行业资金流-5日",
+"type": "week",
+"buy_top5": [],
+"sell_top5": [],
+"available": false
 };window.NORTH_FUND_DATA = {
 "update_time": "2026-06-14 22:50",
 "top_buy": [
@@ -180394,6 +180411,37 @@ function renderHerdingMain() {
   } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
   h += '</div></div>';
 
+  // ═══ 区块2.5：本周板块累计 ═══
+  var mw = window.MAIN_WEEK_DATA || {};
+  if (mw.available && (mw.buy_top5 && mw.buy_top5.length || mw.sell_top5 && mw.sell_top5.length)) {
+    h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;margin:10px 0 8px 0;padding-bottom:4px;border-bottom:1px solid #e0e0e0;">本周板块累计</div>';
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">';
+    // 本周流入
+    h += '<div style="background:#fff5f5;border-radius:8px;padding:10px;">';
+    h += '<div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:6px;">净流入 TOP5</div>';
+    if (mw.buy_top5 && mw.buy_top5.length) {
+      h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
+      mw.buy_top5.forEach(function(x,i){
+        var pctStr = x.pct ? ' <span style="color:#999;font-size:10px;">'+ (x.pct>0?'+':'') +x.pct+'%</span>' : '';
+        h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+pctStr+'</td><td style="text-align:right;padding:2px 0;color:#c62828;font-weight:600;">+'+x.net+x.unit+'</td></tr>';
+      });
+      h += '</table>';
+    } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
+    h += '</div>';
+    // 本周流出
+    h += '<div style="background:#f5fff5;border-radius:8px;padding:10px;">';
+    h += '<div style="font-size:12px;font-weight:600;color:#2e7d32;margin-bottom:6px;">净流出 TOP5</div>';
+    if (mw.sell_top5 && mw.sell_top5.length) {
+      h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
+      mw.sell_top5.forEach(function(x,i){
+        var pctStr = x.pct ? ' <span style="color:#999;font-size:10px;">'+ (x.pct>0?'+':'') +x.pct+'%</span>' : '';
+        h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+pctStr+'</td><td style="text-align:right;padding:2px 0;color:#2e7d32;font-weight:600;">'+x.net+x.unit+'</td></tr>';
+      });
+      h += '</table>';
+    } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
+    h += '</div></div>';
+  }
+
   // ═══ 区块三：个股主力动向 ═══
   h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;margin:0 0 8px 0;padding-bottom:4px;border-bottom:1px solid #e0e0e0;">个股主力动向（当日）</div>';
   h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';
@@ -180451,7 +180499,7 @@ function renderLhbPredict() {
     // 按净买入金额降序排列
     var sorted = stocks.slice().sort(function(a,b){ return netFn(b) - netFn(a); });
     b += '<div style="background:'+bg+';border-radius:10px;padding:12px;min-height:100px;">';
-    b += '<div style="font-size:11px;font-weight:600;color:'+color+';margin-bottom:6px;">'+emoji+' '+title+' <b>'+sorted.length+'只</b></div>';
+    b += '<div style="font-size:12px;font-weight:700;color:'+color+';margin-bottom:6px;"><span style="font-size:16px;">'+emoji+'</span> '+title+' <b>'+sorted.length+'只</b></div>';
     if (sorted.length) {
       b += '<div style="display:flex;flex-direction:column;gap:3px;">';
       sorted.slice(0, maxShow).forEach(function(s){
@@ -180528,8 +180576,8 @@ function renderNorthFund() {
   h += '<div style="font-size:24px;font-weight:700;color:'+nfColor+';">'+nfDir+(nf.total||0)+'<span style="font-size:13px;font-weight:400;">亿</span></div>';
   h += '</div>';
   var wfDir = wf.direction === '流出' ? '-' : '+';
-  var wfColor = wf.direction === '流出' ? '#546e7a' : '#1565c0';
-  h += '<div style="background:'+(wf.direction==='流出'?'#eceff1':'#e3f2fd')+';border-radius:8px;padding:12px;text-align:center;">';
+  var wfColor = wf.direction === '流出' ? '#546e7a' : '#283593';
+  h += '<div style="background:'+(wf.direction==='流出'?'#eceff1':'#e8eaf6')+';border-radius:8px;padding:12px;text-align:center;">';
   h += '<div style="font-size:12px;color:#888;margin-bottom:4px;">本周累计'+(wf.date_range?'（'+wf.date_range+'）':'')+'</div>';
   h += '<div style="font-size:24px;font-weight:700;color:'+wfColor+';">'+wfDir+(wf.total||'--')+'<span style="font-size:13px;font-weight:400;">亿</span></div>';
   if (wf.days) h += '<div style="font-size:11px;color:#999;margin-top:2px;">日均 '+(wf.avg_daily||'--')+'亿 · '+wf.days+'个交易日</div>';
@@ -180581,12 +180629,12 @@ function renderNorthFund() {
     h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e8e8e8;">板块流向</div>';
     h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">';
     // 增持
-    h += '<div style="background:#e3f2fd;border-radius:8px;padding:10px;">';
-    h += '<div style="font-size:12px;font-weight:600;color:#1565c0;margin-bottom:6px;">增持板块 TOP5</div>';
+    h += '<div style="background:#fff5f5;border-radius:8px;padding:10px;">';
+    h += '<div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:6px;">增持板块 TOP5</div>';
     if (sf.buy_top5 && sf.buy_top5.length) {
       h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
       sf.buy_top5.forEach(function(x,i){
-        h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:2px 0;color:#1565c0;font-weight:600;">+'+x.net+x.unit+'</td></tr>';
+        h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:2px 0;color:#c62828;font-weight:600;">+'+x.net+x.unit+'</td></tr>';
       });
       h += '</table>';
     } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
@@ -180608,12 +180656,12 @@ function renderNorthFund() {
   h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e8e8e8;">个股流向</div>';
   h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';
   // 当日净买
-  h += '<div style="background:#e3f2fd;border-radius:8px;padding:10px;">';
-  h += '<div style="font-size:12px;font-weight:600;color:#1565c0;margin-bottom:6px;">当日净买入 TOP5</div>';
+  h += '<div style="background:#fff5f5;border-radius:8px;padding:10px;">';
+  h += '<div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:6px;">当日净买入 TOP5</div>';
   if (d.top_buy && d.top_buy.length) {
     h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
     d.top_buy.slice(0,5).forEach(function(x,i){
-      h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:2px 0;color:#1565c0;font-weight:600;">+'+x.net_buy+x.unit+'</td></tr>';
+      h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:2px 0;color:#c62828;font-weight:600;">+'+x.net_buy+x.unit+'</td></tr>';
     });
     h += '</table>';
   } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
@@ -180704,7 +180752,7 @@ function renderPredictSummary() {
       if (topCnt >= pureLhb.length * 0.5 || topCnt >= 2) {
         lhbSub = topSec + ' ' + topCnt + '只';
       } else {
-        lhbSub = '跨' + lhb.pure_sector_count + '板块分散';
+        lhbSub = '跨' + lhb.pure_sector_count + '板块分散 · 无明确主线';
       }
     } else {
       var lhbSum = 0;
@@ -180715,7 +180763,7 @@ function renderPredictSummary() {
     lhbSub = lhb.stocks.length+'只上榜';
   }
   h += '<div style="background:#e3f2fd;border-radius:8px;padding:10px;text-align:center;">';
-  h += '<div style="font-size:11px;font-weight:600;color:#1565c0;margin-bottom:4px;">🐉 机游共振</div>';
+  h += '<div style="font-size:12px;font-weight:700;color:#1565c0;margin-bottom:4px;">🐉 机游共振</div>';
   h += '<div style="font-size:14px;font-weight:500;color:#1565c0;">'+lhbTitle+'</div>';
   if (lhbSub) h += '<div style="font-size:11px;color:#555;margin-top:2px;">'+lhbSub+'</div>';
   h += '</div>';
@@ -180731,7 +180779,7 @@ function renderPredictSummary() {
     mainSub = ms.top_main_in[0].name + ' +' + ms.top_main_in[0].net_in + ms.top_main_in[0].unit;
   }
   h += '<div style="background:#f3e5f5;border-radius:8px;padding:10px;text-align:center;">';
-  h += '<div style="font-size:11px;font-weight:600;color:#6a1b9a;margin-bottom:4px;">🔥 主力资金</div>';
+  h += '<div style="font-size:12px;font-weight:700;color:#6a1b9a;margin-bottom:4px;">🔥 主力资金</div>';
   h += '<div style="font-size:14px;font-weight:500;color:#6a1b9a;">'+mainTitle+'</div>';
   if (mainSub) h += '<div style="font-size:11px;color:#555;margin-top:2px;">'+mainSub+'</div>';
   h += '</div>';
@@ -180749,7 +180797,7 @@ function renderPredictSummary() {
     }
   }
   h += '<div style="background:#fff3e0;border-radius:8px;padding:10px;text-align:center;">';
-  h += '<div style="font-size:11px;font-weight:600;color:#e65100;margin-bottom:4px;">🌏 北向资金</div>';
+  h += '<div style="font-size:12px;font-weight:700;color:#e65100;margin-bottom:4px;">🌏 北向资金</div>';
   h += '<div style="font-size:14px;font-weight:500;color:#e65100;">'+nfTitle+'</div>';
   if (nfSub) h += '<div style="font-size:11px;color:#555;margin-top:2px;">'+nfSub+'</div>';
   h += '</div>';
