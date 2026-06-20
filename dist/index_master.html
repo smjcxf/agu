@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260620230727 -->
+<!-- build: 20260620231008 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -150363,7 +150363,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-20 23:06:57",
+"update_time": "2026-06-20 23:09:39",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
@@ -178140,12 +178140,15 @@ function getNextUpdateTime() {
   // 非交易日（周末+假期）：仅 19:30 一次更新
   if (isNonTradingDay(now)) {
     if (nowMin < 19*60+30) return '今日 19:30';
+    // 已过19:30，找下一个有更新的日期（周末/假期→19:30，交易日→09:20）
     var next = new Date(now);
     for (var i = 0; i < 14; i++) {
       next.setDate(next.getDate() + 1);
-      if (!isNonTradingDay(next)) {
-        return (next.getDay() === 1 ? '下周一' : '下周' + weekdays[next.getDay()]) + ' 09:20';
-      }
+      var ndow = next.getDay();
+      if (ndow === 6) return '周六 19:30';
+      if (ndow === 0) return '周日 19:30';
+      if (isNonTradingDay(next)) return '次日 19:30';
+      return (ndow === 1 ? '下周一' : '下周' + weekdays[ndow]) + ' 09:20';
     }
     return '--';
   }
