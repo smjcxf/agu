@@ -402,6 +402,74 @@ def fetch_macro_data():
             'date': str(dxy_last['date'])[:10],
         }
 
+    # ========== 3d. 大宗商品观测 ==========
+    print("\n=== 大宗商品观测 ===")
+    commodities = result['global_macro']['commodities'] = {}
+
+    # 黄金 (COMEX GC)
+    print("  黄金...")
+    df_gc = safe_call(lambda: ak.futures_foreign_hist(symbol='GC'), "GC黄金")
+    if df_gc is not None and len(df_gc) > 0:
+        gc_last = df_gc.tail(1).iloc[0]
+        commodities['gold'] = {
+            'value': round(float(gc_last['close']), 2),
+            'unit': '美元/盎司',
+            'date': str(gc_last['date'])[:10],
+        }
+
+    # 白银 (COMEX SI)
+    print("  白银...")
+    df_si = safe_call(lambda: ak.futures_foreign_hist(symbol='SI'), "SI白银")
+    if df_si is not None and len(df_si) > 0:
+        si_last = df_si.tail(1).iloc[0]
+        commodities['silver'] = {
+            'value': round(float(si_last['close']), 2),
+            'unit': '美元/盎司',
+            'date': str(si_last['date'])[:10],
+        }
+
+    # 铜 (COMEX HG, akshare返回美分/磅，需除以100)
+    print("  铜...")
+    df_hg = safe_call(lambda: ak.futures_foreign_hist(symbol='HG'), "HG铜")
+    if df_hg is not None and len(df_hg) > 0:
+        hg_last = df_hg.tail(1).iloc[0]
+        commodities['copper'] = {
+            'value': round(float(hg_last['close']) / 100, 4),
+            'unit': '美元/磅',
+            'date': str(hg_last['date'])[:10],
+        }
+
+    # 原油 (NYMEX CL)
+    print("  原油...")
+    df_cl = safe_call(lambda: ak.futures_foreign_hist(symbol='CL'), "CL原油")
+    if df_cl is not None and len(df_cl) > 0:
+        cl_last = df_cl.tail(1).iloc[0]
+        commodities['oil'] = {
+            'value': round(float(cl_last['close']), 2),
+            'unit': '美元/桶',
+            'date': str(cl_last['date'])[:10],
+        }
+
+    # 比特币 (CoinGecko 免费API)
+    print("  比特币...")
+    try:
+        import urllib.request as _req2
+        cg_url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true'
+        cg_req = _req2.Request(cg_url, headers={'User-Agent': 'Mozilla/5.0'})
+        cg_resp = _req2.urlopen(cg_req, timeout=15)
+        cg_data = json.loads(cg_resp.read().decode('utf-8'))
+        if 'bitcoin' in cg_data:
+            btc = cg_data['bitcoin']
+            commodities['bitcoin'] = {
+                'value': btc.get('usd'),
+                'unit': '美元/BTC',
+                'change_24h': btc.get('usd_24h_change'),
+                'date': datetime.now().strftime('%Y-%m-%d'),
+            }
+            print(f"    BTC: ${btc.get('usd'):,.0f} (24h: {btc.get('usd_24h_change'):.1f}%)")
+    except Exception as e_btc:
+        print(f"  [WARN] CoinGecko API获取失败: {e_btc}")
+
     return result
 
 
