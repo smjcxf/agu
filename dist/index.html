@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260621150515 -->
+<!-- build: 20260621154030 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -832,11 +832,8 @@ tr:hover td { background: #fafbfc; }
         <div style="padding:14px 18px;font-size:13px;line-height:1.8;background:#fafbfc;" id="herdingMainContent"></div>
       </div>
 
-      <!-- 卡片3: 北向资金监控 -->
-      <div class="predict-card" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-        <div style="background:linear-gradient(135deg,#dce6f8,#e0eaf5);color:#2a4986;padding:10px 18px;font-size:15px;font-weight:700;text-align:center;">🌏 北向资金监控<span style="font-size:10px;font-weight:400;color:#888;margin-left:4px;">（T+1）</span> <span style="font-size:11px;font-weight:400;" id="northFundTime" class="card-time"></span></div>
-        <div style="padding:14px 18px;font-size:13px;line-height:1.8;background:#fafbfc;" id="northFundContent"></div>
-      </div>
+      <!-- 卡片3: 北向资金监控 — 数据源已停更，暂时下架 -->
+      <div class="predict-card" id="northFundCard" style="display:none;"></div>
 
     </div>
     <div id="signalWinRate"></div>
@@ -183811,7 +183808,8 @@ function renderPredictSummary() {
 renderPredictSummary();
 if (HERRING_DATA && HERRING_DATA.update_time) renderHerdingMain();
 if (window.LHB_DATA && window.LHB_DATA.stocks) renderLhbPredict();
-if (window.NORTH_FUND_DATA && window.NORTH_FUND_DATA.update_time) renderNorthFund();
+// 北向资金数据源已停更，暂时下架
+// if (window.NORTH_FUND_DATA && window.NORTH_FUND_DATA.update_time) renderNorthFund();
 renderSuspensionAlert();
 </script>
 
