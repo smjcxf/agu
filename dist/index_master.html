@@ -178468,6 +178468,7 @@ function getStaleNote(ft, source) {
     summary:  '',
     sector:   '',
     etf:      '',
+    etf_sub:  '盘后更新',
     concept:  '',
     macro:    '盘后更新',
     gold:     '',
@@ -179277,7 +179278,7 @@ function renderShMonitor() {
   setChartTime('amountUpdateTime', SH_SZ_HISTORY && SH_SZ_HISTORY.update_time, 'macro');
   setChartTime('upDownUpdateTime', SH_SZ_HISTORY && SH_SZ_HISTORY.update_time, 'macro');
   setChartTime('marginUpdateTime', MARGIN_DATA && MARGIN_DATA.update_time, 'main');
-  setChartTime('etfUpdateTime', ETF_SUBSCRIPTION && ETF_SUBSCRIPTION.update_time, 'etf');
+  setChartTime('etfUpdateTime', ETF_SUBSCRIPTION && ETF_SUBSCRIPTION.update_time, 'etf_sub');
 }
 
 // 绘制成交金额 SVG 曲线图
