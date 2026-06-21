@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260621154251 -->
+<!-- build: 20260621154946 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -183191,20 +183191,44 @@ function renderHerdingMain() {
   // ═══ 区块二：个股主力动向 ═══
   h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;margin:10px 0 8px 0;padding-bottom:4px;border-bottom:1px solid #e0e0e0;">个股主力动向（当日）</div>';
   h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">';
+  // 净买入 — 两列各5只
   h += '<div style="background:#fff5f5;border-radius:8px;padding:10px;">';
   h += '<div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:6px;">净买入</div>';
   if (ms.top_main_in && ms.top_main_in.length) {
-    h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
-    ms.top_main_in.slice(0,5).forEach(function(x,i){ h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:2px 0;color:#c62828;font-weight:600;">+'+x.net_in+x.unit+'</td><td style="text-align:right;padding:2px 0;font-size:10px;color:#999;">连'+x.day_count+'日</td></tr>'; });
-    h += '</table>';
+    var in10 = ms.top_main_in.slice(0,10);
+    var inLeft = in10.slice(0,5), inRight = in10.slice(5,10);
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;font-size:11px;">';
+    for (var col=0; col<2; col++) {
+      var colData = col===0 ? inLeft : inRight;
+      h += '<div>';
+      colData.forEach(function(x,i){
+        var idx = col*5 + i + 1;
+        var dayTag = x.day_count >= 3 ? '<span style="font-size:9px;background:#c62828;color:#fff;padding:1px 3px;border-radius:3px;margin-left:2px;">连'+x.day_count+'日</span>' : (x.day_count >= 2 ? '<span style="font-size:9px;color:#999;margin-left:2px;">连'+x.day_count+'日</span>' : '');
+        h += '<div style="padding:1px 0;">'+idx+' '+x.name+' <span style="color:#c62828;font-weight:600;">+'+x.net_in+x.unit+'</span>'+dayTag+'</div>';
+      });
+      h += '</div>';
+    }
+    h += '</div>';
   } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
   h += '</div>';
+  // 净卖出 — 两列各5只
   h += '<div style="background:#f5fff5;border-radius:8px;padding:10px;">';
   h += '<div style="font-size:12px;font-weight:600;color:#2e7d32;margin-bottom:6px;">净卖出</div>';
   if (ms.top_main_out && ms.top_main_out.length) {
-    h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
-    ms.top_main_out.slice(0,5).forEach(function(x,i){ h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:2px 0;color:#2e7d32;font-weight:600;">-'+x.net_out+x.unit+'</td><td style="text-align:right;padding:2px 0;font-size:10px;color:#999;">连'+x.day_count+'日</td></tr>'; });
-    h += '</table>';
+    var out10 = ms.top_main_out.slice(0,10);
+    var outLeft = out10.slice(0,5), outRight = out10.slice(5,10);
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;font-size:11px;">';
+    for (var col=0; col<2; col++) {
+      var colData = col===0 ? outLeft : outRight;
+      h += '<div>';
+      colData.forEach(function(x,i){
+        var idx = col*5 + i + 1;
+        var dayTag = x.day_count >= 3 ? '<span style="font-size:9px;background:#2e7d32;color:#fff;padding:1px 3px;border-radius:3px;margin-left:2px;">连'+x.day_count+'日</span>' : (x.day_count >= 2 ? '<span style="font-size:9px;color:#999;margin-left:2px;">连'+x.day_count+'日</span>' : '');
+        h += '<div style="padding:1px 0;">'+idx+' '+x.name+' <span style="color:#2e7d32;font-weight:600;">-'+x.net_out+x.unit+'</span>'+dayTag+'</div>';
+      });
+      h += '</div>';
+    }
+    h += '</div>';
   } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
   h += '</div></div>';
 
@@ -183217,27 +183241,41 @@ function renderHerdingMain() {
   // ── 左：当日 ──
   h += '<div style="display:flex;flex-direction:column;gap:8px;">';
   h += '<div style="font-size:15px;font-weight:700;color:#42a5f5;">当日</div>';
-  // 当日流入
+  // 当日流入 — TOP10 分两列
   h += '<div style="background:#fff5f5;border-radius:8px;padding:8px;flex:1;">';
-  h += '<div style="font-size:11px;font-weight:600;color:#c62828;margin-bottom:4px;">流入 TOP5</div>';
+  h += '<div style="font-size:11px;font-weight:600;color:#c62828;margin-bottom:4px;">流入 TOP10</div>';
   if (sf.top_list && sf.top_list.length) {
-    var inSectors = sf.top_list.filter(function(x){return x.net>0;}).slice(0,5);
+    var inSectors = sf.top_list.filter(function(x){return x.net>0;}).slice(0,10);
     if (inSectors.length) {
-      h += '<table style="width:100%;font-size:11px;border-collapse:collapse;">';
-      inSectors.forEach(function(x,i){ h += '<tr><td style="padding:1px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:1px 0;color:#c62828;font-weight:600;">+'+x.net.toFixed(1)+'亿</td></tr>'; });
-      h += '</table>';
+      h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:10px;">';
+      var inHalf = Math.ceil(inSectors.length/2);
+      for (var col=0; col<2; col++) {
+        h += '<div>';
+        for (var i=col*inHalf; i<Math.min((col+1)*inHalf, inSectors.length); i++) {
+          h += '<div style="padding:1px 0;">'+(i+1)+' '+inSectors[i].name+' <span style="color:#c62828;font-weight:600;">+'+inSectors[i].net.toFixed(1)+'亿</span></div>';
+        }
+        h += '</div>';
+      }
+      h += '</div>';
     } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
   } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
   h += '</div>';
-  // 当日流出
+  // 当日流出 — TOP10 分两列
   h += '<div style="background:#f5fff5;border-radius:8px;padding:8px;flex:1;">';
-  h += '<div style="font-size:11px;font-weight:600;color:#2e7d32;margin-bottom:4px;">流出 TOP5</div>';
+  h += '<div style="font-size:11px;font-weight:600;color:#2e7d32;margin-bottom:4px;">流出 TOP10</div>';
   if (sf.top_list && sf.top_list.length) {
-    var outSectors = sf.top_list.filter(function(x){return x.net<0;}).reverse().slice(0,5);
+    var outSectors = sf.top_list.filter(function(x){return x.net<0;}).reverse().slice(0,10);
     if (outSectors.length) {
-      h += '<table style="width:100%;font-size:11px;border-collapse:collapse;">';
-      outSectors.forEach(function(x,i){ h += '<tr><td style="padding:1px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:1px 0;color:#2e7d32;font-weight:600;">'+x.net.toFixed(1)+'亿</td></tr>'; });
-      h += '</table>';
+      h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:10px;">';
+      var outHalf = Math.ceil(outSectors.length/2);
+      for (var col=0; col<2; col++) {
+        h += '<div>';
+        for (var i=col*outHalf; i<Math.min((col+1)*outHalf, outSectors.length); i++) {
+          h += '<div style="padding:1px 0;">'+(i+1)+' '+outSectors[i].name+' <span style="color:#2e7d32;font-weight:600;">'+outSectors[i].net.toFixed(1)+'亿</span></div>';
+        }
+        h += '</div>';
+      }
+      h += '</div>';
     } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
   } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
   h += '</div></div>';
@@ -183247,24 +183285,36 @@ function renderHerdingMain() {
   h += '<div style="font-size:15px;font-weight:700;color:#42a5f5;">本周</div>';
   // 本周流入
   h += '<div style="background:#fff5f5;border-radius:8px;padding:8px;flex:1;">';
-  h += '<div style="font-size:11px;font-weight:600;color:#c62828;margin-bottom:4px;">流入 TOP5</div>';
+  h += '<div style="font-size:11px;font-weight:600;color:#c62828;margin-bottom:4px;">流入 TOP10</div>';
   if (hasWeek && mw.buy_top5 && mw.buy_top5.length) {
-    h += '<table style="width:100%;font-size:11px;border-collapse:collapse;">';
-    mw.buy_top5.forEach(function(x,i){
-      h += '<tr><td style="padding:1px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:1px 0;color:#c62828;font-weight:600;">+'+x.net+x.unit+'</td></tr>';
-    });
-    h += '</table>';
+    var wkIn = mw.buy_top5.slice(0,10);
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:10px;">';
+    var wkInHalf = Math.ceil(wkIn.length/2);
+    for (var col=0; col<2; col++) {
+      h += '<div>';
+      for (var i=col*wkInHalf; i<Math.min((col+1)*wkInHalf, wkIn.length); i++) {
+        h += '<div style="padding:1px 0;">'+(i+1)+' '+wkIn[i].name+' <span style="color:#c62828;font-weight:600;">+'+wkIn[i].net+wkIn[i].unit+'</span></div>';
+      }
+      h += '</div>';
+    }
+    h += '</div>';
   } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
   h += '</div>';
   // 本周流出
   h += '<div style="background:#f5fff5;border-radius:8px;padding:8px;flex:1;">';
-  h += '<div style="font-size:11px;font-weight:600;color:#2e7d32;margin-bottom:4px;">流出 TOP5</div>';
+  h += '<div style="font-size:11px;font-weight:600;color:#2e7d32;margin-bottom:4px;">流出 TOP10</div>';
   if (hasWeek && mw.sell_top5 && mw.sell_top5.length) {
-    h += '<table style="width:100%;font-size:11px;border-collapse:collapse;">';
-    mw.sell_top5.forEach(function(x,i){
-      h += '<tr><td style="padding:1px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:1px 0;color:#2e7d32;font-weight:600;">'+x.net+x.unit+'</td></tr>';
-    });
-    h += '</table>';
+    var wkOut = mw.sell_top5.slice(0,10);
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:10px;">';
+    var wkOutHalf = Math.ceil(wkOut.length/2);
+    for (var col=0; col<2; col++) {
+      h += '<div>';
+      for (var i=col*wkOutHalf; i<Math.min((col+1)*wkOutHalf, wkOut.length); i++) {
+        h += '<div style="padding:1px 0;">'+(i+1)+' '+wkOut[i].name+' <span style="color:#2e7d32;font-weight:600;">'+wkOut[i].net+wkOut[i].unit+'</span></div>';
+      }
+      h += '</div>';
+    }
+    h += '</div>';
   } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
   h += '</div></div>'; // close 本周流出, close flex column
 
