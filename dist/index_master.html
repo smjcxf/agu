@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260621165627 -->
+<!-- build: 20260621170306 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -150336,7 +150336,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-21 16:55:33",
+"update_time": "2026-06-21 17:02:13",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
@@ -178170,6 +178170,7 @@ var RECOMMEND = window.RECOMMEND = [
       var el = document.getElementById('shReport');
       if (!el) return;
       var warns = [];
+      var topWarn = ''; // 上证异动作为头条
       // 两融异动
       var md = window.MARGIN_DATA || {}, msh = md.sh || [];
       if (msh.length >= 2) {
@@ -178185,10 +178186,10 @@ var RECOMMEND = window.RECOMMEND = [
           if (Math.abs(rzChg) >= 1) warns.push('⚠️ 融资余额' + (rzChg>0?'大增':'大减') + Math.abs(rzChg).toFixed(1) + '%');
         }
       }
-      // 上证异动
+      // 上证异动（作为头条大字体）
       var fib = window.SH_FIB || {}, cur = fib.current || {};
-      if (cur.days_down >= 20) warns.push('⚠️ 上证连跌' + cur.days_down + '天，累计' + (cur.total_pct||0).toFixed(1) + '%');
-      else if (cur.total_pct <= -8) warns.push('⚠️ 上证累计跌幅' + (cur.total_pct||0).toFixed(1) + '%，警戒区间');
+      if (cur.days_down >= 20) topWarn = '上证连跌' + cur.days_down + '天，累计' + (cur.total_pct||0).toFixed(1) + '%';
+      else if (cur.total_pct <= -8) topWarn = '上证累计跌幅' + (cur.total_pct||0).toFixed(1) + '%，警戒区间';
       // 成交额异动
       var hd = window.SH_SZ_HISTORY || {}, ah = hd.amount_history || [];
       if (ah.length >= 2) {
@@ -178206,10 +178207,15 @@ var RECOMMEND = window.RECOMMEND = [
         if (pctUp >= 80) warns.push('⚠️ ' + pctUp.toFixed(0) + '%个股上涨，过热信号');
         else if (pctUp <= 20) warns.push('⚠️ ' + pctUp.toFixed(0) + '%个股上涨，恐慌信号');
       }
-      if (!warns.length) { el.style.display = 'none'; return; }
       el.style.display = 'block';
-      el.innerHTML = '<div style="font-size:13px;color:#c62828;font-weight:700;margin-bottom:6px;">⚠️ 重点关注</div>' +
-        warns.map(function(w){ return '<div style="font-size:12px;color:#e65100;font-weight:600;line-height:1.8;">' + w + '</div>'; }).join('');
+      if (!topWarn && !warns.length) {
+        el.innerHTML = '<div style="font-size:14px;color:#888;font-weight:500;text-align:center;padding:8px 0;">✅ 平安无事</div>';
+        return;
+      }
+      var html = '';
+      if (topWarn) html += '<div style="font-size:16px;color:#c62828;font-weight:700;margin-bottom:6px;">⚠️ 重点关注：' + topWarn + '</div>';
+      if (warns.length) html += warns.map(function(w){ return '<div style="font-size:12px;color:#e65100;font-weight:600;line-height:1.8;">' + w + '</div>'; }).join('');
+      el.innerHTML = html;
     }
     updateMarginAlert();
 
@@ -179100,20 +179106,9 @@ function renderShMonitor() {
     badgeEl.style.background = badgeColor;
     badgeEl.style.color = '#fff';
   }
-  // 更新右侧数据摘要（连跌天数 + 累计跌幅）
+  // 左侧卡片仅显示状态徽章，不显示数据（数据在下方详细板块中）
   var conclusionEl = document.getElementById('shConclusion');
-  if (conclusionEl) {
-    var pct = cur.total_pct || 0, days = cur.days_down || 0;
-    var lines = [];
-    if (days > 0) { lines.push('连跌' + days + '天'); }
-    if (pct !== 0) { lines.push('累计' + (pct>=0?'+':'') + pct.toFixed(1) + '%'); }
-    var hd = window.SH_SZ_HISTORY || {}, ah = hd.amount_history || [];
-    if (ah.length) {
-      var al = ah[ah.length-1];
-      lines.push('成交' + (al.total||0).toFixed(0) + '亿');
-    }
-    conclusionEl.innerHTML = lines.join('<br>');
-  }
+  if (conclusionEl) { conclusionEl.innerHTML = ''; }
 
   // 跟踪下一个即将到来的斐波那契窗口（动态查找future状态中最近的）
   const nextWin = wins.find(w => w.status === 'future') || wins.find(w => w.status === 'active');
