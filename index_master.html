@@ -1226,6 +1226,21 @@ tr:hover td { background: #fafbfc; }
         </div>
       </div>
 
+      <!-- 自选复盘 -->
+      <div style="margin-top:16px;">
+        <h4 style="margin:0 0 10px;font-size:14px;color:#e65100;border-left:4px solid #e65100;padding-left:8px;">⭐ 自选复盘</h4>
+        <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
+          <b>数据存储</b>：自选列表仅存于当前浏览器本地 localStorage，不上传不共享。采用双备份机制（<code>wl_v1</code> + <code>wl_v1_bak</code>），每次保存同时写入两份，防止崩溃丢数据；加载时若主列表为空自动从备份恢复。<br>
+          <b>分类体系</b>：<b>📦 持仓</b>（已持有）/ <b>🔍 观察仓</b>（关注中），每只股票归属一种类型 + 一个账户。<br>
+          <b>三账户并行</b>：账户1/2/3 独立展示，各配独立配色——账户1 橙（#e65100）、账户2 蓝（#1565c0）、账户3 紫（#6a1b9a），便于多账户持仓一目了然。
+        </div>
+        <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
+          <b>添加规则</b>：输入代码/拼音/名称搜索，自动从 STOCK_LIST（7000+ A股+港股+指数+ETF）匹配，停牌股也支持添加。同一股票+同一账户不可重复添加。<br>
+          <b>数据结构</b>：<code>{code, name, type: 'hold'|'watch', account: 1|2|3, added: ISO时间}</code>。<br>
+          <b>操作</b>：点击卡片→跳转个股查询 / ⇄ 按钮→切换持仓⇄观察仓 / × →删除。
+        </div>
+      </div>
+
     </div>
   </div>
 
