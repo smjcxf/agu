@@ -183131,12 +183131,12 @@ function renderHerdingMain() {
   var h = '';
 
   // ═══ 区块一：方向预判 ═══
-  h += '<div style="font-size:13px;font-weight:600;color:#4a3f6b;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #e0d8f0;">方向预判</div>';
+  h += '<div style="font-size:13px;font-weight:600;color:#f57f17;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #ffe082;">方向预判</div>';
 
   // 当前抱团
   if (hd.current_clusters && hd.current_clusters.length) {
     h += '<div style="margin-bottom:10px;font-size:12px;color:#555;line-height:1.6;">';
-    h += '<b>当前抱团：</b>';
+    h += '<b style="color:#5b3a7c;">当前抱团：</b>';
     hd.current_clusters.forEach(function(c,i){
       var amt = c.amount >= 1 ? c.amount.toFixed(2) + c.unit : (c.amount * 10000).toFixed(0) + '万';
       var sep = i < hd.current_clusters.length - 1 ? ' · ' : '';
