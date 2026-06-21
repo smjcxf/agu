@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260621145347 -->
+<!-- build: 20260621145533 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -875,8 +875,8 @@ tr:hover td { background: #fafbfc; }
 
   <!-- 金股观测 -->
   <div class="tab-panel" id="panel-gold">
-    <!-- 股池构成标签 -->
-    <div id="boardSummary" style="margin-bottom:10px;"></div>
+    <!-- 股池构成标签（移到下方grid内） -->
+    <div id="boardSummary" style="display:none;"></div>
 
     <!-- 🔥 今日信号速报 -->
     <div id="signalHighlightCard" style="display:none;background:linear-gradient(135deg,#fff8f0,#fff5f5);border:2px solid #ff9800;border-radius:12px;padding:14px 16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(255,152,0,0.15);">
@@ -887,14 +887,17 @@ tr:hover td { background: #fafbfc; }
       <div id="signalHighlightContent" style="display:flex;gap:10px;"></div>
     </div>
 
-    <!-- 金股池构成 -->
-    <div style="background:#fff;border-radius:10px;padding:14px 16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
-        <div style="font-weight:700;font-size:14px;color:#333;">📊 金股池构成</div>
-        <div id="goldPoolUpdateTime" style="font-size:11px;color:#888;"></div>
-      </div>
-      <div style="display:flex;gap:16px;align-items:stretch;" id="poolCompContent">
-        <span style="font-size:13px;color:#999;">加载中...</span>
+    <!-- 股池构成 + 金股池构成 并排 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+      <div id="boardSummaryContainer" style="background:#fff;border-radius:10px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,0.06);"></div>
+      <div id="poolCompCard" style="background:#fff;border-radius:10px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+          <div style="font-weight:700;font-size:14px;color:#333;">📊 金股池构成</div>
+          <div id="goldPoolUpdateTime" style="font-size:11px;color:#888;"></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:stretch;" id="poolCompContent">
+          <span style="font-size:13px;color:#999;">加载中...</span>
+        </div>
       </div>
     </div>
 
@@ -178694,7 +178697,7 @@ function render() {
         '<div style="font-size:11px;color:#0d7d4a;font-weight:700;">📰 研报</div>' +
         '<div style="font-size:20px;font-weight:700;color:#0d7d4a;">' + (gpStocks.filter(s => (s.sources||[]).includes('投行研报')).length) + '</div>' +
         '<div style="font-size:10px;color:#888;">覆盖</div></div></div>';
-    const bs = document.getElementById('boardSummary');
+    const bs = document.getElementById('boardSummaryContainer');
     if (bs) bs.innerHTML = boardHtml;
     var boardTimeEl = document.getElementById('boardSummaryTime');
     if (boardTimeEl) {
