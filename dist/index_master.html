@@ -659,10 +659,13 @@ tr:hover td { background: #fafbfc; }
         </div>
       </div>
       <!-- 右侧：异动提醒+监控数据 -->
-      <div id="shAlertCard" style="background:linear-gradient(135deg,#faf0ff,#f3e5f5);border:2px solid #ce93d8;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;justify-content:center;">
-        <div id="shAlert" style="display:none;margin-bottom:6px;"></div>
-        <div id="shReport" style="font-size:11px;color:#666;line-height:1.8;"></div>
-        <div id="shSummary" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;"></div>
+      <div id="shAlertCard" class="accent-bar accent-lilac" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);padding-top:0;display:flex;flex-direction:column;">
+        <div style="background:linear-gradient(135deg,#f3e8ff,#e1d0f7);color:#5b3a7c;padding:8px 16px;font-size:15px;font-weight:700;text-align:center;">⚠️ 重点关注</div>
+        <div style="padding:10px 16px;flex:1;display:flex;flex-direction:column;justify-content:center;">
+          <div id="shAlert" style="display:none;margin-bottom:6px;"></div>
+          <div id="shReport" style="font-size:13px;color:#555;line-height:1.8;"></div>
+          <div id="shSummary" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;"></div>
+        </div>
       </div>
     </div>
 
@@ -7256,8 +7259,8 @@ var RECOMMEND = window.RECOMMEND = [];window.LHB_DATA = {
         return;
       }
       var html = '';
-      if (topWarn) html += '<div style="font-size:14px;color:#e65100;font-weight:700;margin-bottom:6px;">⚠️ 重点关注：' + topWarn + '</div>';
-      if (warns.length) html += warns.map(function(w){ return '<div style="font-size:12px;color:#e65100;font-weight:600;line-height:1.8;">' + w + '</div>'; }).join('');
+      if (topWarn) html += '<div style="font-size:14px;color:#e65100;font-weight:700;margin-bottom:4px;">' + topWarn + '</div>';
+      if (warns.length) html += warns.map(function(w){ return '<div style="font-size:13px;color:#e65100;font-weight:600;line-height:1.8;">' + w + '</div>'; }).join('');
       el.innerHTML = html;
       // 暴露给预判总览
       window.__shReportWarns = warns;
