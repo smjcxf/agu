@@ -592,9 +592,9 @@ tr:hover td { background: #fafbfc; }
       <div class="recommend-title"><span class="icon" style="font-size:18px;color:#f57c00;">☀️</span> <span style="color:#f57c00;">个股强烈关注</span> <span id="recUpdateTime" style="font-size:12px;font-weight:400;color:#888;margin-left:8px;"></span></div>
 
       <!-- 四喜临门 -->
-      <div style="margin-bottom:14px;" id="sanzuContainer">
-        <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
-          <span style="color:#FFD700;">🏮</span> 四喜临门 <span id="sanzuCount" style="font-size:11px;color:#888;font-weight:400;">(0)</span>
+      <div style="margin:10px 0 4px 0;padding:8px 12px;background:linear-gradient(135deg,#fff8e1,#ffecb3);border-radius:8px;border:1px solid #ffca28;" id="sanzuContainer">
+        <div style="font-size:14px;font-weight:700;color:#f57f17;display:flex;align-items:center;gap:6px;">
+          <span>🏮</span> 四喜临门 <span id="sanzuCount" style="font-size:11px;color:#666;font-weight:400;">(0)</span>
         </div>
         <div style="font-size:11px;color:#888;margin-bottom:10px;line-height:1.6;">缠论买字 + 金钻信号（起涨或黄柱）+ 机构变红 + 上涨趋势确认，四种信号同时出现</div>
         <div class="rec-grid" id="sanzuGrid"></div>
@@ -7990,12 +7990,8 @@ function renderRecommend() {
   // 渲染四喜临门
   const sanzuContainer = document.getElementById('sanzuContainer');
   if (sanzuGrid) {
-    if (!sanzuUnique.length) {
-      if (sanzuContainer) sanzuContainer.style.display = 'none';
-    } else {
-      if (sanzuContainer) sanzuContainer.style.display = '';
-      sanzuGrid.innerHTML = renderSignalCards(sanzuUnique, 'sanzu');
-    }
+    if (sanzuContainer) sanzuContainer.style.display = '';
+    sanzuGrid.innerHTML = sanzuUnique.length ? renderSignalCards(sanzuUnique, 'sanzu') : '<div style="color:#999;font-size:12px;text-align:center;padding:8px;">暂无符合四喜临门条件的股票，等待信号触发</div>';
   }
 
   // 渲染三线共振
