@@ -651,10 +651,10 @@ tr:hover td { background: #fafbfc; }
     <!-- 顶部双卡片 -->
     <div style="display:grid;grid-template-columns:1fr 2fr;gap:8px;margin-bottom:8px;">
       <!-- 左侧：标题+状态 -->
-      <div id="shTitleCard" style="background:linear-gradient(135deg,#e3f2fd,#f5f5ff);border:2px solid #bbdefb;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;">
-        <div style="font-size:14px;font-weight:700;color:#333;margin-bottom:2px;">数据监控</div>
-        <div style="font-size:10px;color:#888;flex:1;">斐波那契时间窗口 · 缠论视角</div>
-        <div style="display:flex;justify-content:center;align-items:center;margin-top:6px;">
+      <div id="shTitleCard" style="background:linear-gradient(135deg,#e3f2fd,#f5f5ff);border:2px solid #bbdefb;border-radius:12px;padding:14px 16px;position:relative;min-height:140px;">
+        <div style="font-size:14px;font-weight:700;color:#333;">数据监控</div>
+        <div style="font-size:10px;color:#888;">斐波那契时间窗口 · 缠论视角</div>
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);">
           <span id="shBadge" style="font-size:18px;font-weight:800;padding:6px 20px;border-radius:16px;color:#fff;background:#90caf9;white-space:nowrap;">震荡整理</span>
         </div>
       </div>
