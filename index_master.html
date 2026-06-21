@@ -1244,7 +1244,7 @@ tr:hover td { background: #fafbfc; }
       <div class="lhb-cal-stats" id="lhbCalStats"></div>
       <div class="lhb-cal-legend">
         <span class="lhb-legend-item"><span class="lhb-dot red"></span>纯共振=机构与游资同步净买入</span>
-        <span class="lhb-legend-item"><span class="lhb-dot green"></span>金额=机构+游资合计净买入</span>
+        <span class="lhb-legend-item"><span class="lhb-dot red"></span>金额=机构+游资合计净买入</span>
       </div>
       <div class="lhb-cal-grid" id="lhbCalendarBody"></div>
     </div>
@@ -181443,7 +181443,7 @@ function buildQueryExtras(queryCode, queryName) {
     var allSignals = [
       {key:'缠论买_日K', n:'缠论买', c:'#e53935'},
       {key:'金钻', n:'金钻', c:'#ff8f00', met: !!(latest['金钻_起涨']||latest['金钻_黄柱'])},
-      {key:'四量图_机构变红', n:'机构变红', c:'#2e7d32'},
+      {key:'四量图_机构变红', n:'机构变红', c:'#c62828'},
       {key:'上涨趋势', n:'上涨趋势', c:'#6a1b9a'}
     ];
     var sc = 0;
@@ -183191,20 +183191,20 @@ function renderHerdingMain() {
     h += '</div>';
   }
 
-  // 4类接力方向（全部展示，横向排列）
+  // 4类接力方向（纵向排列，每行一个）
   if (hd.high_prob && hd.high_prob.length) {
-    h += '<div style="margin-bottom:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">';
-    h += '<span style="font-size:11px;font-weight:600;color:#e65100;">高概率接力：</span>';
+    h += '<div style="margin-bottom:8px;">';
+    h += '<span style="font-size:11px;font-weight:600;color:#e65100;display:block;margin-bottom:6px;">高概率接力：</span>';
     hd.high_prob.forEach(function(p){
       var tagColor = p.tag === '机构共识' ? '#2a6496' : p.tag === '事件驱动' ? '#e65100' : p.tag === '蓄力中' ? '#00838f' : '#c62828';
       var tagBg = p.tag === '机构共识' ? '#e3f2fd' : p.tag === '事件驱动' ? '#fff3e0' : p.tag === '蓄力中' ? '#e0f7fa' : '#fff0f0';
       var borderColor = p.tag === '机构共识' ? '#90caf9' : p.tag === '事件驱动' ? '#ffcc80' : p.tag === '蓄力中' ? '#80deea' : '#ef9a9a';
-      h += '<span style="padding:3px 8px;background:'+tagBg+';border:1px solid '+borderColor+';border-radius:4px;font-size:11px;white-space:nowrap;">';
+      h += '<div style="margin-bottom:5px;padding:3px 8px;background:'+tagBg+';border:1px solid '+borderColor+';border-radius:4px;font-size:11px;">';
       h += '<span style="display:inline-block;padding:1px 4px;border-radius:2px;font-size:9px;font-weight:600;color:#fff;background:'+tagColor+';margin-right:3px;">'+p.tag+'</span>';
       h += '<b>'+p.sector+'</b>';
       if (p.strength && p.strength !== p.tag) h += '<span style="font-size:9px;color:#666;"> '+p.strength+'</span>';
       h += ' — ' + p.desc;
-      h += '</span>';
+      h += '</div>';
     });
     h += '</div>';
   }
