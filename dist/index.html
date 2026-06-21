@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260621154030 -->
+<!-- build: 20260621154251 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -1050,11 +1050,11 @@ tr:hover td { background: #fafbfc; }
       <div style="margin-bottom:16px;">
         <h4 style="margin:0 0 10px;font-size:14px;color:#ff9800;border-left:4px solid #ff9800;padding-left:8px;">🔮 预判信号</h4>
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;margin-bottom:8px;">
-          <b>⚡ 一眼结论（顶栏总览）</b>：预判信号Tab顶部核心卡片，三色块浓缩三个维度：🐉机游共振蓝 / 🔥主力资金紫 / 🌏北向资金橙，一目了然当前市场信号强度。下方"核心关注"预警条汇总机游共振、主力抱团含接力方向加粗高亮、北向动态、内外资分歧、谨慎方向，板块级汇总。<br>
+          <b>⚡ 一眼结论（顶栏总览）</b>：预判信号Tab顶部核心卡片，双色块浓缩两个维度：🐉机游共振蓝 / 🔥主力资金紫（北向已下架），一目了然当前市场信号强度。下方"核心关注"预警条汇总机游共振、主力抱团含接力方向加粗高亮、谨慎方向，板块级汇总。<br>
           <b>⚠️ 异动停牌观测</b>：一眼结论下方卡片，双栏展示——左🔒已停牌 股票名+天数、右⚡近触发 股票名+偏离值%+距阈值%。停牌取自公开停复牌接口，近触发扫描金股池+概念龙头+涨停板池涨幅≥15%的个股。<br>
           <b>🐉 机游共振·龙虎榜（卡片1）</b>：三色块布局——左🏦机构净买入 / 中⚡机游共振 / 右🔥游资净买入，按金额降序，支持连续上榜标注 连X日。8000万门槛约0.8亿，低于不显示。席位全部统计：机构专用/深股通沪股通/游资/量化/未识别，逐笔明细如实分类，知名游资标注别名 章盟主/孙哥等。盘中实时更新，非T+1。<br>
           <b>🔥 主力资金抱团监控（卡片2）</b>：三大区块——①方向预判：当前抱团板块、4类接力方向 机构共识/事件驱动/蓄力中/分歧蓄力+谨慎方向+催化剂 → ②板块资金实况：左当日/右本周，各流入流出TOP5双列并排 → ③个股主力动向：当日净买入/净卖出TOP5及连续天数。数据T+1盘后更新。<br>
-          <b>🌏 北向资金监控（卡片3）</b>：当日/本周净流入大数字 → 方向预判：趋势+增持减持集中度+主力共振 → 板块流向：增持/减持TOP5 → 个股流向：净买入TOP5+连续加仓 → 策略参考：风格偏好+合力信号。蓝+靛蓝+淡粉+淡绿独立配色，增持板块排在减持前面。
+          <b>🌏 北向资金监控（卡片3）⏸️ 2024年5月起监管停止披露，数据源不可用，已下架。
         </div>
 
         <!-- 主力资金定义 -->
@@ -178088,14 +178088,7 @@ var RECOMMEND = window.RECOMMEND = [
         }
       }
 
-      // 6. 北向资金异动
-      var nf = window.NORTH_FUND_DATA || {};
-      if (nf.net_flow && nf.net_flow.total) {
-        var nfAmt = Math.abs(nf.net_flow.total);
-        if (nfAmt >= 50) {
-          alerts.push('<span>🌊 北向资金' + (nf.net_flow.total > 0 ? '净流入' : '净流出') + ' ' + nfAmt.toFixed(0) + '亿，外资大动作</span>');
-        }
-      }
+      // 6. 北向资金异动 — 已下架（数据源停更）
 
       // 7. 主力板块异动
       var sfData = window.SECTOR_FUND_FLOW || {};
@@ -183706,25 +183699,7 @@ function renderPredictSummary() {
   if (mainSub) h += '<div style="font-size:11px;color:#555;margin-top:2px;">'+mainSub+'</div>';
   h += '</div>';
 
-  // 块3：北向资金
-  var nfFlow = nf.net_flow || {};
-  var nfTitle = nfFlow.total > 0 ? nfFlow.direction + nfFlow.total + nfFlow.unit : '暂无数据';
-  var nfSub = '';
-  if (nf.net_flow && nf.net_flow.total > 0) {
-    if (nf.sector_flow && nf.sector_flow.buy_top5 && nf.sector_flow.buy_top5.length) {
-      var buySectors = nf.sector_flow.buy_top5.slice(0,2).map(function(x){return x.name;}).join('/');
-      nfSub = '增持' + buySectors;
-    } else {
-      nfSub = '';
-    }
-  }
-  h += '<div style="background:#fff3e0;border-radius:8px;padding:10px;text-align:center;">';
-  h += '<div style="font-size:13px;font-weight:700;color:#e65100;margin-bottom:4px;">🌏 北向资金</div>';
-  h += '<div style="font-size:14px;font-weight:500;color:#e65100;">'+nfTitle+'</div>';
-  if (nfSub) h += '<div style="font-size:11px;color:#555;margin-top:2px;">'+nfSub+'</div>';
-  h += '</div>';
-
-  h += '</div>'; // end 三色块
+  h += '</div>'; // end 双色块（北向已下架）
 
   // ═══ 核心关注 ═══
   var alerts = [];
@@ -183761,30 +183736,6 @@ function renderPredictSummary() {
       alertHtml += '<br><span style="font-size:11px;color:#666;">'+hpItems.join(' &nbsp;·&nbsp; ')+'</span>';
     }
     alerts.push(alertHtml);
-  }
-
-  // 北向资金
-  if (nf.net_flow && nf.net_flow.total > 0) {
-    var nfMsg = '<b style="color:#e65100;">北向动向</b>：' + nfFlow.direction + nfFlow.total + nfFlow.unit;
-    if (nf.sector_flow) {
-      if (nf.sector_flow.buy_top5 && nf.sector_flow.buy_top5.length) {
-        var bt = nf.sector_flow.buy_top5.slice(0,2).map(function(x){return x.name+' +'+x.net+x.unit;}).join('、');
-        nfMsg += '，增持「'+bt+'」';
-      }
-      if (nf.sector_flow.sell_top5 && nf.sector_flow.sell_top5.length) {
-        var st = nf.sector_flow.sell_top5.slice(0,2).map(function(x){return x.name+' '+(x.net>0?'+':'')+x.net+x.unit;}).join('、');
-        nfMsg += '，减持「'+st+'」';
-      }
-    }
-    alerts.push(nfMsg);
-  }
-
-  // 内外资分歧
-  var nfSellNames = (nf.sector_flow && nf.sector_flow.sell_top5) ? nf.sector_flow.sell_top5.map(function(x){return x.name;}) : [];
-  var mainInNames = (sf.top_list && sf.top_list.length) ? sf.top_list.filter(function(x){return x.net>10;}).map(function(x){return x.name;}) : [];
-  var conflicts = nfSellNames.filter(function(n){return mainInNames.indexOf(n)>=0;});
-  if (conflicts.length) {
-    alerts.push('<b style="color:#c62828;">⚠ 内外资分歧</b>：主力买入'+conflicts.slice(0,2).join('、')+'，但北向同期减持。方向背离，科技股短期波动风险加大');
   }
 
   // 谨慎
