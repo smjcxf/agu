@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260621210949 -->
+<!-- build: 20260621193303 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -236,10 +236,9 @@ tr:hover td { background: #fafbfc; }
 .accent-bar.accent-pink::before { background: #f2a0b5; }
 .accent-bar.accent-cyan::before { background: #26c6da; }
 .accent-bar.accent-orange::before { background: #ffa726; }
-.accent-bar.accent-green::before { background: #f59e0b; }
+.accent-bar.accent-green::before { background: #ba68c8; }
 .accent-bar.accent-red::before { background: #e53935; }
 .accent-bar.accent-gold::before { background: #f59e0b; }
-.accent-bar.accent-lilac::before { background: #e1bee7; }
 
 /* 上证数据监控 — 多彩马卡龙色系 */
 .sh-header { background:#fff;border-radius:12px;padding:18px 20px;margin-bottom:14px;border:2px solid #90caf9;box-shadow:0 2px 8px rgba(144,202,249,0.15);display:flex;flex-direction:column;align-items:center;position:relative;min-height:130px; }
@@ -593,9 +592,9 @@ tr:hover td { background: #fafbfc; }
       <div class="recommend-title"><span class="icon" style="font-size:18px;color:#f57c00;">☀️</span> <span style="color:#f57c00;">个股强烈关注</span> <span id="recUpdateTime" style="font-size:12px;font-weight:400;color:#888;margin-left:8px;"></span></div>
 
       <!-- 四喜临门 -->
-      <div style="margin:10px 0 4px 0;padding:8px 12px;background:linear-gradient(135deg,#fff8e1,#ffecb3);border-radius:8px;border:1px solid #ffca28;" id="sanzuContainer">
-        <div style="font-size:14px;font-weight:700;color:#f57f17;display:flex;align-items:center;gap:6px;">
-          <span>🏮</span> 四喜临门 <span id="sanzuCount" style="font-size:11px;color:#666;font-weight:400;">(0)</span>
+      <div style="margin-bottom:14px;" id="sanzuContainer">
+        <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+          <span style="color:#FFD700;">🏮</span> 四喜临门 <span id="sanzuCount" style="font-size:11px;color:#888;font-weight:400;">(0)</span>
         </div>
         <div style="font-size:11px;color:#888;margin-bottom:10px;line-height:1.6;">缠论买字 + 金钻信号（起涨或黄柱）+ 机构变红 + 上涨趋势确认，四种信号同时出现</div>
         <div class="rec-grid" id="sanzuGrid"></div>
@@ -651,28 +650,25 @@ tr:hover td { background: #fafbfc; }
     <!-- 顶部双卡片 -->
     <div style="display:grid;grid-template-columns:1fr 2fr;gap:8px;margin-bottom:8px;">
       <!-- 左侧：标题+状态 -->
-      <div id="shTitleCard" style="background:linear-gradient(135deg,#e3f2fd,#f5f5ff);border:2px solid #bbdefb;border-radius:12px;padding:14px 16px;position:relative;min-height:140px;">
-        <div style="font-size:14px;font-weight:700;color:#333;">数据监控</div>
-        <div style="font-size:10px;color:#888;">斐波那契时间窗口 · 缠论视角</div>
-        <div style="position:absolute;left:50%;top:62%;transform:translate(-50%,-50%);">
+      <div id="shTitleCard" style="background:linear-gradient(135deg,#e3f2fd,#f5f5ff);border:2px solid #bbdefb;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:14px;font-weight:700;color:#333;margin-bottom:2px;">数据监控</div>
+        <div style="font-size:10px;color:#888;margin-bottom:6px;">斐波那契时间窗口 · 缠论视角</div>
+        <div style="display:flex;justify-content:center;align-items:center;">
           <span id="shBadge" style="font-size:18px;font-weight:800;padding:6px 20px;border-radius:16px;color:#fff;background:#90caf9;white-space:nowrap;">震荡整理</span>
         </div>
       </div>
       <!-- 右侧：异动提醒+监控数据 -->
-      <div id="shAlertCard" class="accent-bar accent-lilac" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);padding-top:0;display:flex;flex-direction:column;">
-        <div style="background:linear-gradient(135deg,#f3e8ff,#e1d0f7);color:#5b3a7c;padding:8px 16px;font-size:15px;font-weight:700;text-align:center;">⚠️ 异常数据预警</div>
-        <div style="padding:10px 16px;flex:1;display:flex;flex-direction:column;justify-content:center;">
-          <div id="shAlert" style="display:none;margin-bottom:6px;"></div>
-          <div id="shReport" style="font-size:13px;color:#555;line-height:1.8;"></div>
-          <div id="shSummary" style="margin-top:8px;font-size:12px;color:#555;line-height:1.9;padding-left:12px;border-left:4px solid #e1bee7;"></div>
-        </div>
+      <div id="shAlertCard" style="background:linear-gradient(135deg,#faf0ff,#f3e5f5);border:2px solid #ce93d8;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;justify-content:center;">
+        <div id="shAlert" style="display:none;margin-bottom:6px;"></div>
+        <div id="shReport" style="font-size:11px;color:#666;line-height:1.8;"></div>
+        <div id="shSummary" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;"></div>
       </div>
     </div>
 
     <div class="sh-section accent-bar accent-blue">
       <div class="sh-section-title">📉 当前下跌状态 <span id="shDownStatusTime" class="update-time-badge"></span></div>
       <div class="sh-grid">
-        <div class="sh-stat"><div class="sh-stat-val down" id="shDays">15</div><div class="sh-stat-lbl">回调交易日</div></div>
+        <div class="sh-stat"><div class="sh-stat-val down" id="shDays">15</div><div class="sh-stat-lbl">已跌交易日</div></div>
         <div class="sh-stat"><div class="sh-stat-val down" id="shPct">-4.72%</div><div class="sh-stat-lbl">累计跌幅</div></div>
         <div class="sh-stat"><div class="sh-stat-val down" id="shPoints">-201点</div><div class="sh-stat-lbl">下跌点数</div></div>
         <div class="sh-stat"><div class="sh-stat-val" id="shCountdownDays">--</div><div class="sh-stat-lbl" id="shCountdownLbl">下一窗口跟踪</div></div>
@@ -740,6 +736,7 @@ tr:hover td { background: #fafbfc; }
     <tr><td style="padding:6px 12px;">白银(COMEX)</td><td style="padding:6px 12px;text-align:center;" id="g-silver">--</td><td style="padding:6px 12px;color:#5d6d7e;font-size:12px;">工业+避险双属性</td><td style="padding:6px 12px;text-align:right;color:#7f8c8d;font-size:11px;">每日</td></tr>
     <tr><td style="padding:6px 12px;">铜(COMEX)</td><td style="padding:6px 12px;text-align:center;" id="g-copper">--</td><td style="padding:6px 12px;color:#5d6d7e;font-size:12px;">全球经济晴雨表</td><td style="padding:6px 12px;text-align:right;color:#7f8c8d;font-size:11px;">每日</td></tr>
     <tr><td style="padding:6px 12px;">原油(WTI)</td><td style="padding:6px 12px;text-align:center;" id="g-oil">--</td><td style="padding:6px 12px;color:#5d6d7e;font-size:12px;">通胀预期核心指标</td><td style="padding:6px 12px;text-align:right;color:#7f8c8d;font-size:11px;">每日</td></tr>
+    <tr><td style="padding:6px 12px;">比特币(BTC)</td><td style="padding:6px 12px;text-align:center;" id="g-btc">--</td><td style="padding:6px 12px;color:#5d6d7e;font-size:12px;">全球风险偏好极值</td><td style="padding:6px 12px;text-align:right;color:#7f8c8d;font-size:11px;">每日</td></tr>
 
     <!-- 市场情绪 -->
     <tr><td colspan="4" style="background:#1a2a3a;padding:6px 12px;color:#e91e63;font-weight:500;margin-top:4px;font-size:12px;">📈 市场情绪（反映投资者行为）</td></tr>
@@ -795,11 +792,11 @@ tr:hover td { background: #fafbfc; }
     <div style="display:flex;flex-direction:column;gap:16px;">
 
       <!-- ===== 预判总览卡片 ===== -->
-      <div class="predict-card accent-bar accent-lilac" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);padding-top:0;">
-        <div style="background:linear-gradient(135deg,#f3e8ff,#e1d0f7);color:#5b3a7c;padding:10px 18px;font-size:15px;font-weight:700;text-align:center;">
-          ⚡ 一眼结论 <span style="font-size:11px;font-weight:400;" id="summaryTime" class="card-time">分析中...</span>
+      <div class="predict-card accent-bar accent-gold" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);padding-top:0;">
+        <div style="background:linear-gradient(135deg,#fff8e7,#fef3d0);color:#7a6a2b;padding:10px 18px;font-size:16px;font-weight:700;text-align:center;">
+          ⚡ 一眼结论 <span style="font-size:12px;font-weight:400;" id="summaryTime" class="card-time">分析中...</span>
         </div>
-        <div style="padding:14px 18px;font-size:14px;line-height:1.8;color:#555;" id="summaryContent">
+        <div style="padding:16px 18px;font-size:14px;line-height:1.8;color:#555;" id="summaryContent">
           <div style="color:#999;text-align:center;">加载中...</div>
         </div>
       </div>
@@ -812,11 +809,11 @@ tr:hover td { background: #fafbfc; }
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
           <div style="background:#ffebee;border-radius:10px;padding:12px;">
-            <div style="font-size:13px;font-weight:600;color:#c62828;margin-bottom:8px;text-align:center;">🔒 已停牌 <b id="suspCount">0</b>只</div>
+            <div style="font-size:13px;font-weight:600;color:#c62828;margin-bottom:8px;">🔒 已停牌 <b id="suspCount">0</b>只</div>
             <div id="suspList" style="font-size:13px;color:#555;line-height:1.8;">暂无</div>
           </div>
           <div style="background:#fff3e0;border-radius:10px;padding:12px;">
-            <div style="font-size:13px;font-weight:600;color:#e65100;margin-bottom:8px;text-align:center;">⚡ 近触发 <b id="nearCount">0</b>只</div>
+            <div style="font-size:13px;font-weight:600;color:#e65100;margin-bottom:8px;">⚡ 近触发 <b id="nearCount">0</b>只</div>
             <div id="nearList" style="font-size:13px;color:#555;line-height:1.8;">暂无</div>
           </div>
         </div>
@@ -1001,7 +998,7 @@ tr:hover td { background: #fafbfc; }
       <div style="margin-bottom:16px;">
         <h4 style="margin:0 0 10px;font-size:14px;color:#42a5f5;border-left:4px solid #42a5f5;padding-left:8px;">📈 数据监控</h4>
         <div style="padding:10px 14px;background:#f8f9fa;border-radius:8px;font-size:12px;line-height:1.8;">
-          <b>当前下跌状态</b>：回调交易日/累计跌幅/下跌点数/下一窗口跟踪。趋势标签判断：<br>
+          <b>当前下跌状态</b>：已跌交易日/累计跌幅/下跌点数/下一窗口跟踪。趋势标签判断：<br>
           <table style="font-size:11px;margin:4px 0;border-collapse:collapse;">
             <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">跌幅 ≤ -10%</td><td style="padding:2px 8px;border:1px solid #ddd;">深度回调</td><td style="width:10px;background:#ef5350;"></td></tr>
             <tr><td style="padding:2px 8px;border:1px solid #ddd;background:#f5f5f5;white-space:nowrap;">跌幅 ≤ -5% 或 (≥10天 且 ≤ -3%)</td><td style="padding:2px 8px;border:1px solid #ddd;">阴跌磨底</td><td style="width:10px;background:#ffa726;"></td></tr>
@@ -1244,7 +1241,7 @@ tr:hover td { background: #fafbfc; }
       <div class="lhb-cal-stats" id="lhbCalStats"></div>
       <div class="lhb-cal-legend">
         <span class="lhb-legend-item"><span class="lhb-dot red"></span>纯共振=机构与游资同步净买入</span>
-        <span class="lhb-legend-item"><span class="lhb-dot red"></span>金额=机构+游资合计净买入</span>
+        <span class="lhb-legend-item"><span class="lhb-dot green"></span>金额=机构+游资合计净买入</span>
       </div>
       <div class="lhb-cal-grid" id="lhbCalendarBody"></div>
     </div>
@@ -1386,8 +1383,7 @@ window.SCAN_DATA = {
 "金钻_黄柱": false,
 "四量图_机构变红": true,
 "上涨趋势": true,
-"三线共振": true,
-"concepts": []
+"三线共振": true
 }
 ],
 "double_signals": [
@@ -150338,7 +150334,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-21 20:54:08",
+"update_time": "2026-06-21 19:27:01",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
@@ -178131,8 +178127,6 @@ var RECOMMEND = window.RECOMMEND = [
       if (alerts.length) {
         alertEl.innerHTML = alerts.map(function(a){ return '<span style="background:#fff;border:1px solid #ff9800;padding:3px 8px;border-radius:12px;white-space:nowrap;color:#e65100;">'+a+'</span>'; }).join(' ');
         alertEl.style.display = 'block';
-        // 暴露给预判总览
-        window.__dataAlerts = alerts;
         // 卡片边框变橙色
         var topCard = document.getElementById('shAlertCard');
         if (topCard) topCard.style.borderColor = '#ff9800';
@@ -178153,75 +178147,18 @@ var RECOMMEND = window.RECOMMEND = [
       var el = document.getElementById("shSummary");
       if (!el) return;
       var h = "";
-      // 涨跌家数 → 结论
+      // 涨跌家数
       var hd = window.SH_SZ_HISTORY || {}, ds = hd.daily_stats || [];
-      if (ds.length) {
-        var dl = ds[ds.length-1];
-        var total = (dl.up||0) + (dl.down||0) + (dl.flat||0);
-        var upPct = total ? (dl.up / total * 100).toFixed(0) : 0;
-        var mood = upPct >= 70 ? '多头主导，情绪偏热' : upPct >= 50 ? '偏多，个股分化' : upPct >= 30 ? '偏空，弱势居多' : '空头主导，恐慌弥漫';
-        h += '<b>涨跌比：</b>'+upPct+'%个股上涨（'+mood+'）<br>';
-      }
-      // 两融 → 结论
+      if (ds.length) { var dl = ds[ds.length-1]; h += '<span style="color:#c62828;">涨</span>' + dl.up + ' / <span style="color:#2e7d32;">跌</span>' + dl.down + ' · '; }
+      // 两融
       var md = window.MARGIN_DATA || {}, msh = md.sh || [];
-      if (msh.length >= 2) {
-        var ml = msh[msh.length-1], mp = msh[msh.length-2];
-        var rzNow = ml.rz_balance || 0, rzPrev = mp.rz_balance || 0;
-        var rzYi = (rzNow / 10000).toFixed(2);
-        var rqNow = ml.rq_balance_amt || 0, rqPrev = mp.rq_balance_amt || 0;
-        var rzChg = rzPrev ? ((rzNow - rzPrev) / rzPrev * 100).toFixed(2) : 0;
-        var rqChg = rqPrev ? ((rqNow - rqPrev) / rqPrev * 100).toFixed(1) : 0;
-        var rzTrend = rzChg > 1 ? '↑'+rzChg+'%（加杠杆）' : rzChg < -1 ? '↓'+Math.abs(rzChg)+'%（降杠杆）' : '持平';
-        // 融券评价
-        var rqRatio = (rqNow / rzNow * 100).toFixed(2);
-        var rqEval = '';
-        if (rqRatio < 0.5) rqEval = '（做空力量极弱）';
-        else if (rqRatio < 1) rqEval = '（空头占比较低）';
-        else if (rqRatio < 2) rqEval = '（做空力量温和）';
-        else if (rqRatio < 5) rqEval = '（空头活跃需警惕）';
-        else rqEval = '（做空力量异常高）';
-        var rqTrend = rqChg > 5 ? '↑'+rqChg+'%' : rqChg < -5 ? '↓'+Math.abs(rqChg)+'%' : '稳定';
-        h += '<b>两融：</b>融资'+rzYi+'万亿 '+rzTrend+' · 融券'+rqNow.toFixed(0)+'亿（占融资'+rqRatio+'%）'+rqTrend+' '+rqEval+'<br>';
-      }
-      // ETF申赎趋势
-      var etf = window.ETF_SUBSCRIPTION || {}, etfSh = etf.sh || [];
-      if (etfSh.length >= 3) {
-        var consRed = 0, consBuy = 0;
-        for (var i = etfSh.length - 1; i >= 0; i--) {
-          if (etfSh[i].net_subscribe_bil < 0) consRed++;
-          else break;
-        }
-        for (var i = etfSh.length - 1; i >= 0; i--) {
-          if (etfSh[i].net_subscribe_bil > 0) consBuy++;
-          else break;
-        }
-        var lastEtf = etfSh[etfSh.length-1];
-        var etfAmt = Math.abs(lastEtf.net_subscribe_bil||0).toFixed(1);
-        if (consRed >= 3) {
-          var redSum = 0;
-          for (var i = etfSh.length - 1; i >= etfSh.length - consRed; i--) redSum += etfSh[i].net_subscribe_bil||0;
-          h += '<b>ETF：</b>连续'+consRed+'日净赎回'+Math.abs(redSum).toFixed(1)+'亿（机构资金持续流出）<br>';
-        } else if (consBuy >= 3) {
-          var buySum = 0;
-          for (var i = etfSh.length - 1; i >= etfSh.length - consBuy; i--) buySum += etfSh[i].net_subscribe_bil||0;
-          h += '<b>ETF：</b>连续'+consBuy+'日净申购'+buySum.toFixed(1)+'亿（机构资金持续进场）<br>';
-        } else {
-          h += '<b>ETF：</b>最新'+etfAmt+'亿'+(lastEtf.net_subscribe_bil>0?'净申购':'净赎回')+'<br>';
-        }
-      }
-
-      // 成交额分析
-      var ah = hd.amount_history || [];
-      if (ah.length >= 2) {
-        var al = ah[ah.length-1], ap = ah[ah.length-2];
-        if (ap.total > 0) {
-          var amtChg = ((al.total - ap.total) / ap.total * 100);
-          var amtNote = amtChg > 10 ? '放量'+amtChg.toFixed(0)+'%' : amtChg < -10 ? '缩量'+Math.abs(amtChg).toFixed(0)+'%' : '持平';
-          h += '<b>成交：</b>'+al.total.toFixed(0)+'亿（环比'+amtNote+'）<br>';
-        }
+      if (msh.length) {
+        var ml = msh[msh.length-1];
+        var rzYi = ((ml.rz_balance||0) / 10000).toFixed(2);
+        h += '融资' + rzYi + '万亿 · 融券' + (ml.rq_balance_amt||0).toFixed(0) + '亿';
       }
       if (h) {
-        el.innerHTML = '<span style="font-size:12px;color:#555;line-height:1.9;">' + h + '</span>';
+        el.innerHTML = '<span style="font-size:11px;color:#666;">' + h.replace(/ · $/, '') + '</span>';
         el.style.display = 'block';
       } else {
         el.style.display = "none";
@@ -178247,10 +178184,10 @@ var RECOMMEND = window.RECOMMEND = [
           if (Math.abs(rzChg) >= 1) warns.push('⚠️ 融资余额' + (rzChg>0?'大增':'大减') + Math.abs(rzChg).toFixed(1) + '%');
         }
       }
-      // 上证异动（仅极端情况触发）
+      // 上证异动（作为头条大字体）
       var fib = window.SH_FIB || {}, cur = fib.current || {};
-      if (cur.total_pct <= -10) topWarn = '⚠️ 上证累计跌幅' + (cur.total_pct||0).toFixed(2) + '%，深跌警戒';
-      else if (cur.total_pct <= -8) topWarn = '上证累计跌幅' + (cur.total_pct||0).toFixed(2) + '%，警戒区间';
+      if (cur.days_down >= 20) topWarn = '上证连跌' + cur.days_down + '天，累计' + (cur.total_pct||0).toFixed(1) + '%';
+      else if (cur.total_pct <= -8) topWarn = '上证累计跌幅' + (cur.total_pct||0).toFixed(1) + '%，警戒区间';
       // 成交额异动
       var hd = window.SH_SZ_HISTORY || {}, ah = hd.amount_history || [];
       if (ah.length >= 2) {
@@ -178274,12 +178211,9 @@ var RECOMMEND = window.RECOMMEND = [
         return;
       }
       var html = '';
-      if (topWarn) html += '<div style="font-size:14px;color:#e65100;font-weight:700;margin-bottom:4px;">' + topWarn + '</div>';
-      if (warns.length) html += warns.map(function(w){ return '<div style="font-size:13px;color:#e65100;font-weight:600;line-height:1.8;">' + w + '</div>'; }).join('');
+      if (topWarn) html += '<div style="font-size:14px;color:#c62828;font-weight:700;margin-bottom:6px;">⚠️ 重点关注：' + topWarn + '</div>';
+      if (warns.length) html += warns.map(function(w){ return '<div style="font-size:12px;color:#e65100;font-weight:600;line-height:1.8;">' + w + '</div>'; }).join('');
       el.innerHTML = html;
-      // 暴露给预判总览
-      window.__shReportWarns = warns;
-      window.__shReportTopWarn = topWarn;
     }
     updateMarginAlert();
 
@@ -178512,9 +178446,8 @@ function getStaleNote(ft, source) {
     main:     '盘后更新',
     summary:  '',
     sector:   '',
-    etf:      '',
-    etf_sub:  '盘后更新',
-    concept:  '',
+    etf:      '盘后更新',
+    concept:  '盘后更新',
     macro:    '盘后更新',
     gold:     '',
   };
@@ -179295,7 +179228,7 @@ function renderShMonitor() {
     // 活跃窗口（今日+追踪中合并一行）
     var hotWins = active.concat(tracking);
     if (hotWins.length) {
-      judgeHtml += '<p style="margin:4px 0;">' + hotWins.map(function(w){return w.name+'('+w.date+')';}).join('、') + ' <b style="color:#c62828;">⚠️ 重点关注</b>' + (triggered.length?' （'+triggered.map(function(w){return w.name;}).join('、')+' 已触发）':' ') + '</p>';
+      judgeHtml += '<p style="margin:4px 0;">' + hotWins.map(function(w){return w.name+'('+w.date+')';}).join('、') + ' <b style="color:#c62828;">⚠️ 重点关注</b>' + (triggered.length?' （'+triggered.join('、')+' 已触发）':' ') + '</p>';
     }
     
     // 下个窗口
@@ -179323,7 +179256,7 @@ function renderShMonitor() {
   setChartTime('amountUpdateTime', SH_SZ_HISTORY && SH_SZ_HISTORY.update_time, 'macro');
   setChartTime('upDownUpdateTime', SH_SZ_HISTORY && SH_SZ_HISTORY.update_time, 'macro');
   setChartTime('marginUpdateTime', MARGIN_DATA && MARGIN_DATA.update_time, 'main');
-  setChartTime('etfUpdateTime', ETF_SUBSCRIPTION && ETF_SUBSCRIPTION.update_time, 'etf_sub');
+  setChartTime('etfUpdateTime', ETF_SUBSCRIPTION && ETF_SUBSCRIPTION.update_time, 'etf');
 }
 
 // 绘制成交金额 SVG 曲线图
@@ -180420,6 +180353,14 @@ function renderMacro() {
   if (comm.silver) set('g-silver', '$' + comm.silver.value + (comm.silver.unit ? ' ' + comm.silver.unit : ''));
   if (comm.copper) set('g-copper', '$' + comm.copper.value + (comm.copper.unit ? ' ' + comm.copper.unit : ''));
   if (comm.oil) set('g-oil', '$' + comm.oil.value + (comm.oil.unit ? ' ' + comm.oil.unit : ''));
+  if (comm.bitcoin) {
+    var btcStr = '$' + (comm.bitcoin.value ? comm.bitcoin.value.toLocaleString('en-US') : '--');
+    if (comm.bitcoin.change_24h != null) {
+      var chgSign = comm.bitcoin.change_24h >= 0 ? '+' : '';
+      btcStr += ' <span style="font-size:10px;color:' + (comm.bitcoin.change_24h >= 0 ? '#c62828' : '#2e7d32') + ';">' + chgSign + comm.bitcoin.change_24h.toFixed(1) + '%</span>';
+    }
+    document.getElementById('g-btc').innerHTML = btcStr;
+  }
 
   var s = md.market_sentiment || {};
   if (s.new_investors) set('mt-investors', s.new_investors.value + '万');
@@ -181443,7 +181384,7 @@ function buildQueryExtras(queryCode, queryName) {
     var allSignals = [
       {key:'缠论买_日K', n:'缠论买', c:'#e53935'},
       {key:'金钻', n:'金钻', c:'#ff8f00', met: !!(latest['金钻_起涨']||latest['金钻_黄柱'])},
-      {key:'四量图_机构变红', n:'机构变红', c:'#c62828'},
+      {key:'四量图_机构变红', n:'机构变红', c:'#2e7d32'},
       {key:'上涨趋势', n:'上涨趋势', c:'#6a1b9a'}
     ];
     var sc = 0;
@@ -183100,12 +183041,7 @@ window.HERRING_DATA = {
 "unit": "亿",
 "direction": "流入"
 }
-};if ((!window.LHB_DATA || !window.LHB_DATA.stocks || !window.LHB_DATA.stocks.length)) {
-  // 动态加载最新LHB数据，失败则留空不降级
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'data/lhb_result.json?_=' + Date.now(), false);
-  try { xhr.send(); if (xhr.status === 200) { window.LHB_DATA = JSON.parse(xhr.responseText); } } catch(e) {}
-}
+};if ((!window.LHB_DATA || !window.LHB_DATA.stocks || !window.LHB_DATA.stocks.length)) window.LHB_DATA = {"date":"20260612","update_time":"2026-06-15 00:44:53","summary":{"纯共振":6,"标X":27,"不达标":54,"总计":87}};
 function getCatalystStatus(dateStr) {
   var today = new Date();
   var todayStr = today.getFullYear() + '-' + ('0'+(today.getMonth()+1)).slice(-2) + '-' + ('0'+today.getDate()).slice(-2);
@@ -183177,12 +183113,12 @@ function renderHerdingMain() {
   var h = '';
 
   // ═══ 区块一：方向预判 ═══
-  h += '<div style="font-size:15px;font-weight:600;color:#f57f17;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #ffe082;">方向预判</div>';
+  h += '<div style="font-size:13px;font-weight:600;color:#4a3f6b;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #e0d8f0;">方向预判</div>';
 
   // 当前抱团
   if (hd.current_clusters && hd.current_clusters.length) {
     h += '<div style="margin-bottom:10px;font-size:12px;color:#555;line-height:1.6;">';
-    h += '<b style="color:#ba68c8;">当前抱团：</b>';
+    h += '<b>当前抱团：</b>';
     hd.current_clusters.forEach(function(c,i){
       var amt = c.amount >= 1 ? c.amount.toFixed(2) + c.unit : (c.amount * 10000).toFixed(0) + '万';
       var sep = i < hd.current_clusters.length - 1 ? ' · ' : '';
@@ -183191,20 +183127,30 @@ function renderHerdingMain() {
     h += '</div>';
   }
 
-  // 4类接力方向（纵向排列，每行一个）
+  // 4类接力方向（全部展示）
   if (hd.high_prob && hd.high_prob.length) {
-    h += '<div style="margin-bottom:8px;">';
-    h += '<span style="font-size:11px;font-weight:600;color:#e65100;display:block;margin-bottom:6px;">高概率接力：</span>';
+    h += '<div style="margin-bottom:10px;">';
+    h += '<div style="font-size:12px;font-weight:600;color:#e65100;margin-bottom:6px;">高概率接力方向</div>';
     hd.high_prob.forEach(function(p){
       var tagColor = p.tag === '机构共识' ? '#2a6496' : p.tag === '事件驱动' ? '#e65100' : p.tag === '蓄力中' ? '#00838f' : '#c62828';
       var tagBg = p.tag === '机构共识' ? '#e3f2fd' : p.tag === '事件驱动' ? '#fff3e0' : p.tag === '蓄力中' ? '#e0f7fa' : '#fff0f0';
       var borderColor = p.tag === '机构共识' ? '#90caf9' : p.tag === '事件驱动' ? '#ffcc80' : p.tag === '蓄力中' ? '#80deea' : '#ef9a9a';
-      h += '<div style="margin-bottom:5px;padding:3px 8px;background:'+tagBg+';border:1px solid '+borderColor+';border-radius:4px;font-size:11px;">';
-      h += '<span style="display:inline-block;padding:1px 4px;border-radius:2px;font-size:9px;font-weight:600;color:#fff;background:'+tagColor+';margin-right:3px;">'+p.tag+'</span>';
+      h += '<div style="margin-bottom:5px;padding:6px 8px;background:'+tagBg+';border:1px solid '+borderColor+';border-radius:4px;font-size:12px;">';
+      h += '<span style="display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:600;color:#fff;background:'+tagColor+';margin-right:6px;">'+p.tag+'</span>';
       h += '<b>'+p.sector+'</b>';
-      if (p.strength && p.strength !== p.tag) h += '<span style="font-size:9px;color:#666;"> '+p.strength+'</span>';
+      if (p.strength && p.strength !== p.tag) h += ' <span style="font-size:10px;color:#999;">'+p.strength+'</span>';
       h += ' — ' + p.desc;
       h += '</div>';
+    });
+    h += '</div>';
+  }
+
+  // 谨慎方向
+  if (hd.cautious && hd.cautious.length) {
+    h += '<div style="margin-bottom:8px;padding:6px 14px;background:#fff5f5;border:2px solid #e57373;border-radius:20px;font-size:12px;">';
+    h += '<b style="color:#c62828;">⚠ 谨慎：</b>';
+    hd.cautious.forEach(function(c,i){
+      h += c.sector + '（' + c.reason + '）' + (i < hd.cautious.length - 1 ? ' · ' : '');
     });
     h += '</div>';
   }
@@ -183238,10 +183184,11 @@ function renderHerdingMain() {
   // ═══ 区块二：个股主力动向（左） + 板块资金实况（右，当日+本周上下排列） ═══
   var mw = window.MAIN_WEEK_DATA || {};
   var hasWeek = mw.available && (mw.buy_top5 && mw.buy_top5.length || mw.sell_top5 && mw.sell_top5.length);
-
-  // ═══ 区块二上：个股主力动向 ═══
-  h += '<div style="font-size:15px;font-weight:600;color:#e65100;margin:6px 0 8px 0;padding-bottom:4px;border-bottom:1px solid #e0e0e0;text-align:center;">个股主力动向（当日）</div>';
   h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">';
+
+  // ── 左：个股主力动向 ──
+  h += '<div style="display:flex;flex-direction:column;gap:8px;">';
+  h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;padding-bottom:4px;border-bottom:1px solid #e0e0e0;">个股主力动向（当日）</div>';
   // 净买入 — 两列各5只
   h += '<div style="background:#fff5f5;border-radius:8px;padding:10px;">';
   h += '<div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:6px;">净买入 TOP10</div>';
@@ -183282,22 +183229,21 @@ function renderHerdingMain() {
     h += '</div>';
   } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
   h += '</div>';
-  h += '</div>'; // end 个股主力动向 grid
+  h += '</div>'; // close 个股主力动向 column
 
-  // ═══ 区块二下：板块资金实况（当日 + 本周 左右并排） ═══
-  h += '<div style="font-size:15px;font-weight:600;color:#e65100;margin:6px 0 8px 0;padding-bottom:4px;border-bottom:1px solid #e0e0e0;text-align:center;">板块资金实况</div>';
-  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">';
+  // ── 右：当日 + 本周（上下排列）──
+  h += '<div style="display:flex;flex-direction:column;gap:10px;">';
 
-  // ── 左：当日 ──
-  h += '<div style="display:flex;flex-direction:column;gap:8px;">';
-  h += '<div style="font-size:12px;font-weight:700;color:#42a5f5;">当日</div>';
+  // 当日
+  h += '<div>';
+  h += '<div style="font-size:15px;font-weight:700;color:#42a5f5;margin-bottom:6px;">当日</div>';
   // 当日流入 — TOP10 分两列
-  h += '<div style="background:#fff5f5;border-radius:8px;padding:8px;">';
-  h += '<div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:4px;">流入 TOP10</div>';
+  h += '<div style="background:#fff5f5;border-radius:8px;padding:8px;margin-bottom:8px;">';
+  h += '<div style="font-size:11px;font-weight:600;color:#c62828;margin-bottom:4px;">流入 TOP10</div>';
   if (sf.top_list && sf.top_list.length) {
     var inSectors = sf.top_list.filter(function(x){return x.net>0;}).slice(0,10);
     if (inSectors.length) {
-      h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:11px;">';
+      h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:10px;">';
       var inHalf = Math.ceil(inSectors.length/2);
       for (var col=0; col<2; col++) {
         h += '<div>';
@@ -183312,11 +183258,11 @@ function renderHerdingMain() {
   h += '</div>';
   // 当日流出 — TOP10 分两列
   h += '<div style="background:#f5fff5;border-radius:8px;padding:8px;">';
-  h += '<div style="font-size:12px;font-weight:600;color:#2e7d32;margin-bottom:4px;">流出 TOP10</div>';
+  h += '<div style="font-size:11px;font-weight:600;color:#2e7d32;margin-bottom:4px;">流出 TOP10</div>';
   if (sf.top_list && sf.top_list.length) {
     var outSectors = sf.top_list.filter(function(x){return x.net<0;}).reverse().slice(0,10);
     if (outSectors.length) {
-      h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:11px;">';
+      h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:10px;">';
       var outHalf = Math.ceil(outSectors.length/2);
       for (var col=0; col<2; col++) {
         h += '<div>';
@@ -183329,17 +183275,17 @@ function renderHerdingMain() {
     } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
   } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
   h += '</div>';
-  h += '</div>'; // close 当日 column
+  h += '</div>'; // close 当日 panel
 
-  // ── 右：本周 ──
-  h += '<div style="display:flex;flex-direction:column;gap:8px;">';
-  h += '<div style="font-size:12px;font-weight:700;color:#42a5f5;">本周</div>';
+  // 本周
+  h += '<div>';
+  h += '<div style="font-size:15px;font-weight:700;color:#42a5f5;margin-bottom:6px;">本周</div>';
   // 本周流入
-  h += '<div style="background:#fff5f5;border-radius:8px;padding:8px;">';
-  h += '<div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:4px;">流入 TOP10</div>';
+  h += '<div style="background:#fff5f5;border-radius:8px;padding:8px;margin-bottom:8px;">';
+  h += '<div style="font-size:11px;font-weight:600;color:#c62828;margin-bottom:4px;">流入 TOP10</div>';
   if (hasWeek && mw.buy_top5 && mw.buy_top5.length) {
     var wkIn = mw.buy_top5.slice(0,10);
-    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:11px;">';
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:10px;">';
     var wkInHalf = Math.ceil(wkIn.length/2);
     for (var col=0; col<2; col++) {
       h += '<div>';
@@ -183354,10 +183300,10 @@ function renderHerdingMain() {
   h += '</div>';
   // 本周流出
   h += '<div style="background:#f5fff5;border-radius:8px;padding:8px;">';
-  h += '<div style="font-size:12px;font-weight:600;color:#2e7d32;margin-bottom:4px;">流出 TOP10</div>';
+  h += '<div style="font-size:11px;font-weight:600;color:#2e7d32;margin-bottom:4px;">流出 TOP10</div>';
   if (hasWeek && mw.sell_top5 && mw.sell_top5.length) {
     var wkOut = mw.sell_top5.slice(0,10);
-    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:11px;">';
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:10px;">';
     var wkOutHalf = Math.ceil(wkOut.length/2);
     for (var col=0; col<2; col++) {
       h += '<div>';
@@ -183370,9 +183316,10 @@ function renderHerdingMain() {
     h += '</div>';
   } else { h += '<span style="color:#999;font-size:11px;">暂无</span>'; }
   h += '</div>';
-  h += '</div>'; // close 本周 column
+  h += '</div>'; // close 本周 panel
 
-  h += '</div>'; // end 板块资金实况 grid
+  h += '</div>'; // close right stacked column
+  h += '</div>'; // end outer 1fr 1fr grid
 
   con.innerHTML = h;
 }
@@ -183428,7 +183375,7 @@ function renderLhbPredict() {
     var maxShow = 10;
     var sorted = stocks.slice().sort(function(a,b){ return netFn(b) - netFn(a); });
     b += '<div style="background:'+bg+';border-radius:10px;padding:10px;min-height:100px;">';
-    b += '<div style="font-size:12px;font-weight:700;color:'+color+';margin-bottom:6px;text-align:center;"><span style="font-size:18px;">'+emoji+'</span> '+title+' <b>'+sorted.length+'只</b></div>';
+    b += '<div style="font-size:12px;font-weight:700;color:'+color+';margin-bottom:6px;"><span style="font-size:18px;">'+emoji+'</span> '+title+' <b>'+sorted.length+'只</b></div>';
     if (sorted.length) {
       b += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;">';
       sorted.slice(0, maxShow).forEach(function(s){
@@ -183741,11 +183688,59 @@ function renderPredictSummary() {
 
   var h = '';
 
+  // ═══ 三色块总览 ═══
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;">';
+
+  // 块1：机游共振
+  var pureLhb = (lhb.stocks && lhb.stocks.length) ? lhb.stocks.filter(function(s){return s.category==='纯共振';}) : [];
+  var lhbTitle = pureLhb.length ? pureLhb.length+'只纯共振' : (lhb.stocks && lhb.stocks.length ? '无纯共振' : '暂无数据');
+  var lhbSub = '';
+  if (pureLhb.length) {
+    if (lhb.pure_sector_top && lhb.pure_sectors) {
+      var topSec = lhb.pure_sector_top;
+      var topCnt = lhb.pure_sectors[topSec] || 1;
+      if (topCnt >= pureLhb.length * 0.5 || topCnt >= 2) {
+        lhbSub = topSec + ' ' + topCnt + '只';
+      } else {
+        lhbSub = '跨' + lhb.pure_sector_count + '板块分散 · 无明确主线';
+      }
+    } else {
+      var lhbSum = 0;
+      pureLhb.forEach(function(s){ lhbSum += (s.inst_net_万||0) + (s.yz_net_万||0); });
+      lhbSub = '净买' + (lhbSum/10000).toFixed(2) + '亿';
+    }
+  } else if (lhb.stocks && lhb.stocks.length) {
+    lhbSub = lhb.stocks.length+'只上榜';
+  }
+  h += '<div style="background:#e3f2fd;border-radius:8px;padding:10px;text-align:center;">';
+  h += '<div style="font-size:13px;font-weight:700;color:#1565c0;margin-bottom:4px;">🐉 机游共振</div>';
+  h += '<div style="font-size:14px;font-weight:500;color:#1565c0;">'+lhbTitle+'</div>';
+  if (lhbSub) h += '<div style="font-size:11px;color:#555;margin-top:2px;">'+lhbSub+'</div>';
+  h += '</div>';
+
+  // 块2：主力资金
+  var clusterTop = hd.current_clusters && hd.current_clusters.length ? hd.current_clusters[0] : null;
+  var mainTitle = clusterTop ? '抱团'+clusterTop.sector : (ms.top_main_in && ms.top_main_in.length ? '净流入'+ms.top_main_in.length+'只' : '暂无数据');
+  var mainSub = '';
+  if (sf.top_list && sf.top_list.length) {
+    var sortedTop = sf.top_list.slice().sort(function(a,b){return b.net - a.net;});
+    var topIn = sortedTop.filter(function(x){return x.net>0;}).slice(0,1);
+    if (topIn.length) mainSub = topIn[0].name + ' +' + topIn[0].net.toFixed(0) + '亿';
+  } else if (ms.top_main_in && ms.top_main_in.length) {
+    mainSub = ms.top_main_in[0].name + ' +' + ms.top_main_in[0].net_in + ms.top_main_in[0].unit;
+  }
+  h += '<div style="background:#f3e5f5;border-radius:8px;padding:10px;text-align:center;">';
+  h += '<div style="font-size:13px;font-weight:700;color:#6a1b9a;margin-bottom:4px;">🔥 主力资金</div>';
+  h += '<div style="font-size:14px;font-weight:500;color:#6a1b9a;">'+mainTitle+'</div>';
+  if (mainSub) h += '<div style="font-size:11px;color:#555;margin-top:2px;">'+mainSub+'</div>';
+  h += '</div>';
+
+  h += '</div>'; // end 双色块（北向已下架）
+
   // ═══ 核心关注 ═══
   var alerts = [];
 
   // 龙虎榜信号
-  var pureLhb = (lhb.stocks && lhb.stocks.length) ? lhb.stocks.filter(function(s){return s.category==='纯共振';}) : [];
   if (pureLhb.length) {
     var lhbSum = 0;
     pureLhb.forEach(function(s){ lhbSum += (s.inst_net_万||0) + (s.yz_net_万||0); });
@@ -183758,9 +183753,7 @@ function renderPredictSummary() {
         if (lhb.pure_sector_count > 2) lhbMsg += '，跨' + lhb.pure_sector_count + '板块';
         lhbMsg += '）';
       } else if (lhb.pure_sector_count >= 3) {
-        lhbMsg += '（跨' + lhb.pure_sector_count + '板块分散 · 无明确主线）';
-      } else if (lhb.pure_sector_count >= 1) {
-        lhbMsg += '（跨' + lhb.pure_sector_count + '板块分散 · 无明确主线）';
+        lhbMsg += '（跨' + lhb.pure_sector_count + '板块分散）';
       }
     }
     lhbMsg += '，净买'+(lhbSum/10000).toFixed(2)+'亿，短线博弈活跃';
@@ -183776,7 +183769,7 @@ function renderPredictSummary() {
         var tagColor = p.tag==='机构共识'?'#ba68c8':p.tag==='事件驱动'?'#e65100':p.tag==='蓄力中'?'#00838f':'#c62828';
         return '<span style="color:'+tagColor+';font-weight:500;">'+p.tag+'→'+p.sector+'</span>';
       });
-      alertHtml += '<br><span style="font-size:11px;color:#666;">'+hpItems.join(' · ')+'</span>';
+      alertHtml += '<br><span style="font-size:11px;color:#666;">'+hpItems.join(' &nbsp;·&nbsp; ')+'</span>';
     }
     alerts.push(alertHtml);
   }
@@ -183788,7 +183781,7 @@ function renderPredictSummary() {
   }
 
   if (alerts.length) {
-    h += '<div style="padding:10px 12px;background:#f8f0ff;border-radius:8px;border-left:3px solid #9c27b0;font-size:13px;color:#555;line-height:1.7;">';
+    h += '<div style="padding:10px 12px;background:#fff8f0;border-radius:8px;border-left:3px solid #ff9800;font-size:12px;color:#555;line-height:1.8;">';
     alerts.forEach(function(a){ h += '<div>• '+a+'</div>'; });
     h += '</div>';
   } else {
@@ -183848,444 +183841,6 @@ if (window.NT_DATA && window.NT_DATA.calendar && window.NT_DATA.calendar.events)
 }
 </script>
 
-<script>
-(function(){
-  if(typeof window.MACRO_DATA === "undefined") return;
-  const m = window.MACRO_DATA;
-  var el = document.getElementById("macroUpdateTime");
-  if(el && m.update_time) { var ft = (typeof fmtDataTime === 'function') ? fmtDataTime(m.update_time) : {text: (m.update_time||'').slice(0,16)}; el.textContent = '更新于 ' + ft.text; }
-  var leg = document.getElementById("macroStarLegend");
-  if(leg) {
-    var st = m.indicator_status || {};
-    var monthlyKeys = ["lpr","m2_yoy","pmi","cpi","ppi","social_financing","export_yoy","new_investors"];
-    var total = monthlyKeys.length;
-    var fresh = 0;
-    for(var i=0; i<monthlyKeys.length; i++) {
-      var sti = st[monthlyKeys[i]];
-      if(sti && sti.is_fresh) fresh++;
-    }
-    leg.innerHTML = "⭐ 已更新 " + fresh + "/" + total + " &nbsp; ☆ 待更新";
-  }
-  function v(id,val,color){var e=document.getElementById(id); if(!e)return; e.innerHTML=val||"--"; if(color)e.style.color=color;}
-  function note(id, level, text) {
-    if(!text) return;
-    var e = document.getElementById(id);
-    if(!e || !e.parentNode) return;
-    var td = e.parentNode.children[2];
-    if(!td || td.dataset.noted) return;
-    var icon = level>=2 ? "🔴 " : (level>=1 ? "🟡 " : "");
-    if(icon) {
-      td.innerHTML = icon + text;
-      td.style.color = level>=2 ? "#f44336" : "#ff9800";
-    }
-    td.dataset.noted = "1";
-  }
-  /* ===== ⭐ 月度指标标记渲染 ===== */
-  function star(id, key){
-    var e=document.getElementById(id); if(!e)return;
-    var st = m.indicator_status && m.indicator_status[key];
-    if(st && st.is_fresh){ e.innerHTML = "⭐ 月度"; e.style.color = "#FFD700"; }
-    else { e.innerHTML = "☆ 月度"; e.style.color = "#999"; }
-  }
-  star("upd-lpr", "lpr");
-  star("upd-m2", "m2_yoy");
-  star("upd-pmi", "pmi");
-  star("upd-cpi", "cpi");
-  star("upd-ppi", "ppi");
-  star("upd-szr", "social_financing");
-  star("upd-export", "export_yoy");
-  star("upd-investors", "new_investors");
-
-  /* ===== 数值渲染（异常说明写入第3列） ===== */
-  var mon = m.monetary || {};
-  if(mon.cn_bond_10y) { var cb=mon.cn_bond_10y.value; var cbLv=cb<1.8?2:(cb<2.0?1:0); v("m-cn-bond", cb+"%", "#4fc3f7"); note("m-cn-bond", cbLv, cb<1.8?"利率极低，流动性泛滥":(cb<2.0?"利率偏低":"")); }
-  if(mon.us_bond_10y) { var ub=mon.us_bond_10y.value; var ubLv=ub>=5?2:(ub>=4.5?1:0); v("m-us-bond", ub+"%", "#ff9800"); note("m-us-bond", ubLv, ub>=5?"高利率压制全球资产":(ub>=4.5?"利率偏高":"正常区间")); }
-  if(mon.shibor) { var so=mon.shibor.on; var sLv=so>3?2:(so>2?1:0); v("m-shibor", so+"% / "+mon.shibor.w1+"%", "#b0bec5"); note("m-shibor", sLv, so>3?"资金面紧张":(so>2?"偏紧":"")); }
-  if(mon.cn_us_spread){var s=mon.cn_us_spread.value; var spLv=s<-2.5?2:(s<-1.5?1:0); v("m-spread", s+"%", s<0?"#f44336":"#4caf50"); note("m-spread", spLv, s<-2.5?"利差严重倒挂，资本外流压力大":(s<-1?"利差倒挂":"正常"));}
-  if(mon.lpr) v("m-lpr", mon.lpr.lpr_1y+"% / "+mon.lpr.lpr_5y+"%", "#81c784");
-  if(mon.m2_yoy && mon.m2_yoy.value!==null) { var m2v=mon.m2_yoy.value; var m2Lv=m2v>10?2:(m2v>8?1:(m2v<0?2:0)); v("m-m1m2", m2v+"%", m2v>8?"#f44336":"#4caf50"); note("m-m1m2", m2Lv, m2v>8?"货币供应偏快":(m2v<0?"货币收缩":"正常")); }
-  if(mon.open_market_operation){var omo=mon.open_market_operation; v("m-omo", (omo.net_inflow>=0?"+":"")+omo.net_inflow+"亿", omo.net_inflow>=0?"#4caf50":"#f44336");}
-  var eco = m.economy || {};
-  if(eco.pmi){var p=eco.pmi.value; var pCol=p>=50?"#4caf50":"#f44336"; var pLv=p<49?2:(p<50?1:0); v("e-pmi", p+(eco.pmi.forecast?" (预:"+eco.pmi.forecast+")":""), pCol); note("e-pmi", pLv, p<49?"PMI收缩，经济下行压力":(p<50?"PMI偏弱，景气度不足":"PMI扩张，经济向好"));}
-  if(eco.cpi){var cv=eco.cpi.value; var cStr=cv!==null&&cv!==undefined?cv+"%":(eco.cpi.previous?eco.cpi.previous+"%(前值)":"--"); v("e-cpi", cStr, undefined); if(cv!==null&&cv!==undefined){ var cLv=cv<0?2:(cv>3?2:(cv<1?1:0)); note("e-cpi", cLv, cv<0?"通缩风险":(cv>3?"通胀压力":(cv<1?"偏低":""))); } }
-  if(eco.ppi){var pp=eco.ppi.value; var ppStr=pp!==null&&pp!==undefined?pp+"%":(eco.ppi.previous?eco.ppi.previous+"%(前值)":"--"); v("e-ppi", ppStr, undefined); if(pp!==null&&pp!==undefined){ var ppLv=pp<-3?2:(pp<-2?1:0); note("e-ppi", ppLv, pp<-3?"通缩压力严重":"正常"); } }
-  if(eco.social_financing) { var sz=eco.social_financing; var szLv=sz.change_pct<-15?2:(sz.change_pct<-5?1:0); v("e-szr", sz.value+"亿 "+(sz.change_pct>0?"↑":"↓")+Math.abs(sz.change_pct)+"%", sz.change_pct<0?"#f44336":"#4caf50"); note("e-szr", szLv, sz.change_pct<-10?"社融大幅回落":(sz.change_pct<0?"社融回落":"")); }
-  if(eco.export_yoy){var ex=eco.export_yoy.value; var exStr=ex+"%"+(eco.export_yoy.previous?" (前:"+eco.export_yoy.previous+"%)":""); var exCol=ex>0?"#4caf50":"#f44336"; var exLv=ex<-5?2:(ex<0?1:0); v("e-export", exStr, exCol); note("e-export", exLv, ex<-5?"出口大幅下滑":"正常");}
-  if(eco.ipo){ var ipo=eco.ipo; var ipoLv=ipo.count>20?2:(ipo.count>10?1:0); v("e-ipo", ipo.count+"只 / "+ipo.amount+"亿", "#90caf9"); note("e-ipo", ipoLv, ipo.count>20?"IPO供给压力大":"正常");}
-  var mt = m.market_sentiment || {};
-  if(mt.new_investors){ var ni=mt.new_investors; var invStr=ni.value+"万"+(ni.change?" ("+(ni.change>=0?"+":"")+ni.change+"万)":""); var invCol=ni.change>0?"#ef5350":"#4caf50"; var niLv=ni.value>150?2:(ni.value>100?1:(ni.value<30?2:0)); v("mt-investors", invStr, invCol); note("mt-investors", niLv, ni.value>150?"散户过热，警惕":(ni.value<30?"人气极端低迷":"正常"));}
-  var g = m.global_macro || {};
-  if(g.vix){var vx=g.vix.value; var vxCol=vx<20?"#4caf50":(vx<30?"#ff9800":"#f44336"); var vxLv=vx>30?2:(vx>25?1:0); v("g-vix", vx, vxCol); note("g-vix", vxLv, vx>30?"极度恐慌":(vx>25?"恐慌上升":"低波动"));}
-  if(g.dxy) { var dx=g.dxy.value; var dxLv=dx>105?2:(dx>100?1:0); v("g-dxy", dx, "#90caf9"); note("g-dxy", dxLv, dx>105?"强美元，新兴市场承压":(dx>100?"美元偏强":"")); }
-  if(g.usdcnh){var price=g.usdcnh.price; var usdStr=price?price.toFixed(4)+(g.usdcnh.prev_close?" (昨:"+g.usdcnh.prev_close+")":""):"暂无数据"; var usdCol=price>7.2?"#f44336":"#4caf50"; var usdLv=price>7.3?2:(price>7.2?1:0); v("g-usdcnh", usdStr, usdCol); note("g-usdcnh", usdLv, price>7.3?"贬值压力大，北向流出风险":(price>7.2?"轻微贬值":"正常"));}
-  else v("g-usdcnh", "暂无数据", "#666");
-})();
-</script>
-<script>
-(function(){
-  if(typeof window.MACRO_DATA === "undefined") return;
-  const m = window.MACRO_DATA;
-  var el = document.getElementById("macroUpdateTime");
-  if(el && m.update_time) { var ft = (typeof fmtDataTime === 'function') ? fmtDataTime(m.update_time) : {text: (m.update_time||'').slice(0,16)}; el.textContent = '更新于 ' + ft.text; }
-  var leg = document.getElementById("macroStarLegend");
-  if(leg) {
-    var st = m.indicator_status || {};
-    var monthlyKeys = ["lpr","m2_yoy","pmi","cpi","ppi","social_financing","export_yoy","new_investors"];
-    var total = monthlyKeys.length;
-    var fresh = 0;
-    for(var i=0; i<monthlyKeys.length; i++) {
-      var sti = st[monthlyKeys[i]];
-      if(sti && sti.is_fresh) fresh++;
-    }
-    leg.innerHTML = "⭐ 已更新 " + fresh + "/" + total + " &nbsp; ☆ 待更新";
-  }
-  function v(id,val,color){var e=document.getElementById(id); if(!e)return; e.innerHTML=val||"--"; if(color)e.style.color=color;}
-  function note(id, level, text) {
-    if(!text) return;
-    var e = document.getElementById(id);
-    if(!e || !e.parentNode) return;
-    var td = e.parentNode.children[2];
-    if(!td || td.dataset.noted) return;
-    var icon = level>=2 ? "🔴 " : (level>=1 ? "🟡 " : "");
-    if(icon) {
-      td.innerHTML = icon + text;
-      td.style.color = level>=2 ? "#f44336" : "#ff9800";
-    }
-    td.dataset.noted = "1";
-  }
-  /* ===== ⭐ 月度指标标记渲染 ===== */
-  function star(id, key){
-    var e=document.getElementById(id); if(!e)return;
-    var st = m.indicator_status && m.indicator_status[key];
-    if(st && st.is_fresh){ e.innerHTML = "⭐ 月度"; e.style.color = "#FFD700"; }
-    else { e.innerHTML = "☆ 月度"; e.style.color = "#999"; }
-  }
-  star("upd-lpr", "lpr");
-  star("upd-m2", "m2_yoy");
-  star("upd-pmi", "pmi");
-  star("upd-cpi", "cpi");
-  star("upd-ppi", "ppi");
-  star("upd-szr", "social_financing");
-  star("upd-export", "export_yoy");
-  star("upd-investors", "new_investors");
-
-  /* ===== 数值渲染（异常说明写入第3列） ===== */
-  var mon = m.monetary || {};
-  if(mon.cn_bond_10y) { var cb=mon.cn_bond_10y.value; var cbLv=cb<1.8?2:(cb<2.0?1:0); v("m-cn-bond", cb+"%", "#4fc3f7"); note("m-cn-bond", cbLv, cb<1.8?"利率极低，流动性泛滥":(cb<2.0?"利率偏低":"")); }
-  if(mon.us_bond_10y) { var ub=mon.us_bond_10y.value; var ubLv=ub>=5?2:(ub>=4.5?1:0); v("m-us-bond", ub+"%", "#ff9800"); note("m-us-bond", ubLv, ub>=5?"高利率压制全球资产":(ub>=4.5?"利率偏高":"正常区间")); }
-  if(mon.shibor) { var so=mon.shibor.on; var sLv=so>3?2:(so>2?1:0); v("m-shibor", so+"% / "+mon.shibor.w1+"%", "#b0bec5"); note("m-shibor", sLv, so>3?"资金面紧张":(so>2?"偏紧":"")); }
-  if(mon.cn_us_spread){var s=mon.cn_us_spread.value; var spLv=s<-2.5?2:(s<-1.5?1:0); v("m-spread", s+"%", s<0?"#f44336":"#4caf50"); note("m-spread", spLv, s<-2.5?"利差严重倒挂，资本外流压力大":(s<-1?"利差倒挂":"正常"));}
-  if(mon.lpr) v("m-lpr", mon.lpr.lpr_1y+"% / "+mon.lpr.lpr_5y+"%", "#81c784");
-  if(mon.m2_yoy && mon.m2_yoy.value!==null) { var m2v=mon.m2_yoy.value; var m2Lv=m2v>10?2:(m2v>8?1:(m2v<0?2:0)); v("m-m1m2", m2v+"%", m2v>8?"#f44336":"#4caf50"); note("m-m1m2", m2Lv, m2v>8?"货币供应偏快":(m2v<0?"货币收缩":"正常")); }
-  if(mon.open_market_operation){var omo=mon.open_market_operation; v("m-omo", (omo.net_inflow>=0?"+":"")+omo.net_inflow+"亿", omo.net_inflow>=0?"#4caf50":"#f44336");}
-  var eco = m.economy || {};
-  if(eco.pmi){var p=eco.pmi.value; var pCol=p>=50?"#4caf50":"#f44336"; var pLv=p<49?2:(p<50?1:0); v("e-pmi", p+(eco.pmi.forecast?" (预:"+eco.pmi.forecast+")":""), pCol); note("e-pmi", pLv, p<49?"PMI收缩，经济下行压力":(p<50?"PMI偏弱，景气度不足":"PMI扩张，经济向好"));}
-  if(eco.cpi){var cv=eco.cpi.value; var cStr=cv!==null&&cv!==undefined?cv+"%":(eco.cpi.previous?eco.cpi.previous+"%(前值)":"--"); v("e-cpi", cStr, undefined); if(cv!==null&&cv!==undefined){ var cLv=cv<0?2:(cv>3?2:(cv<1?1:0)); note("e-cpi", cLv, cv<0?"通缩风险":(cv>3?"通胀压力":(cv<1?"偏低":""))); } }
-  if(eco.ppi){var pp=eco.ppi.value; var ppStr=pp!==null&&pp!==undefined?pp+"%":(eco.ppi.previous?eco.ppi.previous+"%(前值)":"--"); v("e-ppi", ppStr, undefined); if(pp!==null&&pp!==undefined){ var ppLv=pp<-3?2:(pp<-2?1:0); note("e-ppi", ppLv, pp<-3?"通缩压力严重":"正常"); } }
-  if(eco.social_financing) { var sz=eco.social_financing; var szLv=sz.change_pct<-15?2:(sz.change_pct<-5?1:0); v("e-szr", sz.value+"亿 "+(sz.change_pct>0?"↑":"↓")+Math.abs(sz.change_pct)+"%", sz.change_pct<0?"#f44336":"#4caf50"); note("e-szr", szLv, sz.change_pct<-10?"社融大幅回落":(sz.change_pct<0?"社融回落":"")); }
-  if(eco.export_yoy){var ex=eco.export_yoy.value; var exStr=ex+"%"+(eco.export_yoy.previous?" (前:"+eco.export_yoy.previous+"%)":""); var exCol=ex>0?"#4caf50":"#f44336"; var exLv=ex<-5?2:(ex<0?1:0); v("e-export", exStr, exCol); note("e-export", exLv, ex<-5?"出口大幅下滑":"正常");}
-  if(eco.ipo){ var ipo=eco.ipo; var ipoLv=ipo.count>20?2:(ipo.count>10?1:0); v("e-ipo", ipo.count+"只 / "+ipo.amount+"亿", "#90caf9"); note("e-ipo", ipoLv, ipo.count>20?"IPO供给压力大":"正常");}
-  var mt = m.market_sentiment || {};
-  if(mt.new_investors){ var ni=mt.new_investors; var invStr=ni.value+"万"+(ni.change?" ("+(ni.change>=0?"+":"")+ni.change+"万)":""); var invCol=ni.change>0?"#ef5350":"#4caf50"; var niLv=ni.value>150?2:(ni.value>100?1:(ni.value<30?2:0)); v("mt-investors", invStr, invCol); note("mt-investors", niLv, ni.value>150?"散户过热，警惕":(ni.value<30?"人气极端低迷":"正常"));}
-  var g = m.global_macro || {};
-  if(g.vix){var vx=g.vix.value; var vxCol=vx<20?"#4caf50":(vx<30?"#ff9800":"#f44336"); var vxLv=vx>30?2:(vx>25?1:0); v("g-vix", vx, vxCol); note("g-vix", vxLv, vx>30?"极度恐慌":(vx>25?"恐慌上升":"低波动"));}
-  if(g.dxy) { var dx=g.dxy.value; var dxLv=dx>105?2:(dx>100?1:0); v("g-dxy", dx, "#90caf9"); note("g-dxy", dxLv, dx>105?"强美元，新兴市场承压":(dx>100?"美元偏强":"")); }
-  if(g.usdcnh){var price=g.usdcnh.price; var usdStr=price?price.toFixed(4)+(g.usdcnh.prev_close?" (昨:"+g.usdcnh.prev_close+")":""):"暂无数据"; var usdCol=price>7.2?"#f44336":"#4caf50"; var usdLv=price>7.3?2:(price>7.2?1:0); v("g-usdcnh", usdStr, usdCol); note("g-usdcnh", usdLv, price>7.3?"贬值压力大，北向流出风险":(price>7.2?"轻微贬值":"正常"));}
-  else v("g-usdcnh", "暂无数据", "#666");
-})();
-</script>
-<script>
-(function(){
-  if(typeof window.MACRO_DATA === "undefined") return;
-  const m = window.MACRO_DATA;
-  var el = document.getElementById("macroUpdateTime");
-  if(el && m.update_time) { var ft = (typeof fmtDataTime === 'function') ? fmtDataTime(m.update_time) : {text: (m.update_time||'').slice(0,16)}; el.textContent = '更新于 ' + ft.text; }
-  var leg = document.getElementById("macroStarLegend");
-  if(leg) {
-    var st = m.indicator_status || {};
-    var monthlyKeys = ["lpr","m2_yoy","pmi","cpi","ppi","social_financing","export_yoy","new_investors"];
-    var total = monthlyKeys.length;
-    var fresh = 0;
-    for(var i=0; i<monthlyKeys.length; i++) {
-      var sti = st[monthlyKeys[i]];
-      if(sti && sti.is_fresh) fresh++;
-    }
-    leg.innerHTML = "⭐ 已更新 " + fresh + "/" + total + " &nbsp; ☆ 待更新";
-  }
-  function v(id,val,color){var e=document.getElementById(id); if(!e)return; e.innerHTML=val||"--"; if(color)e.style.color=color;}
-  function note(id, level, text) {
-    if(!text) return;
-    var e = document.getElementById(id);
-    if(!e || !e.parentNode) return;
-    var td = e.parentNode.children[2];
-    if(!td || td.dataset.noted) return;
-    var icon = level>=2 ? "🔴 " : (level>=1 ? "🟡 " : "");
-    if(icon) {
-      td.innerHTML = icon + text;
-      td.style.color = level>=2 ? "#f44336" : "#ff9800";
-    }
-    td.dataset.noted = "1";
-  }
-  /* ===== ⭐ 月度指标标记渲染 ===== */
-  function star(id, key){
-    var e=document.getElementById(id); if(!e)return;
-    var st = m.indicator_status && m.indicator_status[key];
-    if(st && st.is_fresh){ e.innerHTML = "⭐ 月度"; e.style.color = "#FFD700"; }
-    else { e.innerHTML = "☆ 月度"; e.style.color = "#999"; }
-  }
-  star("upd-lpr", "lpr");
-  star("upd-m2", "m2_yoy");
-  star("upd-pmi", "pmi");
-  star("upd-cpi", "cpi");
-  star("upd-ppi", "ppi");
-  star("upd-szr", "social_financing");
-  star("upd-export", "export_yoy");
-  star("upd-investors", "new_investors");
-
-  /* ===== 数值渲染（异常说明写入第3列） ===== */
-  var mon = m.monetary || {};
-  if(mon.cn_bond_10y) { var cb=mon.cn_bond_10y.value; var cbLv=cb<1.8?2:(cb<2.0?1:0); v("m-cn-bond", cb+"%", "#4fc3f7"); note("m-cn-bond", cbLv, cb<1.8?"利率极低，流动性泛滥":(cb<2.0?"利率偏低":"")); }
-  if(mon.us_bond_10y) { var ub=mon.us_bond_10y.value; var ubLv=ub>=5?2:(ub>=4.5?1:0); v("m-us-bond", ub+"%", "#ff9800"); note("m-us-bond", ubLv, ub>=5?"高利率压制全球资产":(ub>=4.5?"利率偏高":"正常区间")); }
-  if(mon.shibor) { var so=mon.shibor.on; var sLv=so>3?2:(so>2?1:0); v("m-shibor", so+"% / "+mon.shibor.w1+"%", "#b0bec5"); note("m-shibor", sLv, so>3?"资金面紧张":(so>2?"偏紧":"")); }
-  if(mon.cn_us_spread){var s=mon.cn_us_spread.value; var spLv=s<-2.5?2:(s<-1.5?1:0); v("m-spread", s+"%", s<0?"#f44336":"#4caf50"); note("m-spread", spLv, s<-2.5?"利差严重倒挂，资本外流压力大":(s<-1?"利差倒挂":"正常"));}
-  if(mon.lpr) v("m-lpr", mon.lpr.lpr_1y+"% / "+mon.lpr.lpr_5y+"%", "#81c784");
-  if(mon.m2_yoy && mon.m2_yoy.value!==null) { var m2v=mon.m2_yoy.value; var m2Lv=m2v>10?2:(m2v>8?1:(m2v<0?2:0)); v("m-m1m2", m2v+"%", m2v>8?"#f44336":"#4caf50"); note("m-m1m2", m2Lv, m2v>8?"货币供应偏快":(m2v<0?"货币收缩":"正常")); }
-  if(mon.open_market_operation){var omo=mon.open_market_operation; v("m-omo", (omo.net_inflow>=0?"+":"")+omo.net_inflow+"亿", omo.net_inflow>=0?"#4caf50":"#f44336");}
-  var eco = m.economy || {};
-  if(eco.pmi){var p=eco.pmi.value; var pCol=p>=50?"#4caf50":"#f44336"; var pLv=p<49?2:(p<50?1:0); v("e-pmi", p+(eco.pmi.forecast?" (预:"+eco.pmi.forecast+")":""), pCol); note("e-pmi", pLv, p<49?"PMI收缩，经济下行压力":(p<50?"PMI偏弱，景气度不足":"PMI扩张，经济向好"));}
-  if(eco.cpi){var cv=eco.cpi.value; var cStr=cv!==null&&cv!==undefined?cv+"%":(eco.cpi.previous?eco.cpi.previous+"%(前值)":"--"); v("e-cpi", cStr, undefined); if(cv!==null&&cv!==undefined){ var cLv=cv<0?2:(cv>3?2:(cv<1?1:0)); note("e-cpi", cLv, cv<0?"通缩风险":(cv>3?"通胀压力":(cv<1?"偏低":""))); } }
-  if(eco.ppi){var pp=eco.ppi.value; var ppStr=pp!==null&&pp!==undefined?pp+"%":(eco.ppi.previous?eco.ppi.previous+"%(前值)":"--"); v("e-ppi", ppStr, undefined); if(pp!==null&&pp!==undefined){ var ppLv=pp<-3?2:(pp<-2?1:0); note("e-ppi", ppLv, pp<-3?"通缩压力严重":"正常"); } }
-  if(eco.social_financing) { var sz=eco.social_financing; var szLv=sz.change_pct<-15?2:(sz.change_pct<-5?1:0); v("e-szr", sz.value+"亿 "+(sz.change_pct>0?"↑":"↓")+Math.abs(sz.change_pct)+"%", sz.change_pct<0?"#f44336":"#4caf50"); note("e-szr", szLv, sz.change_pct<-10?"社融大幅回落":(sz.change_pct<0?"社融回落":"")); }
-  if(eco.export_yoy){var ex=eco.export_yoy.value; var exStr=ex+"%"+(eco.export_yoy.previous?" (前:"+eco.export_yoy.previous+"%)":""); var exCol=ex>0?"#4caf50":"#f44336"; var exLv=ex<-5?2:(ex<0?1:0); v("e-export", exStr, exCol); note("e-export", exLv, ex<-5?"出口大幅下滑":"正常");}
-  if(eco.ipo){ var ipo=eco.ipo; var ipoLv=ipo.count>20?2:(ipo.count>10?1:0); v("e-ipo", ipo.count+"只 / "+ipo.amount+"亿", "#90caf9"); note("e-ipo", ipoLv, ipo.count>20?"IPO供给压力大":"正常");}
-  var mt = m.market_sentiment || {};
-  if(mt.new_investors){ var ni=mt.new_investors; var invStr=ni.value+"万"+(ni.change?" ("+(ni.change>=0?"+":"")+ni.change+"万)":""); var invCol=ni.change>0?"#ef5350":"#4caf50"; var niLv=ni.value>150?2:(ni.value>100?1:(ni.value<30?2:0)); v("mt-investors", invStr, invCol); note("mt-investors", niLv, ni.value>150?"散户过热，警惕":(ni.value<30?"人气极端低迷":"正常"));}
-  var g = m.global_macro || {};
-  if(g.vix){var vx=g.vix.value; var vxCol=vx<20?"#4caf50":(vx<30?"#ff9800":"#f44336"); var vxLv=vx>30?2:(vx>25?1:0); v("g-vix", vx, vxCol); note("g-vix", vxLv, vx>30?"极度恐慌":(vx>25?"恐慌上升":"低波动"));}
-  if(g.dxy) { var dx=g.dxy.value; var dxLv=dx>105?2:(dx>100?1:0); v("g-dxy", dx, "#90caf9"); note("g-dxy", dxLv, dx>105?"强美元，新兴市场承压":(dx>100?"美元偏强":"")); }
-  if(g.usdcnh){var price=g.usdcnh.price; var usdStr=price?price.toFixed(4)+(g.usdcnh.prev_close?" (昨:"+g.usdcnh.prev_close+")":""):"暂无数据"; var usdCol=price>7.2?"#f44336":"#4caf50"; var usdLv=price>7.3?2:(price>7.2?1:0); v("g-usdcnh", usdStr, usdCol); note("g-usdcnh", usdLv, price>7.3?"贬值压力大，北向流出风险":(price>7.2?"轻微贬值":"正常"));}
-  else v("g-usdcnh", "暂无数据", "#666");
-})();
-</script>
-<script>
-(function(){
-  if(typeof window.MACRO_DATA === "undefined") return;
-  const m = window.MACRO_DATA;
-  var el = document.getElementById("macroUpdateTime");
-  if(el && m.update_time) { var ft = (typeof fmtDataTime === 'function') ? fmtDataTime(m.update_time) : {text: (m.update_time||'').slice(0,16)}; el.textContent = '更新于 ' + ft.text; }
-  var leg = document.getElementById("macroStarLegend");
-  if(leg) {
-    var st = m.indicator_status || {};
-    var monthlyKeys = ["lpr","m2_yoy","pmi","cpi","ppi","social_financing","export_yoy","new_investors"];
-    var total = monthlyKeys.length;
-    var fresh = 0;
-    for(var i=0; i<monthlyKeys.length; i++) {
-      var sti = st[monthlyKeys[i]];
-      if(sti && sti.is_fresh) fresh++;
-    }
-    leg.innerHTML = "⭐ 已更新 " + fresh + "/" + total + " &nbsp; ☆ 待更新";
-  }
-  function v(id,val,color){var e=document.getElementById(id); if(!e)return; e.innerHTML=val||"--"; if(color)e.style.color=color;}
-  function note(id, level, text) {
-    if(!text) return;
-    var e = document.getElementById(id);
-    if(!e || !e.parentNode) return;
-    var td = e.parentNode.children[2];
-    if(!td || td.dataset.noted) return;
-    var icon = level>=2 ? "🔴 " : (level>=1 ? "🟡 " : "");
-    if(icon) {
-      td.innerHTML = icon + text;
-      td.style.color = level>=2 ? "#f44336" : "#ff9800";
-    }
-    td.dataset.noted = "1";
-  }
-  /* ===== ⭐ 月度指标标记渲染 ===== */
-  function star(id, key){
-    var e=document.getElementById(id); if(!e)return;
-    var st = m.indicator_status && m.indicator_status[key];
-    if(st && st.is_fresh){ e.innerHTML = "⭐ 月度"; e.style.color = "#FFD700"; }
-    else { e.innerHTML = "☆ 月度"; e.style.color = "#999"; }
-  }
-  star("upd-lpr", "lpr");
-  star("upd-m2", "m2_yoy");
-  star("upd-pmi", "pmi");
-  star("upd-cpi", "cpi");
-  star("upd-ppi", "ppi");
-  star("upd-szr", "social_financing");
-  star("upd-export", "export_yoy");
-  star("upd-investors", "new_investors");
-
-  /* ===== 数值渲染（异常说明写入第3列） ===== */
-  var mon = m.monetary || {};
-  if(mon.cn_bond_10y) { var cb=mon.cn_bond_10y.value; var cbLv=cb<1.8?2:(cb<2.0?1:0); v("m-cn-bond", cb+"%", "#4fc3f7"); note("m-cn-bond", cbLv, cb<1.8?"利率极低，流动性泛滥":(cb<2.0?"利率偏低":"")); }
-  if(mon.us_bond_10y) { var ub=mon.us_bond_10y.value; var ubLv=ub>=5?2:(ub>=4.5?1:0); v("m-us-bond", ub+"%", "#ff9800"); note("m-us-bond", ubLv, ub>=5?"高利率压制全球资产":(ub>=4.5?"利率偏高":"正常区间")); }
-  if(mon.shibor) { var so=mon.shibor.on; var sLv=so>3?2:(so>2?1:0); v("m-shibor", so+"% / "+mon.shibor.w1+"%", "#b0bec5"); note("m-shibor", sLv, so>3?"资金面紧张":(so>2?"偏紧":"")); }
-  if(mon.cn_us_spread){var s=mon.cn_us_spread.value; var spLv=s<-2.5?2:(s<-1.5?1:0); v("m-spread", s+"%", s<0?"#f44336":"#4caf50"); note("m-spread", spLv, s<-2.5?"利差严重倒挂，资本外流压力大":(s<-1?"利差倒挂":"正常"));}
-  if(mon.lpr) v("m-lpr", mon.lpr.lpr_1y+"% / "+mon.lpr.lpr_5y+"%", "#81c784");
-  if(mon.m2_yoy && mon.m2_yoy.value!==null) { var m2v=mon.m2_yoy.value; var m2Lv=m2v>10?2:(m2v>8?1:(m2v<0?2:0)); v("m-m1m2", m2v+"%", m2v>8?"#f44336":"#4caf50"); note("m-m1m2", m2Lv, m2v>8?"货币供应偏快":(m2v<0?"货币收缩":"正常")); }
-  if(mon.open_market_operation){var omo=mon.open_market_operation; v("m-omo", (omo.net_inflow>=0?"+":"")+omo.net_inflow+"亿", omo.net_inflow>=0?"#4caf50":"#f44336");}
-  var eco = m.economy || {};
-  if(eco.pmi){var p=eco.pmi.value; var pCol=p>=50?"#4caf50":"#f44336"; var pLv=p<49?2:(p<50?1:0); v("e-pmi", p+(eco.pmi.forecast?" (预:"+eco.pmi.forecast+")":""), pCol); note("e-pmi", pLv, p<49?"PMI收缩，经济下行压力":(p<50?"PMI偏弱，景气度不足":"PMI扩张，经济向好"));}
-  if(eco.cpi){var cv=eco.cpi.value; var cStr=cv!==null&&cv!==undefined?cv+"%":(eco.cpi.previous?eco.cpi.previous+"%(前值)":"--"); v("e-cpi", cStr, undefined); if(cv!==null&&cv!==undefined){ var cLv=cv<0?2:(cv>3?2:(cv<1?1:0)); note("e-cpi", cLv, cv<0?"通缩风险":(cv>3?"通胀压力":(cv<1?"偏低":""))); } }
-  if(eco.ppi){var pp=eco.ppi.value; var ppStr=pp!==null&&pp!==undefined?pp+"%":(eco.ppi.previous?eco.ppi.previous+"%(前值)":"--"); v("e-ppi", ppStr, undefined); if(pp!==null&&pp!==undefined){ var ppLv=pp<-3?2:(pp<-2?1:0); note("e-ppi", ppLv, pp<-3?"通缩压力严重":"正常"); } }
-  if(eco.social_financing) { var sz=eco.social_financing; var szLv=sz.change_pct<-15?2:(sz.change_pct<-5?1:0); v("e-szr", sz.value+"亿 "+(sz.change_pct>0?"↑":"↓")+Math.abs(sz.change_pct)+"%", sz.change_pct<0?"#f44336":"#4caf50"); note("e-szr", szLv, sz.change_pct<-10?"社融大幅回落":(sz.change_pct<0?"社融回落":"")); }
-  if(eco.export_yoy){var ex=eco.export_yoy.value; var exStr=ex+"%"+(eco.export_yoy.previous?" (前:"+eco.export_yoy.previous+"%)":""); var exCol=ex>0?"#4caf50":"#f44336"; var exLv=ex<-5?2:(ex<0?1:0); v("e-export", exStr, exCol); note("e-export", exLv, ex<-5?"出口大幅下滑":"正常");}
-  if(eco.ipo){ var ipo=eco.ipo; var ipoLv=ipo.count>20?2:(ipo.count>10?1:0); v("e-ipo", ipo.count+"只 / "+ipo.amount+"亿", "#90caf9"); note("e-ipo", ipoLv, ipo.count>20?"IPO供给压力大":"正常");}
-  var mt = m.market_sentiment || {};
-  if(mt.new_investors){ var ni=mt.new_investors; var invStr=ni.value+"万"+(ni.change?" ("+(ni.change>=0?"+":"")+ni.change+"万)":""); var invCol=ni.change>0?"#ef5350":"#4caf50"; var niLv=ni.value>150?2:(ni.value>100?1:(ni.value<30?2:0)); v("mt-investors", invStr, invCol); note("mt-investors", niLv, ni.value>150?"散户过热，警惕":(ni.value<30?"人气极端低迷":"正常"));}
-  var g = m.global_macro || {};
-  if(g.vix){var vx=g.vix.value; var vxCol=vx<20?"#4caf50":(vx<30?"#ff9800":"#f44336"); var vxLv=vx>30?2:(vx>25?1:0); v("g-vix", vx, vxCol); note("g-vix", vxLv, vx>30?"极度恐慌":(vx>25?"恐慌上升":"低波动"));}
-  if(g.dxy) { var dx=g.dxy.value; var dxLv=dx>105?2:(dx>100?1:0); v("g-dxy", dx, "#90caf9"); note("g-dxy", dxLv, dx>105?"强美元，新兴市场承压":(dx>100?"美元偏强":"")); }
-  if(g.usdcnh){var price=g.usdcnh.price; var usdStr=price?price.toFixed(4)+(g.usdcnh.prev_close?" (昨:"+g.usdcnh.prev_close+")":""):"暂无数据"; var usdCol=price>7.2?"#f44336":"#4caf50"; var usdLv=price>7.3?2:(price>7.2?1:0); v("g-usdcnh", usdStr, usdCol); note("g-usdcnh", usdLv, price>7.3?"贬值压力大，北向流出风险":(price>7.2?"轻微贬值":"正常"));}
-  else v("g-usdcnh", "暂无数据", "#666");
-})();
-</script>
-<script>
-(function(){
-  if(typeof window.MACRO_DATA === "undefined") return;
-  const m = window.MACRO_DATA;
-  var el = document.getElementById("macroUpdateTime");
-  if(el && m.update_time) { var ft = (typeof fmtDataTime === 'function') ? fmtDataTime(m.update_time) : {text: (m.update_time||'').slice(0,16)}; el.textContent = '更新于 ' + ft.text; }
-  var leg = document.getElementById("macroStarLegend");
-  if(leg) {
-    var st = m.indicator_status || {};
-    var monthlyKeys = ["lpr","m2_yoy","pmi","cpi","ppi","social_financing","export_yoy","new_investors"];
-    var total = monthlyKeys.length;
-    var fresh = 0;
-    for(var i=0; i<monthlyKeys.length; i++) {
-      var sti = st[monthlyKeys[i]];
-      if(sti && sti.is_fresh) fresh++;
-    }
-    leg.innerHTML = "⭐ 已更新 " + fresh + "/" + total + " &nbsp; ☆ 待更新";
-  }
-  function v(id,val,color){var e=document.getElementById(id); if(!e)return; e.innerHTML=val||"--"; if(color)e.style.color=color;}
-  function note(id, level, text) {
-    if(!text) return;
-    var e = document.getElementById(id);
-    if(!e || !e.parentNode) return;
-    var td = e.parentNode.children[2];
-    if(!td || td.dataset.noted) return;
-    var icon = level>=2 ? "🔴 " : (level>=1 ? "🟡 " : "");
-    if(icon) {
-      td.innerHTML = icon + text;
-      td.style.color = level>=2 ? "#f44336" : "#ff9800";
-    }
-    td.dataset.noted = "1";
-  }
-  /* ===== ⭐ 月度指标标记渲染 ===== */
-  function star(id, key){
-    var e=document.getElementById(id); if(!e)return;
-    var st = m.indicator_status && m.indicator_status[key];
-    if(st && st.is_fresh){ e.innerHTML = "⭐ 月度"; e.style.color = "#FFD700"; }
-    else { e.innerHTML = "☆ 月度"; e.style.color = "#999"; }
-  }
-  star("upd-lpr", "lpr");
-  star("upd-m2", "m2_yoy");
-  star("upd-pmi", "pmi");
-  star("upd-cpi", "cpi");
-  star("upd-ppi", "ppi");
-  star("upd-szr", "social_financing");
-  star("upd-export", "export_yoy");
-  star("upd-investors", "new_investors");
-
-  /* ===== 数值渲染（异常说明写入第3列） ===== */
-  var mon = m.monetary || {};
-  if(mon.cn_bond_10y) { var cb=mon.cn_bond_10y.value; var cbLv=cb<1.8?2:(cb<2.0?1:0); v("m-cn-bond", cb+"%", "#4fc3f7"); note("m-cn-bond", cbLv, cb<1.8?"利率极低，流动性泛滥":(cb<2.0?"利率偏低":"")); }
-  if(mon.us_bond_10y) { var ub=mon.us_bond_10y.value; var ubLv=ub>=5?2:(ub>=4.5?1:0); v("m-us-bond", ub+"%", "#ff9800"); note("m-us-bond", ubLv, ub>=5?"高利率压制全球资产":(ub>=4.5?"利率偏高":"正常区间")); }
-  if(mon.shibor) { var so=mon.shibor.on; var sLv=so>3?2:(so>2?1:0); v("m-shibor", so+"% / "+mon.shibor.w1+"%", "#b0bec5"); note("m-shibor", sLv, so>3?"资金面紧张":(so>2?"偏紧":"")); }
-  if(mon.cn_us_spread){var s=mon.cn_us_spread.value; var spLv=s<-2.5?2:(s<-1.5?1:0); v("m-spread", s+"%", s<0?"#f44336":"#4caf50"); note("m-spread", spLv, s<-2.5?"利差严重倒挂，资本外流压力大":(s<-1?"利差倒挂":"正常"));}
-  if(mon.lpr) v("m-lpr", mon.lpr.lpr_1y+"% / "+mon.lpr.lpr_5y+"%", "#81c784");
-  if(mon.m2_yoy && mon.m2_yoy.value!==null) { var m2v=mon.m2_yoy.value; var m2Lv=m2v>10?2:(m2v>8?1:(m2v<0?2:0)); v("m-m1m2", m2v+"%", m2v>8?"#f44336":"#4caf50"); note("m-m1m2", m2Lv, m2v>8?"货币供应偏快":(m2v<0?"货币收缩":"正常")); }
-  if(mon.open_market_operation){var omo=mon.open_market_operation; v("m-omo", (omo.net_inflow>=0?"+":"")+omo.net_inflow+"亿", omo.net_inflow>=0?"#4caf50":"#f44336");}
-  var eco = m.economy || {};
-  if(eco.pmi){var p=eco.pmi.value; var pCol=p>=50?"#4caf50":"#f44336"; var pLv=p<49?2:(p<50?1:0); v("e-pmi", p+(eco.pmi.forecast?" (预:"+eco.pmi.forecast+")":""), pCol); note("e-pmi", pLv, p<49?"PMI收缩，经济下行压力":(p<50?"PMI偏弱，景气度不足":"PMI扩张，经济向好"));}
-  if(eco.cpi){var cv=eco.cpi.value; var cStr=cv!==null&&cv!==undefined?cv+"%":(eco.cpi.previous?eco.cpi.previous+"%(前值)":"--"); v("e-cpi", cStr, undefined); if(cv!==null&&cv!==undefined){ var cLv=cv<0?2:(cv>3?2:(cv<1?1:0)); note("e-cpi", cLv, cv<0?"通缩风险":(cv>3?"通胀压力":(cv<1?"偏低":""))); } }
-  if(eco.ppi){var pp=eco.ppi.value; var ppStr=pp!==null&&pp!==undefined?pp+"%":(eco.ppi.previous?eco.ppi.previous+"%(前值)":"--"); v("e-ppi", ppStr, undefined); if(pp!==null&&pp!==undefined){ var ppLv=pp<-3?2:(pp<-2?1:0); note("e-ppi", ppLv, pp<-3?"通缩压力严重":"正常"); } }
-  if(eco.social_financing) { var sz=eco.social_financing; var szLv=sz.change_pct<-15?2:(sz.change_pct<-5?1:0); v("e-szr", sz.value+"亿 "+(sz.change_pct>0?"↑":"↓")+Math.abs(sz.change_pct)+"%", sz.change_pct<0?"#f44336":"#4caf50"); note("e-szr", szLv, sz.change_pct<-10?"社融大幅回落":(sz.change_pct<0?"社融回落":"")); }
-  if(eco.export_yoy){var ex=eco.export_yoy.value; var exStr=ex+"%"+(eco.export_yoy.previous?" (前:"+eco.export_yoy.previous+"%)":""); var exCol=ex>0?"#4caf50":"#f44336"; var exLv=ex<-5?2:(ex<0?1:0); v("e-export", exStr, exCol); note("e-export", exLv, ex<-5?"出口大幅下滑":"正常");}
-  if(eco.ipo){ var ipo=eco.ipo; var ipoLv=ipo.count>20?2:(ipo.count>10?1:0); v("e-ipo", ipo.count+"只 / "+ipo.amount+"亿", "#90caf9"); note("e-ipo", ipoLv, ipo.count>20?"IPO供给压力大":"正常");}
-  var mt = m.market_sentiment || {};
-  if(mt.new_investors){ var ni=mt.new_investors; var invStr=ni.value+"万"+(ni.change?" ("+(ni.change>=0?"+":"")+ni.change+"万)":""); var invCol=ni.change>0?"#ef5350":"#4caf50"; var niLv=ni.value>150?2:(ni.value>100?1:(ni.value<30?2:0)); v("mt-investors", invStr, invCol); note("mt-investors", niLv, ni.value>150?"散户过热，警惕":(ni.value<30?"人气极端低迷":"正常"));}
-  var g = m.global_macro || {};
-  if(g.vix){var vx=g.vix.value; var vxCol=vx<20?"#4caf50":(vx<30?"#ff9800":"#f44336"); var vxLv=vx>30?2:(vx>25?1:0); v("g-vix", vx, vxCol); note("g-vix", vxLv, vx>30?"极度恐慌":(vx>25?"恐慌上升":"低波动"));}
-  if(g.dxy) { var dx=g.dxy.value; var dxLv=dx>105?2:(dx>100?1:0); v("g-dxy", dx, "#90caf9"); note("g-dxy", dxLv, dx>105?"强美元，新兴市场承压":(dx>100?"美元偏强":"")); }
-  if(g.usdcnh){var price=g.usdcnh.price; var usdStr=price?price.toFixed(4)+(g.usdcnh.prev_close?" (昨:"+g.usdcnh.prev_close+")":""):"暂无数据"; var usdCol=price>7.2?"#f44336":"#4caf50"; var usdLv=price>7.3?2:(price>7.2?1:0); v("g-usdcnh", usdStr, usdCol); note("g-usdcnh", usdLv, price>7.3?"贬值压力大，北向流出风险":(price>7.2?"轻微贬值":"正常"));}
-  else v("g-usdcnh", "暂无数据", "#666");
-})();
-</script>
-<script>
-(function(){
-  if(typeof window.MACRO_DATA === "undefined") return;
-  const m = window.MACRO_DATA;
-  var el = document.getElementById("macroUpdateTime");
-  if(el && m.update_time) { var ft = (typeof fmtDataTime === 'function') ? fmtDataTime(m.update_time) : {text: (m.update_time||'').slice(0,16)}; el.textContent = '更新于 ' + ft.text; }
-  var leg = document.getElementById("macroStarLegend");
-  if(leg) {
-    var st = m.indicator_status || {};
-    var monthlyKeys = ["lpr","m2_yoy","pmi","cpi","ppi","social_financing","export_yoy","new_investors"];
-    var total = monthlyKeys.length;
-    var fresh = 0;
-    for(var i=0; i<monthlyKeys.length; i++) {
-      var sti = st[monthlyKeys[i]];
-      if(sti && sti.is_fresh) fresh++;
-    }
-    leg.innerHTML = "⭐ 已更新 " + fresh + "/" + total + " &nbsp; ☆ 待更新";
-  }
-  function v(id,val,color){var e=document.getElementById(id); if(!e)return; e.innerHTML=val||"--"; if(color)e.style.color=color;}
-  function note(id, level, text) {
-    if(!text) return;
-    var e = document.getElementById(id);
-    if(!e || !e.parentNode) return;
-    var td = e.parentNode.children[2];
-    if(!td || td.dataset.noted) return;
-    var icon = level>=2 ? "🔴 " : (level>=1 ? "🟡 " : "");
-    if(icon) {
-      td.innerHTML = icon + text;
-      td.style.color = level>=2 ? "#f44336" : "#ff9800";
-    }
-    td.dataset.noted = "1";
-  }
-  /* ===== ⭐ 月度指标标记渲染 ===== */
-  function star(id, key){
-    var e=document.getElementById(id); if(!e)return;
-    var st = m.indicator_status && m.indicator_status[key];
-    if(st && st.is_fresh){ e.innerHTML = "⭐ 月度"; e.style.color = "#FFD700"; }
-    else { e.innerHTML = "☆ 月度"; e.style.color = "#999"; }
-  }
-  star("upd-lpr", "lpr");
-  star("upd-m2", "m2_yoy");
-  star("upd-pmi", "pmi");
-  star("upd-cpi", "cpi");
-  star("upd-ppi", "ppi");
-  star("upd-szr", "social_financing");
-  star("upd-export", "export_yoy");
-  star("upd-investors", "new_investors");
-
-  /* ===== 数值渲染（异常说明写入第3列） ===== */
-  var mon = m.monetary || {};
-  if(mon.cn_bond_10y) { var cb=mon.cn_bond_10y.value; var cbLv=cb<1.8?2:(cb<2.0?1:0); v("m-cn-bond", cb+"%", "#4fc3f7"); note("m-cn-bond", cbLv, cb<1.8?"利率极低，流动性泛滥":(cb<2.0?"利率偏低":"")); }
-  if(mon.us_bond_10y) { var ub=mon.us_bond_10y.value; var ubLv=ub>=5?2:(ub>=4.5?1:0); v("m-us-bond", ub+"%", "#ff9800"); note("m-us-bond", ubLv, ub>=5?"高利率压制全球资产":(ub>=4.5?"利率偏高":"正常区间")); }
-  if(mon.shibor) { var so=mon.shibor.on; var sLv=so>3?2:(so>2?1:0); v("m-shibor", so+"% / "+mon.shibor.w1+"%", "#b0bec5"); note("m-shibor", sLv, so>3?"资金面紧张":(so>2?"偏紧":"")); }
-  if(mon.cn_us_spread){var s=mon.cn_us_spread.value; var spLv=s<-2.5?2:(s<-1.5?1:0); v("m-spread", s+"%", s<0?"#f44336":"#4caf50"); note("m-spread", spLv, s<-2.5?"利差严重倒挂，资本外流压力大":(s<-1?"利差倒挂":"正常"));}
-  if(mon.lpr) v("m-lpr", mon.lpr.lpr_1y+"% / "+mon.lpr.lpr_5y+"%", "#81c784");
-  if(mon.m2_yoy && mon.m2_yoy.value!==null) { var m2v=mon.m2_yoy.value; var m2Lv=m2v>10?2:(m2v>8?1:(m2v<0?2:0)); v("m-m1m2", m2v+"%", m2v>8?"#f44336":"#4caf50"); note("m-m1m2", m2Lv, m2v>8?"货币供应偏快":(m2v<0?"货币收缩":"正常")); }
-  if(mon.open_market_operation){var omo=mon.open_market_operation; v("m-omo", (omo.net_inflow>=0?"+":"")+omo.net_inflow+"亿", omo.net_inflow>=0?"#4caf50":"#f44336");}
-  var eco = m.economy || {};
-  if(eco.pmi){var p=eco.pmi.value; var pCol=p>=50?"#4caf50":"#f44336"; var pLv=p<49?2:(p<50?1:0); v("e-pmi", p+(eco.pmi.forecast?" (预:"+eco.pmi.forecast+")":""), pCol); note("e-pmi", pLv, p<49?"PMI收缩，经济下行压力":(p<50?"PMI偏弱，景气度不足":"PMI扩张，经济向好"));}
-  if(eco.cpi){var cv=eco.cpi.value; var cStr=cv!==null&&cv!==undefined?cv+"%":(eco.cpi.previous?eco.cpi.previous+"%(前值)":"--"); v("e-cpi", cStr, undefined); if(cv!==null&&cv!==undefined){ var cLv=cv<0?2:(cv>3?2:(cv<1?1:0)); note("e-cpi", cLv, cv<0?"通缩风险":(cv>3?"通胀压力":(cv<1?"偏低":""))); } }
-  if(eco.ppi){var pp=eco.ppi.value; var ppStr=pp!==null&&pp!==undefined?pp+"%":(eco.ppi.previous?eco.ppi.previous+"%(前值)":"--"); v("e-ppi", ppStr, undefined); if(pp!==null&&pp!==undefined){ var ppLv=pp<-3?2:(pp<-2?1:0); note("e-ppi", ppLv, pp<-3?"通缩压力严重":"正常"); } }
-  if(eco.social_financing) { var sz=eco.social_financing; var szLv=sz.change_pct<-15?2:(sz.change_pct<-5?1:0); v("e-szr", sz.value+"亿 "+(sz.change_pct>0?"↑":"↓")+Math.abs(sz.change_pct)+"%", sz.change_pct<0?"#f44336":"#4caf50"); note("e-szr", szLv, sz.change_pct<-10?"社融大幅回落":(sz.change_pct<0?"社融回落":"")); }
-  if(eco.export_yoy){var ex=eco.export_yoy.value; var exStr=ex+"%"+(eco.export_yoy.previous?" (前:"+eco.export_yoy.previous+"%)":""); var exCol=ex>0?"#4caf50":"#f44336"; var exLv=ex<-5?2:(ex<0?1:0); v("e-export", exStr, exCol); note("e-export", exLv, ex<-5?"出口大幅下滑":"正常");}
-  if(eco.ipo){ var ipo=eco.ipo; var ipoLv=ipo.count>20?2:(ipo.count>10?1:0); v("e-ipo", ipo.count+"只 / "+ipo.amount+"亿", "#90caf9"); note("e-ipo", ipoLv, ipo.count>20?"IPO供给压力大":"正常");}
-  var mt = m.market_sentiment || {};
-  if(mt.new_investors){ var ni=mt.new_investors; var invStr=ni.value+"万"+(ni.change?" ("+(ni.change>=0?"+":"")+ni.change+"万)":""); var invCol=ni.change>0?"#ef5350":"#4caf50"; var niLv=ni.value>150?2:(ni.value>100?1:(ni.value<30?2:0)); v("mt-investors", invStr, invCol); note("mt-investors", niLv, ni.value>150?"散户过热，警惕":(ni.value<30?"人气极端低迷":"正常"));}
-  var g = m.global_macro || {};
-  if(g.vix){var vx=g.vix.value; var vxCol=vx<20?"#4caf50":(vx<30?"#ff9800":"#f44336"); var vxLv=vx>30?2:(vx>25?1:0); v("g-vix", vx, vxCol); note("g-vix", vxLv, vx>30?"极度恐慌":(vx>25?"恐慌上升":"低波动"));}
-  if(g.dxy) { var dx=g.dxy.value; var dxLv=dx>105?2:(dx>100?1:0); v("g-dxy", dx, "#90caf9"); note("g-dxy", dxLv, dx>105?"强美元，新兴市场承压":(dx>100?"美元偏强":"")); }
-  if(g.usdcnh){var price=g.usdcnh.price; var usdStr=price?price.toFixed(4)+(g.usdcnh.prev_close?" (昨:"+g.usdcnh.prev_close+")":""):"暂无数据"; var usdCol=price>7.2?"#f44336":"#4caf50"; var usdLv=price>7.3?2:(price>7.2?1:0); v("g-usdcnh", usdStr, usdCol); note("g-usdcnh", usdLv, price>7.3?"贬值压力大，北向流出风险":(price>7.2?"轻微贬值":"正常"));}
-  else v("g-usdcnh", "暂无数据", "#666");
-})();
-</script>
 <script>
 (function(){
   if(typeof window.MACRO_DATA === "undefined") return;

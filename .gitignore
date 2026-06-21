@@ -7,7 +7,7 @@ __pycache__/
 !update_data_v2.py
 !backup_daily.py
 !send_alert.py
-!enhanced_backup.py
+!deploy_audit.py
 *.bat
 .wrangler/
 worker/
@@ -28,3 +28,4 @@ backups/2026-06-18/
 *.bak.*
 dist/data/.enhance_log.txt
 dist/data/zsxq_selenium_snapshot.txt
+!enhanced_backup.py
