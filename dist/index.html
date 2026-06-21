@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260621183147 -->
+<!-- build: 20260621184744 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -183718,14 +183718,7 @@ function renderPredictSummary() {
   // 块2：主力资金
   var clusterTop = hd.current_clusters && hd.current_clusters.length ? hd.current_clusters[0] : null;
   var mainTitle = clusterTop ? '抱团'+clusterTop.sector : (ms.top_main_in && ms.top_main_in.length ? '净流入'+ms.top_main_in.length+'只' : '暂无数据');
-  var mainSub = '';
-  if (sf.top_list && sf.top_list.length) {
-    var sortedTop = sf.top_list.slice().sort(function(a,b){return b.net - a.net;});
-    var topIn = sortedTop.filter(function(x){return x.net>0;}).slice(0,1);
-    if (topIn.length) mainSub = topIn[0].name + ' +' + topIn[0].net.toFixed(0) + '亿';
-  } else if (ms.top_main_in && ms.top_main_in.length) {
-    mainSub = ms.top_main_in[0].name + ' +' + ms.top_main_in[0].net_in + ms.top_main_in[0].unit;
-  }
+  var mainSub = clusterTop ? (clusterTop.amount.toFixed(1) + clusterTop.unit) : '';
   rightBlocks += '<div style="flex:1;background:#f3e5f5;border-radius:8px;padding:10px;text-align:center;display:flex;flex-direction:column;justify-content:center;">';
   rightBlocks += '<div style="font-size:13px;font-weight:700;color:#6a1b9a;margin-bottom:4px;">🔥 主力资金</div>';
   rightBlocks += '<div style="font-size:14px;font-weight:500;color:#6a1b9a;">'+mainTitle+'</div>';
@@ -183784,11 +183777,11 @@ function renderPredictSummary() {
   }
 
   if (alerts.length) {
-    h += '<div><div style="padding:10px 12px;background:#fff8f0;border-radius:8px;border-left:3px solid #ff9800;font-size:13px;color:#555;line-height:1.7;">';
+    h += '<div style="height:100%;"><div style="padding:10px 12px;background:#fff8f0;border-radius:8px;border-left:3px solid #ff9800;font-size:13px;color:#555;line-height:1.7;height:100%;">';
     alerts.forEach(function(a){ h += '<div>• '+a+'</div>'; });
     h += '</div></div>';
   } else {
-    h += '<div><div style="font-size:12px;color:#999;text-align:center;">各维度信号不足，建议观望等待</div></div>';
+    h += '<div style="height:100%;"><div style="font-size:12px;color:#999;text-align:center;">各维度信号不足，建议观望等待</div></div>';
   }
 
   // 右侧双色块
