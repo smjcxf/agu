@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260621161359 -->
+<!-- build: 20260621162406 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -653,10 +653,10 @@ tr:hover td { background: #fafbfc; }
       <div id="shTitleCard" style="background:linear-gradient(135deg,#e3f2fd,#f5f5ff);border:2px solid #bbdefb;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;justify-content:flex-start;">
         <div style="font-size:14px;font-weight:700;color:#333;margin-bottom:4px;">数据监控</div>
         <div style="font-size:10px;color:#888;">斐波那契时间窗口 · 缠论视角</div>
-        <span id="shBadge" style="font-size:20px;font-weight:800;padding:8px 28px;border-radius:20px;color:#fff;background:#90caf9;display:inline-block;text-align:center;align-self:center;">震荡整理</span>
+        <span id="shBadge" style="font-size:20px;font-weight:800;padding:8px 28px;border-radius:20px;color:#fff;background:#90caf9;display:inline-block;text-align:center;align-self:center;margin-top:10px;">震荡整理</span>
       </div>
       <!-- 右侧：异动提醒+监控数据 -->
-      <div id="shAlertCard" style="background:linear-gradient(135deg,#e3f2fd,#f5f5ff);border:2px solid #bbdefb;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;justify-content:center;">
+      <div id="shAlertCard" style="background:linear-gradient(135deg,#faf0ff,#f3e5f5);border:2px solid #ce93d8;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;justify-content:center;">
         <div id="shAlert" style="display:none;margin-bottom:6px;"></div>
         <div id="shReport" style="font-size:11px;color:#666;line-height:1.8;"></div>
         <div id="shSummary" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;"></div>
@@ -150333,7 +150333,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-21 16:13:03",
+"update_time": "2026-06-21 16:23:11",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
@@ -178185,32 +178185,46 @@ var RECOMMEND = window.RECOMMEND = [
     function updateShReport() {
       var el = document.getElementById('shReport');
       if (!el) return;
-      el.style.display = 'block';
-      var lines = [];
-      // 两融概况
+      var warns = [];
+      // 两融异动
       var md = window.MARGIN_DATA || {}, msh = md.sh || [];
-      if (msh.length) {
-        var ml = msh[msh.length-1];
-        lines.push('两融：融资' + ((ml.rz_balance||0)/10000).toFixed(2) + '万亿，融券' + (ml.rq_balance_amt||0).toFixed(0) + '亿，合计' + (ml.total||0).toFixed(0) + '亿');
+      if (msh.length >= 2) {
+        var ml = msh[msh.length-1], prev = msh[msh.length-2];
+        var rqNow = ml.rq_balance_amt || 0, rqPrev = prev.rq_balance_amt || 0;
+        if (rqPrev > 0) {
+          var rqChg = (rqNow - rqPrev) / rqPrev * 100;
+          if (Math.abs(rqChg) >= 5) warns.push('⚠️ 融券余额' + (rqChg>0?'大增':'大减') + Math.abs(rqChg).toFixed(1) + '%（' + rqPrev.toFixed(0) + '→' + rqNow.toFixed(0) + '亿）');
+        }
+        var rzNow = ml.rz_balance || 0, rzPrev = prev.rz_balance || 0;
+        if (rzPrev > 0) {
+          var rzChg = (rzNow - rzPrev) / rzPrev * 100;
+          if (Math.abs(rzChg) >= 1) warns.push('⚠️ 融资余额' + (rzChg>0?'大增':'大减') + Math.abs(rzChg).toFixed(1) + '%');
+        }
       }
-      // 下跌状态
+      // 上证异动
       var fib = window.SH_FIB || {}, cur = fib.current || {};
-      if (cur.days_down) {
-        lines.push('上证：连跌' + cur.days_down + '天' + (cur.total_pct ? '，累计'+(cur.total_pct>=0?'+':'')+cur.total_pct : '') + '%，' + (cur.total_points ? cur.total_points+'点' : ''));
-      }
-      // 成交额
+      if (cur.days_down >= 20) warns.push('⚠️ 上证连跌' + cur.days_down + '天，累计' + (cur.total_pct||0).toFixed(1) + '%');
+      else if (cur.total_pct <= -8) warns.push('⚠️ 上证累计跌幅' + (cur.total_pct||0).toFixed(1) + '%，警戒区间');
+      // 成交额异动
       var hd = window.SH_SZ_HISTORY || {}, ah = hd.amount_history || [];
-      if (ah.length) {
-        var al = ah[ah.length-1];
-        lines.push('成交：两市合计' + (al.total||0).toFixed(0) + '亿（沪' + (al.sh_amount||0).toFixed(0) + '+深' + (al.sz_amount||0).toFixed(0) + '）');
+      if (ah.length >= 2) {
+        var aLast = ah[ah.length-1], aPrev = ah[ah.length-2];
+        if (aPrev.total > 0) {
+          var amtChg = (aLast.total - aPrev.total) / aPrev.total * 100;
+          if (Math.abs(amtChg) >= 20) warns.push('⚠️ 两市成交' + (amtChg>0?'暴增':'暴缩') + Math.abs(amtChg).toFixed(0) + '%');
+        }
       }
-      // 涨跌家数
+      // 涨跌极端
       var ds = hd.daily_stats || [];
       if (ds.length) {
         var dl = ds[ds.length-1];
-        lines.push('涨跌：上涨' + dl.up + '家 / 下跌' + dl.down + '家 / 平盘' + (dl.flat||0) + '家');
+        var pctUp = dl.up / ((dl.up||0)+(dl.down||0)+(dl.flat||0)||1) * 100;
+        if (pctUp >= 80) warns.push('⚠️ ' + pctUp.toFixed(0) + '%个股上涨，过热信号');
+        else if (pctUp <= 20) warns.push('⚠️ ' + pctUp.toFixed(0) + '%个股上涨，恐慌信号');
       }
-      el.innerHTML = lines.map(function(l){ return '• ' + l; }).join('<br>');
+      if (!warns.length) { el.style.display = 'none'; return; }
+      el.style.display = 'block';
+      el.innerHTML = warns.map(function(w){ return '<div style="font-size:12px;color:#c62828;font-weight:600;line-height:1.8;">' + w + '</div>'; }).join('');
     }
     updateMarginAlert();
 
@@ -180085,7 +180099,7 @@ function renderSectorFundFlow() {
   let sectorMood = '', sectorColor = '#7b1fa2';
   if (sectorNetFlow > 50) { sectorMood = '主力资金大幅做多，板块情绪积极'; sectorColor = '#c62828'; }
   else if (sectorNetFlow > 10) { sectorMood = '资金净流入，市场偏暖'; sectorColor = '#7b1fa2'; }
-  else if (sectorNetFlow < -50) { sectorMood = '主力资金大幅撤退，注意风险'; sectorColor = '#2e7d32'; }
+  else if (sectorNetFlow < -50) { sectorMood = '⚠️ 重点关注：主力资金大幅撤退，注意风险'; sectorColor = '#c62828'; }
   else if (sectorNetFlow < -10) { sectorMood = '资金净流出，情绪偏谨慎'; sectorColor = '#e65100'; }
   else { sectorMood = '资金进出平衡，观望为主'; sectorColor = '#888'; }
 
