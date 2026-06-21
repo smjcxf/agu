@@ -183152,7 +183152,7 @@ function renderHerdingMain() {
   // 当前抱团
   if (hd.current_clusters && hd.current_clusters.length) {
     h += '<div style="margin-bottom:10px;font-size:12px;color:#555;line-height:1.6;">';
-    h += '<b style="color:#5b3a7c;">当前抱团：</b>';
+    h += '<b style="color:#ba68c8;">当前抱团：</b>';
     hd.current_clusters.forEach(function(c,i){
       var amt = c.amount >= 1 ? c.amount.toFixed(2) + c.unit : (c.amount * 10000).toFixed(0) + '万';
       var sep = i < hd.current_clusters.length - 1 ? ' · ' : '';
