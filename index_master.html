@@ -178193,11 +178193,6 @@ var RECOMMEND = window.RECOMMEND = [
           h += '<b>成交：</b>'+al.total.toFixed(0)+'亿（环比'+amtNote+'）<br>';
         }
       }
-      // 斐波那契窗口
-      var fib = window.SH_FIB || {}, cur = fib.current || {};
-      if (cur.days_down) {
-        h += '<b>趋势：</b>'+cur.mode+'，从'+cur.peak_date+'高点回调'+cur.days_down+'天，累计'+cur.total_pct+'%';
-      }
       if (h) {
         el.innerHTML = '<span style="font-size:12px;color:#555;line-height:1.9;">' + h + '</span>';
         el.style.display = 'block';
