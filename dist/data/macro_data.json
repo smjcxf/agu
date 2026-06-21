@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-06-20 20:07:47",
+  "update_time": "2026-06-21 12:40:55",
   "monetary": {
     "cn_bond_10y": {
       "value": 1.7299,
@@ -30,7 +30,7 @@
     },
     "open_market_operation": {
       "net_inflow": null,
-      "date": "2026-06-20"
+      "date": "2026-06-21"
     }
   },
   "economy": {
@@ -63,14 +63,14 @@
     "ipo": {
       "count": 10,
       "amount": 0,
-      "date": "2026-06-20"
+      "date": "2026-06-21"
     }
   },
   "market_sentiment": {
     "new_investors": {
       "value": 99.59,
       "change": 0.09,
-      "date": "2026-06-20"
+      "date": "2026-06-21"
     }
   },
   "global_macro": {
@@ -113,27 +113,27 @@
   },
   "indicator_status": {
     "lpr": {
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-06-21",
       "is_fresh": true,
       "name": "LPR利率"
     },
     "pmi": {
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-06-21",
       "is_fresh": false,
       "name": "制造业PMI"
     },
     "social_financing": {
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-06-21",
       "is_fresh": false,
       "name": "社融规模"
     },
     "export_yoy": {
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-06-21",
       "is_fresh": false,
       "name": "出口增速"
     },
     "new_investors": {
-      "last_updated": "2026-06-20",
+      "last_updated": "2026-06-21",
       "is_fresh": true,
       "name": "新增投资者"
     }
