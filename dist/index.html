@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260621185642 -->
+<!-- build: 20260621185823 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -183684,56 +183684,11 @@ function renderPredictSummary() {
 
   var h = '';
 
-  // ═══ 左侧详细 + 右侧双色块 并排 ═══
-  h += '<div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:12px;align-items:stretch;">';
-
-  // 先构建双色块（右侧，左右等高）
-  var rightBlocks = '';
-  rightBlocks += '<div style="display:flex;flex-direction:column;gap:8px;height:100%;">';
-
-  // 块1：机游共振
-  var pureLhb = (lhb.stocks && lhb.stocks.length) ? lhb.stocks.filter(function(s){return s.category==='纯共振';}) : [];
-  var lhbTitle = pureLhb.length ? pureLhb.length+'只纯共振' : (lhb.stocks && lhb.stocks.length ? '无纯共振' : '暂无数据');
-  var lhbSub = '';
-  if (pureLhb.length) {
-    if (lhb.pure_sector_top && lhb.pure_sectors) {
-      var topSec = lhb.pure_sector_top;
-      var topCnt = lhb.pure_sectors[topSec] || 1;
-      if (topCnt >= pureLhb.length * 0.5 || topCnt >= 2) {
-        lhbSub = topSec + ' ' + topCnt + '只';
-      } else {
-        lhbSub = '跨' + lhb.pure_sector_count + '板块分散 · 无明确主线';
-      }
-    } else {
-      var lhbSum = 0;
-      pureLhb.forEach(function(s){ lhbSum += (s.inst_net_万||0) + (s.yz_net_万||0); });
-      lhbSub = '净买' + (lhbSum/10000).toFixed(2) + '亿';
-    }
-  } else if (lhb.stocks && lhb.stocks.length) {
-    lhbSub = lhb.stocks.length+'只上榜';
-  }
-  rightBlocks += '<div style="flex:1;background:#e3f2fd;border-radius:8px;padding:10px;text-align:center;display:flex;flex-direction:column;justify-content:center;">';
-  rightBlocks += '<div style="font-size:13px;font-weight:700;color:#1565c0;margin-bottom:4px;">🐉 机游共振</div>';
-  rightBlocks += '<div style="font-size:14px;font-weight:500;color:#1565c0;">'+lhbTitle+'</div>';
-  if (lhbSub) rightBlocks += '<div style="font-size:11px;color:#555;margin-top:2px;">'+lhbSub+'</div>';
-  rightBlocks += '</div>';
-
-  // 块2：主力资金
-  var clusterTop = hd.current_clusters && hd.current_clusters.length ? hd.current_clusters[0] : null;
-  var mainTitle = clusterTop ? '抱团'+clusterTop.sector : (ms.top_main_in && ms.top_main_in.length ? '净流入'+ms.top_main_in.length+'只' : '暂无数据');
-  var mainSub = clusterTop ? (clusterTop.amount.toFixed(1) + clusterTop.unit) : '';
-  rightBlocks += '<div style="flex:1;background:#f3e5f5;border-radius:8px;padding:10px;text-align:center;display:flex;flex-direction:column;justify-content:center;">';
-  rightBlocks += '<div style="font-size:13px;font-weight:700;color:#6a1b9a;margin-bottom:4px;">🔥 主力资金</div>';
-  rightBlocks += '<div style="font-size:14px;font-weight:500;color:#6a1b9a;">'+mainTitle+'</div>';
-  if (mainSub) rightBlocks += '<div style="font-size:11px;color:#555;margin-top:2px;">'+mainSub+'</div>';
-  rightBlocks += '</div>';
-
-  rightBlocks += '</div>'; // end right stacked column
-
   // ═══ 核心关注 ═══
   var alerts = [];
 
   // 龙虎榜信号
+  var pureLhb = (lhb.stocks && lhb.stocks.length) ? lhb.stocks.filter(function(s){return s.category==='纯共振';}) : [];
   if (pureLhb.length) {
     var lhbSum = 0;
     pureLhb.forEach(function(s){ lhbSum += (s.inst_net_万||0) + (s.yz_net_万||0); });
@@ -183746,7 +183701,9 @@ function renderPredictSummary() {
         if (lhb.pure_sector_count > 2) lhbMsg += '，跨' + lhb.pure_sector_count + '板块';
         lhbMsg += '）';
       } else if (lhb.pure_sector_count >= 3) {
-        lhbMsg += '（跨' + lhb.pure_sector_count + '板块分散）';
+        lhbMsg += '（跨' + lhb.pure_sector_count + '板块分散 · 无明确主线）';
+      } else if (lhb.pure_sector_count >= 1) {
+        lhbMsg += '（跨' + lhb.pure_sector_count + '板块分散 · 无明确主线）';
       }
     }
     lhbMsg += '，净买'+(lhbSum/10000).toFixed(2)+'亿，短线博弈活跃';
@@ -183785,16 +183742,12 @@ function renderPredictSummary() {
   }
 
   if (alerts.length) {
-    h += '<div style="height:100%;"><div style="padding:10px 12px;background:#fff8f0;border-radius:8px;border-left:3px solid #ff9800;font-size:13px;color:#555;line-height:1.7;height:100%;">';
+    h += '<div style="padding:10px 12px;background:#fff8f0;border-radius:8px;border-left:3px solid #ff9800;font-size:13px;color:#555;line-height:1.7;">';
     alerts.forEach(function(a){ h += '<div>• '+a+'</div>'; });
-    h += '</div></div>';
+    h += '</div>';
   } else {
-    h += '<div style="height:100%;"><div style="font-size:12px;color:#999;text-align:center;">各维度信号不足，建议观望等待</div></div>';
+    h += '<div style="font-size:12px;color:#999;text-align:center;">各维度信号不足，建议观望等待</div>';
   }
-
-  // 右侧双色块
-  h += rightBlocks;
-  h += '</div>'; // end 2fr 1fr grid
 
   con.innerHTML = h;
 }
