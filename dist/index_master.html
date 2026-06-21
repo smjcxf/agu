@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260621145533 -->
+<!-- build: 20260621145659 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -178166,40 +178166,42 @@ var RECOMMEND = window.RECOMMEND = [
     function updateShSummary() {
       var el = document.getElementById('shSummary');
       if (!el) return;
-      var items = [];
+      var h = '';
       // 两融
       var md = window.MARGIN_DATA || {}, msh = md.sh || [];
-      if (msh.length) { var ml = msh[msh.length-1]; items.push('融券' + (ml.rq_balance_amt||0).toFixed(0) + '亿'); items.push('融资' + ((ml.rz_balance||0)/10000).toFixed(2) + '万亿'); }
+      if (msh.length) { var ml = msh[msh.length-1]; h += '融券' + (ml.rq_balance_amt||0).toFixed(0) + '亿 · 融资' + ((ml.rz_balance||0)/10000).toFixed(2) + '万亿 · '; }
       // 下跌状态
       var fib = window.SH_FIB || {}, cur = fib.current || {};
-      if (cur.days_down) items.push('下跌' + cur.days_down + '天'); else items.push('趋势正常');
+      if (cur.days_down) { h += '下跌' + cur.days_down + '天（累计' + (cur.total_pct||0).toFixed(1) + '%） · '; } else { h += '趋势正常 · '; }
       // 成交额
       var hd = window.SH_SZ_HISTORY || {}, ah = hd.amount_history || [];
-      if (ah.length) { var al = ah[ah.length-1]; items.push('成交' + (al.total||0).toFixed(0) + '亿'); }
+      if (ah.length) { var al = ah[ah.length-1]; h += '成交' + (al.total||0).toFixed(0) + '亿 · '; }
       // 涨跌家数
       var ds = hd.daily_stats || [];
-      if (ds.length) { var dl = ds[ds.length-1]; items.push('涨' + dl.up + '/跌' + dl.down); }
-      // 北向资金
-      var nf = window.NORTH_FUND_DATA || {};
-      if (nf.net_flow && nf.net_flow.total && nf.net_flow.total !== 0) {
-        var dir = nf.net_flow.total > 0 ? '北向+' : '北向';
-        items.push(dir + nf.net_flow.total.toFixed(0) + '亿');
-      }
+      if (ds.length) { var dl = ds[ds.length-1]; h += '涨' + dl.up + '/' + '跌' + dl.down + ' · '; }
       // 主力板块TOP1
       var sf = window.SECTOR_FUND_FLOW || {}, sfi = sf.inflow || [], sfo = sf.outflow || [];
       var topFlow = null;
       if (sfi.length && sfi[0].net && sfo.length && sfo[0].net) {
-        topFlow = sfi[0].net >= Math.abs(sfo[0].net) ? {name:sfi[0].name, net:sfi[0].net, dir:'+'} : {name:sfo[0].name, net:sfo[0].net, dir:''};
+        topFlow = sfi[0].net >= Math.abs(sfo[0].net) ? {name:sfi[0].name, net:sfi[0].net, dir:'流入'} : {name:sfo[0].name, net:sfo[0].net, dir:'流出'};
       } else if (sfi.length && sfi[0].net >= 3) {
-        topFlow = {name:sfi[0].name, net:sfi[0].net, dir:'+'};
+        topFlow = {name:sfi[0].name, net:sfi[0].net, dir:'流入'};
       } else if (sfo.length && sfo[0].net && Math.abs(sfo[0].net) >= 3) {
-        topFlow = {name:sfo[0].name, net:sfo[0].net, dir:'-'};
+        topFlow = {name:sfo[0].name, net:sfo[0].net, dir:'流出'};
       }
-      if (topFlow && topFlow.net) items.push(topFlow.name + topFlow.dir + Math.abs(topFlow.net).toFixed(0) + '亿');
+      if (topFlow && topFlow.net) h += topFlow.name + ' ' + topFlow.dir + Math.abs(topFlow.net).toFixed(0) + '亿 · ';
+      // 北向
+      var nf = window.NORTH_FUND_DATA || {};
+      if (nf.net_flow && nf.net_flow.total && nf.net_flow.total !== 0) {
+        var ndir = nf.net_flow.total > 0 ? '流入' : '流出';
+        h += '北向' + ndir + Math.abs(nf.net_flow.total).toFixed(0) + '亿 · ';
+      }
       // VIX
       var macroData = window.MACRO_DATA || {};
-      if (macroData.vix !== undefined) items.push('VIX ' + macroData.vix.toFixed(0));
-      el.innerHTML = items.map(function(s){return '<span style="background:#fff;padding:3px 7px;border-radius:6px;white-space:nowrap;font-size:11px;">'+s+'</span>';}).join('');
+      if (macroData.vix !== undefined) h += 'VIX ' + macroData.vix.toFixed(0) + ' · ';
+      // 去掉末尾" · "
+      h = h.replace(/ · $/, '');
+      el.innerHTML = '<span style="font-size:13px;line-height:1.8;">' + h + '</span>';
     }
     function updateShReport() {
       var el = document.getElementById('shReport');
