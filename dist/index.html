@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260621164754 -->
+<!-- build: 20260621165627 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -150336,7 +150336,7 @@ window.SCAN_DATA = {
 ],
 "update_time": "2026-06-20 12:40"
 };window.MACRO_DATA = {
-"update_time": "2026-06-21 16:47:00",
+"update_time": "2026-06-21 16:55:33",
 "monetary": {
 "cn_bond_10y": {
 "value": 1.7299,
@@ -178151,17 +178151,17 @@ var RECOMMEND = window.RECOMMEND = [
       var h = "";
       // 涨跌家数
       var hd = window.SH_SZ_HISTORY || {}, ds = hd.daily_stats || [];
-      if (ds.length) { var dl = ds[ds.length-1]; h += "<span style="color:#c62828;">涨</span>" + dl.up + " / <span style="color:#2e7d32;">跌</span>" + dl.down + " · "; }
+      if (ds.length) { var dl = ds[ds.length-1]; h += '<span style="color:#c62828;">涨</span>' + dl.up + ' / <span style="color:#2e7d32;">跌</span>' + dl.down + ' · '; }
       // 两融
       var md = window.MARGIN_DATA || {}, msh = md.sh || [];
       if (msh.length) {
         var ml = msh[msh.length-1];
         var rzYi = ((ml.rz_balance||0) / 10000).toFixed(2);
-        h += "融资" + rzYi + "万亿 · 融券" + (ml.rq_balance_amt||0).toFixed(0) + "亿";
+        h += '融资' + rzYi + '万亿 · 融券' + (ml.rq_balance_amt||0).toFixed(0) + '亿';
       }
       if (h) {
-        el.innerHTML = "<span style="font-size:11px;color:#666;">" + h.replace(/ · $/, "") + "</span>";
-        el.style.display = "block";
+        el.innerHTML = '<span style="font-size:11px;color:#666;">' + h.replace(/ · $/, '') + '</span>';
+        el.style.display = 'block';
       } else {
         el.style.display = "none";
       }
