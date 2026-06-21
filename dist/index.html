@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260621145659 -->
+<!-- build: 20260621150205 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -183185,7 +183185,27 @@ function renderHerdingMain() {
     }
   }
 
-  // ═══ 区块二：板块资金实况（当日 + 本周） ═══
+  // ═══ 区块二：个股主力动向 ═══
+  h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;margin:10px 0 8px 0;padding-bottom:4px;border-bottom:1px solid #e0e0e0;">个股主力动向（当日）</div>';
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">';
+  h += '<div style="background:#fff5f5;border-radius:8px;padding:10px;">';
+  h += '<div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:6px;">净买入</div>';
+  if (ms.top_main_in && ms.top_main_in.length) {
+    h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
+    ms.top_main_in.slice(0,5).forEach(function(x,i){ h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:2px 0;color:#c62828;font-weight:600;">+'+x.net_in+x.unit+'</td><td style="text-align:right;padding:2px 0;font-size:10px;color:#999;">连'+x.day_count+'日</td></tr>'; });
+    h += '</table>';
+  } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
+  h += '</div>';
+  h += '<div style="background:#f5fff5;border-radius:8px;padding:10px;">';
+  h += '<div style="font-size:12px;font-weight:600;color:#2e7d32;margin-bottom:6px;">净卖出</div>';
+  if (ms.top_main_out && ms.top_main_out.length) {
+    h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
+    ms.top_main_out.slice(0,5).forEach(function(x,i){ h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:2px 0;color:#2e7d32;font-weight:600;">-'+x.net_out+x.unit+'</td><td style="text-align:right;padding:2px 0;font-size:10px;color:#999;">连'+x.day_count+'日</td></tr>'; });
+    h += '</table>';
+  } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
+  h += '</div></div>';
+
+  // ═══ 区块三：板块资金实况（当日 + 本周） ═══
   var mw = window.MAIN_WEEK_DATA || {};
   var hasWeek = mw.available && (mw.buy_top5 && mw.buy_top5.length || mw.sell_top5 && mw.sell_top5.length);
   h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;margin:10px 0 8px 0;padding-bottom:4px;border-bottom:1px solid #e0e0e0;">板块资金实况</div>';
@@ -183246,26 +183266,6 @@ function renderHerdingMain() {
   h += '</div></div>'; // close 本周流出, close flex column
 
   h += '</div>'; // end 板块资金实况 grid
-
-  // ═══ 区块三：个股主力动向 ═══
-  h += '<div style="font-size:13px;font-weight:600;color:#1a1a2e;margin:0 0 8px 0;padding-bottom:4px;border-bottom:1px solid #e0e0e0;">个股主力动向（当日）</div>';
-  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';
-  h += '<div style="background:#fff5f5;border-radius:8px;padding:10px;">';
-  h += '<div style="font-size:12px;font-weight:600;color:#c62828;margin-bottom:6px;">净买入</div>';
-  if (ms.top_main_in && ms.top_main_in.length) {
-    h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
-    ms.top_main_in.slice(0,5).forEach(function(x,i){ h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:2px 0;color:#c62828;font-weight:600;">+'+x.net_in+x.unit+'</td><td style="text-align:right;padding:2px 0;font-size:10px;color:#999;">连'+x.day_count+'日</td></tr>'; });
-    h += '</table>';
-  } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
-  h += '</div>';
-  h += '<div style="background:#f5fff5;border-radius:8px;padding:10px;">';
-  h += '<div style="font-size:12px;font-weight:600;color:#2e7d32;margin-bottom:6px;">净卖出</div>';
-  if (ms.top_main_out && ms.top_main_out.length) {
-    h += '<table style="width:100%;font-size:12px;border-collapse:collapse;">';
-    ms.top_main_out.slice(0,5).forEach(function(x,i){ h += '<tr><td style="padding:2px 0;color:#555;">'+(i+1)+' '+x.name+'</td><td style="text-align:right;padding:2px 0;color:#2e7d32;font-weight:600;">-'+x.net_out+x.unit+'</td><td style="text-align:right;padding:2px 0;font-size:10px;color:#999;">连'+x.day_count+'日</td></tr>'; });
-    h += '</table>';
-  } else { h += '<span style="color:#999;font-size:12px;">暂无</span>'; }
-  h += '</div></div>';
 
   con.innerHTML = h;
 }
