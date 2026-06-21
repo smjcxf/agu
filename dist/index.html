@@ -178153,18 +178153,30 @@ var RECOMMEND = window.RECOMMEND = [
       var el = document.getElementById("shSummary");
       if (!el) return;
       var h = "";
-      // 涨跌家数
+      // 涨跌家数 → 结论
       var hd = window.SH_SZ_HISTORY || {}, ds = hd.daily_stats || [];
-      if (ds.length) { var dl = ds[ds.length-1]; h += '<span style="color:#c62828;">涨</span>' + dl.up + ' / <span style="color:#2e7d32;">跌</span>' + dl.down + ' · '; }
-      // 两融
+      if (ds.length) {
+        var dl = ds[ds.length-1];
+        var total = (dl.up||0) + (dl.down||0) + (dl.flat||0);
+        var upPct = total ? (dl.up / total * 100).toFixed(0) : 0;
+        var mood = upPct >= 70 ? '普涨，情绪过热' : upPct >= 50 ? '偏多' : upPct >= 30 ? '偏空' : '普跌，恐慌信号';
+        h += '涨'+dl.up+'跌'+dl.down+'（'+upPct+'%上涨，'+mood+'） · ';
+      }
+      // 两融 → 结论
       var md = window.MARGIN_DATA || {}, msh = md.sh || [];
-      if (msh.length) {
-        var ml = msh[msh.length-1];
-        var rzYi = ((ml.rz_balance||0) / 10000).toFixed(2);
-        h += '融资' + rzYi + '万亿 · 融券' + (ml.rq_balance_amt||0).toFixed(0) + '亿';
+      if (msh.length >= 2) {
+        var ml = msh[msh.length-1], mp = msh[msh.length-2];
+        var rzNow = ml.rz_balance || 0, rzPrev = mp.rz_balance || 0;
+        var rzYi = (rzNow / 10000).toFixed(2);
+        var rqNow = ml.rq_balance_amt || 0, rqPrev = mp.rq_balance_amt || 0;
+        var rzChg = rzPrev ? ((rzNow - rzPrev) / rzPrev * 100).toFixed(1) : 0;
+        var rqChg = rqPrev ? ((rqNow - rqPrev) / rqPrev * 100).toFixed(1) : 0;
+        var rzTrend = rzChg > 1 ? '大增' + rzChg + '%，杠杆加仓' : rzChg < -1 ? '缩减' + Math.abs(rzChg) + '%，降杠杆' : '持平';
+        var rqTrend = rqChg > 5 ? '激增' + rqChg + '%，做空升温' : rqChg < -5 ? '缩减' + Math.abs(rqChg) + '%，空头撤退' : '稳定';
+        h += '融资' + rzYi + '万亿（' + rzTrend + '） · 融券' + rqNow.toFixed(0) + '亿（' + rqTrend + '）';
       }
       if (h) {
-        el.innerHTML = '<span style="font-size:11px;color:#666;">' + h.replace(/ · $/, '') + '</span>';
+        el.innerHTML = '<span style="font-size:12px;color:#555;line-height:1.8;">' + h.replace(/ · $/, '') + '</span>';
         el.style.display = 'block';
       } else {
         el.style.display = "none";
