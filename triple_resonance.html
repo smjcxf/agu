@@ -274,7 +274,6 @@ function renderRank() {
   var table = document.getElementById('rankTable');
   if (!tbody) return;
 
-  // 收集所有首次出现且有后续数据的股票
   var dates = Object.keys(historyData).sort();
   var tradingDates = getTradingDates(dates);
   var rankList = [];
@@ -289,28 +288,45 @@ function renderRank() {
       if (seen[key]) continue;
       seen[key] = true;
 
-      // 找5交易日后的价格
+      // 5日回报
+      var ret5 = null, ret21 = null;
       var idx5 = di + 5;
-      if (idx5 >= tradingDates.length) continue;
-      var price5 = null;
-      for (var i5 = idx5; i5 < Math.min(idx5 + 3, tradingDates.length); i5++) {
-        var s5 = (historyData[tradingDates[i5]] || []).find(function(x){ return x.code === s.code; });
-        if (s5 && s5.close) { price5 = s5.close; break; }
+      if (idx5 < tradingDates.length) {
+        for (var i5 = idx5; i5 < Math.min(idx5 + 3, tradingDates.length); i5++) {
+          var s5 = (historyData[tradingDates[i5]] || []).find(function(x){ return x.code === s.code; });
+          if (s5 && s5.close) { ret5 = ((s5.close - s.close) / s.close * 100); break; }
+        }
+        // 追踪中但已退出共振 → 用最后一次出现的价格
+        if (ret5 === null) {
+          var lastPrice = s.close, lastDate = d;
+          for (var bi = di + 1; bi < idx5; bi++) {
+            var bs = (historyData[tradingDates[bi]] || []).find(function(x){ return x.code === s.code; });
+            if (bs && bs.close) { lastPrice = bs.close; lastDate = tradingDates[bi]; }
+          }
+          if (lastDate !== d) ret5 = ((lastPrice - s.close) / s.close * 100);
+        }
       }
-      if (!price5) continue;
 
-      // 找21交易日后的价格
+      // 21日回报
       var idx21 = di + 21;
-      if (idx21 >= tradingDates.length) continue;
-      var price21 = null;
-      for (var i21 = idx21; i21 < Math.min(idx21 + 3, tradingDates.length); i21++) {
-        var s21 = (historyData[tradingDates[i21]] || []).find(function(x){ return x.code === s.code; });
-        if (s21 && s21.close) { price21 = s21.close; break; }
+      if (idx21 < tradingDates.length) {
+        for (var i21 = idx21; i21 < Math.min(idx21 + 3, tradingDates.length); i21++) {
+          var s21b = (historyData[tradingDates[i21]] || []).find(function(x){ return x.code === s.code; });
+          if (s21b && s21b.close) { ret21 = ((s21b.close - s.close) / s.close * 100); break; }
+        }
+        // 追踪中 → 用最后一次出现价格
+        if (ret21 === null) {
+          var lastP = s.close, lastD2 = d;
+          for (var bj = di + 1; bj < Math.min(idx21, tradingDates.length); bj++) {
+            var bj2 = (historyData[tradingDates[bj]] || []).find(function(x){ return x.code === s.code; });
+            if (bj2 && bj2.close) { lastP = bj2.close; lastD2 = tradingDates[bj]; }
+          }
+          if (lastD2 !== d) ret21 = ((lastP - s.close) / s.close * 100);
+        }
       }
-      if (!price21) continue;
 
-      var ret5 = ((price5 - s.close) / s.close * 100);
-      var ret21 = ((price21 - s.close) / s.close * 100);
+      // 至少需要5日数据才展示
+      if (ret5 === null) continue;
 
       rankList.push({
         code: s.code.replace(/^(sh|sz|bj|hk)_/, ''),
@@ -332,23 +348,25 @@ function renderRank() {
     return;
   }
 
-  // 按21日涨幅排序
-  rankList.sort(function(a, b){ return b.ret21 - a.ret21; });
+  // 按5日涨幅排序
+  rankList.sort(function(a, b){ return b.ret5 - a.ret5; });
 
   var html = '';
   for (var ri = 0; ri < rankList.length; ri++) {
     var r = rankList[ri];
     var rankBadge = ri === 0 ? '🥇' : ri === 1 ? '🥈' : ri === 2 ? '🥉' : (ri + 1);
     var ret5Color = r.ret5 >= 0 ? '#c62828' : '#2e7d32';
-    var ret21Color = r.ret21 >= 0 ? '#c62828' : '#2e7d32';
+    var ret5Str = (r.ret5 >= 0 ? '+' : '') + r.ret5.toFixed(1) + '%';
+    var ret21Str = r.ret21 !== null ? ((r.ret21 >= 0 ? '+' : '') + r.ret21.toFixed(1) + '%') : '<span style="color:#999;">追踪中</span>';
+    var ret21Color = r.ret21 !== null ? (r.ret21 >= 0 ? '#c62828' : '#2e7d32') : '#999';
     html += '<tr>';
     html += '<td style="font-weight:700;">' + rankBadge + '</td>';
     html += '<td style="font-family:monospace;">' + r.code + '</td>';
     html += '<td><b>' + r.name + '</b></td>';
     html += '<td>' + r.triggerDate + '</td>';
     html += '<td>' + r.triggerPrice.toFixed(2) + '</td>';
-    html += '<td style="color:' + ret5Color + ';font-weight:600;">' + (r.ret5 >= 0 ? '+' : '') + r.ret5.toFixed(1) + '%</td>';
-    html += '<td style="color:' + ret21Color + ';font-weight:700;">' + (r.ret21 >= 0 ? '+' : '') + r.ret21.toFixed(1) + '%</td>';
+    html += '<td style="color:' + ret5Color + ';font-weight:600;">' + ret5Str + '</td>';
+    html += '<td style="color:' + ret21Color + ';font-weight:700;">' + ret21Str + '</td>';
     html += '<td>' + r.latest.toFixed(2) + '</td>';
     html += '<td><span class="badge badge-signal">' + r.signalCount + '信号</span></td>';
     html += '</tr>';
