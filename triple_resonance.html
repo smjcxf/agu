@@ -203,25 +203,8 @@ var EMBEDDED_HISTORY_DATA = {"2026-06-01": [{"code": "sh_688777", "name": "中�
   </div>
   <div id="tabRank" class="tab-content" style="display:none;">
     <div class="card">
-      <div class="card-title"><span class="icon">📊</span> 涨幅排名 — 信号触发后表现 <span style="color:#999;font-size:11px;font-weight:400;">基于各股首次进入三线共振的触发日计算</span></div>
-      <div class="table-wrap">
-      <table id="rankTable">
-        <thead>
-          <tr>
-            <th>排名</th>
-            <th>代码</th>
-            <th>名称</th>
-            <th>触发日</th>
-            <th>触发价</th>
-            <th style="background:#c62828;color:#fff;">5日涨幅</th>
-            <th style="background:#f9a825;color:#1a1a2e;">21日涨幅</th>
-            <th>最新价</th>
-            <th>信号强度</th>
-          </tr>
-        </thead>
-        <tbody id="rankBody"></tbody>
-      </table>
-      </div>
+      <div class="card-title"><span class="icon">📊</span> 涨幅排名 — 信号触发后表现 <span style="color:#999;font-size:11px;font-weight:400;">追踪中按5日排名 · 满21日后按最终涨幅排名，灰色保留2个月</span></div>
+      <div id="rankContent"></div>
       <div class="empty-state" id="emptyRank" style="display:none;">暂无足够历史数据计算涨幅</div>
     </div>
   </div>
@@ -269,13 +252,13 @@ function findLastTradingDay(dateStr) {
 
 // 涨幅排名：5日爆发力 + 21日最终成绩
 function renderRank() {
-  var tbody = document.getElementById('rankBody');
+  var content = document.getElementById('rankContent');
   var emptyEl = document.getElementById('emptyRank');
-  var table = document.getElementById('rankTable');
-  if (!tbody) return;
+  if (!content) return;
 
   var dates = Object.keys(historyData).sort();
   var tradingDates = getTradingDates(dates);
+  var today = new Date().toISOString().split('T')[0];
   var rankList = [];
   var seen = {};
 
@@ -296,7 +279,6 @@ function renderRank() {
           var s5 = (historyData[tradingDates[i5]] || []).find(function(x){ return x.code === s.code; });
           if (s5 && s5.close) { ret5 = ((s5.close - s.close) / s.close * 100); break; }
         }
-        // 追踪中但已退出共振 → 用最后一次出现的价格
         if (ret5 === null) {
           var lastPrice = s.close, lastDate = d;
           for (var bi = di + 1; bi < idx5; bi++) {
@@ -314,7 +296,6 @@ function renderRank() {
           var s21b = (historyData[tradingDates[i21]] || []).find(function(x){ return x.code === s.code; });
           if (s21b && s21b.close) { ret21 = ((s21b.close - s.close) / s.close * 100); break; }
         }
-        // 追踪中 → 用最后一次出现价格
         if (ret21 === null) {
           var lastP = s.close, lastD2 = d;
           for (var bj = di + 1; bj < Math.min(idx21, tradingDates.length); bj++) {
@@ -325,8 +306,12 @@ function renderRank() {
         }
       }
 
-      // 至少需要5日数据才展示
       if (ret5 === null) continue;
+
+      // 判断状态：满21日=已完成，否则=追踪中
+      var status = ret21 !== null ? 'done' : 'tracking';
+      // 如果没有足够交易日计算21日，也标记追踪中
+      if (di + 21 >= tradingDates.length) status = 'tracking';
 
       rankList.push({
         code: s.code.replace(/^(sh|sz|bj|hk)_/, ''),
@@ -336,43 +321,68 @@ function renderRank() {
         ret5: ret5,
         ret21: ret21,
         signalCount: s.signal_count || 3,
-        latest: s.close
+        latest: s.close,
+        status: status
       });
     }
   }
 
   if (rankList.length === 0) {
-    tbody.innerHTML = '';
-    table.style.display = 'none';
+    content.innerHTML = '';
     if (emptyEl) emptyEl.style.display = 'block';
     return;
   }
 
-  // 按5日涨幅排序
-  rankList.sort(function(a, b){ return b.ret5 - a.ret5; });
+  // 分组：追踪中 / 已完成
+  var trackingList = rankList.filter(function(r){ return r.status === 'tracking'; });
+  var doneList = rankList.filter(function(r){ return r.status === 'done'; });
+  trackingList.sort(function(a, b){ return b.ret5 - a.ret5; });
+  doneList.sort(function(a, b){ return b.ret21 - a.ret21; });
+
+  function renderGroup(list, title, isDone) {
+    if (!list.length) return '';
+    var h = '<div style="font-size:13px;font-weight:700;color:' + (isDone ? '#999' : '#333') + ';padding:8px 0 4px;">' + title + ' (' + list.length + '只)</div>';
+    h += '<table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px;">';
+    h += '<thead><tr>';
+    h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">排名</th>';
+    h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">代码</th>';
+    h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">名称</th>';
+    h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">触发日</th>';
+    h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">触发价</th>';
+    h += '<th style="background:#c62828;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">5日涨幅</th>';
+    h += '<th style="background:#f9a825;color:#1a1a2e;padding:6px 8px;text-align:left;font-size:11px;">21日涨幅</th>';
+    h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">最新价</th>';
+    h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">信号</th>';
+    h += '</tr></thead><tbody>';
+    for (var ri = 0; ri < list.length; ri++) {
+      var r = list[ri];
+      var rankBadge = ri === 0 ? '🥇' : ri === 1 ? '🥈' : ri === 2 ? '🥉' : (ri + 1);
+      var ret5Color = r.ret5 >= 0 ? '#c62828' : '#2e7d32';
+      var ret5Str = (r.ret5 >= 0 ? '+' : '') + r.ret5.toFixed(1) + '%';
+      var ret21Str = r.ret21 !== null ? ((r.ret21 >= 0 ? '+' : '') + r.ret21.toFixed(1) + '%') : '<span style="color:#999;">追踪中</span>';
+      var ret21Color = r.ret21 !== null ? (r.ret21 >= 0 ? '#c62828' : '#2e7d32') : '#999';
+      var rowStyle = isDone ? 'color:#999;' : '';
+      h += '<tr style="' + rowStyle + '">';
+      h += '<td style="font-weight:700;padding:6px 8px;">' + rankBadge + '</td>';
+      h += '<td style="font-family:monospace;padding:6px 8px;">' + r.code + '</td>';
+      h += '<td style="padding:6px 8px;"><b>' + r.name + '</b></td>';
+      h += '<td style="padding:6px 8px;">' + r.triggerDate + '</td>';
+      h += '<td style="padding:6px 8px;">' + r.triggerPrice.toFixed(2) + '</td>';
+      h += '<td style="color:' + ret5Color + ';font-weight:600;padding:6px 8px;">' + ret5Str + '</td>';
+      h += '<td style="color:' + ret21Color + ';font-weight:700;padding:6px 8px;">' + ret21Str + '</td>';
+      h += '<td style="padding:6px 8px;">' + r.latest.toFixed(2) + '</td>';
+      h += '<td style="padding:6px 8px;"><span class="badge badge-signal">' + r.signalCount + '信号</span></td>';
+      h += '</tr>';
+    }
+    h += '</tbody></table>';
+    return h;
+  }
 
   var html = '';
-  for (var ri = 0; ri < rankList.length; ri++) {
-    var r = rankList[ri];
-    var rankBadge = ri === 0 ? '🥇' : ri === 1 ? '🥈' : ri === 2 ? '🥉' : (ri + 1);
-    var ret5Color = r.ret5 >= 0 ? '#c62828' : '#2e7d32';
-    var ret5Str = (r.ret5 >= 0 ? '+' : '') + r.ret5.toFixed(1) + '%';
-    var ret21Str = r.ret21 !== null ? ((r.ret21 >= 0 ? '+' : '') + r.ret21.toFixed(1) + '%') : '<span style="color:#999;">追踪中</span>';
-    var ret21Color = r.ret21 !== null ? (r.ret21 >= 0 ? '#c62828' : '#2e7d32') : '#999';
-    html += '<tr>';
-    html += '<td style="font-weight:700;">' + rankBadge + '</td>';
-    html += '<td style="font-family:monospace;">' + r.code + '</td>';
-    html += '<td><b>' + r.name + '</b></td>';
-    html += '<td>' + r.triggerDate + '</td>';
-    html += '<td>' + r.triggerPrice.toFixed(2) + '</td>';
-    html += '<td style="color:' + ret5Color + ';font-weight:600;">' + ret5Str + '</td>';
-    html += '<td style="color:' + ret21Color + ';font-weight:700;">' + ret21Str + '</td>';
-    html += '<td>' + r.latest.toFixed(2) + '</td>';
-    html += '<td><span class="badge badge-signal">' + r.signalCount + '信号</span></td>';
-    html += '</tr>';
-  }
-  tbody.innerHTML = html;
-  table.style.display = '';
+  html += renderGroup(trackingList, '📊 追踪中 · 5日排名', false);
+  html += renderGroup(doneList, '📋 已完成21日 · 按最终涨幅排名', true);
+
+  content.innerHTML = html;
   if (emptyEl) emptyEl.style.display = 'none';
 }
 
