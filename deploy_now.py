@@ -314,7 +314,86 @@ def main():
 
     log(f"\nSUCCESS! Deployed to {OUTPUT_URL}")
     log("   (GitHub Pages build takes 1-2 min)")
+
+    # 5. 自动同步源代码到 main 分支（永久防止双机版号冲突）
+    log("-" * 55)
+    log("5. Auto-syncing source code to main...")
+    _auto_push_source()
+
     return 0
+
+
+def _auto_push_source():
+    """自动将工作区源码修改 commit + push 到 main 分支。
+
+    为什么需要这一步：
+      - 阿狸咪改了 index_master.html 后跑部署
+      - 如果忘记手动 git push，小九 git pull 就拉到旧代码
+      - 下次小九部署会用旧模板覆盖掉阿狸咪的 UI 改版
+      - 本函数在每次部署后自动确保 main 分支是最新的
+    """
+    git_root = PROJECT_ROOT
+
+    # 检查工作区是否有未提交修改
+    r = run("git status --porcelain", cwd=git_root)
+    if r.returncode != 0:
+        log("   ⚠️ 无法获取 git 状态，跳过源码同步")
+        return
+
+    lines = [l for l in r.stdout.strip().split("\n") if l.strip()]
+    if not lines:
+        log("   ℹ️ 工作区干净，无需同步")
+        return
+
+    # 过滤出非 data/、非 dist/、非临时目录的变更
+    dirty = []
+    for line in lines:
+        fname = line[3:].strip().strip('"')
+        if fname.startswith("data/") or fname.startswith("dist/") or fname.startswith("_gh_pages"):
+            continue
+        if fname.startswith(".workbuddy/"):
+            continue
+        dirty.append(fname)
+
+    if not dirty:
+        log("   ℹ️ 非源码文件变动，跳过")
+        return
+
+    log(f"   📝 检测到 {len(dirty)} 个源码变更")
+    for f in dirty[:5]:
+        log(f"      {f}")
+    if len(dirty) > 5:
+        log(f"      ... 共 {len(dirty)} 个")
+
+    # 统一 git add（依赖 .gitignore 排除 data/ dist/）
+    r = run("git add -A", cwd=git_root)
+    if r.returncode != 0:
+        log(f"   ⚠️ git add 失败: {r.stderr[:200]}")
+        return
+
+    # 生成提交信息
+    now = datetime.now().strftime("%m-%d %H:%M")
+    top_files = [os.path.basename(f) for f in dirty[:3]]
+    msg = f"auto: source sync {now}"
+    if top_files:
+        msg += " — " + ", ".join(top_files)
+
+    r = run(f'git commit -m "{msg}"', cwd=git_root)
+    if r.returncode != 0:
+        if "nothing to commit" in (r.stdout + r.stderr):
+            log("   ℹ️ 无内容可提交")
+            return
+        log(f"   ⚠️ 提交失败: {r.stderr[:200]}")
+        return
+
+    log(f"   ✓ 已提交: {msg}")
+
+    # 推送到 main
+    r = run("git push origin main", cwd=git_root)
+    if r.returncode != 0:
+        log(f"   ⚠️ 推送失败: {r.stderr[:200]}")
+    else:
+        log("   ✓ 已推送到 main（小九能拉到了）")
 
 if __name__ == "__main__":
     sys.exit(main())
