@@ -412,10 +412,10 @@ function renderRank() {
     for (var ri = 0; ri < list.length; ri++) {
       var r = list[ri];
       var rankBadge = r.noData ? '🆕' : (ri === 0 ? '🥇' : ri === 1 ? '🥈' : ri === 2 ? '🥉' : (ri + 1));
-      var rowStyle = isDone ? 'color:#999;' : (r.expired ? 'color:#bbb;' : (r.noData ? 'color:#e65100;' : ''));
-      var ret5Str = r.ret5 !== null ? ((r.ret5 >= 0 ? '+' : '') + r.ret5.toFixed(1) + '%') : (r.noData ? '—' : '<span style="color:#999;">计算中</span>');
+      var rowStyle = isDone ? 'color:#999;' : (r.expired ? 'color:#bbb;' : '');
+      var ret5Str = r.ret5 !== null ? ((r.ret5 >= 0 ? '+' : '') + r.ret5.toFixed(1) + '%') : (r.noData ? '<span style="color:#999;">—</span>' : '<span style="color:#999;">—</span>');
       var ret5Color = r.ret5 !== null ? (r.ret5 >= 0 ? '#c62828' : '#2e7d32') : '#999';
-      var ret21Str = r.ret21 !== null ? ((r.ret21 >= 0 ? '+' : '') + r.ret21.toFixed(1) + '%') : (r.noData ? '—' : '<span style="color:#999;">追踪中</span>');
+      var ret21Str = r.ret21 !== null ? ((r.ret21 >= 0 ? '+' : '') + r.ret21.toFixed(1) + '%') : (r.noData ? '<span style="color:#999;">—</span>' : '<span style="color:#999;">—</span>');
       var ret21Color = r.ret21 !== null ? (r.ret21 >= 0 ? '#c62828' : '#2e7d32') : '#999';
       var latestPct = r.latestPct || 0;
       var latestPctStr = (latestPct >= 0 ? '+' : '') + latestPct.toFixed(2) + '%';
