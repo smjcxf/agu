@@ -130,6 +130,46 @@ const m5 = c.match(/window\.NT_DATA = ({[\s\S]*?};)/);console.log("NT_DATA:", m5
         except: pass
 
 
+def verify_all_js(content):
+    """全量 JS 语法检查，捕获括号不配、非法 return 等低级错误"""
+    import re, subprocess, tempfile
+    scripts = re.findall(r'<script\b[^>]*>(.*?)</script>', content, re.DOTALL)
+    checked = 0
+    errors = 0
+    for i, js in enumerate(scripts):
+        js = js.strip()
+        if len(js) < 50:
+            continue
+        # 跳过宏观渲染注入
+        if 'var el = document.getElementById("macroUpdateTime")' in js[:300]:
+            continue
+        checked += 1
+        try:
+            # 写入临时文件避免命令行长度限制
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.js', delete=False, encoding='utf-8') as f:
+                f.write("try{new Function(" + repr(js) + ");console.log('OK')}catch(e){console.log('ERR:'+e.message)}")
+                tmp_path = f.name
+            node_path = os.path.join(os.path.expanduser("~"), ".workbuddy", "binaries", "node", "versions", "22.22.2", "node.exe")
+            r = subprocess.run(
+                [node_path, tmp_path],
+                capture_output=True, text=True, timeout=15
+            )
+            out = r.stdout.strip()
+            if "ERR:" in out:
+                print(f"    ⚠️ 脚本块{i}: {out}")
+                errors += 1
+            else:
+                print(f"    ✓ 脚本块{i}")
+        except Exception as e:
+            print(f"    ⚠️ 脚本块{i}: 检查异常 - {e}")
+            errors += 1
+        finally:
+            try: os.unlink(tmp_path)
+            except: pass
+    print(f"    检查 {checked} 个脚本块，{errors} 个错误")
+    return errors == 0
+
+
 # ============ 宏观观测表格渲染JS（整合自 inject_macro.py RENDER_JS）============
 def get_macro_render_js():
     """返回填充宏观观测表格的JS脚本字符串（幂等，重复注入不重复执行）"""
@@ -732,17 +772,20 @@ def main():
                 f.write(c)
             print(f"  ✓ 密码已注入 {os.path.basename(fpath)} (admin:{n} 处, guest:{m} 处)")
 
-    if not fast_mode:
-        # 验证 JS 语法
-        print("\n  JS 语法验证:")
-        verify_out = verify_data(content)
-        print(f"  {verify_out}")
+    # 验证 JS 语法（无论模式，必须执行）
+    print("\n  JS 语法验证:")
+    verify_out = verify_data(content)
+    print(f"  {verify_out}")
+    if "ERR" in verify_out or "NOT FOUND" in verify_out:
+        print("  ❌ 数据块 JS 语法异常！")
+        return False
 
-        if "ERR" in verify_out or "NOT FOUND" in verify_out:
-            print("  ❌ 数据块 JS 语法异常！")
-            return False
-    else:
-        print("\n  ▸ 快速模式：跳过JS语法验证")
+    # 全量 JS 语法检查（防止括号不配等低级错误上线）
+    print("  全量JS检查:")
+    full_ok = verify_all_js(content)
+    if not full_ok:
+        print("  ❌ 全量JS语法异常，已拦截！")
+        return False
 
     # 保存（双文件输出）
     with open(OUTPUT_PATH, "w", encoding="utf-8", newline="\n") as f:
