@@ -174,6 +174,54 @@ def sync_remote_data():
     return synced > 0
 
 
+def _ensure_dist_fresh():
+    """源码模板比 dist 新则自动重建，防止部署旧版 UI。
+    
+    这是今晚血的教训：改了 index_master.html 但不跑 update_data_v2.py，
+    deploy_now.py 推的是旧版 dist，所有 UI 改动白改。
+    """
+    src = os.path.join(PROJECT_ROOT, "index_master.html")
+    dst = os.path.join(PROJECT_ROOT, "dist", "index_master.html")
+
+    if not os.path.exists(src):
+        log("   ⚠️ 模板文件缺失，跳过")
+        return
+    if not os.path.exists(dst):
+        log("   ⚠️ dist 缺失，将自动生成...")
+        _rebuild_dist()
+        return
+
+    src_mtime = os.path.getmtime(src)
+    dst_mtime = os.path.getmtime(dst)
+
+    if src_mtime > dst_mtime:
+        log("   📝 检测到模板更新，自动重建 dist...")
+        _rebuild_dist()
+    else:
+        log("   ✓ dist 已是最新，跳过重建")
+
+
+def _rebuild_dist():
+    """调用 update_data_v2.py --fast 重新生成 dist 文件"""
+    updater = os.path.join(PROJECT_ROOT, "update_data_v2.py")
+    if not os.path.exists(updater):
+        log("   ⚠️ update_data_v2.py 不存在，无法重建")
+        return
+
+    python_exe = sys.executable
+    log(f"   执行: python update_data_v2.py --fast")
+    result = subprocess.run(
+        [python_exe, updater, "--fast"],
+        capture_output=True, text=True, timeout=300,
+        cwd=PROJECT_ROOT
+    )
+    if result.returncode == 0:
+        log("   ✓ dist 重建成功")
+    else:
+        log(f"   ⚠️ 重建失败: {result.stderr[:200] if result.stderr else 'unknown'}")
+        # 不阻断部署，dist 可能已足够
+
+
 def main():
     log("=== Start Deploy (GitHub Pages) ===")
     project_root = os.path.dirname(os.path.abspath(__file__))
@@ -191,6 +239,9 @@ def main():
             return 1
     else:
         log("   WARN --force: skipping pre-deploy audit")
+
+    # 0.5. 自动重建 dist（模板改了必须重生成，防止部署旧版）
+    _ensure_dist_fresh()
 
     # Use temp dir for gh-pages
     tmpdir = tempfile.mkdtemp(prefix="gh-pages-deploy-")
