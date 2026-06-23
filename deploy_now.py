@@ -179,26 +179,12 @@ def _ensure_dist_fresh():
     
     这是今晚血的教训：改了 index_master.html 但不跑 update_data_v2.py，
     deploy_now.py 推的是旧版 dist，所有 UI 改动白改。
+    
+    第二次血的教训：手动 cp 到 dist 绕过了 freshness 检测，JS 语法错误没拦截。
+    改为每次部署前强制 --fast 重建，确保数据注入 + JS 验证都过一遍。
     """
-    src = os.path.join(PROJECT_ROOT, "index_master.html")
-    dst = os.path.join(PROJECT_ROOT, "dist", "index_master.html")
-
-    if not os.path.exists(src):
-        log("   ⚠️ 模板文件缺失，跳过")
-        return
-    if not os.path.exists(dst):
-        log("   ⚠️ dist 缺失，将自动生成...")
-        _rebuild_dist()
-        return
-
-    src_mtime = os.path.getmtime(src)
-    dst_mtime = os.path.getmtime(dst)
-
-    if src_mtime > dst_mtime:
-        log("   📝 检测到模板更新，自动重建 dist...")
-        _rebuild_dist()
-    else:
-        log("   ✓ dist 已是最新，跳过重建")
+    log("   🔄 强制重建 dist（确保数据注入+JS验证）...")
+    _rebuild_dist()
 
 
 def _rebuild_dist():
