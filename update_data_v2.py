@@ -494,14 +494,15 @@ def main():
     mahoro_sig   = load_json(os.path.join(DATA_DIR, "mahoro_signals.json"), {"gold_pool_matches": []})
     fomc_summary = load_json(os.path.join(DATA_DIR, "fomc_summary.json"), {})
     # 构建投行覆盖映射: code -> stance
-    mahoro_coverage = {}
+    mahoro_coverage = {"_update_time": mahoro_sig.get("fetch_time", "")}
     for m in mahoro_sig.get("gold_pool_matches", []):
         code = m.get("code", "")
         stance = m.get("stance", "")
         if code and stance:
             mahoro_coverage[code] = stance
-    if mahoro_coverage:
-        print(f"  ▸ 投行覆盖: {len(mahoro_coverage)} 只")
+    has_cov = len(mahoro_coverage) > 1  # >1 因为有 _update_time 键
+    if has_cov:
+        print(f"  ▸ 投行覆盖: {len(mahoro_coverage)-1} 只")
 
     if not fast_mode:
         # 自动采集最新宏观数据
