@@ -251,6 +251,52 @@ function findLastTradingDay(dateStr) {
   return dateStr;
 }
 
+// 股票价格历史映射表: code -> {date: close}
+var STOCK_PRICE_MAP = {};
+// 在数据加载后解析 _stock_price_history
+function initStockPriceMap() {
+  STOCK_PRICE_MAP = {};
+  var sph = historyData._stock_price_history || {};
+  for (var code in sph) {
+    var entries = sph[code];
+    var map = {};
+    for (var i = 0; i < entries.length; i++) {
+      map[entries[i][0]] = entries[i][1];
+    }
+    STOCK_PRICE_MAP[code] = map;
+  }
+}
+
+// 获取股票在指定日期的收盘价
+function getCloseAtDate(code, dateStr) {
+  // 尝试所有前缀匹配
+  var map = STOCK_PRICE_MAP[code] || STOCK_PRICE_MAP['sz_' + code] || STOCK_PRICE_MAP['sh_' + code] || STOCK_PRICE_MAP['hk_' + code];
+  if (map && map[dateStr] !== undefined) return map[dateStr];
+  // 前缀匹配
+  var prefixes = ['sz_', 'sh_', 'bj_', 'hk_'];
+  for (var p = 0; p < prefixes.length; p++) {
+    var fullCode = prefixes[p] + code;
+    if (STOCK_PRICE_MAP[fullCode] && STOCK_PRICE_MAP[fullCode][dateStr] !== undefined) {
+      return STOCK_PRICE_MAP[fullCode][dateStr];
+    }
+  }
+  return null;
+}
+
+// 获取起始日期后第N个交易日
+function getTradingDayOffset(dateStr, offsetDays) {
+  var d = new Date(dateStr + 'T00:00:00');
+  var count = 0;
+  var maxLoop = 365;
+  while (count < offsetDays && maxLoop > 0) {
+    d.setDate(d.getDate() + 1);
+    var s = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    if (isTradingDay(s)) count++;
+    maxLoop--;
+  }
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
 // 从 _tracking_latest 获取股票的最新收盘价
 function getLatestPrice(code) {
   var tl = historyData._tracking_latest || {};
@@ -300,6 +346,41 @@ function renderRank() {
       var daysSinceEntry = Math.floor((Date.now() - triggerDs) / 86400000);
       var status = daysSinceEntry >= 21 ? 'done' : 'tracking';
 
+      // 已完成股票：计算退出价和21日最高涨幅
+      var exitPrice = null, maxGainPct = null, exitDate = null;
+      if (status === 'done') {
+        exitDate = getTradingDayOffset(d, 21);
+        exitPrice = getCloseAtDate(rawCode, exitDate);
+        // 计算21日窗口内最高涨幅
+        var triggerMs2 = new Date(d + 'T00:00:00').getTime();
+        var exitMs = new Date(exitDate + 'T00:00:00').getTime();
+        var maxClose = s.close;
+        // 遍历价格历史找到窗口内的最高价
+        var prefixes = ['', 'sz_', 'sh_', 'bj_', 'hk_'];
+        var fullCodes = [rawCode];
+        for (var pf = 0; pf < prefixes.length; pf++) {
+          if (prefixes[pf] && STOCK_PRICE_MAP[prefixes[pf] + rawCode]) {
+            fullCodes.push(prefixes[pf] + rawCode);
+          }
+        }
+        for (var fc = 0; fc < fullCodes.length; fc++) {
+          var pmap = STOCK_PRICE_MAP[fullCodes[fc]];
+          if (pmap) {
+            for (var dt in pmap) {
+              var dtMs = new Date(dt + 'T00:00:00').getTime();
+              if (dtMs >= triggerMs2 && dtMs <= exitMs) {
+                if (pmap[dt] > maxClose) maxClose = pmap[dt];
+              }
+            }
+          }
+        }
+        maxGainPct = ((maxClose - s.close) / s.close * 100);
+        // 如果没有退出价，用窗口最后一天的价格
+        if (exitPrice === null) {
+          exitPrice = maxClose !== s.close ? maxClose : null;
+        }
+      }
+
       // 满60天标记过期
       var expired = false;
       var triggerMs = new Date(d + 'T00:00:00').getTime();
@@ -320,7 +401,10 @@ function renderRank() {
         latestPct20: latestInfo2 ? latestInfo2.pct_chg_20d : 0,
         status: status,
         expired: expired,
-        noData: false
+        noData: false,
+        exitPrice: exitPrice,
+        exitDate: exitDate,
+        maxGainPct: maxGainPct
       });
     }
   }
@@ -343,7 +427,7 @@ function renderRank() {
     if (a.noData && b.noData) return b.triggerDate.localeCompare(a.triggerDate);
     return b.ret5 - a.ret5;
   });
-  doneList.sort(function(a, b){ return b.ret21 - a.ret21; });
+  doneList.sort(function(a, b){ return (b.maxGainPct || 0) - (a.maxGainPct || 0); });
   // 无数据的排在各自组末尾
 
   function renderGroup(list, title, isDone) {
@@ -356,10 +440,14 @@ function renderRank() {
     h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">名称</th>';
     h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">触发日</th>';
     h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">触发价</th>';
-    h += '<th style="background:#c62828;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">累计涨幅</th>';
-    h += '<th style="background:#f9a825;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">信号强度</th>';
-    h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">最新价</th>';
-    h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">当日涨跌</th>';
+    if (isDone) {
+      h += '<th style="background:#42a5f5;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">退出价</th>';
+      h += '<th style="background:#c62828;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">最高涨幅</th>';
+    } else {
+      h += '<th style="background:#c62828;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">累计涨幅</th>';
+      h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">最新价</th>';
+      h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">当日涨跌</th>';
+    }
     h += '</tr></thead><tbody>';
     for (var ri = 0; ri < list.length; ri++) {
       var r = list[ri];
@@ -367,8 +455,6 @@ function renderRank() {
       var rowStyle = isDone ? 'color:#999;' : (r.expired ? 'color:#bbb;' : '');
       var ret5Str = r.ret5 !== null ? ((r.ret5 >= 0 ? '+' : '') + r.ret5.toFixed(1) + '%') : (r.noData ? '<span style="color:#999;">—</span>' : '<span style="color:#999;">—</span>');
       var ret5Color = r.ret5 !== null ? (r.ret5 >= 0 ? '#c62828' : '#2e7d32') : '#999';
-      var signalStr = '⚡' + r.signalCount + '/4';
-      var signalColor = r.signalCount >= 4 ? '#FFD700' : r.signalCount >= 3 ? '#e94560' : '#f39c12';
       var latestPct = r.latestPct || 0;
       var latestPctStr = (latestPct >= 0 ? '+' : '') + latestPct.toFixed(2) + '%';
       var latestPctColor = latestPct >= 0 ? '#c62828' : '#2e7d32';
@@ -381,10 +467,17 @@ function renderRank() {
       h += '<td style="padding:6px 8px;"><b>' + r.name + '</b>' + (r.noData ? ' <span style="font-size:10px;color:#e65100;">已入榜' + daysIn + '天</span>' : ' <span style="font-size:10px;color:#888;">' + daysIn + '天</span>') + '</td>';
       h += '<td style="padding:6px 8px;">' + r.triggerDate + '</td>';
       h += '<td style="padding:6px 8px;">¥' + r.triggerPrice.toFixed(2) + '</td>';
-      h += '<td style="color:' + ret5Color + ';font-weight:600;padding:6px 8px;">' + ret5Str + '</td>';
-      h += '<td style="color:' + signalColor + ';font-weight:700;padding:6px 8px;">' + signalStr + '</td>';
-      h += '<td style="padding:6px 8px;font-weight:600;">¥' + r.latest.toFixed(2) + '</td>';
-      h += '<td style="color:' + latestPctColor + ';font-weight:600;padding:6px 8px;">' + latestPctStr + '</td>';
+      if (isDone) {
+        var exitStr = r.exitPrice ? '¥' + r.exitPrice.toFixed(2) : '<span style="color:#999;">—</span>';
+        var maxStr = r.maxGainPct !== null ? ((r.maxGainPct >= 0 ? '+' : '') + r.maxGainPct.toFixed(1) + '%') : '<span style="color:#999;">—</span>';
+        var maxColor = r.maxGainPct !== null ? (r.maxGainPct >= 0 ? '#c62828' : '#2e7d32') : '#999';
+        h += '<td style="padding:6px 8px;font-weight:600;">' + exitStr + '</td>';
+        h += '<td style="color:' + maxColor + ';font-weight:700;padding:6px 8px;">' + maxStr + '</td>';
+      } else {
+        h += '<td style="color:' + ret5Color + ';font-weight:600;padding:6px 8px;">' + ret5Str + '</td>';
+        h += '<td style="padding:6px 8px;font-weight:600;">¥' + r.latest.toFixed(2) + '</td>';
+        h += '<td style="color:' + latestPctColor + ';font-weight:600;padding:6px 8px;">' + latestPctStr + '</td>';
+      }
       h += '</tr>';
     }
     h += '</tbody></table>';
@@ -411,6 +504,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 优先使用嵌入数据，如果为null则从json文件加载
   if (EMBEDDED_HISTORY_DATA && Object.keys(EMBEDDED_HISTORY_DATA).length > 0) {
     historyData = EMBEDDED_HISTORY_DATA;
+    initStockPriceMap();
     updateCurrentTab();
     updateStats();
     document.getElementById('updateTime').textContent = '最后更新：嵌入数据';
@@ -430,6 +524,7 @@ async function loadData() {
     var resp = await fetch('data/triple_resonance_history.json?_=' + Date.now());
     data = await resp.json();
     historyData = data;
+    initStockPriceMap();
     updateCurrentTab();
     updateStats();
     document.getElementById('updateTime').textContent = '最后更新：' + new Date().toLocaleString('zh-CN');
@@ -438,6 +533,7 @@ async function loadData() {
     // 尝试使用嵌入数据
     if (EMBEDDED_HISTORY_DATA && Object.keys(EMBEDDED_HISTORY_DATA).length > 0) {
       historyData = EMBEDDED_HISTORY_DATA;
+      initStockPriceMap();
       updateCurrentTab();
       updateStats();
       document.getElementById('updateTime').textContent = '最后更新：嵌入数据（加载外部失败）';
