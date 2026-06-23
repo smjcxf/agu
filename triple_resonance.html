@@ -286,67 +286,19 @@ function renderRank() {
       if (seen[key]) continue;
       seen[key] = true;
 
-      // 5日回报
+      // 5日回报 — 从触发价到最新价的累计涨幅
       var ret5 = null, ret21 = null;
-      var idx5 = di + 5;
-      if (idx5 < tradingDates.length) {
-        for (var i5 = idx5; i5 < Math.min(idx5 + 3, tradingDates.length); i5++) {
-          var s5 = (historyData[tradingDates[i5]] || []).find(function(x){ return x.code === s.code; });
-          if (s5 && s5.close) { ret5 = ((s5.close - s.close) / s.close * 100); break; }
-        }
-        if (ret5 === null) {
-          var lastPrice = s.close, lastDate = d;
-          for (var bi = di + 1; bi < idx5; bi++) {
-            var bs = (historyData[tradingDates[bi]] || []).find(function(x){ return x.code === s.code; });
-            if (bs && bs.close) { lastPrice = bs.close; lastDate = tradingDates[bi]; }
-          }
-          if (lastDate !== d) ret5 = ((lastPrice - s.close) / s.close * 100);
-        }
-      }
+      var rawCode = s.code.replace(/^(sh|sz|bj|hk)_/, '');
+      var latestInfo = getLatestPrice(rawCode);
+      var latestClose = (latestInfo && latestInfo.close) ? latestInfo.close : s.close;
+      // 计算从触发价到最新价的涨幅
+      ret5 = ((latestClose - s.close) / s.close * 100);
+      ret21 = ret5;  // 21日同样使用累计涨幅
 
-      // 21日回报
-      var idx21 = di + 21;
-      if (idx21 < tradingDates.length) {
-        for (var i21 = idx21; i21 < Math.min(idx21 + 3, tradingDates.length); i21++) {
-          var s21b = (historyData[tradingDates[i21]] || []).find(function(x){ return x.code === s.code; });
-          if (s21b && s21b.close) { ret21 = ((s21b.close - s.close) / s.close * 100); break; }
-        }
-        if (ret21 === null) {
-          var lastP = s.close, lastD2 = d;
-          for (var bj = di + 1; bj < Math.min(idx21, tradingDates.length); bj++) {
-            var bj2 = (historyData[tradingDates[bj]] || []).find(function(x){ return x.code === s.code; });
-            if (bj2 && bj2.close) { lastP = bj2.close; lastD2 = tradingDates[bj]; }
-          }
-          if (lastD2 !== d) ret21 = ((lastP - s.close) / s.close * 100);
-        }
-      }
-
-      if (ret5 === null && ret21 === null) {
-        // 没有任何回报数据的也加入（显示为"—"）
-        var st = 'tracking';
-        var rawCode = s.code.replace(/^(sh|sz|bj|hk)_/, '');
-        var latestInfo = getLatestPrice(rawCode);
-        rankList.push({
-          code: rawCode,
-          name: s.name,
-          triggerDate: d,
-          triggerPrice: s.close,
-          ret5: null,
-          ret21: null,
-          signalCount: s.signal_count || 3,
-          latest: latestInfo ? latestInfo.close : s.close,
-          latestPct: latestInfo ? latestInfo.pct_chg : s.pct_chg,
-          latestPct20: latestInfo ? latestInfo.pct_chg_20d : 0,
-          status: st,
-          noData: true
-        });
-        continue;
-      }
-      if (ret5 === null && ret21 === null) continue;  // 两者都没有才跳过
-
-      // 判断状态：满21日=已完成，否则=追踪中
-      var status = ret21 !== null ? 'done' : 'tracking';
-      if (di + 21 >= tradingDates.length) status = 'tracking';
+      // 判断状态：是否已满足21交易日窗口
+      var triggerDs = new Date(d + 'T00:00:00').getTime();
+      var daysSinceEntry = Math.floor((Date.now() - triggerDs) / 86400000);
+      var status = daysSinceEntry >= 21 ? 'done' : 'tracking';
 
       // 满60天标记过期
       var expired = false;
@@ -404,8 +356,8 @@ function renderRank() {
     h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">名称</th>';
     h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">触发日</th>';
     h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">触发价</th>';
-    h += '<th style="background:#c62828;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">5日涨幅</th>';
-    h += '<th style="background:#f9a825;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">21日涨幅</th>';
+    h += '<th style="background:#c62828;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">累计涨幅</th>';
+    h += '<th style="background:#f9a825;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">信号强度</th>';
     h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">最新价</th>';
     h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">当日涨跌</th>';
     h += '</tr></thead><tbody>';
@@ -415,8 +367,8 @@ function renderRank() {
       var rowStyle = isDone ? 'color:#999;' : (r.expired ? 'color:#bbb;' : '');
       var ret5Str = r.ret5 !== null ? ((r.ret5 >= 0 ? '+' : '') + r.ret5.toFixed(1) + '%') : (r.noData ? '<span style="color:#999;">—</span>' : '<span style="color:#999;">—</span>');
       var ret5Color = r.ret5 !== null ? (r.ret5 >= 0 ? '#c62828' : '#2e7d32') : '#999';
-      var ret21Str = r.ret21 !== null ? ((r.ret21 >= 0 ? '+' : '') + r.ret21.toFixed(1) + '%') : (r.noData ? '<span style="color:#999;">—</span>' : '<span style="color:#999;">—</span>');
-      var ret21Color = r.ret21 !== null ? (r.ret21 >= 0 ? '#c62828' : '#2e7d32') : '#999';
+      var signalStr = '⚡' + r.signalCount + '/4';
+      var signalColor = r.signalCount >= 4 ? '#FFD700' : r.signalCount >= 3 ? '#e94560' : '#f39c12';
       var latestPct = r.latestPct || 0;
       var latestPctStr = (latestPct >= 0 ? '+' : '') + latestPct.toFixed(2) + '%';
       var latestPctColor = latestPct >= 0 ? '#c62828' : '#2e7d32';
@@ -430,7 +382,7 @@ function renderRank() {
       h += '<td style="padding:6px 8px;">' + r.triggerDate + '</td>';
       h += '<td style="padding:6px 8px;">¥' + r.triggerPrice.toFixed(2) + '</td>';
       h += '<td style="color:' + ret5Color + ';font-weight:600;padding:6px 8px;">' + ret5Str + '</td>';
-      h += '<td style="color:' + ret21Color + ';font-weight:700;padding:6px 8px;">' + ret21Str + '</td>';
+      h += '<td style="color:' + signalColor + ';font-weight:700;padding:6px 8px;">' + signalStr + '</td>';
       h += '<td style="padding:6px 8px;font-weight:600;">¥' + r.latest.toFixed(2) + '</td>';
       h += '<td style="color:' + latestPctColor + ';font-weight:600;padding:6px 8px;">' + latestPctStr + '</td>';
       h += '</tr>';
@@ -440,7 +392,7 @@ function renderRank() {
   }
 
   var html = '';
-  html += renderGroup(trackingList, '📊 追踪中（按5日涨幅排序）', false);
+  html += renderGroup(trackingList, '📊 追踪中（按累计涨幅排序）', false);
   html += renderGroup(doneList, '📋 已完成21日 · 按最终涨幅排名', true);
   html += renderGroup(expiredList, '🗄️ 已过期 · 入榜超2个月', true);
 
