@@ -324,7 +324,7 @@ def main():
     else:
         print(f"  ▶️ 正常启动 ({my_host}, {mode})")
 
-    results = []
+    results = {}
     failed_indices = []
 
     # ── Phase 1: 首轮执行 ──
@@ -332,12 +332,9 @@ def main():
     for i in range(start_idx, len(cfg["steps"])):
         cmd, tmo = cfg["steps"][i]
         label = f"[{i + 1}/{len(cfg['steps'])}]"
-        if resume_from > 0:
-            print(f"  {label} {cmd:<35s} ", end="", flush=True)
-        else:
-            print(f"  {label} {cmd:<35s} ", end="", flush=True)
+        print(f"  {label} {cmd:<35s} ", end="", flush=True)
         ok, elapsed, detail = run_step(cmd, tmo)
-        results.append((cmd, ok, elapsed, detail))
+        results[i] = (cmd, ok, elapsed, detail)
 
         icon = "✓" if ok else "✗"
         extra = f"  {detail}" if detail else ""
@@ -371,7 +368,7 @@ def main():
             names = ", ".join(still_failed)
             print(f"\n  ⚠ 重试后仍然超时/失败: {names}")
 
-    exit_code = print_summary(results, still_failed)
+    exit_code = print_summary(list(results.values()), still_failed)
     # 清理心跳（全部完成）
     try:
         if os.path.exists(HEARTBEAT_FILE):
