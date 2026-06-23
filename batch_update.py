@@ -268,50 +268,83 @@ def main():
     # ── Step 0: 双机代码同步（阿狸咪 ↔ 小九互相识别对方最新版） ──
     _sync_dual_machine_code(WORKSPACE)
 
-    # ── Step 0.5: 双机互斥锁（坚果云同步目录，防止两台机器同时跑同一模式） ──
-    LOCK_FILE = os.path.join(WORKSPACE, ".batch_lock.txt")
-    LOCK_TIMEOUT = 600  # 10分钟自动过期（防止崩溃死锁）
+    # ── Step 0.5: 双机心跳互备（一台掉线另一台自动接棒） ──
+    import json as _json
+    HEARTBEAT_FILE = os.path.join(WORKSPACE, ".batch_heartbeat.json")
+    HEARTBEAT_TIMEOUT = 120  # 2分钟无心跳视为掉线
     my_host = os.environ.get("COMPUTERNAME", "unknown")
-    my_pid = os.getpid()
+    resume_from = 0  # 接棒时的断点步骤索引
+
     try:
-        if os.path.exists(LOCK_FILE):
-            with open(LOCK_FILE, "r") as f:
-                lock_data = f.read().strip()
-            # 解析锁: host|pid|timestamp|mode
-            parts = lock_data.split("|")
-            if len(parts) >= 4:
-                lock_ts = float(parts[2])
-                lock_mode = parts[3]
-                age = time.time() - lock_ts
-                if age < LOCK_TIMEOUT and lock_mode == mode:
-                    print(f"  \U0001f512 互斥锁有效 ({parts[0]}:{parts[1]}, {lock_mode}, {age:.0f}秒前)")
-                    print(f"     已由 {parts[0]} 在执行，本机({my_host})跳过")
-                    sys.exit(0)
-                elif age < LOCK_TIMEOUT:
-                    print(f"  \U0001f512 锁被占用 ({lock_mode}), 当前请求 ({mode}) 跳过")
-                    sys.exit(0)
-                else:
-                    print(f"  \u23f0 锁已过期 ({age:.0f}秒)，覆盖")
+        if os.path.exists(HEARTBEAT_FILE):
+            with open(HEARTBEAT_FILE, "r") as f:
+                hb = _json.load(f)
+            hb_age = time.time() - hb.get("last_beat", 0)
+            hb_mode = hb.get("mode", "")
+            hb_host = hb.get("host", "?")
+            hb_done = hb.get("steps_done", 0)
+            hb_total = hb.get("total_steps", len(cfg["steps"]))
+
+            if hb_age < HEARTBEAT_TIMEOUT and hb_mode == mode:
+                print(f"  ❤️ {hb_host} 正在执行 {hb_mode} (心跳 {hb_age:.0f}秒前, 已完成 {hb_done}/{hb_total})")
+                print(f"     本机({my_host})跳过")
+                sys.exit(0)
+
+            if hb_age >= HEARTBEAT_TIMEOUT and hb_mode == mode and hb_done < hb_total:
+                print(f"  💔 {hb_host} 心跳超时 ({hb_age:.0f}秒), 掉线于步骤 {hb_done}/{hb_total}")
+                print(f"     {my_host} 接棒，从步骤 {hb_done + 1} 继续!")
+                resume_from = hb_done
+                # 继续执行：不退出，resume_from 跳过已完成步骤
+
+            if hb_mode != mode:
+                print(f"  🔄 模式不同 ({hb_mode} vs {mode})，正常启动")
     except Exception:
         pass
-    # 写入新锁
-    with open(LOCK_FILE, "w") as f:
-        f.write(f"{my_host}|{my_pid}|{time.time()}|{mode}")
-    print(f"  \U0001f513 获取互斥锁 ({my_host}:{my_pid}, {mode})")
+
+    # 初始化心跳
+    def _write_heartbeat(steps_done, total, started=None):
+        try:
+            hb = {
+                "mode": mode,
+                "host": my_host,
+                "started": started or time.time(),
+                "last_beat": time.time(),
+                "steps_done": steps_done,
+                "total_steps": total,
+            }
+            with open(HEARTBEAT_FILE, "w") as f:
+                _json.dump(hb, f)
+        except Exception:
+            pass
+
+    start_ts = time.time()
+    _write_heartbeat(0, len(cfg["steps"]), start_ts)
+    if resume_from > 0:
+        print(f"  🔁 接棒执行: 已完成 {resume_from}/{len(cfg['steps'])} 步")
+    else:
+        print(f"  ▶️ 正常启动 ({my_host}, {mode})")
 
     results = []
     failed_indices = []
 
     # ── Phase 1: 首轮执行 ──
-    for i, (cmd, tmo) in enumerate(cfg["steps"]):
+    start_idx = resume_from
+    for i in range(start_idx, len(cfg["steps"])):
+        cmd, tmo = cfg["steps"][i]
         label = f"[{i + 1}/{len(cfg['steps'])}]"
-        print(f"  {label} {cmd:<35s} ", end="", flush=True)
+        if resume_from > 0:
+            print(f"  {label} {cmd:<35s} ", end="", flush=True)
+        else:
+            print(f"  {label} {cmd:<35s} ", end="", flush=True)
         ok, elapsed, detail = run_step(cmd, tmo)
         results.append((cmd, ok, elapsed, detail))
 
         icon = "✓" if ok else "✗"
         extra = f"  {detail}" if detail else ""
         print(f"{icon}  {elapsed:.1f}s{extra}")
+
+        # 💓 每步更新心跳
+        _write_heartbeat(i + 1, len(cfg["steps"]), start_ts)
 
         if not ok:
             failed_indices.append(i)
@@ -339,14 +372,14 @@ def main():
             print(f"\n  ⚠ 重试后仍然超时/失败: {names}")
 
     exit_code = print_summary(results, still_failed)
-    # 释放互斥锁
+    # 清理心跳（全部完成）
     try:
-        if os.path.exists(LOCK_FILE):
-            with open(LOCK_FILE, "r") as f:
-                lock_data = f.read().strip()
-            if f"{my_host}|{my_pid}|" in lock_data:
-                os.remove(LOCK_FILE)
-                print(f"  \U0001f513 释放互斥锁")
+        if os.path.exists(HEARTBEAT_FILE):
+            with open(HEARTBEAT_FILE, "r") as f:
+                hb = _json.load(f)
+            if hb.get("host") == my_host and hb.get("mode") == mode:
+                os.remove(HEARTBEAT_FILE)
+                print(f"  ✅ 清理心跳 ({my_host}, {mode})")
     except Exception:
         pass
     sys.exit(exit_code)
