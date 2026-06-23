@@ -268,6 +268,37 @@ def main():
     # ── Step 0: 双机代码同步（阿狸咪 ↔ 小九互相识别对方最新版） ──
     _sync_dual_machine_code(WORKSPACE)
 
+    # ── Step 0.5: 双机互斥锁（坚果云同步目录，防止两台机器同时跑同一模式） ──
+    LOCK_FILE = os.path.join(WORKSPACE, ".batch_lock.txt")
+    LOCK_TIMEOUT = 600  # 10分钟自动过期（防止崩溃死锁）
+    my_host = os.environ.get("COMPUTERNAME", "unknown")
+    my_pid = os.getpid()
+    try:
+        if os.path.exists(LOCK_FILE):
+            with open(LOCK_FILE, "r") as f:
+                lock_data = f.read().strip()
+            # 解析锁: host|pid|timestamp|mode
+            parts = lock_data.split("|")
+            if len(parts) >= 4:
+                lock_ts = float(parts[2])
+                lock_mode = parts[3]
+                age = time.time() - lock_ts
+                if age < LOCK_TIMEOUT and lock_mode == mode:
+                    print(f"  \U0001f512 互斥锁有效 ({parts[0]}:{parts[1]}, {lock_mode}, {age:.0f}秒前)")
+                    print(f"     已由 {parts[0]} 在执行，本机({my_host})跳过")
+                    sys.exit(0)
+                elif age < LOCK_TIMEOUT:
+                    print(f"  \U0001f512 锁被占用 ({lock_mode}), 当前请求 ({mode}) 跳过")
+                    sys.exit(0)
+                else:
+                    print(f"  \u23f0 锁已过期 ({age:.0f}秒)，覆盖")
+    except Exception:
+        pass
+    # 写入新锁
+    with open(LOCK_FILE, "w") as f:
+        f.write(f"{my_host}|{my_pid}|{time.time()}|{mode}")
+    print(f"  \U0001f513 获取互斥锁 ({my_host}:{my_pid}, {mode})")
+
     results = []
     failed_indices = []
 
@@ -308,6 +339,16 @@ def main():
             print(f"\n  ⚠ 重试后仍然超时/失败: {names}")
 
     exit_code = print_summary(results, still_failed)
+    # 释放互斥锁
+    try:
+        if os.path.exists(LOCK_FILE):
+            with open(LOCK_FILE, "r") as f:
+                lock_data = f.read().strip()
+            if f"{my_host}|{my_pid}|" in lock_data:
+                os.remove(LOCK_FILE)
+                print(f"  \U0001f513 释放互斥锁")
+    except Exception:
+        pass
     sys.exit(exit_code)
 
 
