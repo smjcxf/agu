@@ -759,8 +759,16 @@ def main():
     REAL_PWD = os.environ.get("QB_PWD", "cat999")
     REAL_GUEST_PWD = os.environ.get("QB_GUEST_PWD", "hjd666")
     for fpath in [OUTPUT_PATH, OUTPUT_PATH_MASTER]:
-        with open(fpath, "r", encoding="utf-8") as f:
-            c = f.read()
+        for attempt in range(3):
+            try:
+                with open(fpath, "r", encoding="utf-8") as f:
+                    c = f.read()
+                break
+            except PermissionError:
+                if attempt < 2:
+                    time.sleep(0.3)
+                else:
+                    raise
         n = c.count("__PWD__")
         m = c.count("__GUEST_PWD__")
         if n > 0:
@@ -768,8 +776,16 @@ def main():
         if m > 0:
             c = c.replace("__GUEST_PWD__", REAL_GUEST_PWD)
         if n > 0 or m > 0:
-            with open(fpath, "w", encoding="utf-8") as f:
-                f.write(c)
+            for attempt in range(3):
+                try:
+                    with open(fpath, "w", encoding="utf-8") as f:
+                        f.write(c)
+                    break
+                except PermissionError:
+                    if attempt < 2:
+                        time.sleep(0.3)
+                    else:
+                        raise
             print(f"  ✓ 密码已注入 {os.path.basename(fpath)} (admin:{n} 处, guest:{m} 处)")
 
     # 验证 JS 语法（无论模式，必须执行）
