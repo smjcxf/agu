@@ -24,6 +24,8 @@ deploy_log.txt
 scanner_full.log
 .workbuddy/
 workbuddy/
+# 部署锁（通过 git add -f 强制管理，不参与 git status）
+.deploy_lock
 node_modules/
 *.log
 .env
