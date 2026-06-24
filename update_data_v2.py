@@ -479,7 +479,7 @@ def main():
     herding_data = load_json(os.path.join(DATA_DIR, "herding_data.json"), {"update_time": ""})
     cffex_holdings = load_json(os.path.join(DATA_DIR, "cffex_holdings.json"), {})
     inst_trade = load_json(os.path.join(DATA_DIR, "inst_trade.json"), {})
-    overnight_brief = load_json(os.path.join(DATA_DIR, "overnight_brief.json"), {})
+    overnight_brief = load_json(os.path.join(DATA_DIR, "overnight_timeline.json"), [])
     worldcup = load_json(os.path.join(DATA_DIR, "worldcup.json"), {})
     # 计算龙虎榜连续买入天数（依赖 lhb_history.json）
     try:
@@ -624,7 +624,7 @@ def main():
         ("FOMC_SUMMARY",   "window.FOMC_SUMMARY = ",  "{", "}"),
         ("CFFEX_HOLDINGS", "window.CFFEX_HOLDINGS = ", "{", "}"),
         ("INST_TRADE",     "window.INST_TRADE = ",     "{", "}"),
-        ("OVERNIGHT_BRIEF","window.OVERNIGHT_BRIEF = ","{", "}"),
+        ("OVERNIGHT_BRIEF","window.OVERNIGHT_TIMELINE = ","[", "]"),
         ("WORLD_CUP",     "window.WORLD_CUP = ",      "{", "}"),
     ]
     data_objs = [scan_data, watch_data, gold_pool, stock_list, recommend,
