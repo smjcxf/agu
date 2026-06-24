@@ -20,7 +20,7 @@ def fetch_fomc():
     try:
         import akshare as ak
         # 美联储利率决议历史
-        df = ak.macro_usa_interest_rate()
+        df = ak.macro_bank_usa_interest_rate()
         if df is None or len(df) == 0:
             log("未获取到美联储利率数据")
             return None
