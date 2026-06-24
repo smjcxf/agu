@@ -477,6 +477,7 @@ def main():
     etf_subscription = load_json(os.path.join(DATA_DIR, "etf_subscription.json"), {"sh": [], "update_time": ""})
     macro_data   = load_json(os.path.join(DATA_DIR, "macro_data.json"), {"update_time": "", "monetary": {}, "economy": {}, "market_sentiment": {}, "global_macro": {}})
     herding_data = load_json(os.path.join(DATA_DIR, "herding_data.json"), {"update_time": ""})
+    ipo_score    = load_json(os.path.join(DATA_DIR, "ipo_score.json"), {"update_time": "", "eligible_count": 0, "summary": "", "stocks": []})
     cffex_holdings = load_json(os.path.join(DATA_DIR, "cffex_holdings.json"), {})
     inst_trade = load_json(os.path.join(DATA_DIR, "inst_trade.json"), {})
     overnight_brief = load_json(os.path.join(DATA_DIR, "overnight_timeline.json"), [])
@@ -614,6 +615,7 @@ def main():
         ("ETF_SUBSCRIPTION", "var ETF_SUBSCRIPTION = window.ETF_SUBSCRIPTION = ", "{", "}"),
         ("MACRO_DATA",      "window.MACRO_DATA = ",    "{", "}"),
         ("HERRING_DATA",   "window.HERRING_DATA = ",  "{", "}"),
+        ("IPO_DATA",      "window.IPO_DATA = ",      "{", "}"),
         ("LHB_DATA",       "window.LHB_DATA = ",      "{", "}"),
         ("MAIN_STOCK",     "var MAIN_STOCK_DATA = window.MAIN_STOCK_DATA = ","{", "}"),
         ("MAIN_WEEK",      "window.MAIN_WEEK_DATA = ",  "{", "}"),
@@ -630,7 +632,7 @@ def main():
     data_objs = [scan_data, watch_data, gold_pool, stock_list, recommend,
                  sh_fib, sz_fib, sector_flow, sh_sz_history, nt_data,
                  concept_ranking, market_alerts, margin_data, etf_subscription, macro_data,                  herding_data,
-                 lhb_data, main_stock, main_week, north_fund, mahoro_coverage, suspension_alert, stock_deviation, fomc_summary, cffex_holdings, inst_trade, overnight_brief, worldcup]
+                 ipo_score, lhb_data, main_stock, main_week, north_fund, mahoro_coverage, suspension_alert, stock_deviation, fomc_summary, cffex_holdings, inst_trade, overnight_brief, worldcup]
     replacements = []
 
     for (name, marker, open_ch, close_ch), data in zip(markers, data_objs):
@@ -640,7 +642,7 @@ def main():
             continue
         # 校验数据有效性：如果数据为空（无update_time/scan_time/有效列表），保留旧数据
         is_empty = False
-        if isinstance(data, dict) and name in ("MAIN_STOCK", "HERRING_DATA", "LHB_DATA"):
+        if isinstance(data, dict) and name in ("MAIN_STOCK", "HERRING_DATA", "LHB_DATA", "IPO_DATA"):
             if not data.get("update_time") and not data.get("scan_time"):
                 is_empty = True
         # 额外检查：即使有update_time，如果核心数据数组全空，也视为无效（防止API空结果覆盖已有数据）
@@ -657,6 +659,11 @@ def main():
                 if len(top_in) == 0 and len(top_out) == 0:
                     is_empty = True
                     print(f"  ⚠️  {name} 数据全空 (top_in=0, top_out=0)，跳过替换")
+            elif name == "IPO_DATA":
+                stocks = data.get("stocks") or []
+                if len(stocks) == 0 and not data.get("summary"):
+                    is_empty = True
+                    print(f"  ⚠️  {name} 数据全空 (stocks=0)，跳过替换")
         if isinstance(data, dict) and name == "LHB_DATA":
             if not data.get("stocks") and not data.get("update_time") and not data.get("scan_time"):
                 is_empty = True
