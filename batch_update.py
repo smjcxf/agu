@@ -7,6 +7,7 @@ batch_update.py — 九宝量化统一调度脚本
 enhance_dist 负责注入 MAHORO_COVERAGE、同步 getScore()、同步逻辑详解页 HTML
 
 用法：
+  python batch_update.py pre_brief      08:30 晨间速报（世界杯+全球速报，股票无关）
   python batch_update.py pre_market     09:15 盘前（研报+mahoro→全量扫描→增强→部署）
   python batch_update.py morning_scan   09:45 盘中快速扫描
   python batch_update.py morning_plus   10:00/10:30 扫描+三卡刷新（板块/ETF/AI速览）
@@ -52,11 +53,16 @@ SYSTEM_PYTHON = _find_system_python()
 # 模式定义：每个步骤 (命令, 超时秒数)
 # ──────────────────────────────────────────────────────────
 MODES = {
-    "pre_market": {
-        "desc": "盘前全量 (09:15)",
+    "pre_brief": {
+        "desc": "晨间速报 (08:30) — 仅世界杯+全球速报，不干扰股票流程",
         "steps": [
             ("fetch_worldcup.py --auto", 120),
             ("fetch_overnight_brief.py", 120),
+        ],
+    },
+    "pre_market": {
+        "desc": "盘前全量 (09:15)",
+        "steps": [
             ("guanlan_extractor.py", 300),
             ("fetch_mahoro_signals.py --non-interactive", 120),
             ("scanner.py full", 600),
@@ -122,8 +128,6 @@ MODES = {
     "close": {
         "desc": "收盘后全量 (19:30)",
         "steps": [
-            ("fetch_worldcup.py --auto", 120),
-            ("fetch_overnight_brief.py", 120),
             ("guanlan_extractor.py", 300),
             ("fetch_mahoro_signals.py --non-interactive", 120),
             ("fetch_nt_data.py", 120),
