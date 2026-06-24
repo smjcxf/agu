@@ -54,7 +54,7 @@ SYSTEM_PYTHON = _find_system_python()
 # ──────────────────────────────────────────────────────────
 MODES = {
     "pre_brief": {
-        "desc": "晨间速报 (08:30) — 仅世界杯+全球速报，不干扰股票流程",
+        "desc": "晨间速报 (07:30) — 仅世界杯+全球速报，不干扰股票流程",
         "steps": [
             ("fetch_worldcup.py --auto", 120),
             ("fetch_overnight_brief.py", 120),
