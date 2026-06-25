@@ -465,6 +465,7 @@ function renderRank() {
       var exitBg = isMid ? '#6a1b9a' : '#42a5f5';
       h += '<th style="background:' + exitBg + ';color:#fff;padding:6px 8px;text-align:left;font-size:11px;">' + exitLabel + '</th>';
       h += '<th style="background:#c62828;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">' + gainLabel + '</th>';
+      h += '<th style="background:#ff9800;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">当前累计</th>';
     } else {
       h += '<th style="background:#c62828;color:#fff;padding:6px 8px;text-align:left;font-size:11px;">累计涨幅</th>';
       h += '<th style="background:#f5f7fa;color:#666;padding:6px 8px;text-align:left;font-size:11px;">最新价</th>';
@@ -497,6 +498,11 @@ function renderRank() {
         var maxColor = mP !== null ? (mP >= 0 ? '#c62828' : '#2e7d32') : '#999';
         h += '<td style="padding:6px 8px;font-weight:600;">' + exitStr + '</td>';
         h += '<td style="color:' + maxColor + ';font-weight:700;padding:6px 8px;">' + maxStr + '</td>';
+        // 当前累计（从触发价到现在）
+        var nowGain = r.ret21;
+        var nowStr = nowGain !== null ? ((nowGain >= 0 ? '+' : '') + nowGain.toFixed(1) + '%') : '<span style="color:#999;">—</span>';
+        var nowColor = nowGain !== null ? (nowGain >= 0 ? '#ff9800' : '#2e7d32') : '#999';
+        h += '<td style="color:' + nowColor + ';font-weight:700;padding:6px 8px;">' + nowStr + '</td>';
       } else {
         h += '<td style="color:' + ret5Color + ';font-weight:600;padding:6px 8px;">' + ret5Str + '</td>';
         h += '<td style="padding:6px 8px;font-weight:600;">¥' + r.latest.toFixed(2) + '</td>';
