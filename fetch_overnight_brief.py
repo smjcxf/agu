@@ -133,7 +133,7 @@ def fetch_news_headlines():
                 content = item.get('content_text', '') or item.get('title', '')
                 content = re.sub(r'<[^>]+>', '', content)
                 if len(content) > 8:
-                    headlines.append({'source': '见闻', 'text': content[:120]})
+                    headlines.append({'source': '华尔街', 'text': content[:120]})
     except Exception as e:
         log(f"  华尔街见闻: {e}")
     try:
@@ -153,6 +153,23 @@ def fetch_news_headlines():
                 txt = re.sub(r'<[^>]+>', '', txt)
                 if len(txt) > 8:
                     headlines.append({'source': '财联社', 'text': txt[:120]})
+    except Exception:
+        pass
+    try:
+        # 新浪财经快讯（官方滚动新闻）
+        import requests
+        r = requests.get(
+            'https://feed.mix.sina.com.cn/api/roll/get?pageid=153&lid=2509&k=&num=10&page=1',
+            headers={'User-Agent': 'Mozilla/5.0'}, timeout=10
+        )
+        if r.status_code == 200:
+            data = r.json()
+            items = data.get('result', {}).get('data', [])
+            for item in items[:8]:
+                txt = item.get('title', '') or item.get('ctime', '')
+                txt = re.sub(r'<[^>]+>', '', txt)
+                if len(txt) > 10:
+                    headlines.append({'source': '新浪财经', 'text': txt[:120]})
     except Exception:
         pass
     seen = set()
