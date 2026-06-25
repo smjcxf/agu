@@ -124,6 +124,21 @@ MODES = {
             ("deploy_now.py --force", 180),
         ],
     },
+    "post_close": {
+        "desc": "收盘后快速更新 (15:20)",
+        "steps": [
+            ("scanner.py", 300),
+            ("fetch_sector_fund_flow.py", 180),
+            ("fetch_concept_ranking.py", 180),
+            ("fetch_market_alerts.py", 180),
+            ("fetch_sh_sz_history.py", 120),
+            ("fetch_sh_index_fib.py", 60),
+            ("fetch_up_down_stats.py", 120),
+            ("update_data_v2.py", 300),
+            ("enhance_dist.py", 30),
+            ("deploy_now.py --force", 180),
+        ],
+    },
     "close": {
         "desc": "收盘后全量 (19:30)",
         "steps": [
@@ -133,9 +148,6 @@ MODES = {
             ("fetch_margin.py", 120),
             ("fetch_margin_etf.py", 120),
             ("fetch_etf_subscription.py", 120),
-            ("fetch_sh_index_fib.py", 60),
-            ("fetch_sh_sz_history.py", 120),
-            ("fetch_up_down_stats.py", 120),
             ("fetch_suspension_alert.py", 120),
             ("fetch_stock_deviation.py", 180),
             ("fetch_sector_fund_flow.py", 180),
