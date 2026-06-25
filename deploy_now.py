@@ -196,7 +196,10 @@ def _ensure_dist_fresh():
     # 1. stash 所有改动（含未跟踪文件）
     log("   🔄 同步远程最新模板...")
     r = run("git stash -u -m 'deploy-stash'", cwd=PROJECT_ROOT)
-    stashed = (r.returncode == 0)
+    # git stash 返回0但可能没真正 stash（无改动时打印"No local changes"）
+    stashed = (r.returncode == 0 and
+                 "No local changes" not in r.stdout and
+                 "no changes added" not in r.stdout.lower())
     if stashed:
         log("   ✓ 本地改动已 stash")
     else:
@@ -251,26 +254,33 @@ def _rebuild_dist():
         log("   ⚠️ update_data_v2.py 不存在，无法重建")
         return
 
-        python_exe = sys.executable
-        log(f"   执行: python update_data_v2.py --fast")
-        result = subprocess.run(
-            [python_exe, updater, "--fast"],
-            capture_output=True, text=True, timeout=300,
-            cwd=PROJECT_ROOT
-        )
-        # 打印 update_data_v2.py 的最后几行输出（方便排查）
-        lines = [l for l in result.stdout.strip().split('\n') if l.strip()]
-        for line in lines[-8:]:
-            log(f"   {line}")
-        if result.returncode == 0:
-            log("   ✓ dist 重建成功")
-        else:
-            err = result.stderr.strip()[:300] if result.stderr else 'unknown'
-            log(f"   ❌ 重建失败，阻塞部署: {err}")
-            log(f"   stdout: {result.stdout.strip()[-200:] if result.stdout else '(空)'}")
-            # 阻断部署，返回非零
-            return False
-        return True
+    python_exe = sys.executable
+    log(f"   执行: python update_data_v2.py --fast")
+    log(f"   [debug] sys.executable = {python_exe}")
+    log(f"   [debug] updater = {updater}")
+    result = subprocess.run(
+        [python_exe, updater, "--fast"],
+        capture_output=True, text=True, timeout=300,
+        cwd=PROJECT_ROOT
+    )
+    # 打印 update_data_v2.py 的全部输出（方便排查）
+    lines = [l for l in result.stdout.strip().split('\n') if l.strip()]
+    if lines:
+        log(f"   [debug] update_data_v2.py 输出 {len(lines)} 行:")
+        for line in lines:
+            log(f"      {line}")
+    else:
+        log("   [debug] update_data_v2.py 无 stdout 输出")
+    if result.stderr:
+        log(f"   [debug] stderr: {result.stderr.strip()[:300]}")
+    log(f"   [debug] returncode = {result.returncode}")
+    if result.returncode == 0:
+        log("   ✓ dist 重建成功")
+    else:
+        err = result.stderr.strip()[:300] if result.stderr else 'unknown'
+        log(f"   ❌ 重建失败（returncode={result.returncode}），阻塞部署: {err}")
+        return False
+    return True
 
 
 def _acquire_deploy_lock():
