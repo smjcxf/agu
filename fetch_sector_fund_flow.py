@@ -228,21 +228,30 @@ def fetch_from_neodata():
             print(f"    ❌ {query_desc}: {e}")
             return []
 
-    # 两次查询：流入+流出
-    print("  🔍 调用 neodata 接口获取板块资金流（流入+流出）...")
+    # 两次查询：流入+流出（当日）
+    print("  🔍 调用 neodata 接口获取板块资金流（流入+流出+20日趋势）...")
     inflow_list = _call_neodata(
-        "流入TOP10",
+        "当日流入TOP10",
         "今日A股行业板块和概念板块主力资金净流入TOP10，按净流入降序"
     )
     outflow_list = _call_neodata(
-        "流出TOP10",
+        "当日流出TOP10",
         "今日A股行业板块和概念板块主力资金净流出TOP10，按净流出降序"
     )
+    # 【2026-06-26新增】20日趋势补充：捕获当日不在TOP10但20日有持续流入/流出的板块
+    trend20_list = _call_neodata(
+        "近20日净流入TOP10",
+        "近20个交易日A股行业板块和概念板块主力资金净流入TOP10，按净流入降序"
+    )
+    trend20_out = _call_neodata(
+        "近20日净流出TOP10",
+        "近20个交易日A股行业板块和概念板块主力资金净流出TOP10，按净流出降序"
+    )
     
-    # 合并结果（以名称去重，优先保留首次出现的值）
+    # 合并结果（以名称去重，当日数据优先）
     seen = set()
     top_list = []
-    for item in inflow_list + outflow_list:
+    for item in inflow_list + outflow_list + trend20_list + trend20_out:
         if item["name"] not in seen:
             seen.add(item["name"])
             top_list.append(item)
@@ -362,7 +371,7 @@ def fetch_sector_flow():
             seen[name] = item
     top_list = list(seen.values())
     top_list.sort(key=lambda x: x["net"], reverse=True)
-    result["top_list"] = top_list[:15]
+    result["top_list"] = top_list[:40]  # 扩大取数，覆盖当日+20日趋势板块
     
     # 【2026-06-26新增】5日和20日趋势（用于资金流向追踪面板）
     # 从top_list中提取有5日/20日数据的板块，分别按净流入降序
