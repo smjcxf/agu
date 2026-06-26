@@ -870,6 +870,7 @@ def main():
         ("SH_FIB",         "var SH_FIB = window.SH_FIB = ",         "{", "}"),
         ("SZ_FIB",         "var SZ_FIB = window.SZ_FIB = ",         "{", "}"),
         ("SECTOR_FUND_FLOW", "window.SECTOR_FUND_FLOW = ", "{", "}"),
+        ("SECTOR_RS",       "window.SECTOR_RS = ",       "{", "}"),
         ("SH_SZ_HISTORY",  "var SH_SZ_HISTORY = window.SH_SZ_HISTORY = ",  "{", "}"),
         ("NT_DATA",        "window.NT_DATA = ",        "{", "}"),
         ("CONCEPT_RANKING", "var CONCEPT_RANKING = window.CONCEPT_RANKING = ", "{", "}"),
