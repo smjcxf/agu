@@ -207,6 +207,14 @@ def main():
     # 获取上一个条目的海外数据（news-only 模式下继承）
     last_entry = timeline[0] if timeline else None
     
+    # 【2026-06-26新增】盘中新闻增量去重：距上次不足60分钟跳过
+    if news_only and last_entry and last_entry.get('task') == '盘中新闻增量':
+        last_ts = datetime.fromisoformat(last_entry['timestamp'])
+        minutes_ago = (now - last_ts).total_seconds() / 60
+        if minutes_ago < 60:
+            log(f"⏭ 去重：上一条盘中新闻增量仅{minutes_ago:.0f}分钟前，跳过本次（≥60分钟才刷新）")
+            return  # 静默退出，不写入新条目
+    
     asia_stocks = []  # 非 news_only 模式默认空
     if news_only:
         # 盘中增量：不继承美股（未开盘），改为抓亚洲股市
