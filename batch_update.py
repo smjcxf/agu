@@ -180,6 +180,7 @@ MODES = {
             ("fetch_sh_index_fib.py", 60),
             ("scanner.py full", 600),
             ("generate_recommend.py", 120),
+            ("generate_top10.py", 60),
             ("update_triple_resonance_daily.py", 120),
             ("update_data_v2.py", 300),
             ("enhance_dist.py", 30),

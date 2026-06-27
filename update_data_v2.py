@@ -747,6 +747,7 @@ def main():
     overnight_brief = load_json(os.path.join(DATA_DIR, "overnight_timeline.json"), [])
     worldcup = load_json(os.path.join(DATA_DIR, "worldcup.json"), {})
     limit_up_heatmap = load_json(os.path.join(DATA_DIR, "limit_up_heatmap.json"), {})
+    top10_daily = load_json(os.path.join(DATA_DIR, "top10_daily.json"), {"update_time": "", "top10": []})
     w52_high = load_json(os.path.join(DATA_DIR, "52w_high.json"), {"update_time": "", "total": 0, "top_sectors": [], "top_gainers": [], "stocks": []})
     analyst_ratings = load_json(os.path.join(DATA_DIR, "analyst_ratings.json"), {"update_time": "", "upgrades": [], "hot_stocks": []})
     policy_density = load_json(os.path.join(DATA_DIR, "policy_density.json"), {"update_time": "", "density": 0, "level": "低", "signals": []})
@@ -901,11 +902,12 @@ def main():
         ("W52_HIGH",      "window.W52_HIGH = ",       "{", "}"),
         ("ANALYST_RATINGS", "window.ANALYST_RATINGS = ", "{", "}"),
         ("POLICY_DENSITY", "window.POLICY_DENSITY = ",  "{", "}"),
+        ("TOP10_DAILY",   "window.TOP10_DAILY = ",    "{", "}"),
     ]
     data_objs = [scan_data, watch_data, gold_pool, stock_list, recommend,
                  sh_fib, sz_fib, sector_flow, sh_sz_history, nt_data,
                  concept_ranking, market_alerts, margin_data, etf_subscription, macro_data,                  herding_data,
-                 sector_rs, ipo_score, lhb_data, main_stock, main_week, north_fund, mahoro_coverage, suspension_alert, stock_deviation, fomc_summary, cffex_holdings, inst_trade, overnight_brief, worldcup, limit_up_heatmap, w52_high, analyst_ratings, policy_density]
+                 sector_rs, ipo_score, lhb_data, main_stock, main_week, north_fund, mahoro_coverage, suspension_alert, stock_deviation, fomc_summary, cffex_holdings, inst_trade, overnight_brief, worldcup, limit_up_heatmap, w52_high, analyst_ratings, policy_density, top10_daily]
     replacements = []
 
     for (name, marker, open_ch, close_ch), data in zip(markers, data_objs):
