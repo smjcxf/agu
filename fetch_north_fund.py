@@ -260,9 +260,9 @@ def main():
     else:
         print("    WARN 无数据")
 
-    # 3. 南向10日趋势
-    print("  [3/4] 南向10日趋势...")
-    history = fetch_south_history_days(10)
+    # 3. 南向30日趋势
+    print("  [3/4] 南向30日趋势...")
+    history = fetch_south_history_days(30)
     if history:
         result["south_history"] = history
         has_any_data = True
