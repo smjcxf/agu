@@ -896,6 +896,7 @@ def main():
         ("INST_TRADE",     "window.INST_TRADE = ",     "{", "}"),
         ("OVERNIGHT_BRIEF","window.OVERNIGHT_TIMELINE = ","[", "]"),
         ("WORLD_CUP",     "window.WORLD_CUP = ",      "{", "}"),
+        ("LIMIT_UP_HEATMAP","window.LIMIT_UP_HEATMAP = ","{", "}"),
         ("W52_HIGH",      "window.W52_HIGH = ",       "{", "}"),
         ("ANALYST_RATINGS", "window.ANALYST_RATINGS = ", "{", "}"),
         ("POLICY_DENSITY", "window.POLICY_DENSITY = ",  "{", "}"),
