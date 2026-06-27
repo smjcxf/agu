@@ -493,7 +493,7 @@ function renderRank() {
       if (isDone || isMid) {
         var eP = isMid ? r.midExitPrice : r.exitPrice;
         var mP = isMid ? r.midMaxGainPct : r.maxGainPct;
-        var exitStr = eP ? '¥' + eP.toFixed(2) : '<span style="color:#999;">—</span>';
+        var exitStr = eP ? '¥' + eP.toFixed(2) : '<span style="color:#999;">—<small style="font-size:9px;color:#bbb;"> 停牌/退市</small></span>';
         var maxStr = mP !== null ? ((mP >= 0 ? '+' : '') + mP.toFixed(1) + '%') : '<span style="color:#999;">—</span>';
         var maxColor = mP !== null ? (mP >= 0 ? '#c62828' : '#2e7d32') : '#999';
         h += '<td style="padding:6px 8px;font-weight:600;">' + exitStr + '</td>';
@@ -508,7 +508,7 @@ function renderRank() {
           var staleStr = (staleGain >= 0 ? '+' : '') + staleGain.toFixed(1) + '%<span style="font-size:9px;color:#999;">⚠</span>';
           h += '<td style="color:' + (staleGain >= 0 ? '#ff9800' : '#2e7d32') + ';font-weight:700;padding:6px 8px;">' + staleStr + '</td>';
         } else {
-          var nowStr = nowGain !== null ? ((nowGain >= 0 ? '+' : '') + nowGain.toFixed(1) + '%') : '<span style="color:#999;">—</span>';
+          var nowStr = nowGain !== null ? ((nowGain >= 0 ? '+' : '') + nowGain.toFixed(1) + '%') : '<span style="color:#999;">—<small style="font-size:9px;color:#bbb;"> 停牌/退市</small></span>';
           var nowColor = nowGain !== null ? (nowGain >= 0 ? '#ff9800' : '#2e7d32') : '#999';
           h += '<td style="color:' + nowColor + ';font-weight:700;padding:6px 8px;">' + nowStr + '</td>';
         }
