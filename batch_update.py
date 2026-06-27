@@ -183,6 +183,8 @@ MODES = {
             ("generate_top10.py", 60),
             ("fetch_industry_map.py", 300),
             ("fetch_limit_up_heatmap.py", 120),
+            ("fetch_52w_high.py", 120),
+            ("fetch_analyst_ratings.py", 60),
             ("update_triple_resonance_daily.py", 120),
             ("update_data_v2.py", 300),
             ("enhance_dist.py", 30),
