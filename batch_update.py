@@ -181,6 +181,8 @@ MODES = {
             ("scanner.py full", 600),
             ("generate_recommend.py", 120),
             ("generate_top10.py", 60),
+            ("fetch_industry_map.py", 300),
+            ("fetch_limit_up_heatmap.py", 120),
             ("update_triple_resonance_daily.py", 120),
             ("update_data_v2.py", 300),
             ("enhance_dist.py", 30),
