@@ -18,6 +18,7 @@
 """
 import json
 import os
+import re
 import sys
 import time
 from datetime import datetime, timedelta
@@ -605,19 +606,186 @@ def check_sector_fund_flow():
         print(f"  ⚠️  异常: {e}")
 
 
+def check_north_fund_integrity():
+    """验证 north_fund.json 数据质量 — 检查是否产生虚假信号"""
+    print("\n" + "=" * 60)
+    print("🔍 [5/7] 验证 north_fund.json（数据完整性 / 虚假信号排查）")
+    print("=" * 60)
+
+    local = load_json("north_fund.json")
+    if not local:
+        record_check("north_fund.json [完整]", "SKIP", "文件不存在")
+        return
+
+    issues = []
+    north_info = local.get("north_info", {})
+    status = north_info.get("status", "")
+    has_data_date = bool(local.get("data_date"))
+    has_top_buy = len(local.get("top_buy", []) or []) > 0
+    has_consecutive = local.get("consecutive") is not None
+
+    # 1. 检查北向停更标记
+    if "停更" in status or "不再披露" in status:
+        print(f"  📌 北向状态: {status}")
+        if has_data_date and not has_top_buy:
+            msg = "北向已停更但 data_date 仍存在（空壳时间戳），可能被评分逻辑误判为有效数据"
+            issues.append(msg)
+            print(f"  ❌ {msg}")
+    else:
+        if has_data_date:
+            print(f"  ✅ 北向数据在线: {local['data_date']}")
+        else:
+            print(f"  ⚠️  北向无日期标记")
+
+    # 2. 检查核心数据字段是否存在
+    if has_top_buy:
+        print(f"  📊 top_buy: {len(local['top_buy'])} 条记录")
+    else:
+        msg = "top_buy 字段为空（北向个股数据缺失），任何依赖此字段的评分均无效"
+        issues.append(msg)
+        print(f"  ⚠️  {msg}")
+
+    if has_consecutive:
+        print(f"  📊 consecutive: {local['consecutive']}")
+    else:
+        print(f"  ℹ️  consecutive 字段为空")
+
+    # 3. 检查 data_available 标记 — 南向有数据所以True是合理的，只警告
+    if local.get("data_available") and not has_top_buy:
+        print(f"  ℹ️  data_available=True（南向资金有效），但北向个股top_buy为空（符合预期：北向已停更）")
+
+    status_code = "WARN" if issues else "PASS"
+    record_check("north_fund.json [完整]", status_code,
+                 f"停更={('停更' in status)} top_buy={'有' if has_top_buy else '空'} data_date={'有' if has_data_date else '无'}",
+                 issues)
+
+
+def check_top10_daily_quality():
+    """验证 top10_daily.json — 检查是否使用虚假/停更数据作为评分依据"""
+    print("\n" + "=" * 60)
+    print("🔍 [6/7] 验证 top10_daily.json（评分数据真实性审计）")
+    print("=" * 60)
+
+    local = load_json("top10_daily.json")
+    if not local:
+        record_check("top10_daily.json [审计]", "SKIP", "文件不存在或无法读取")
+        return
+
+    top10 = local.get("top10", [])
+    if not top10:
+        record_check("top10_daily.json [审计]", "WARN", "top10 列表为空")
+        return
+
+    issues = []
+    fake_patterns = [
+        ("北向覆盖", "北向资金2024.5起停更，不可作为评分依据"),
+        ("北向", "北向资金已停更，若出现在fund_detail则属虚假标签"),
+    ]
+
+    # 检查每个股票的 fund_detail
+    fake_found = 0
+    for s in top10:
+        fd = s.get("fund_detail", "") or ""
+        for pattern, reason in fake_patterns:
+            if pattern in fd:
+                msg = f"#{s['rank']} {s['name']}({s['code']}): fund_detail包含'{pattern}' — {reason}"
+                issues.append(msg)
+                fake_found += 1
+                break
+
+    if fake_found > 0:
+        print(f"  ❌ 发现 {fake_found} 处虚假评分标签")
+        for i in issues[:5]:
+            print(f"     {i}")
+    else:
+        print(f"  ✅ 全部 {len(top10)} 只股票 fund_detail 无虚假标签")
+
+    # 检查是否有 score_fund 来源于停更数据
+    for s in top10:
+        fd = s.get("fund_detail", "") or ""
+        sf = s.get("score_fund", 0) or 0
+        # 只有当 fund_detail 为空但仍有资金评分时警告（可能是其他合法来源）
+        pass  # 这个需要更深入的代码审计，先不做
+
+    status_code = "FAIL" if fake_found > 0 else "PASS"
+    record_check("top10_daily.json [审计]", status_code,
+                 f"检测{len(top10)}只，虚假标签{fake_found}处",
+                 issues)
+
+
+def check_scoring_integrity():
+    """验证 generate_top10.py — 检查评分逻辑是否依赖停更/空壳数据"""
+    print("\n" + "=" * 60)
+    print("🔍 [7/7] 验证 generate_top10.py（评分逻辑源码审计）")
+    print("=" * 60)
+
+    BASE = os.path.dirname(os.path.abspath(__file__))
+    script_path = os.path.join(BASE, "generate_top10.py")
+    if not os.path.exists(script_path):
+        record_check("generate_top10.py [审计]", "SKIP", "脚本文件不存在")
+        return
+
+    with open(script_path, "r", encoding="utf-8") as f:
+        code = f.read()
+
+    issues = []
+
+    # 检查是否仍有依赖 north_fund data_date 的加分逻辑
+    # 原问题代码：if north_fund.get("data_date"): fund += 2; fund_detail.append("北向覆盖")
+    suspicious_checks = [
+        (r'if\s+north_fund\.get\("data_date"\)', 
+         "仍在使用 north_fund.data_date 作为加分条件（北向已停更）"),
+        (r'north_fund\.get\(.*data_date.*\)', 
+         "仍在引用 north_fund 的 data_date 字段"),
+        (r'"北向覆盖"', 
+         '代码中仍包含"北向覆盖"字符串（虚假评分标签）'),
+        (r'fund_detail\.append.*北向', 
+         "仍在追加北向相关虚假标签到 fund_detail"),
+    ]
+
+    found_dangerous = 0
+    for pattern, reason in suspicious_checks:
+        if re.search(pattern, code):
+            msg = f"评分逻辑隐患: {reason}"
+            issues.append(msg)
+            found_dangerous += 1
+            print(f"  ❌ {msg}")
+        else:
+            print(f"  ✅ {reason[:40]}... 已清理")
+
+    if found_dangerous == 0:
+        print(f"  ✅ 评分逻辑源代码无虚假数据依赖")
+
+    # 同时检查是否有铁律注释（宁可空着也不用假数据）
+    if "宁可空着也不用假数据" in code or "宁可空着也不" in code:
+        print(f"  📝 代码中包含铁律注释 ✅")
+    else:
+        msg = "建议在generate_top10.py中加入铁律注释"
+        issues.append(msg)
+        print(f"  ⚠️  {msg}")
+
+    status_code = "FAIL" if found_dangerous > 0 else ("WARN" if issues else "PASS")
+    record_check("generate_top10.py [审计]", status_code,
+                 f"检查{f'发现{found_dangerous}处隐患' if found_dangerous > 0 else '通过'}",
+                 issues)
+
+
 def main():
     print("=" * 60)
-    print("  数据源同源对比自动化验证 v2")
+    print("  数据源同源对比 + 数据质量审计 v3")
     print(f"  时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 60)
 
     t0 = time.time()
 
-    # 依次执行4个数据源验证
+    # 依次执行7个数据源验证
     check_north_fund()
     check_herding_data()
     check_main_stock()
     check_sector_fund_flow()
+    check_north_fund_integrity()
+    check_top10_daily_quality()
+    check_scoring_integrity()
 
     elapsed = time.time() - t0
 
