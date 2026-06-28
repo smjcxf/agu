@@ -606,10 +606,152 @@ def check_sector_fund_flow():
         print(f"  ⚠️  异常: {e}")
 
 
+def check_all_data_substance():
+    """批量检查所有核心数据文件的关键字段是否有实质内容"""
+    print("\n" + "=" * 60)
+    print("🔍 [5/7] 全量数据文件实质内容审计")
+    print("=" * 60)
+
+    # 核心数据源定义：(文件名, 关键字段列表, 过期小时数)
+    # 关键字段为空/默认值 → FAIL；超过过期小时 → WARN
+    CORE_SOURCES = [
+        # 扫描 & 选股
+        ("scan_result.json",       ["scan_time", "total_scanned"], 48),
+        ("gold_pool.json",         ["update_time", "stocks"], 48),
+        ("stock_list.json",        ["update_time", "stocks"], 168),
+        ("recommend.json",         ["update_time"], 48),
+        ("watch_result.json",      ["scan_time", "triple_count"], 48),
+
+        # 技术面
+        ("sh_index_fib.json",      ["update_time", "windows"], 48),
+        ("sz_index_fib.json",      ["update_time", "windows"], 48),
+        ("stock_deviation.json",   ["update_time"], 48),  # stocks 可能天然为空
+
+        # 资金流
+        ("sector_fund_flow.json",  ["update_time", "sectors_in"], 24),
+        ("main_stock.json",        ["update_time", "top_main_in"], 24),
+        ("main_week.json",         ["update_time", "buy_top5"], 168),
+        ("herding_data.json",      ["update_time", "current_clusters"], 48),
+        ("sector_rs.json",         ["update_time", "strong_5d"], 48),
+        ("cffex_holdings.json",    ["update_time", "positions"], 48),
+        ("inst_trade.json",        ["update_time", "top_buy"], 48),
+
+        # 龙虎榜 & 机构
+        ("lhb_result.json",        ["update_time", "stocks"], 24),
+
+        # 宏观 & 市场情绪
+        ("nt_data.json",           ["update_time"], 24),
+        ("margin_data.json",       ["update_time", "sh"], 48),
+        ("etf_subscription.json",  ["update_time", "sh"], 48),
+        ("macro_data.json",        ["update_time", "economy"], 48),
+        ("market_alerts.json",     ["update_time", "indices"], 24),
+        ("concept_ranking.json",   ["update_time", "ranking"], 24),
+        ("sh_sz_history.json",     ["update_time", "amount_history"], 48),
+        ("north_fund.json",        ["update_time", "south_flow"], 48),
+        ("fomc_summary.json",      ["update_time", "summary"], 72),
+        ("overnight_brief.json",   ["update_time", "us_stocks"], 12),
+        ("overnight_timeline.json",["update_time", "timeline"], 12),
+
+        # 信号 & 评分
+        ("mahoro_signals.json",    ["fetch_time", "gold_pool_matches"], 72),
+        ("suspension_alert.json",  ["update_time", "suspended"], 24),
+        ("ipo_score.json",         ["update_time", "stocks"], 48),
+        ("52w_high.json",          ["update_time", "total"], 48),
+        ("analyst_ratings.json",   ["update_time", "upgrades"], 72),
+        ("policy_density.json",    ["update_time", "density"], 72),
+        ("top10_daily.json",       ["update_time", "top10"], 48),
+        ("limit_up_heatmap.json",  ["update_time", "dates"], 48),
+        ("worldcup.json",          ["update_time", "groups"], 48),
+
+        # 历史 & 映射
+        ("multi_resonance_history.json", [], 48),
+        ("triple_resonance_history.json", [], 48),
+        ("resonance_history.json", [], 48),
+        ("industry_map.json",      ["update_time", "stocks"], 168),
+        ("stock_names.json",       ["update_time", "names"], 168),
+    ]
+
+    total_checked = 0
+    passed = 0
+    warned = 0
+    failed = 0
+    skipped = 0
+
+    for fname, key_fields, max_hours in CORE_SOURCES:
+        data = load_json(fname)
+        if data is None:
+            skipped += 1
+            print(f"  ⏭️  {fname}: 文件不存在")
+            continue
+
+        total_checked += 1
+        issues = []
+
+        # 兼容数组/对象两种格式
+        if isinstance(data, list):
+            # 数组类型：长度>0即认为有内容
+            if len(data) == 0:
+                issues.append("数据为空列表")
+        elif isinstance(data, dict):
+            # 历史文件（无update_time，按日期键）：检查键数量
+            if not key_fields:
+                date_keys = [k for k in data if len(k) == 10 and k[4] == '-']
+                if len(date_keys) == 0:
+                    issues.append("无历史日期记录")
+                elif len(date_keys) < 3:
+                    issues.append(f"历史数据过少 ({len(date_keys)}天)")
+                # 跳过过期检查（历史文件无update_time）
+            else:
+                # 1. 检查关键字段是否有实质内容
+                for kf in key_fields:
+                    val = data.get(kf)
+                    if val is None:
+                        issues.append(f"关键字段 '{kf}' 为 null")
+                    elif isinstance(val, (list, dict)) and len(val) == 0:
+                        issues.append(f"关键字段 '{kf}' 为空{type(val).__name__}")
+
+                # 2. 检查数据年龄
+                update_time = data.get("update_time", data.get("scan_time", data.get("fetch_time", "")))
+                if update_time:
+                    try:
+                        ut_clean = update_time[:19].replace("/", "-")
+                        dt = datetime.strptime(ut_clean, "%Y-%m-%d %H:%M:%S")
+                        hours_ago = (datetime.now() - dt).total_seconds() / 3600
+                        if hours_ago > max_hours:
+                            issues.append(f"数据过期 ({hours_ago:.0f}h > {max_hours}h)")
+                    except (ValueError, TypeError):
+                        pass
+                elif key_fields:
+                    issues.append("无时间戳字段 (update_time/scan_time/fetch_time)")
+        else:
+            issues.append("数据类型非dict/list，无法检查")
+
+        # 3. 输出结果
+        if issues:
+            if any("过期" in i for i in issues) and not any("null" in i or "为空" in i for i in issues):
+                # 仅过期 → WARN
+                warned += 1
+                print(f"  ⚠️  {fname}: {'; '.join(issues)}")
+            else:
+                # 有空字段 → FAIL
+                failed += 1
+                print(f"  ❌ {fname}: {'; '.join(issues)}")
+        else:
+            passed += 1
+
+    # 汇总
+    summary = f"共{total_checked}文件: ✅{passed} ⚠️{warned} ❌{failed} ⏭️{skipped}"
+    print(f"\n  📊 {summary}")
+
+    status_code = "FAIL" if failed > 0 else ("WARN" if warned > 0 else "PASS")
+    all_issues = []
+    record_check("全量数据文件实质审计", status_code, summary, all_issues)
+
+
 def check_north_fund_integrity():
     """验证 north_fund.json 数据质量 — 检查是否产生虚假信号"""
     print("\n" + "=" * 60)
-    print("🔍 [5/7] 验证 north_fund.json（数据完整性 / 虚假信号排查）")
+    print("🔍 [6/7] 验证 north_fund.json（数据完整性 / 虚假信号排查）")
     print("=" * 60)
 
     local = load_json("north_fund.json")
@@ -663,7 +805,7 @@ def check_north_fund_integrity():
 def check_top10_daily_quality():
     """验证 top10_daily.json — 检查是否使用虚假/停更数据作为评分依据"""
     print("\n" + "=" * 60)
-    print("🔍 [6/7] 验证 top10_daily.json（评分数据真实性审计）")
+    print("🔍 [7/7] 验证 top10_daily.json（评分数据真实性审计）")
     print("=" * 60)
 
     local = load_json("top10_daily.json")
@@ -716,7 +858,7 @@ def check_top10_daily_quality():
 def check_scoring_integrity():
     """验证 generate_top10.py — 检查评分逻辑是否依赖停更/空壳数据"""
     print("\n" + "=" * 60)
-    print("🔍 [7/7] 验证 generate_top10.py（评分逻辑源码审计）")
+    print("🔍 [8/8] 验证 generate_top10.py（评分逻辑源码审计）")
     print("=" * 60)
 
     BASE = os.path.dirname(os.path.abspath(__file__))
@@ -778,11 +920,12 @@ def main():
 
     t0 = time.time()
 
-    # 依次执行7个数据源验证
+    # 依次执行8个数据源验证
     check_north_fund()
     check_herding_data()
     check_main_stock()
     check_sector_fund_flow()
+    check_all_data_substance()
     check_north_fund_integrity()
     check_top10_daily_quality()
     check_scoring_integrity()
