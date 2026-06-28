@@ -1,0 +1,1339 @@
+{
+  "total": 143,
+  "with_price_data": 113,
+  "future_1d": {
+    "up": 45,
+    "down": 53,
+    "flat": 11
+  },
+  "future_3d": {
+    "up": 23,
+    "down": 14,
+    "flat": 0
+  },
+  "future_5d": {
+    "up": 0,
+    "down": 0,
+    "flat": 0
+  },
+  "details": [
+    {
+      "code": "688478",
+      "name": "晶升股份",
+      "signal_count": 2,
+      "price_at_signal": 92.68,
+      "price_1d": 87.8,
+      "return_1d": -5.2654294346137345
+    },
+    {
+      "code": "688478",
+      "name": "晶升股份",
+      "signal_count": 2,
+      "price_at_signal": 92.68,
+      "price_3d": 86.8,
+      "return_3d": -6.34441087613294
+    },
+    {
+      "code": "00148",
+      "name": "建滔集团",
+      "price_data": "N/A"
+    },
+    {
+      "code": "688052",
+      "name": "纳芯微",
+      "signal_count": 2,
+      "price_at_signal": 291.68,
+      "price_1d": 300.0,
+      "return_1d": 2.8524410312671398
+    },
+    {
+      "code": "688052",
+      "name": "纳芯微",
+      "signal_count": 2,
+      "price_at_signal": 291.68,
+      "price_3d": 283.55,
+      "return_3d": -2.787301151947338
+    },
+    {
+      "code": "300903",
+      "name": "科翔股份",
+      "signal_count": 2,
+      "price_at_signal": 110.0,
+      "price_1d": 110.13,
+      "return_1d": 0.11818181818181404
+    },
+    {
+      "code": "300903",
+      "name": "科翔股份",
+      "signal_count": 2,
+      "price_at_signal": 110.0,
+      "price_3d": 112.71,
+      "return_3d": 2.4636363636363576
+    },
+    {
+      "code": "02628",
+      "name": "中国人寿",
+      "price_data": "N/A"
+    },
+    {
+      "code": "03908",
+      "name": "中国国际金融",
+      "price_data": "N/A"
+    },
+    {
+      "code": "600460",
+      "name": "士兰微",
+      "signal_count": 2,
+      "price_at_signal": 44.8,
+      "price_1d": 47.04,
+      "return_1d": 5.000000000000004
+    },
+    {
+      "code": "600460",
+      "name": "士兰微",
+      "signal_count": 2,
+      "price_at_signal": 44.8,
+      "price_3d": 49.86,
+      "return_3d": 11.294642857142863
+    },
+    {
+      "code": "601208",
+      "name": "东材科技",
+      "signal_count": 2,
+      "price_at_signal": 79.83,
+      "price_1d": 71.85,
+      "return_1d": -9.996242014280352
+    },
+    {
+      "code": "601208",
+      "name": "东材科技",
+      "signal_count": 2,
+      "price_at_signal": 79.83,
+      "price_3d": 77.58,
+      "return_3d": -2.818489289740699
+    },
+    {
+      "code": "688396",
+      "name": "华润微",
+      "signal_count": 2,
+      "price_at_signal": 78.15,
+      "price_1d": 80.75,
+      "return_1d": 3.3269353806781754
+    },
+    {
+      "code": "688396",
+      "name": "华润微",
+      "signal_count": 2,
+      "price_at_signal": 78.15,
+      "price_3d": 84.72,
+      "return_3d": 8.406909788867553
+    },
+    {
+      "code": "03396",
+      "name": "联想控股",
+      "price_data": "N/A"
+    },
+    {
+      "code": "688584",
+      "name": "长电科技",
+      "signal_count": 2,
+      "price_at_signal": 29.93,
+      "price_1d": 29.85,
+      "return_1d": -0.26729034413631236
+    },
+    {
+      "code": "688584",
+      "name": "长电科技",
+      "signal_count": 2,
+      "price_at_signal": 29.93,
+      "price_3d": 29.21,
+      "return_3d": -2.4056130972268592
+    },
+    {
+      "code": "01888",
+      "name": "建滔积层板",
+      "price_data": "N/A"
+    },
+    {
+      "code": "00669",
+      "name": "创科实业",
+      "price_data": "N/A"
+    },
+    {
+      "code": "00883",
+      "name": "中国海洋石油",
+      "price_data": "N/A"
+    },
+    {
+      "code": "688802",
+      "name": "优必选",
+      "signal_count": 2,
+      "price_at_signal": 758.0,
+      "price_1d": 768.98,
+      "return_1d": 1.44854881266491
+    },
+    {
+      "code": "688802",
+      "name": "优必选",
+      "signal_count": 2,
+      "price_at_signal": 758.0,
+      "price_3d": 770.52,
+      "return_3d": 1.651715039577834
+    },
+    {
+      "code": "02331",
+      "name": "李宁",
+      "price_data": "N/A"
+    },
+    {
+      "code": "688519",
+      "name": "南亚新材",
+      "signal_count": 2,
+      "price_at_signal": 375.65,
+      "price_1d": 333.0,
+      "return_1d": -11.353653666977234
+    },
+    {
+      "code": "688519",
+      "name": "南亚新材",
+      "signal_count": 2,
+      "price_at_signal": 375.65,
+      "price_3d": 379.98,
+      "return_3d": 1.1526687075735502
+    },
+    {
+      "code": "300835",
+      "name": "龙磁科技",
+      "signal_count": 2,
+      "price_at_signal": 234.31,
+      "price_1d": 248.33,
+      "return_1d": 5.983526097904489
+    },
+    {
+      "code": "300835",
+      "name": "龙磁科技",
+      "signal_count": 2,
+      "price_at_signal": 234.31,
+      "price_3d": 242.36,
+      "return_3d": 3.4356194784687
+    },
+    {
+      "code": "600707",
+      "name": "彩虹股份",
+      "signal_count": 2,
+      "price_at_signal": 13.57,
+      "price_1d": 13.46,
+      "return_1d": -0.8106116433308728
+    },
+    {
+      "code": "600707",
+      "name": "彩虹股份",
+      "signal_count": 2,
+      "price_at_signal": 13.57,
+      "price_3d": 13.96,
+      "return_3d": 2.8739867354458406
+    },
+    {
+      "code": "600909",
+      "name": "华安证券",
+      "signal_count": 2,
+      "price_at_signal": 10.46,
+      "price_1d": 11.51,
+      "return_1d": 10.038240917782016
+    },
+    {
+      "code": "600909",
+      "name": "华安证券",
+      "signal_count": 2,
+      "price_at_signal": 10.46,
+      "price_3d": 12.14,
+      "return_3d": 16.06118546845124
+    },
+    {
+      "code": "688082",
+      "name": "盛美上海",
+      "signal_count": 2,
+      "price_at_signal": 399.81,
+      "price_1d": 402.18,
+      "return_1d": 0.5927815712463431
+    },
+    {
+      "code": "688082",
+      "name": "盛美上海",
+      "signal_count": 2,
+      "price_at_signal": 399.81,
+      "price_3d": 414.0,
+      "return_3d": 3.54918586328506
+    },
+    {
+      "code": "300420",
+      "name": "五洋自控",
+      "signal_count": 2,
+      "price_at_signal": 7.8,
+      "price_1d": 7.78,
+      "return_1d": -0.25641025641025095
+    },
+    {
+      "code": "300420",
+      "name": "五洋自控",
+      "signal_count": 2,
+      "price_at_signal": 7.8,
+      "price_3d": 9.68,
+      "return_3d": 24.102564102564102
+    },
+    {
+      "code": "300537",
+      "name": "广信材料",
+      "signal_count": 2,
+      "price_at_signal": 32.31,
+      "price_1d": 32.46,
+      "return_1d": 0.46425255338903915
+    },
+    {
+      "code": "300537",
+      "name": "广信材料",
+      "signal_count": 2,
+      "price_at_signal": 32.31,
+      "price_3d": 32.52,
+      "return_3d": 0.6499535747446636
+    },
+    {
+      "code": "688143",
+      "name": "长盈通",
+      "signal_count": 2,
+      "price_at_signal": 226.0,
+      "price_1d": 236.2,
+      "return_1d": 4.513274336283181
+    },
+    {
+      "code": "688143",
+      "name": "长盈通",
+      "signal_count": 2,
+      "price_at_signal": 226.0,
+      "price_3d": 215.0,
+      "return_3d": -4.867256637168142
+    },
+    {
+      "code": "601899",
+      "name": "紫金矿业",
+      "signal_count": 2,
+      "price_at_signal": 27.37,
+      "price_1d": 27.27,
+      "return_1d": -0.36536353671904065
+    },
+    {
+      "code": "601899",
+      "name": "紫金矿业",
+      "signal_count": 2,
+      "price_at_signal": 27.37,
+      "price_3d": 25.1,
+      "return_3d": -8.293752283522103
+    },
+    {
+      "code": "688403",
+      "name": "汇成股份",
+      "signal_count": 2,
+      "price_at_signal": 30.17,
+      "price_1d": 36.2,
+      "return_1d": 19.98674179648658
+    },
+    {
+      "code": "688403",
+      "name": "汇成股份",
+      "signal_count": 2,
+      "price_at_signal": 30.17,
+      "price_3d": 39.3,
+      "return_3d": 30.261849519390104
+    },
+    {
+      "code": "00291",
+      "name": "华润啤酒",
+      "signal_count": 2,
+      "price_at_signal": 12.05,
+      "price_1d": 11.84,
+      "return_1d": -1.7427385892116252
+    },
+    {
+      "code": "00291",
+      "name": "华润啤酒",
+      "signal_count": 2,
+      "price_at_signal": 12.05,
+      "price_3d": 12.27,
+      "return_3d": 1.8257261410788286
+    },
+    {
+      "code": "688409",
+      "name": "富创精密",
+      "signal_count": 2,
+      "price_at_signal": 204.98,
+      "price_1d": 221.32,
+      "return_1d": 7.971509415552738
+    },
+    {
+      "code": "688409",
+      "name": "富创精密",
+      "signal_count": 2,
+      "price_at_signal": 204.98,
+      "price_3d": 274.8,
+      "return_3d": 34.06185969362866
+    },
+    {
+      "code": "002371",
+      "name": "北方华创",
+      "signal_count": 2,
+      "price_at_signal": 747.49,
+      "price_1d": 770.07,
+      "return_1d": 3.020776197674891
+    },
+    {
+      "code": "002371",
+      "name": "北方华创",
+      "signal_count": 2,
+      "price_at_signal": 747.49,
+      "price_3d": 813.37,
+      "return_3d": 8.81349583272017
+    },
+    {
+      "code": "06862",
+      "name": "海底捞",
+      "price_data": "N/A"
+    },
+    {
+      "code": "002281",
+      "name": "光迅科技",
+      "signal_count": 2,
+      "price_at_signal": 266.9,
+      "price_1d": 266.36,
+      "return_1d": -0.2023229674035083
+    },
+    {
+      "code": "002281",
+      "name": "光迅科技",
+      "signal_count": 2,
+      "price_at_signal": 266.9,
+      "price_3d": 240.34,
+      "return_3d": -9.951292618958403
+    },
+    {
+      "code": "300489",
+      "name": "光智科技",
+      "signal_count": 2,
+      "price_at_signal": 239.16,
+      "price_1d": 266.0,
+      "return_1d": 11.222612477002846
+    },
+    {
+      "code": "300489",
+      "name": "光智科技",
+      "signal_count": 2,
+      "price_at_signal": 239.16,
+      "price_3d": 283.24,
+      "return_3d": 18.431175781903335
+    },
+    {
+      "code": "600487",
+      "name": "亨通光电",
+      "signal_count": 2,
+      "price_at_signal": 117.31,
+      "price_1d": 119.02,
+      "return_1d": 1.4576762424345697
+    },
+    {
+      "code": "600487",
+      "name": "亨通光电",
+      "signal_count": 2,
+      "price_at_signal": 117.31,
+      "price_3d": 110.81,
+      "return_3d": -5.5408746057454605
+    },
+    {
+      "code": "300209",
+      "name": "行云科技",
+      "signal_count": 2,
+      "price_at_signal": 30.11,
+      "price_1d": 31.96,
+      "return_1d": 6.144138160079712
+    },
+    {
+      "code": "300209",
+      "name": "行云科技",
+      "signal_count": 2,
+      "price_at_signal": 30.11,
+      "price_3d": 28.15,
+      "return_3d": -6.509465293922288
+    },
+    {
+      "code": "000100",
+      "name": "TCL科技",
+      "signal_count": 2,
+      "price_at_signal": 4.85,
+      "price_1d": 4.85,
+      "return_1d": 0.0
+    },
+    {
+      "code": "000100",
+      "name": "TCL科技",
+      "signal_count": 2,
+      "price_at_signal": 4.85,
+      "price_3d": 5.4,
+      "return_3d": 11.340206185567025
+    },
+    {
+      "code": "688498",
+      "name": "源杰科技",
+      "signal_count": 2,
+      "price_at_signal": 1818.3,
+      "price_1d": 1838.0,
+      "return_1d": 1.0834295770774927
+    },
+    {
+      "code": "688498",
+      "name": "源杰科技",
+      "signal_count": 2,
+      "price_at_signal": 1818.3,
+      "price_3d": 1776.91,
+      "return_3d": -2.276302040367369
+    },
+    {
+      "code": "01378",
+      "name": "中国宏桥",
+      "price_data": "N/A"
+    },
+    {
+      "code": "600030",
+      "name": "中信证券",
+      "signal_count": 2,
+      "price_at_signal": 28.32,
+      "price_1d": 27.89,
+      "return_1d": -1.5183615819209029
+    },
+    {
+      "code": "600030",
+      "name": "中信证券",
+      "signal_count": 2,
+      "price_at_signal": 28.32,
+      "price_3d": 27.74,
+      "return_3d": -2.048022598870063
+    },
+    {
+      "code": "01776",
+      "name": "广发证券",
+      "price_data": "N/A"
+    },
+    {
+      "code": "300316",
+      "name": "晶盛机电",
+      "signal_count": 2,
+      "price_at_signal": 55.8,
+      "price_1d": 57.06,
+      "return_1d": 2.2580645161290414
+    },
+    {
+      "code": "300316",
+      "name": "晶盛机电",
+      "signal_count": 2,
+      "price_at_signal": 55.8,
+      "price_3d": 58.37,
+      "return_3d": 4.6057347670250905
+    },
+    {
+      "code": "002428",
+      "name": "云南锗业",
+      "signal_count": 2,
+      "price_at_signal": 111.9,
+      "price_1d": 123.09,
+      "return_1d": 9.999999999999998
+    },
+    {
+      "code": "002428",
+      "name": "云南锗业",
+      "signal_count": 2,
+      "price_at_signal": 111.9,
+      "price_3d": 120.48,
+      "return_3d": 7.667560321715817
+    },
+    {
+      "code": "600869",
+      "name": "远东股份",
+      "signal_count": 2,
+      "price_at_signal": 36.08,
+      "price_1d": 37.77,
+      "return_1d": 4.684035476718417
+    },
+    {
+      "code": "600869",
+      "name": "远东股份",
+      "signal_count": 2,
+      "price_at_signal": 36.08,
+      "price_3d": 34.61,
+      "return_3d": -4.074279379157425
+    },
+    {
+      "code": "603256",
+      "name": "且宏和",
+      "signal_count": 2,
+      "price_at_signal": 247.9,
+      "price_1d": 267.98,
+      "return_1d": 8.100040338846313
+    },
+    {
+      "code": "603256",
+      "name": "且宏和",
+      "signal_count": 2,
+      "price_at_signal": 247.9,
+      "price_3d": 297.0,
+      "return_3d": 19.80637353771682
+    },
+    {
+      "code": "300776",
+      "name": "帝尔激光",
+      "signal_count": 2,
+      "price_at_signal": 166.21,
+      "price_1d": 165.11,
+      "return_1d": -0.6618133686300429
+    },
+    {
+      "code": "300776",
+      "name": "帝尔激光",
+      "signal_count": 2,
+      "price_at_signal": 166.21,
+      "price_3d": 194.5,
+      "return_3d": 17.020636544130912
+    },
+    {
+      "code": "002080",
+      "name": "中材科技",
+      "signal_count": 2,
+      "price_at_signal": 76.8,
+      "price_1d": 84.48,
+      "return_1d": 10.000000000000009
+    },
+    {
+      "code": "002080",
+      "name": "中材科技",
+      "signal_count": 2,
+      "price_at_signal": 76.8,
+      "price_3d": 97.67,
+      "return_3d": 27.174479166666675
+    },
+    {
+      "code": "688318",
+      "name": "财富趋势",
+      "signal_count": 2,
+      "price_at_signal": 85.37,
+      "price_1d": 81.2,
+      "return_1d": -4.884619889891064
+    },
+    {
+      "code": "688318",
+      "name": "财富趋势",
+      "signal_count": 2,
+      "price_at_signal": 85.37,
+      "price_3d": 73.1,
+      "return_3d": -14.372730467377309
+    },
+    {
+      "code": "600392",
+      "name": "盛和资源",
+      "signal_count": 2,
+      "price_at_signal": 31.03,
+      "price_1d": 31.6,
+      "return_1d": 1.836932001289076
+    },
+    {
+      "code": "600392",
+      "name": "盛和资源",
+      "signal_count": 2,
+      "price_at_signal": 31.03,
+      "price_3d": 30.12,
+      "return_3d": -2.9326458266194013
+    },
+    {
+      "code": "688549",
+      "name": "中巨芯",
+      "signal_count": 2,
+      "price_at_signal": 31.25,
+      "price_1d": 33.12,
+      "return_1d": 5.983999999999992
+    },
+    {
+      "code": "688549",
+      "name": "中巨芯",
+      "signal_count": 2,
+      "price_at_signal": 31.25,
+      "price_3d": 32.1,
+      "return_3d": 2.7200000000000046
+    },
+    {
+      "code": "01347",
+      "name": "华虹半导体",
+      "price_data": "N/A"
+    },
+    {
+      "code": "300083",
+      "name": "创世纪",
+      "signal_count": 2,
+      "price_at_signal": 12.95,
+      "price_1d": 13.16,
+      "return_1d": 1.6216216216216284
+    },
+    {
+      "code": "01548",
+      "name": "金斯瑞生物",
+      "price_data": "N/A"
+    },
+    {
+      "code": "600497",
+      "name": "驰宏锌锗",
+      "signal_count": 2,
+      "price_at_signal": 12.1,
+      "price_1d": 12.31,
+      "return_1d": 1.735537190082652
+    },
+    {
+      "code": "600552",
+      "name": "凯盛科技",
+      "signal_count": 2,
+      "price_at_signal": 27.85,
+      "price_1d": 26.91,
+      "return_1d": -3.37522441651706
+    },
+    {
+      "code": "600160",
+      "name": "巨化股份",
+      "signal_count": 2,
+      "price_at_signal": 50.73,
+      "price_1d": 50.8,
+      "return_1d": 0.13798541297062938
+    },
+    {
+      "code": "600961",
+      "name": "株冶集团",
+      "signal_count": 2,
+      "price_at_signal": 35.71,
+      "price_1d": 35.0,
+      "return_1d": -1.9882385886306382
+    },
+    {
+      "code": "688234",
+      "name": "天岳先进",
+      "signal_count": 2,
+      "price_at_signal": 175.69,
+      "price_1d": 172.28,
+      "return_1d": -1.9409186635551234
+    },
+    {
+      "code": "002484",
+      "name": "江海股份",
+      "signal_count": 2,
+      "price_at_signal": 100.93,
+      "price_1d": 111.02,
+      "return_1d": 9.997027642920825
+    },
+    {
+      "code": "300655",
+      "name": "晶瑞电材",
+      "signal_count": 2,
+      "price_at_signal": 18.08,
+      "price_1d": 17.77,
+      "return_1d": -1.7146017699114973
+    },
+    {
+      "code": "688545",
+      "name": "兴福电子",
+      "signal_count": 2,
+      "price_at_signal": 110.25,
+      "price_1d": 125.7,
+      "return_1d": 14.013605442176875
+    },
+    {
+      "code": "000831",
+      "name": "中国稀土",
+      "signal_count": 2,
+      "price_at_signal": 58.28,
+      "price_1d": 57.64,
+      "return_1d": -1.098146877144819
+    },
+    {
+      "code": "688256",
+      "name": "寒武纪",
+      "signal_count": 2,
+      "price_at_signal": 1453.0,
+      "price_1d": 1505.0,
+      "return_1d": 3.5788024776324847
+    },
+    {
+      "code": "02015",
+      "name": "理想汽车-W",
+      "price_data": "N/A"
+    },
+    {
+      "code": "09888",
+      "name": "百度集团-SW",
+      "price_data": "N/A"
+    },
+    {
+      "code": "688313",
+      "name": "仕佳光子",
+      "signal_count": 2,
+      "price_at_signal": 203.33,
+      "price_1d": 199.94,
+      "return_1d": -1.667240446564705
+    },
+    {
+      "code": "01908",
+      "name": "建发国际投资",
+      "price_data": "N/A"
+    },
+    {
+      "code": "09626",
+      "name": "哔哩哔哩-W",
+      "price_data": "N/A"
+    },
+    {
+      "code": "01109",
+      "name": "华润置地",
+      "price_data": "N/A"
+    },
+    {
+      "code": "688808",
+      "name": "联讯仪器",
+      "signal_count": 2,
+      "price_at_signal": 2586.03,
+      "price_1d": 2700.0,
+      "return_1d": 4.407141448475067
+    },
+    {
+      "code": "02020",
+      "name": "安踏体育",
+      "price_data": "N/A"
+    },
+    {
+      "code": "00005",
+      "name": "汇丰控股",
+      "signal_count": 2,
+      "price_at_signal": 10.72,
+      "price_1d": 10.38,
+      "return_1d": -3.1716417910447747
+    },
+    {
+      "code": "688598",
+      "name": "金博股份",
+      "signal_count": 2,
+      "price_at_signal": 56.82,
+      "price_1d": 54.32,
+      "return_1d": -4.399859204505456
+    },
+    {
+      "code": "00688",
+      "name": "中国海外发展",
+      "price_data": "N/A"
+    },
+    {
+      "code": "000528",
+      "name": "柳工",
+      "signal_count": 2,
+      "price_at_signal": 7.74,
+      "price_1d": 7.68,
+      "return_1d": -0.7751937984496188
+    },
+    {
+      "code": "02601",
+      "name": "中国太保",
+      "price_data": "N/A"
+    },
+    {
+      "code": "002353",
+      "name": "杰瑞股份",
+      "signal_count": 2,
+      "price_at_signal": 159.14,
+      "price_1d": 163.51,
+      "return_1d": 2.746009802689459
+    },
+    {
+      "code": "300401",
+      "name": "花园生物",
+      "signal_count": 2,
+      "price_at_signal": 19.93,
+      "price_1d": 22.1,
+      "return_1d": 10.888108379327656
+    },
+    {
+      "code": "688268",
+      "name": "华特气体",
+      "signal_count": 2,
+      "price_at_signal": 237.53,
+      "price_1d": 251.99,
+      "return_1d": 6.087652086052291
+    },
+    {
+      "code": "300057",
+      "name": "万顺新材",
+      "signal_count": 3,
+      "price_at_signal": 10.08,
+      "price_1d": 10.05,
+      "return_1d": -0.2976190476190413
+    },
+    {
+      "code": "688525",
+      "name": "佰维存储",
+      "signal_count": 2,
+      "price_at_signal": 480.3,
+      "price_1d": 501.05,
+      "return_1d": 4.320216531334582
+    },
+    {
+      "code": "06082",
+      "name": "壁仞科技",
+      "price_data": "N/A"
+    },
+    {
+      "code": "688521",
+      "name": "芯原股份",
+      "signal_count": 2,
+      "price_at_signal": 338.05,
+      "price_1d": 336.0,
+      "return_1d": -0.6064191687620208
+    },
+    {
+      "code": "002156",
+      "name": "通富微电",
+      "signal_count": 2,
+      "price_at_signal": 77.81,
+      "price_1d": 71.6,
+      "return_1d": -7.980979308572173
+    },
+    {
+      "code": "605589",
+      "name": "圣泉集团",
+      "signal_count": 2,
+      "price_at_signal": 72.96,
+      "price_1d": 66.71,
+      "return_1d": -8.566337719298247
+    },
+    {
+      "code": "603986",
+      "name": "兆易创新",
+      "signal_count": 2,
+      "price_at_signal": 775.21,
+      "price_1d": 770.0,
+      "return_1d": -0.6720759536125742
+    },
+    {
+      "code": "688300",
+      "name": "联瑞新材",
+      "signal_count": 2,
+      "price_at_signal": 269.99,
+      "price_1d": 265.56,
+      "return_1d": -1.6408015111670826
+    },
+    {
+      "code": "300613",
+      "name": "富瀚微",
+      "signal_count": 2,
+      "price_at_signal": 80.1,
+      "price_1d": 76.67,
+      "return_1d": -4.2821473158551715
+    },
+    {
+      "code": "002463",
+      "name": "沪电股份",
+      "signal_count": 2,
+      "price_at_signal": 154.99,
+      "price_1d": 147.28,
+      "return_1d": -4.974514484805477
+    },
+    {
+      "code": "002444",
+      "name": "杭州巨星",
+      "signal_count": 2,
+      "price_at_signal": 31.38,
+      "price_1d": 31.04,
+      "return_1d": -1.083492670490758
+    },
+    {
+      "code": "002046",
+      "name": "国机精工",
+      "signal_count": 2,
+      "price_at_signal": 75.41,
+      "price_1d": 74.32,
+      "return_1d": -1.4454316403660037
+    },
+    {
+      "code": "300706",
+      "name": "阿石创",
+      "signal_count": 2,
+      "price_at_signal": 78.1,
+      "price_1d": 77.17,
+      "return_1d": -1.1907810499359701
+    },
+    {
+      "code": "688041",
+      "name": "海光信息",
+      "signal_count": 2,
+      "price_at_signal": 360.28,
+      "price_1d": 344.9,
+      "return_1d": -4.268901965138225
+    },
+    {
+      "code": "601066",
+      "name": "中信建投",
+      "signal_count": 2,
+      "price_at_signal": 29.56,
+      "price_1d": 30.25,
+      "return_1d": 2.3342354533152956
+    },
+    {
+      "code": "002436",
+      "name": "兴森科技",
+      "signal_count": 2,
+      "price_at_signal": 53.53,
+      "price_1d": 51.81,
+      "return_1d": -3.2131515038296263
+    },
+    {
+      "code": "688361",
+      "name": "中科飞测",
+      "signal_count": 2,
+      "price_at_signal": 332.0,
+      "price_1d": 355.0,
+      "return_1d": 6.927710843373494
+    },
+    {
+      "code": "600105",
+      "name": "永鼎股份",
+      "signal_count": 2,
+      "price_at_signal": 72.96,
+      "price_1d": 65.71,
+      "return_1d": -9.936951754385966
+    },
+    {
+      "code": "000657",
+      "name": "中钨高新",
+      "signal_count": 2,
+      "price_at_signal": 105.68,
+      "price_1d": 99.51,
+      "return_1d": -5.8383800151400465
+    },
+    {
+      "code": "600183",
+      "name": "生益科技",
+      "signal_count": 2,
+      "price_at_signal": 187.2,
+      "price_1d": 178.5,
+      "return_1d": -4.647435897435892
+    },
+    {
+      "code": "002916",
+      "name": "深南电路",
+      "signal_count": 2,
+      "price_at_signal": 455.0,
+      "price_1d": 433.5,
+      "return_1d": -4.725274725274725
+    },
+    {
+      "code": "300558",
+      "name": "贝达药业",
+      "signal_count": 2,
+      "price_at_signal": 61.85,
+      "price_1d": 57.88,
+      "return_1d": -6.418755052546482
+    },
+    {
+      "code": "300567",
+      "name": "精测电子",
+      "signal_count": 2,
+      "price_at_signal": 263.0,
+      "price_1d": 275.0,
+      "return_1d": 4.562737642585551
+    },
+    {
+      "code": "688037",
+      "name": "芯源微",
+      "signal_count": 2,
+      "price_at_signal": 333.0,
+      "price_1d": 354.9,
+      "return_1d": 6.576576576576569
+    },
+    {
+      "code": "688220",
+      "name": "翱捷科技",
+      "signal_count": 2,
+      "price_at_signal": 101.68,
+      "price_1d": 99.84,
+      "return_1d": -1.8095987411487051
+    },
+    {
+      "code": "688347",
+      "name": "华虹宏力",
+      "signal_count": 2,
+      "price_at_signal": 330.36,
+      "price_1d": 323.0,
+      "return_1d": -2.2278726238043385
+    },
+    {
+      "code": "688110",
+      "name": "东芯股份",
+      "signal_count": 2,
+      "price_at_signal": 179.45,
+      "price_1d": 190.53,
+      "return_1d": 6.174421844524945
+    },
+    {
+      "code": "300174",
+      "name": "元力股份",
+      "signal_count": 2,
+      "price_at_signal": 33.28,
+      "price_1d": 30.71,
+      "return_1d": -7.722355769230769
+    },
+    {
+      "code": "688372",
+      "name": "伟测科技",
+      "signal_count": 2,
+      "price_at_signal": 171.65,
+      "price_1d": 167.9,
+      "return_1d": -2.184678124089717
+    },
+    {
+      "code": "300726",
+      "name": "宏达电子",
+      "signal_count": 2,
+      "price_at_signal": 91.3,
+      "price_1d": 89.7,
+      "return_1d": -1.7524644030668064
+    },
+    {
+      "code": "600549",
+      "name": "厦门钨业",
+      "signal_count": 2,
+      "price_at_signal": 85.86,
+      "price_1d": 84.5,
+      "return_1d": -1.5839739110179354
+    },
+    {
+      "code": "000988",
+      "name": "华工科技",
+      "signal_count": 2,
+      "price_at_signal": 173.58,
+      "price_1d": 160.94,
+      "return_1d": -7.281944924530484
+    },
+    {
+      "code": "300042",
+      "name": "朗科科技",
+      "signal_count": 2,
+      "price_at_signal": 74.89,
+      "price_1d": 69.88,
+      "return_1d": -6.68981172386167
+    },
+    {
+      "code": "600246",
+      "name": "万通发展",
+      "signal_count": 2,
+      "price_at_signal": 19.71,
+      "price_1d": 19.97,
+      "return_1d": 1.3191273465245967
+    },
+    {
+      "code": "300811",
+      "name": "铂科新材",
+      "signal_count": 2,
+      "price_at_signal": 99.45,
+      "price_1d": 94.93,
+      "return_1d": -4.544997486173952
+    },
+    {
+      "code": "09633",
+      "name": "农夫山泉",
+      "price_data": "N/A"
+    },
+    {
+      "code": "688456",
+      "name": "XD有研粉",
+      "signal_count": 2,
+      "price_at_signal": 148.18,
+      "price_1d": 149.38,
+      "return_1d": 0.8098258874341939
+    },
+    {
+      "code": "688502",
+      "name": "茂莱光学",
+      "signal_count": 2,
+      "price_at_signal": 581.24,
+      "price_1d": 601.88,
+      "return_1d": 3.551028834904684
+    },
+    {
+      "code": "600378",
+      "name": "昊华科技",
+      "signal_count": 2,
+      "price_at_signal": 68.4,
+      "price_1d": 62.3,
+      "return_1d": -8.918128654970772
+    },
+    {
+      "code": "300604",
+      "name": "长川科技",
+      "signal_count": 2,
+      "price_at_signal": 309.99,
+      "price_1d": 314.9,
+      "return_1d": 1.5839220620019898
+    },
+    {
+      "code": "300602",
+      "name": "飞荣达",
+      "signal_count": 2,
+      "price_at_signal": 49.58,
+      "price_1d": 49.97,
+      "return_1d": 0.7866075030254147
+    },
+    {
+      "code": "603005",
+      "name": "晶方科技",
+      "signal_count": 2,
+      "price_at_signal": 50.0,
+      "price_1d": 52.31,
+      "return_1d": 4.6200000000000045
+    },
+    {
+      "code": "300661",
+      "name": "圣邦股份",
+      "signal_count": 2,
+      "price_at_signal": 138.28,
+      "price_1d": 131.55,
+      "return_1d": -4.8669366502747975
+    },
+    {
+      "code": "002008",
+      "name": "大族激光",
+      "signal_count": 2,
+      "price_at_signal": 152.8,
+      "price_1d": 151.27,
+      "return_1d": -1.001308900523561
+    },
+    {
+      "code": "688362",
+      "name": "甬矽电子",
+      "signal_count": 2,
+      "price_at_signal": 77.11,
+      "price_1d": 75.52,
+      "return_1d": -2.061989365841011
+    },
+    {
+      "code": "01209",
+      "name": "华润万象生活",
+      "price_data": "N/A"
+    },
+    {
+      "code": "600703",
+      "name": "三安光电",
+      "signal_count": 2,
+      "price_at_signal": 21.67,
+      "price_1d": 21.73,
+      "return_1d": 0.2768804799261593
+    },
+    {
+      "code": "688469",
+      "name": "芯联集成",
+      "signal_count": 2,
+      "price_at_signal": 9.94,
+      "price_1d": 9.98,
+      "return_1d": 0.4024144869215385
+    },
+    {
+      "code": "09866",
+      "name": "蔚来-SW",
+      "price_data": "N/A"
+    },
+    {
+      "code": "300679",
+      "name": "电连技术",
+      "signal_count": 2,
+      "price_at_signal": 66.86,
+      "price_1d": 63.59,
+      "return_1d": -4.890816631767867
+    },
+    {
+      "code": "600900",
+      "name": "长江电力",
+      "signal_count": 2,
+      "price_at_signal": 26.22,
+      "price_1d": 26.65,
+      "return_1d": 1.6399694889397396
+    },
+    {
+      "code": "688662",
+      "name": "富信科技",
+      "signal_count": 2,
+      "price_at_signal": 184.0,
+      "price_1d": 172.8,
+      "return_1d": -6.086956521739125
+    },
+    {
+      "code": "002747",
+      "name": "埃斯顿",
+      "signal_count": 2,
+      "price_at_signal": 36.87,
+      "price_1d": 34.67,
+      "return_1d": -5.966910767561692
+    },
+    {
+      "code": "300671",
+      "name": "富满微",
+      "signal_count": 2,
+      "price_at_signal": 71.6,
+      "price_1d": 71.06,
+      "return_1d": -0.7541899441340671
+    },
+    {
+      "code": "300283",
+      "name": "温州宏丰",
+      "signal_count": 2,
+      "price_at_signal": 22.45,
+      "price_1d": 20.89,
+      "return_1d": -6.948775055679282
+    },
+    {
+      "code": "300260",
+      "name": "新莱应材",
+      "signal_count": 2,
+      "price_at_signal": 81.11,
+      "price_1d": 92.9,
+      "return_1d": 14.535815559117257
+    },
+    {
+      "code": "300769",
+      "name": "德方纳米",
+      "signal_count": 2,
+      "price_at_signal": 70.99,
+      "price_1d": 63.72,
+      "return_1d": -10.24087899704183
+    },
+    {
+      "code": "03988",
+      "name": "中国银行",
+      "price_data": "N/A"
+    },
+    {
+      "code": "00700",
+      "name": "腾讯控股",
+      "price_data": "N/A"
+    },
+    {
+      "code": "00780",
+      "name": "同程旅行",
+      "price_data": "N/A"
+    },
+    {
+      "code": "09863",
+      "name": "浙江零跑",
+      "price_data": "N/A"
+    },
+    {
+      "code": "00981",
+      "name": "中芯国际",
+      "price_data": "N/A"
+    }
+  ]
+}
