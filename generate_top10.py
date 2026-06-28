@@ -3,7 +3,7 @@
 generate_top10.py — 多维共振评分 + 每日TOP10精选
 - 从 gold_pool.json 读取所有金股池股票
 - 结合多维度数据（板块资金/龙虎榜/主力/北向/投行/分析师）计算综合共振评分
-- 输出 data/top10_daily.json（TOP10 + 评分明细）
+- 输出 data/top10_daily.json（TOP20 + 评分明细）
 """
 import json
 import os
@@ -26,7 +26,7 @@ def load_json(path, default=None):
 
 def main():
     print("=" * 60)
-    print(f"  多维共振评分 · 每日TOP10精选  —  {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"  多维共振评分 · 每日TOP20精选  —  {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 60)
 
     # ── 1. 加载金股池 ──
@@ -304,12 +304,12 @@ def main():
             },
         })
 
-    # ── 5. 排序取TOP10 ──
+    # ── 5. 排序取TOP20 ──
     scored.sort(key=lambda x: -x["total_score"])
 
     # 格式化为简洁输出（含完整评分明细）
     top10 = []
-    for i, s in enumerate(scored[:10]):
+    for i, s in enumerate(scored[:20]):
         bd = s["breakdown"]
         dt = s["details"]
         top10.append({
