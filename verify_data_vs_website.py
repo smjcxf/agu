@@ -1259,7 +1259,7 @@ def check_north_fund_integrity():
 def check_top10_daily_quality():
     """验证 top10_daily.json — 检查是否使用虚假/停更数据作为评分依据"""
     print("\n" + "=" * 60)
-    print("🔍 [8/9] 验证 top10_daily.json（评分数据真实性审计）")
+    print("🔍 [8/10] 验证 top10_daily.json（评分数据真实性审计）")
     print("=" * 60)
 
     local = load_json("top10_daily.json")
@@ -1308,11 +1308,83 @@ def check_top10_daily_quality():
                  f"检测{len(top10)}只，虚假标签{fake_found}处",
                  issues)
 
+def check_fetch_log():
+    """检查 fetch 脚本运行日志 — 发现连续失败或长期未运行的脚本"""
+    print("\n" + "=" * 60)
+    print("🔍 [10/10] fetch 脚本运行日志审计")
+    print("=" * 60)
+
+    LOG_FILE = os.path.join(DATA_DIR, ".fetch_log.json")
+    if not os.path.exists(LOG_FILE):
+        record_check("fetch日志审计", "SKIP", "日志文件不存在（fetch脚本尚未集成fetch_logger）")
+        print("  ⏭️  日志文件不存在")
+        return
+
+    with open(LOG_FILE, "r", encoding="utf-8") as f:
+        log = json.load(f)
+
+    # 核心 fetch 脚本清单（应被监控的）
+    EXPECTED_SCRIPTS = [
+        "fetch_nt_data", "fetch_sector_fund_flow", "fetch_north_fund",
+        "fetch_herding_data", "fetch_main_stock", "fetch_market_alerts",
+        "fetch_concept_ranking", "fetch_margin", "fetch_etf_subscription",
+        "fetch_lhb", "fetch_suspension_alert", "fetch_limit_up_heatmap",
+        "fetch_sh_index_fib", "fetch_sh_sz_history", "fetch_fomc",
+        "fetch_macro_data", "fetch_cffex_holdings", "fetch_inst_trade",
+        "fetch_ipo_data", "fetch_52w_high", "fetch_analyst_ratings",
+        "fetch_policy_density", "fetch_stock_deviation", "fetch_overnight_brief",
+        "fetch_south_individual", "fetch_stock_names", "fetch_worldcup",
+        "fetch_mahoro_signals", "fetch_sector_rs",
+    ]
+
+    total = len(EXPECTED_SCRIPTS)
+    monitored = 0
+    issues = []
+    now = datetime.now()
+
+    for script_name in EXPECTED_SCRIPTS:
+        entry = log.get(script_name)
+        if not entry:
+            issues.append(f"{script_name}: 从未记录过运行日志")
+            continue
+
+        monitored += 1
+        last_success = entry.get("last_success", "")
+        last_failure = entry.get("last_failure", "")
+        consecutive = entry.get("consecutive_failures", 0)
+
+        # 检查连续失败
+        if consecutive >= 3:
+            msg = f"{script_name}: 连续失败{consecutive}次! last_error={entry.get('last_error','?')[:80]}"
+            issues.append(msg)
+            print(f"  ❌ {msg}")
+
+        # 检查是否超过预期更新时间
+        if last_success:
+            try:
+                dt = datetime.strptime(last_success[:19], "%Y-%m-%d %H:%M:%S")
+                hours_ago = (now - dt).total_seconds() / 3600
+                # 大部分fetch应在48h内运行过
+                if hours_ago > 72:
+                    msg = f"{script_name}: 超过72h未成功运行 ({hours_ago:.0f}h)"
+                    if msg not in issues:
+                        issues.append(msg)
+                        print(f"  ⚠️  {msg}")
+            except ValueError:
+                pass
+
+    print(f"\n  📊 已集成日志: {monitored}/{total} 个脚本")
+
+    status = "FAIL" if any("连续失败" in i for i in issues) else (
+        "WARN" if issues else "PASS")
+    summary = f"已集成{monitored}/{total}，{'有问题' if issues else '正常'}"
+    record_check("fetch日志审计", status, summary, issues)
+
 
 def check_scoring_integrity():
     """验证 generate_top10.py — 检查评分逻辑是否依赖停更/空壳数据"""
     print("\n" + "=" * 60)
-    print("🔍 [9/9] 验证 generate_top10.py（评分逻辑源码审计）")
+    print("🔍 [9/10] 验证 generate_top10.py（评分逻辑源码审计）")
     print("=" * 60)
 
     BASE = os.path.dirname(os.path.abspath(__file__))
@@ -1368,7 +1440,7 @@ def check_scoring_integrity():
 
 def main():
     print("=" * 60)
-    print("  数据源同源对比 + 数据质量审计 v5")
+    print("  数据源同源对比 + 数据质量审计 v6")
     print(f"  时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 60)
 
@@ -1384,6 +1456,7 @@ def main():
     check_north_fund_integrity()
     check_top10_daily_quality()
     check_scoring_integrity()
+    check_fetch_log()
 
     elapsed = time.time() - t0
 

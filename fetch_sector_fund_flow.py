@@ -676,4 +676,10 @@ def fetch_sector_flow():
     return result
 
 if __name__ == "__main__":
-    fetch_sector_flow()
+    from fetch_logger import record_success, record_failure
+    try:
+        fetch_sector_flow()
+        record_success(__file__)
+    except Exception as e:
+        record_failure(__file__, str(e))
+        raise
