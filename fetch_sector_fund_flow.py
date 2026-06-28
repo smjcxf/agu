@@ -145,6 +145,113 @@ def get_mock_data():
     top_list.sort(key=lambda x: x["net"], reverse=True)
     return top_list
 
+def fetch_neodata_5d20d_supplement(sector_names):
+    """
+    【2026-06-28 新增】用 neodata 接口补充 5日/20日累计净流入数据
+    原因：akshare 只返回当日数据，不提供5d/20d累计；
+          本地 history 文件对"新面孔"板块记录太少（<3天），算不出累计。
+    铁律：neodata 返回什么就用什么，返回失败就保持为0（前端显示"暂无"），绝不造假！
+    """
+    import requests as req
+    import time as tm
+
+    # 尝试从缓存文件读取 token
+    alt_paths = [
+        "E:/WorkBuddy/resources/app.asar.unpacked/resources/builtin-skills/.neodata_token",
+        os.path.expanduser("~/.workbuddy/.neodata_token")
+    ]
+
+    token = None
+    for tp in alt_paths:
+        if os.path.exists(tp):
+            try:
+                with open(tp, "r") as f:
+                    cache = json.load(f)
+                    token = cache.get("token")
+                    saved = cache.get("saved_at", 0)
+                    if tm.time() - saved < 43200:
+                        break
+                    else:
+                        token = None
+            except:
+                continue
+
+    if not token:
+        print("  ℹ️ neodata token 不可用，跳过5d/20d补充")
+        return {}
+
+    def _call_neodata(query_desc, query_text):
+        try:
+            resp = req.post(
+                "https://copilot.tencent.com/agenttool/v1/neodata",
+                json={"query": query_text, "channel": "neodata", "sub_channel": "workbuddy"},
+                headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+                timeout=30
+            )
+            if resp.status_code != 200:
+                print(f"    ❌ {query_desc} HTTP {resp.status_code}")
+                return []
+            data = resp.json()
+            if not data.get("suc"):
+                return []
+            api_recall = data.get("data", {}).get("apiData", {}).get("apiRecall", [])
+            results = []
+            for item in api_recall:
+                if item.get("type") != "板块当日资金主力统计":
+                    continue
+                content = item.get("content", "")
+                for line in content.strip().split("\n"):
+                    cols = [c.strip() for c in line.split("|")]
+                    if len(cols) < 15:
+                        continue
+                    hdr_keywords = ["近N天数据", "板块名称", "板块代码", ":---:"]
+                    if any(k in cols[2] for k in hdr_keywords):
+                        continue
+                    name = cols[5]
+                    try:
+                        net_wan = float(cols[12])
+                        net5_wan = float(cols[13]) if cols[13] else 0
+                        net20_wan = float(cols[14]) if cols[14] else 0
+                    except (ValueError, TypeError):
+                        continue
+                    results.append({
+                        "name": name,
+                        "net": round(net_wan / 10000, 2),
+                        "net_5d": round(net5_wan / 10000, 2),
+                        "net_20d": round(net20_wan / 10000, 2),
+                    })
+            print(f"    ✓ {query_desc}: {len(results)}只板块")
+            return results
+        except Exception as e:
+            print(f"    ❌ {query_desc}: {e}")
+            return []
+
+    # 调用 neodata（它返回的数据自带5d/20d列）
+    print("  🔍 [补充] 调用 neodata 获取5日/20日累计...")
+    inflow_list = _call_neodata(
+        "当日流入TOP10(含5d/20d)",
+        "今日A股行业板块和概念板块主力资金净流入TOP10，包含近5日和近20日累计净流入"
+    )
+    outflow_list = _call_neodata(
+        "当日流出TOP10(含5d/20d)",
+        "今日A股行业板块和概念板块主力资金净流出TOP10，包含近5日和近20日累计净流入"
+    )
+
+    # 构建 name -> {net_5d, net_20d} 映射
+    supplement = {}
+    for item in inflow_list + outflow_list:
+        name = item["name"]
+        if name not in supplement or abs(item.get("net", 0)) > abs(supplement[name].get("net", 0)):
+            supplement[name] = {
+                "net_5d": item.get("net_5d", 0),
+                "net_20d": item.get("net_20d", 0),
+            }
+
+    matched = sum(1 for n in sector_names if n in supplement)
+    print(f"  ✅ neodata 补充: 匹配到 {matched}/{len(sector_names)} 个板块的5d/20d数据")
+    return supplement
+
+
 def fetch_from_neodata():
     """使用 NeoData 接口获取板块资金流向（备选数据源）"""
     import requests as req
@@ -385,7 +492,20 @@ def fetch_sector_flow():
         except Exception as e:
             print(f"    ⚠️ 方法2失败: {e}")
     
-    # 如果真实数据获取失败，尝试 neodata 备选
+    # 【2026-06-28 修复】akshare 拿到数据后，用 neodata 补充 5d/20d 累计
+    if top_list and ak is not None:
+        sector_names = [item["name"] for item in top_list]
+        supplement = fetch_neodata_5d20d_supplement(sector_names)
+        for item in top_list:
+            name = item["name"]
+            if name in supplement:
+                s = supplement[name]
+                if s.get("net_5d", 0) != 0:
+                    item["net_5d"] = s["net_5d"]
+                if s.get("net_20d", 0) != 0:
+                    item["net_20d"] = s["net_20d"]
+
+    # 如果真实数据获取失败，尝试 neodata 备选（仅当日数据）
     if not top_list:
         print("⚠️ akshare数据获取失败，尝试 neodata 备选...")
         top_list = fetch_from_neodata()
@@ -394,7 +514,6 @@ def fetch_sector_flow():
             out_cnt = sum(1 for x in top_list if x["net"] < 0)
             print(f"✅ neodata 获取到 {len(top_list)} 个板块（流入{in_cnt} 流出{out_cnt}）")
             result["data_type"] = "neodata"
-            # 【2026-06-26 认证】数据完整性检查：须同时有流入和流出
             if out_cnt == 0 and len(top_list) > 3:
                 print(f"  ⚠️ neodata 仅返回流入板块（缺少流出数据），净流入数字可能虚高！")
                 result["data_note"] = "neodata仅返回流入"
@@ -404,10 +523,15 @@ def fetch_sector_flow():
             else:
                 result["data_note"] = "neodata流入+流出完整"
         else:
-            print("⚠️ neodata 也失败，使用模拟数据（标注为模拟）")
-            top_list = get_mock_data()
-            use_mock = True
-            result["data_type"] = "mock"
+            # ════════════════════════════════════════════════════════
+            # 【2026-06-28 铁律】所有数据源都失败时：
+            #   ❌ 绝不使用 MOCK 假数据！
+            #   ✅ 返回空列表，前端显示"暂无数据"
+            # ════════════════════════════════════════════════════════
+            print("❌ 所有数据源均失败，返回空数据（铁律：宁可空着也不用假数据）")
+            top_list = []
+            result["data_type"] = "empty"
+            result["data_note"] = "所有数据源不可用"
     
     # 去重并排序
     seen = {}
@@ -541,7 +665,9 @@ def fetch_sector_flow():
         json.dump(result, f, ensure_ascii=False, indent=2)
     
     print(f"\n✅ 板块资金流向已保存: {OUTPUT_FILE}")
-    print(f"   数据类型: {'真实数据' if not use_mock else '⚠️ 模拟数据'}")
+    dt = result.get("data_type", "unknown")
+    dt_label = {"real": "真实数据", "neodata": "Neodata备选", "empty": "❌ 无数据", "mock": "⚠️ 模拟数据"}.get(dt, dt)
+    print(f"   数据类型: {dt_label}")
     print(f"   大幅流入: {len(result['sectors_in'])} 个")
     print(f"   大幅流出: {len(result['sectors_out'])} 个")
     if result.get("summary", {}).get("alert"):
