@@ -16,6 +16,10 @@ body { font-family:'Microsoft YaHei','微软雅黑',sans-serif; background:#f5f7
 .stat-item { display:flex; flex-direction:column; align-items:center; min-width:80px; }
 .stat-label { font-size:11px; color:#999; }
 .stat-value { font-size:24px; font-weight:700; color:#5e35b1; }
+.tabs { display:flex; padding:0 30px; background:#fff; border-bottom:2px solid #eee; }
+.tab { padding:12px 24px; cursor:pointer; font-size:15px; color:#666; border-bottom:3px solid transparent; transition:all 0.2s; user-select:none; }
+.tab:hover { color:#5e35b1; }
+.tab.active { color:#4527a0; border-bottom-color:#4527a0; font-weight:700; }
 .content { padding:20px 30px; max-width:1400px; margin:0 auto; }
 .card { background:#fff; border-radius:8px; padding:20px; margin-bottom:15px; box-shadow:0 2px 5px rgba(0,0,0,0.05); }
 .card-title { font-size:15px; font-weight:600; color:#333; margin-bottom:15px; display:flex; align-items:center; gap:8px; border-left:4px solid #5e35b1; padding-left:10px; }
@@ -28,18 +32,21 @@ tr:hover { background:#faf9ff; }
 .badge-podium { background:linear-gradient(135deg,#bdbdbd,#9e9e9e); color:#fff; }
 .badge-bronze { background:linear-gradient(135deg,#cd7f32,#a0522d); color:#fff; }
 .badge-rank { background:#ede7f6; color:#5e35b1; }
-.new-entry { background:#e8f5e9 !important; }
-.dropped { background:#fce4ec !important; }
-.score-change { font-size:10px; margin-left:3px; }
-.score-up { color:#c62828; }
-.score-down { color:#2e7d32; }
+.badge-new { background:#e8f5e9; color:#2e7d32; font-size:9px; margin-left:4px; }
+.badge-drop { background:#fce4ec; color:#c62828; font-size:9px; margin-left:4px; }
+.badge-rise { color:#c62828; font-size:10px; }
+.badge-fall { color:#2e7d32; font-size:10px; }
 .empty-state { text-align:center; padding:60px 20px; color:#999; }
+select { padding:6px 12px; border:1px solid #ddd; border-radius:5px; font-size:13px; color:#333; min-width:200px; }
+.chart-box { height:280px; margin:10px 0; position:relative; background:#fafafa; border:1px solid #eee; border-radius:6px; padding:10px; }
 @media (max-width:768px) {
   .header { padding:12px 15px; flex-direction:column; align-items:flex-start; gap:8px; }
   .header h1 { font-size:17px; }
   .content { padding:10px; }
   .stats { padding:10px 15px; gap:10px; margin:10px; }
   .stat-value { font-size:18px; }
+  .tabs { padding:0 10px; overflow-x:auto; }
+  .tab { padding:10px 14px; font-size:13px; white-space:nowrap; }
 }
 </style>
 <script>
@@ -50,86 +57,95 @@ var MULTI_RESONANCE_HISTORY = {"2026-06-26": {"update_time": "2026-06-28 00:39:0
 <div class="header">
   <div>
     <h1>🧬 多维共振 · 每日TOP10历史追踪</h1>
-    <div class="subtitle">技术+板块+资金+机构 → 五维评分精选</div>
+    <div class="subtitle">五维评分（基+增+资+板+机）实时排名变化</div>
   </div>
   <a href="index.html" class="nav-back">← 返回主页</a>
 </div>
 
 <div class="stats" id="statsBar"></div>
 
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('timeline')">📅 时间轴</div>
+  <div class="tab" onclick="switchTab('trend')">📈 排名趋势</div>
+  <div class="tab" onclick="switchTab('champion')">🏆 冠军统计</div>
+  <div class="tab" onclick="switchTab('compare')">⚡ 新进掉榜</div>
+</div>
+
 <div class="content">
-  <div class="card" id="calendarCard">
-    <div class="card-title">📅 每日排名日历</div>
-    <div style="overflow-x:auto;"><table id="calendarTable"></table></div>
+  <!-- Tab 1: 时间轴 -->
+  <div id="tab-timeline" class="tab-content">
+    <div id="timelineContent"></div>
   </div>
 
-  <div class="card" id="timelineCard">
-    <div class="card-title">📊 每日TOP10详情</div>
-    <div id="timelineContent"></div>
+  <!-- Tab 2: 排名趋势 -->
+  <div id="tab-trend" class="tab-content" style="display:none;">
+    <div class="card">
+      <div class="card-title">📈 选择股票查看排名趋势</div>
+      <select id="stockSelect" onchange="renderTrend()" style="margin-bottom:12px;">
+        <option value="">-- 请选择股票 --</option>
+      </select>
+      <div class="chart-box" id="trendChart"></div>
+      <table id="trendTable"></table>
+    </div>
+  </div>
+
+  <!-- Tab 3: 冠军统计 -->
+  <div id="tab-champion" class="tab-content" style="display:none;">
+    <div class="card">
+      <div class="card-title">🏆 冠军次数排行榜</div>
+      <table id="championTable">
+        <thead><tr><th>股票</th><th>🏆 #1次数</th><th>最长连续冠军</th><th>首次登顶</th><th>最近登顶</th><th>上榜天数</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tab 4: 新进掉榜 -->
+  <div id="tab-compare" class="tab-content" style="display:none;">
+    <div class="card">
+      <div class="card-title">⚡ 最新交易日变化（今日 vs 昨日）</div>
+      <div id="compareContent"></div>
+    </div>
   </div>
 </div>
 
 <script>
-// ===== 数据加载 =====
+// ===== 全局变量 =====
 var historyData = {};
+var datesAll = [];
+var stockMap = {}; // code -> {name, history: {date: rank}}
+var activeTab = 'timeline';
 var HISTORY_URL = window.location.href.replace(/multi_resonance\.html.*$/, '') + 'data/multi_resonance_history.json';
+var rankColors = ['#4527a0','#5e35b1','#7e57c2','#9575cd','#b39ddb','#7b1fa2','#8e24aa','#ab47bc','#ce93d8','#e1bee7'];
 
-// ===== 日历视图 =====
-function renderCalendar() {
-  var dates = Object.keys(historyData).filter(function(k) { return !k.startsWith('_'); }).sort();
-  if (!dates.length) {
-    document.getElementById('calendarTable').innerHTML = '<tr><td colspan="2" style="text-align:center;color:#999;padding:30px;">暂无历史数据</td></tr>';
-    return;
-  }
-
-  // 收集所有出现过的股票
-  var stockSet = {};
-  dates.forEach(function(d) {
-    var snap = historyData[d];
-    var picks = snap.top10 || [];
-    picks.forEach(function(p) {
-      var key = p.code;
-      if (!stockSet[key]) stockSet[key] = { code: p.code, name: p.name, history: {}, firstDate: d, lastDate: d };
-      stockSet[key].history[d] = p.rank;
-      if (d > stockSet[key].lastDate) stockSet[key].lastDate = d;
-      if (d < stockSet[key].firstDate) stockSet[key].firstDate = d;
-    });
-  });
-
-  var stocks = Object.values(stockSet);
-  stocks.sort(function(a, b) {
-    var aAppear = Object.keys(a.history).length;
-    var bAppear = Object.keys(b.history).length;
-    return bAppear - aAppear || a.name.localeCompare(b.name, 'zh-CN');
-  });
-
-  // Build table
-  var html = '<thead><tr><th style="min-width:80px;position:sticky;left:0;z-index:2;">股票</th>';
-  dates.forEach(function(d) { html += '<th style="text-align:center;">' + d.slice(-5) + '</th>'; });
-  html += '<th style="text-align:center;">出现天数</th></tr></thead><tbody>';
-
-  stocks.forEach(function(st) {
-    html += '<tr>';
-    html += '<td style="position:sticky;left:0;background:#fff;z-index:1;font-weight:600;">' + st.name + '<span style="font-size:10px;color:#999;margin-left:4px;">' + st.code + '</span></td>';
-    dates.forEach(function(d) {
-      var r = st.history[d];
-      if (r) {
-        var cls = r === 1 ? 'badge-throne' : (r === 2 ? 'badge-podium' : (r === 3 ? 'badge-bronze' : 'badge-rank'));
-        html += '<td style="text-align:center;"><span class="badge ' + cls + '">#' + r + '</span></td>';
-      } else {
-        html += '<td style="text-align:center;color:#ccc;">—</td>';
-      }
-    });
-    html += '<td style="text-align:center;font-weight:600;color:#5e35b1;">' + Object.keys(st.history).length + '</td>';
-    html += '</tr>';
-  });
-  html += '</tbody>';
-  document.getElementById('calendarTable').innerHTML = html;
+// ===== Tab 切换 =====
+function switchTab(name) {
+  activeTab = name;
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(c) { c.style.display = 'none'; });
+  event.target.classList.add('active');
+  document.getElementById('tab-' + name).style.display = 'block';
+  if (name === 'trend') renderTrend();
+  if (name === 'compare') renderCompare();
 }
 
-// ===== 详情时间线 =====
+// ===== 数据准备 =====
+function prepData() {
+  datesAll = Object.keys(historyData).filter(function(k) { return !k.startsWith('_'); }).sort();
+  stockMap = {};
+  datesAll.forEach(function(d) {
+    var picks = (historyData[d] || {}).top10 || [];
+    picks.forEach(function(p) {
+      var key = p.code;
+      if (!stockMap[key]) stockMap[key] = { code: p.code, name: p.name, history: {} };
+      stockMap[key].history[d] = p.rank;
+    });
+  });
+}
+
+// ===== Tab 1: 时间轴 =====
 function renderTimeline() {
-  var dates = Object.keys(historyData).filter(function(k) { return !k.startsWith('_'); }).sort().reverse();
+  var dates = datesAll.slice().reverse();
   if (!dates.length) {
     document.getElementById('timelineContent').innerHTML = '<div class="empty-state"><div style="font-size:48px;">🧬</div><div style="font-size:14px;">暂无历史数据</div></div>';
     return;
@@ -143,25 +159,20 @@ function renderTimeline() {
     var picks = snap.top10 || [];
     var isToday = di === 0;
 
-    var dotColor = isToday ? '#5e35b1' : '#b39ddb';
-    var dotSize = isToday ? '14px' : '10px';
-    html += '<div style="position:relative;margin-bottom:18px;">';
-    html += '<div style="position:absolute;left:-' + (isToday ? '24' : '22') + 'px;top:6px;width:' + dotSize + ';height:' + dotSize + ';border-radius:50%;background:' + dotColor + ';border:2px solid #fff;box-shadow:0 0 0 2px ' + dotColor + ';"></div>';
-    html += '<div style="font-size:' + (isToday ? '14' : '12') + 'px;color:' + (isToday ? '#5e35b1' : '#999') + ';font-weight:' + (isToday ? '600' : '400') + ';margin-bottom:6px;">' + d + (isToday ? ' 🔥' : '') + (snap.update_time ? ' <span style="font-size:10px;color:#aaa;">' + snap.update_time.slice(11,16) + '</span>' : '') + '</div>';
+    html += '<div style="position:relative;margin-bottom:16px;">';
+    html += '<div style="position:absolute;left:-' + (isToday ? '24' : '22') + 'px;top:6px;width:' + (isToday ? '14' : '10') + 'px;height:' + (isToday ? '14' : '10') + 'px;border-radius:50%;background:' + (isToday ? '#5e35b1' : '#b39ddb') + ';border:2px solid #fff;box-shadow:0 0 0 2px ' + (isToday ? '#5e35b1' : '#b39ddb') + ';"></div>';
+    html += '<div style="font-size:' + (isToday ? '14' : '12') + 'px;color:' + (isToday ? '#5e35b1' : '#999') + ';font-weight:' + (isToday ? '600' : '400') + ';margin-bottom:6px;">' + d.replace('2026-','') + (isToday ? ' 🔥' : '') + '</div>';
     html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
     picks.forEach(function(p) {
-      var rankColors = ['#4527a0','#5e35b1','#7e57c2','#9575cd','#b39ddb','#7b1fa2','#8e24aa','#ab47bc','#ce93d8','#e1bee7'];
       var rc = rankColors[p.rank-1] || '#9e9e9e';
-      html += '<div style="flex:0 0 auto;min-width:130px;padding:8px 10px;background:#fff;border-left:3px solid ' + rc + ';border-radius:0 6px 6px 0;box-shadow:0 1px 3px rgba(0,0,0,0.06);">';
-      html += '<div style="display:flex;align-items:center;gap:6px;">';
-      html += '<span style="font-size:10px;font-weight:700;color:#fff;background:' + rc + ';padding:1px 5px;border-radius:3px;">#' + p.rank + '</span>';
-      html += '<span style="font-size:12px;font-weight:600;">' + p.name + '</span>';
-      html += '<span style="font-size:9px;color:#999;">' + p.code + '</span>';
+      html += '<div style="flex:0 0 auto;min-width:120px;padding:6px 8px;background:#fff;border-left:3px solid ' + rc + ';border-radius:0 6px 6px 0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">';
+      html += '<div style="display:flex;align-items:center;gap:5px;">';
+      html += '<span style="font-size:9px;font-weight:700;color:#fff;background:' + rc + ';padding:1px 4px;border-radius:2px;">#' + p.rank + '</span>';
+      html += '<span style="font-size:11px;font-weight:600;">' + p.name + '</span>';
+      html += '<span style="font-size:8px;color:#999;">' + p.code + '</span>';
       html += '</div>';
-      html += '<div style="font-size:18px;font-weight:700;color:' + rc + ';margin:3px 0;">' + p.total_score + '</div>';
-      if (p.signals) {
-        html += '<div style="font-size:9px;color:#888;margin-top:2px;">' + p.signals + '</div>';
-      }
+      html += '<div style="font-size:16px;font-weight:700;color:' + rc + ';margin:2px 0;">' + p.total_score + '分</div>';
+      if (p.signals) html += '<div style="font-size:8px;color:#888;">' + p.signals + '</div>';
       html += '</div>';
     });
     html += '</div></div>';
@@ -170,34 +181,236 @@ function renderTimeline() {
   document.getElementById('timelineContent').innerHTML = html;
 }
 
+// ===== Tab 2: 排名趋势 =====
+function populateSelect() {
+  var sel = document.getElementById('stockSelect');
+  var stocks = Object.values(stockMap).sort(function(a, b) {
+    return Object.keys(b.history).length - Object.keys(a.history).length || a.name.localeCompare(b.name, 'zh-CN');
+  });
+  sel.innerHTML = '<option value="">-- 请选择股票 --</option>';
+  stocks.forEach(function(s) {
+    sel.innerHTML += '<option value="' + s.code + '">' + s.name + ' (' + s.code + ') · 上榜' + Object.keys(s.history).length + '天</option>';
+  });
+}
+
+function renderTrend() {
+  var code = document.getElementById('stockSelect').value;
+  if (!code) { document.getElementById('trendChart').innerHTML = '<div style="color:#999;text-align:center;padding-top:100px;">请选择一只股票</div>'; document.getElementById('trendTable').innerHTML = ''; return; }
+  var st = stockMap[code];
+  if (!st) return;
+
+  // 排名变化表
+  var html = '<thead><tr><th>日期</th><th>排名</th><th>变化</th><th>评分</th></tr></thead><tbody>';
+  var prevRank = null;
+  datesAll.forEach(function(d) {
+    var r = st.history[d];
+    if (r !== undefined) {
+      var change = '';
+      if (prevRank !== null && r !== prevRank) {
+        if (r < prevRank) change = '<span class="badge-rise">▲' + (prevRank - r) + '</span>';
+        else change = '<span class="badge-fall">▼' + (r - prevRank) + '</span>';
+      }
+      var cls = r === 1 ? 'badge-throne' : (r === 2 ? 'badge-podium' : (r === 3 ? 'badge-bronze' : 'badge-rank'));
+      var snap = historyData[d];
+      var score = '';
+      if (snap && snap.top10) {
+        var found = snap.top10.filter(function(t) { return t.code === code; })[0];
+        if (found) score = found.total_score + '分';
+      }
+      html += '<tr><td>' + d.replace('2026-','') + '</td><td><span class="badge ' + cls + '">#' + r + '</span></td><td>' + (change || '-') + '</td><td style="font-weight:700;color:#5e35b1;">' + score + '</td></tr>';
+      prevRank = r;
+    }
+  });
+  html += '</tbody>';
+  document.getElementById('trendTable').innerHTML = html;
+
+  // SVG 折线图
+  var entries = datesAll.filter(function(d) { return st.history[d] !== undefined; });
+  if (entries.length < 2) {
+    document.getElementById('trendChart').innerHTML = '<div style="color:#999;text-align:center;padding-top:100px;">数据不足（需≥2个交易日）</div>';
+    return;
+  }
+  var W = 660, H = 260, PAD = {t:20,r:20,b:40,l:40};
+  var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;max-height:280px;font-family:Microsoft YaHei;">';
+  // Y轴：排名 1-10（倒序）
+  svg += '<line x1="' + PAD.l + '" y1="' + PAD.t + '" x2="' + PAD.l + '" y2="' + (H-PAD.b) + '" stroke="#ddd" stroke-width="1"/>';
+  for (var yi = 1; yi <= 10; yi++) {
+    var yy = PAD.t + (yi-1) / 9 * (H - PAD.t - PAD.b);
+    svg += '<text x="' + (PAD.l-6) + '" y="' + (yy+4) + '" text-anchor="end" font-size="10" fill="#999">#' + yi + '</text>';
+    svg += '<line x1="' + PAD.l + '" y1="' + yy + '" x2="' + (W-PAD.r) + '" y2="' + yy + '" stroke="#f0f0f0" stroke-dasharray="3,3"/>';
+  }
+  // X轴
+  svg += '<line x1="' + PAD.l + '" y1="' + (H-PAD.b) + '" x2="' + (W-PAD.r) + '" y2="' + (H-PAD.b) + '" stroke="#ddd" stroke-width="1"/>';
+  // 数据点+连线
+  var points = [];
+  entries.forEach(function(d, i) {
+    var r = st.history[d];
+    var x = PAD.l + i / (entries.length-1) * (W - PAD.l - PAD.r);
+    var y = PAD.t + (r-1) / 9 * (H - PAD.t - PAD.b);
+    points.push({x:x, y:y, rank:r, date:d});
+    svg += '<text x="' + x + '" y="' + (H-PAD.b+16) + '" text-anchor="middle" font-size="9" fill="#999">' + d.slice(-5) + '</text>';
+    svg += '<circle cx="' + x + '" cy="' + y + '" r="5" fill="' + (rankColors[r-1]||'#999') + '" stroke="#fff" stroke-width="1.5"/>';
+    if (i > 0) {
+      var prev = points[i-1];
+      svg += '<line x1="' + prev.x + '" y1="' + prev.y + '" x2="' + x + '" y2="' + y + '" stroke="#7e57c2" stroke-width="2" stroke-opacity="0.5"/>';
+    }
+  });
+  svg += '</svg>';
+  document.getElementById('trendChart').innerHTML = svg;
+}
+
+// ===== Tab 3: 冠军统计 =====
+function renderChampion() {
+  var stocks = Object.values(stockMap);
+  var champData = [];
+  stocks.forEach(function(st) {
+    var champCount = 0;
+    var maxStreak = 0, curStreak = 0;
+    var spans = []; // [{days, lastDate}]
+    datesAll.forEach(function(d) {
+      var r = st.history[d];
+      if (r === 1) {
+        champCount++;
+        curStreak++;
+        if (curStreak > maxStreak) maxStreak = curStreak;
+        if (spans.length === 0 || spans[spans.length-1].lastDate !== '') spans.push({count:0, lastDate: ''});
+        spans[spans.length-1].count++;
+        spans[spans.length-1].lastDate = '';
+      } else {
+        if (curStreak > 0) {
+          if (spans.length > 0) spans[spans.length-1].lastDate = d;
+          curStreak = 0;
+        }
+      }
+    });
+    var firstChamp = '', lastChamp = '';
+    datesAll.forEach(function(d) {
+      if (st.history[d] === 1) {
+        if (!firstChamp) firstChamp = d;
+        lastChamp = d;
+      }
+    });
+    var appearDays = Object.keys(st.history).length;
+    if (champCount > 0) champData.push({
+      name: st.name, code: st.code, champCount: champCount, maxStreak: maxStreak,
+      firstChamp: firstChamp, lastChamp: lastChamp, appearDays: appearDays
+    });
+  });
+  champData.sort(function(a, b) { return b.champCount - a.champCount || b.maxStreak - a.maxStreak; });
+
+  var html = '';
+  champData.forEach(function(c) {
+    html += '<tr><td><b>' + c.name + '</b> <span style="font-size:10px;color:#999;">' + c.code + '</span></td>';
+    html += '<td style="text-align:center;font-weight:700;color:#f57c00;">' + c.champCount + '</td>';
+    html += '<td style="text-align:center;font-weight:700;color:#4527a0;">' + c.maxStreak + '天</td>';
+    html += '<td style="text-align:center;color:#666;">' + (c.firstChamp||'').replace('2026-','') + '</td>';
+    html += '<td style="text-align:center;color:#666;">' + (c.lastChamp||'').replace('2026-','') + '</td>';
+    html += '<td style="text-align:center;color:#5e35b1;">' + c.appearDays + '</td></tr>';
+  });
+  if (!html) html = '<tr><td colspan="6" style="text-align:center;color:#999;padding:30px;">暂无冠军数据</td></tr>';
+  document.querySelector('#championTable tbody').innerHTML = html;
+}
+
+// ===== Tab 4: 新进掉榜 =====
+function renderCompare() {
+  if (datesAll.length < 2) {
+    document.getElementById('compareContent').innerHTML = '<div class="empty-state"><div style="font-size:48px;">🔍</div><div style="font-size:14px;">需要至少2个交易日数据</div></div>';
+    return;
+  }
+  var today = datesAll[datesAll.length-1];
+  var yesterday = datesAll[datesAll.length-2];
+  var todaySnap = historyData[today] || {};
+  var yesterdaySnap = historyData[yesterday] || {};
+  var todayPicks = todaySnap.top10 || [];
+  var yesterdayPicks = yesterdaySnap.top10 || [];
+
+  var todayCodeSet = {}; todayPicks.forEach(function(p) { todayCodeSet[p.code] = p; });
+  var yesterdayCodeSet = {}; yesterdayPicks.forEach(function(p) { yesterdayCodeSet[p.code] = p; });
+
+  var newEntries = [];  // 今天新进
+  var dropped = [];     // 今天掉榜
+  var rankChanges = []; // 排名升降
+
+  todayPicks.forEach(function(p) {
+    if (!yesterdayCodeSet[p.code]) newEntries.push(p);
+    else {
+      var prevRank = yesterdayCodeSet[p.code].rank;
+      if (prevRank !== p.rank) rankChanges.push({ code: p.code, name: p.name, oldRank: prevRank, newRank: p.rank, diff: prevRank - p.rank });
+    }
+  });
+  yesterdayPicks.forEach(function(p) {
+    if (!todayCodeSet[p.code]) dropped.push(p);
+  });
+  rankChanges.sort(function(a, b) { return Math.abs(b.diff) - Math.abs(a.diff); });
+
+  var html = '<div style="font-size:13px;color:#666;margin-bottom:14px;"><b>今日</b>：' + today.replace('2026-','') + ' <b>昨日</b>：' + yesterday.replace('2026-','') + '</div>';
+
+  // 新进
+  html += '<div style="margin-bottom:14px;"><div style="font-weight:600;color:#2e7d32;margin-bottom:6px;">🔥 新进TOP10</div>';
+  if (newEntries.length) {
+    html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
+    newEntries.forEach(function(p) {
+      html += '<div style="padding:6px 10px;background:#e8f5e9;border-left:3px solid #388e3c;border-radius:0 6px 6px 0;font-size:12px;">';
+      html += '<b>' + p.name + '</b> ' + p.code + ' <span style="color:#5e35b1;font-weight:700;">#' + p.rank + ' · ' + p.total_score + '分</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+  } else html += '<div style="color:#999;font-size:12px;">无新进</div>';
+  html += '</div>';
+
+  // 掉榜
+  html += '<div style="margin-bottom:14px;"><div style="font-weight:600;color:#c62828;margin-bottom:6px;">❄️ 掉出TOP10</div>';
+  if (dropped.length) {
+    html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
+    dropped.forEach(function(p) {
+      html += '<div style="padding:6px 10px;background:#fce4ec;border-left:3px solid #c62828;border-radius:0 6px 6px 0;font-size:12px;">';
+      html += '<b>' + p.name + '</b> ' + p.code + ' <span style="color:#999;">昨日#' + p.rank + '</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+  } else html += '<div style="color:#999;font-size:12px;">无掉榜</div>';
+  html += '</div>';
+
+  // 排名升降
+  html += '<div style="margin-bottom:14px;"><div style="font-weight:600;color:#5e35b1;margin-bottom:6px;">📊 排名变化</div>';
+  if (rankChanges.length) {
+    html += '<table><thead><tr><th>股票</th><th>昨日</th><th>今日</th><th>变化</th></tr></thead><tbody>';
+    rankChanges.forEach(function(rc) {
+      var diffText = rc.diff > 0 ? '<span class="badge-rise">▲' + rc.diff + '</span>' : '<span class="badge-fall">▼' + Math.abs(rc.diff) + '</span>';
+      html += '<tr><td><b>' + rc.name + '</b> <span style="font-size:10px;color:#999;">' + rc.code + '</span></td>';
+      html += '<td>' + rc.oldRank + '</td><td>' + rc.newRank + '</td><td>' + diffText + '</td></tr>';
+    });
+    html += '</tbody></table>';
+  } else html += '<div style="color:#999;font-size:12px;">排名无变化</div>';
+  html += '</div>';
+
+  document.getElementById('compareContent').innerHTML = html;
+}
+
 // ===== 统计栏 =====
 function renderStats() {
-  var dates = Object.keys(historyData).filter(function(k) { return !k.startsWith('_'); }).sort();
-  var totalDays = dates.length;
-  var latest = dates.length ? historyData[dates[dates.length-1]] : null;
+  prepData();
+  var totalDays = datesAll.length;
+  var latest = datesAll.length ? historyData[datesAll[datesAll.length-1]] : null;
   var latestCount = latest ? (latest.top10 || []).length : 0;
+  var totalStocks = Object.keys(stockMap).length;
 
-  // 冠军次数
   var championMap = {};
-  dates.forEach(function(d) {
+  datesAll.forEach(function(d) {
     var picks = historyData[d].top10 || [];
-    if (picks.length) {
-      var name = picks[0].name;
-      championMap[name] = (championMap[name] || 0) + 1;
-    }
+    if (picks.length) championMap[picks[0].name] = (championMap[picks[0].name] || 0) + 1;
   });
   var champions = Object.entries(championMap).sort(function(a, b) { return b[1] - a[1]; });
   var topChamp = champions[0] ? champions[0][0] : '—';
 
   document.getElementById('statsBar').innerHTML =
     '<div class="stat-item"><span class="stat-label">追踪天数</span><span class="stat-value">' + totalDays + '</span></div>' +
-    '<div class="stat-item"><span class="stat-label">最新TOP10</span><span class="stat-value">' + latestCount + '</span></div>' +
-    '<div class="stat-item"><span class="stat-label">🏆 最多冠军</span><span class="stat-value" style="font-size:14px;color:#f57c00;">' + topChamp + (champions[0] ? '×' + champions[0][1] : '') + '</span></div>';
+    '<div class="stat-item"><span class="stat-label">登榜股票</span><span class="stat-value">' + totalStocks + '</span></div>' +
+    '<div class="stat-item"><span class="stat-label">🏆 冠军王</span><span class="stat-value" style="font-size:' + (topChamp.length > 3 ? '12' : '16') + 'px;color:#f57c00;">' + topChamp + (champions[0] ? '×' + champions[0][1] : '') + '</span></div>';
 }
 
 // ===== 主流程 =====
 function loadData() {
-  // Try to load from embedded data first, then fetch
   if (typeof window.MULTI_RESONANCE_HISTORY !== 'undefined') {
     historyData = window.MULTI_RESONANCE_HISTORY || {};
     renderAll();
@@ -216,9 +429,12 @@ function loadData() {
 }
 
 function renderAll() {
+  if (!Object.keys(historyData).length) return;
+  prepData();
   renderStats();
-  renderCalendar();
   renderTimeline();
+  populateSelect();
+  renderChampion();
 }
 
 loadData();
