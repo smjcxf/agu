@@ -77,13 +77,17 @@ var MULTI_RESONANCE_HISTORY = {"2026-06-26": {"update_time": "2026-06-28 00:39:0
     <div id="timelineContent"></div>
   </div>
 
-  <!-- Tab 2: 排名趋势 -->
+  <!-- Tab 2: 排名趋势（排行榜式） -->
   <div id="tab-trend" class="tab-content" style="display:none;">
-    <div class="card">
-      <div class="card-title">📈 选择股票查看排名趋势</div>
-      <select id="stockSelect" onchange="renderTrend()" style="margin-bottom:12px;">
-        <option value="">-- 请选择股票 --</option>
-      </select>
+    <div class="card" style="margin-bottom:12px;">
+      <div class="card-title">📈 上榜股票排行 · 点击查看趋势</div>
+      <table id="stockRankingTable">
+        <thead><tr><th></th><th>股票</th><th style="text-align:center;">上榜天</th><th style="text-align:center;">平均排名</th><th style="text-align:center;">最新</th><th style="text-align:center;">最佳</th><th style="text-align:center;">趋势</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="card" id="trendDetailCard" style="display:none;">
+      <div class="card-title">📊 <span id="trendStockName"></span> 排名走势</div>
       <div class="chart-box" id="trendChart"></div>
       <table id="trendTable"></table>
     </div>
@@ -125,7 +129,7 @@ function switchTab(name) {
   document.querySelectorAll('.tab-content').forEach(function(c) { c.style.display = 'none'; });
   event.target.classList.add('active');
   document.getElementById('tab-' + name).style.display = 'block';
-  if (name === 'trend') renderTrend();
+  if (name === 'trend') renderTrendRanking();
   if (name === 'compare') renderCompare();
 }
 
@@ -182,20 +186,56 @@ function renderTimeline() {
 }
 
 // ===== Tab 2: 排名趋势 =====
-function populateSelect() {
-  var sel = document.getElementById('stockSelect');
-  var stocks = Object.values(stockMap).sort(function(a, b) {
-    return Object.keys(b.history).length - Object.keys(a.history).length || a.name.localeCompare(b.name, 'zh-CN');
+// ===== Tab 2: 排名趋势（排行榜式）=====
+function renderTrendRanking() {
+  var stocks = Object.values(stockMap);
+  if (!stocks.length) { document.querySelector('#stockRankingTable tbody').innerHTML = '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px;">暂无数据</td></tr>'; return; }
+
+  // 计算每只股票的综合指标
+  stocks.forEach(function(st) {
+    var ranks = [];
+    datesAll.forEach(function(d) { if (st.history[d] !== undefined) ranks.push(st.history[d]); });
+    st.appearDays = ranks.length;
+    st.avgRank = ranks.length ? (ranks.reduce(function(a,b){return a+b;},0) / ranks.length).toFixed(1) : 0;
+    st.bestRank = ranks.length ? Math.min.apply(null, ranks) : 0;
+    st.latestRank = ranks.length ? ranks[ranks.length-1] : 0;
+    // 趋势方向：最近2次排名对比
+    if (ranks.length >= 2) {
+      var prev = ranks[ranks.length-2], latest = ranks[ranks.length-1];
+      st.trend = latest < prev ? '↗' : (latest > prev ? '↘' : '→');
+    } else { st.trend = '●'; }
   });
-  sel.innerHTML = '<option value="">-- 请选择股票 --</option>';
-  stocks.forEach(function(s) {
-    sel.innerHTML += '<option value="' + s.code + '">' + s.name + ' (' + s.code + ') · 上榜' + Object.keys(s.history).length + '天</option>';
+
+  // 排序：按上榜天数+平均排名
+  stocks.sort(function(a, b) { return b.appearDays - a.appearDays || a.avgRank - b.avgRank; });
+
+  var html = '';
+  stocks.forEach(function(st) {
+    html += '<tr onclick="showTrend(\'' + st.code + '\',\'' + st.name + '\')" style="cursor:pointer;">';
+    html += '<td style="width:20px;"><span style="font-size:16px;">' + (st.trend === '↗' ? '🔺' : (st.trend === '↘' ? '🔻' : '🔹')) + '</span></td>';
+    html += '<td><b>' + st.name + '</b> <span style="font-size:10px;color:#999;">' + st.code + '</span></td>';
+    html += '<td style="text-align:center;color:#5e35b1;font-weight:600;">' + st.appearDays + '</td>';
+    html += '<td style="text-align:center;">#' + st.avgRank + '</td>';
+    html += '<td style="text-align:center;"><span class="badge ' + (st.latestRank===1?'badge-throne':(st.latestRank<=3?'badge-podium':'badge-rank')) + '">#' + st.latestRank + '</span></td>';
+    html += '<td style="text-align:center;"><span class="badge ' + (st.bestRank===1?'badge-throne':'badge-rank') + '">#' + st.bestRank + '</span></td>';
+    html += '<td style="text-align:center;font-size:14px;">' + st.trend + '</td>';
+    html += '</tr>';
   });
+  document.querySelector('#stockRankingTable tbody').innerHTML = html;
+  // 默认显示第一只股票
+  if (stocks.length) showTrend(stocks[0].code, stocks[0].name);
 }
 
-function renderTrend() {
-  var code = document.getElementById('stockSelect').value;
-  if (!code) { document.getElementById('trendChart').innerHTML = '<div style="color:#999;text-align:center;padding-top:100px;">请选择一只股票</div>'; document.getElementById('trendTable').innerHTML = ''; return; }
+function showTrend(code, name) {
+  document.getElementById('trendDetailCard').style.display = 'block';
+  document.getElementById('trendStockName').textContent = name + ' (' + code + ')';
+  // 高亮当前行
+  document.querySelectorAll('#stockRankingTable tbody tr').forEach(function(r) { r.style.background = ''; });
+  var rows = document.querySelectorAll('#stockRankingTable tbody tr');
+  for (var i = 0; i < rows.length; i++) {
+    if (rows[i].textContent.indexOf(code) !== -1) { rows[i].style.background = '#f3e5f5'; break; }
+  }
+
   var st = stockMap[code];
   if (!st) return;
 
@@ -207,8 +247,8 @@ function renderTrend() {
     if (r !== undefined) {
       var change = '';
       if (prevRank !== null && r !== prevRank) {
-        if (r < prevRank) change = '<span class="badge-rise">▲' + (prevRank - r) + '</span>';
-        else change = '<span class="badge-fall">▼' + (r - prevRank) + '</span>';
+        if (r < prevRank) change = '<span style="color:#c62828;">▲' + (prevRank - r) + '</span>';
+        else change = '<span style="color:#2e7d32;">▼' + (r - prevRank) + '</span>';
       }
       var cls = r === 1 ? 'badge-throne' : (r === 2 ? 'badge-podium' : (r === 3 ? 'badge-bronze' : 'badge-rank'));
       var snap = historyData[d];
@@ -232,16 +272,13 @@ function renderTrend() {
   }
   var W = 660, H = 260, PAD = {t:20,r:20,b:40,l:40};
   var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;max-height:280px;font-family:Microsoft YaHei;">';
-  // Y轴：排名 1-10（倒序）
   svg += '<line x1="' + PAD.l + '" y1="' + PAD.t + '" x2="' + PAD.l + '" y2="' + (H-PAD.b) + '" stroke="#ddd" stroke-width="1"/>';
   for (var yi = 1; yi <= 10; yi++) {
     var yy = PAD.t + (yi-1) / 9 * (H - PAD.t - PAD.b);
     svg += '<text x="' + (PAD.l-6) + '" y="' + (yy+4) + '" text-anchor="end" font-size="10" fill="#999">#' + yi + '</text>';
     svg += '<line x1="' + PAD.l + '" y1="' + yy + '" x2="' + (W-PAD.r) + '" y2="' + yy + '" stroke="#f0f0f0" stroke-dasharray="3,3"/>';
   }
-  // X轴
   svg += '<line x1="' + PAD.l + '" y1="' + (H-PAD.b) + '" x2="' + (W-PAD.r) + '" y2="' + (H-PAD.b) + '" stroke="#ddd" stroke-width="1"/>';
-  // 数据点+连线
   var points = [];
   entries.forEach(function(d, i) {
     var r = st.history[d];
@@ -433,7 +470,7 @@ function renderAll() {
   prepData();
   renderStats();
   renderTimeline();
-  populateSelect();
+  renderTrendRanking();
   renderChampion();
 }
 
