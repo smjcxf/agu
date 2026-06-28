@@ -229,6 +229,8 @@ def find_block_end(content, marker_start, open_ch, close_ch):
         elif content[i] == close_ch:
             count -= 1
         i += 1
+    if count > 0:
+        return -1, -1  # 括号不匹配，查找失败
     # 跳过后面的空格/分号
     end = i
     while end < len(content) and content[end] in ' ;\n\r\t':
