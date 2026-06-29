@@ -1038,7 +1038,6 @@ def main():
         ("MAIN_STOCK",     "var MAIN_STOCK_DATA = window.MAIN_STOCK_DATA = ","{", "}"),
         ("MAIN_WEEK",      "window.MAIN_WEEK_DATA = ",  "{", "}"),
         ("NORTH_FUND",     "window.NORTH_FUND_DATA = ",  "{", "}"),
-        ("FETCH_ERRORS",   "window.FETCH_ERRORS = ",   "{", "}"),
         ("MAHORO_COVERAGE", "var MAHORO_COVERAGE = window.MAHORO_COVERAGE = ","{", "}"),
         ("SUSPENSION_ALERT", "window.SUSPENSION_ALERT = ",  "{", "}"),
         ("STOCK_DEVIATION", "var STOCK_DEVIATION = window.STOCK_DEVIATION = ", "{", "}"),
@@ -1053,6 +1052,7 @@ def main():
         ("TOP10_DAILY",   "window.TOP10_DAILY = ",    "{", "}"),
         ("MULTI_RESONANCE", "window.MULTI_RESONANCE = ", "[", "]"),
         ("INDUSTRY_MAP",  "window.INDUSTRY_MAP = ",   "{", "}"),
+        ("FETCH_ERRORS",   "window.FETCH_ERRORS = ",   "{", "}"),
     ]
     data_objs = [scan_data, watch_data, gold_pool, stock_list, recommend,
                  sh_fib, sz_fib, sector_flow, sh_sz_history, nt_data,
