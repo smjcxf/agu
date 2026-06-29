@@ -8,6 +8,10 @@ __pycache__/
 !backup_daily.py
 !send_alert.py
 !deploy_audit.py
+!fetch_analyst_ratings.py
+!fetch_policy_density.py
+!generate_triple_resonance_history.py
+!update_triple_resonance_daily.py
 *.bat
 .wrangler/
 worker/
