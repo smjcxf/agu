@@ -16,6 +16,7 @@
 import json
 import os
 import sys
+import pandas as pd
 from datetime import datetime, timedelta
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
@@ -49,6 +50,28 @@ def safe_call(fn, name, default=None):
         return default
 
 
+def fetch_eastmoney_macro(report_name, page_size=3):
+    """东方财富宏观数据API — 用于PMI/CPI/PPI等月度指标（akshare停更后的主数据源）"""
+    import requests as req
+    url = 'https://datacenter-web.eastmoney.com/api/data/v1/get'
+    params = {
+        'reportName': report_name,
+        'columns': 'ALL',
+        'pageNumber': 1,
+        'pageSize': page_size,
+        'sortColumns': 'REPORT_DATE',
+        'sortTypes': '-1',
+    }
+    try:
+        r = req.get(url, params=params, timeout=10)
+        d = r.json()
+        if d and d.get('success') and d.get('result', {}).get('data'):
+            return d['result']['data']
+    except Exception as e:
+        print(f"  [WARN] Eastmoney {report_name} 获取失败: {e}")
+    return None
+
+
 def fetch_macro_data():
     """采集全部宏观数据"""
     import akshare as ak
@@ -66,20 +89,19 @@ def fetch_macro_data():
     }
 
     def mark_updated(indicator_key, data_dict):
-        """标记某指标已更新，记录到indicator_status"""
+        """标记某指标已更新，记录到indicator_status
+        判断依据：数据日期距今≤45天（月频指标周期日+发布延迟≤30+15天）
+        """
         today = datetime.now().strftime('%Y-%m-%d')
         sched = MONTHLY_INDICATOR_SCHEDULE.get(indicator_key)
         if sched:
-            exp_day = sched['expected_day']
-            tol = sched['tolerance_days']
-            # 计算本月预期发布日
+            data_date = data_dict.get('date', '')
             try:
-                current_day = now.day
-                expected_date = now.replace(day=min(exp_day, 28))  # 避免超过当月天数
-                days_since = (now - expected_date).days
-                is_fresh = -2 <= days_since <= tol  # 发布日前2天到容差期内都算新鲜
-            except ValueError:
-                is_fresh = True
+                dt = datetime.strptime(data_date[:10], '%Y-%m-%d')
+                days_ago = (now - dt).days
+                is_fresh = days_ago <= 60  # 月频指标：数据周期日为月初+发布延迟可达60天
+            except:
+                is_fresh = False
             result['indicator_status'][indicator_key] = {
                 'last_updated': today,
                 'is_fresh': is_fresh,
@@ -137,19 +159,20 @@ def fetch_macro_data():
             'date': str(sh.get('日期', ''))[:10],
         }
 
-    # 1d. M2/M1货币供应（用年度数据）
+    # 1d. M2/M1货币供应（akshare macro_china_money_supply — 替代已停更的 m2_yearly）
     print("  M2/M1货币供应...")
-    df_m2 = safe_call(lambda: ak.macro_china_m2_yearly(), "M2年度")
+    df_m2 = safe_call(lambda: ak.macro_china_money_supply(), "M2供应量")
     if df_m2 is not None and len(df_m2) > 0:
-        m2_row = df_m2[df_m2['商品'].str.contains('M2', na=False)].tail(1)
-        if len(m2_row) > 0:
-            m2_val = m2_row.iloc[0]['今值']
-            result['monetary']['m2_yoy'] = {
-                'value': float(m2_val) if str(m2_val) != 'nan' else None,
-                'date': str(m2_row.iloc[0]['日期'])[:10],
-            }
-            if result['monetary']['m2_yoy']['value'] is not None:
-                mark_updated('m2_yoy', result['monetary']['m2_yoy'])
+        # 数据按时间倒序排列（最新在前），取第一行
+        m2_row = df_m2.iloc[0]
+        m2_val = m2_row.get('货币和准货币(M2)-同比增长')
+        m2_date = str(m2_row['月份']).replace('年', '-').replace('月份', '-01')
+        result['monetary']['m2_yoy'] = {
+            'value': float(m2_val) if pd.notna(m2_val) else None,
+            'date': m2_date,
+        }
+        if result['monetary']['m2_yoy']['value'] is not None:
+            mark_updated('m2_yoy', result['monetary']['m2_yoy'])
 
     # 1e. 央行公开市场操作（OMO）— 东方财富API（每日）
     print("  央行公开市场操作(OMO)...")
@@ -193,52 +216,93 @@ def fetch_macro_data():
     # ========== 2. 经济基本面 ==========
     print("\n=== 经济基本面 ===")
 
-    # 2a. 制造业PMI
+    # 2a. 制造业PMI（东方财富为主 — akshare pmi_yearly 已停更至2025-08）
     print("  PMI...")
-    df_pmi = safe_call(lambda: ak.macro_china_pmi_yearly(), "PMI")
-    if df_pmi is not None and len(df_pmi) > 0:
-        pmi_row = df_pmi[df_pmi['商品'].str.contains('制造业')].tail(1)
-        if len(pmi_row) > 0:
-            r = pmi_row.iloc[0]
-            val = r['今值']
-            result['economy']['pmi'] = {
-                'value': float(val) if str(val) != 'nan' else None,
-                'forecast': float(r['预测值']) if str(r['预测值']) != 'nan' else None,
-                'previous': float(r['前值']) if str(r['前值']) != 'nan' else None,
-                'date': str(r['日期'])[:10],
-            }
-            if result['economy']['pmi']['value'] is not None:
-                mark_updated('pmi', result['economy']['pmi'])
-
-    # 2b. CPI
-    print("  CPI...")
-    df_cpi = safe_call(lambda: ak.macro_china_cpi_monthly(), "CPI")
-    if df_cpi is not None and len(df_cpi) > 0:
-        cpi_rows = df_cpi[df_cpi['商品'].str.contains('CPI')]
-        if len(cpi_rows) > 0:
-            cpi_last = cpi_rows.tail(1).iloc[0]
-            val = cpi_last.get('今值')
-            result['economy']['cpi'] = {
-                'value': float(val) if str(val) != 'nan' else None,
-                'previous': float(cpi_last.get('前值')) if str(cpi_last.get('前值')) != 'nan' else None,
-                'date': str(cpi_last['日期'])[:10],
-            }
-            if result['economy']['cpi']['value'] is not None:
-                mark_updated('cpi', result['economy']['cpi'])
-
-    # 2c. PPI
-    print("  PPI...")
-    df_ppi = safe_call(lambda: ak.macro_china_ppi_yearly(), "PPI")
-    if df_ppi is not None and len(df_ppi) > 0:
-        ppi_last = df_ppi.tail(1).iloc[0]
-        val = ppi_last.get('今值')
-        result['economy']['ppi'] = {
-            'value': float(val) if str(val) != 'nan' else None,
-            'previous': float(ppi_last.get('前值')) if str(ppi_last.get('前值')) != 'nan' else None,
-            'date': str(ppi_last['日期'])[:10],
+    pmi_got = False
+    em_pmi = fetch_eastmoney_macro('RPT_ECONOMY_PMI', page_size=2)
+    if em_pmi:
+        latest = em_pmi[0]
+        prev = em_pmi[1] if len(em_pmi) > 1 else None
+        result['economy']['pmi'] = {
+            'value': float(latest.get('MAKE_INDEX', None)),
+            'forecast': None,
+            'previous': float(prev.get('MAKE_INDEX', None)) if prev else None,
+            'date': str(latest.get('REPORT_DATE', ''))[:10],
         }
-        if result['economy']['ppi']['value'] is not None:
-            mark_updated('ppi', result['economy']['ppi'])
+        pmi_got = True
+        print(f"    PMI(Eastmoney): {result['economy']['pmi']['value']} (前值: {result['economy']['pmi']['previous']})")
+    if not pmi_got:
+        # 降级：akshare
+        df_pmi = safe_call(lambda: ak.macro_china_pmi_yearly(), "PMI")
+        if df_pmi is not None and len(df_pmi) > 0:
+            pmi_row = df_pmi[df_pmi['商品'].str.contains('制造业')].tail(1)
+            if len(pmi_row) > 0:
+                r = pmi_row.iloc[0]
+                val = r['今值']
+                result['economy']['pmi'] = {
+                    'value': float(val) if str(val) != 'nan' else None,
+                    'forecast': float(r['预测值']) if str(r['预测值']) != 'nan' else None,
+                    'previous': float(r['前值']) if str(r['前值']) != 'nan' else None,
+                    'date': str(r['日期'])[:10],
+                }
+    if result['economy'].get('pmi', {}).get('value') is not None:
+        mark_updated('pmi', result['economy']['pmi'])
+
+    # 2b. CPI（东方财富为主 — akshare cpi_monthly 已停更至2025-09）
+    print("  CPI...")
+    cpi_got = False
+    em_cpi = fetch_eastmoney_macro('RPT_ECONOMY_CPI', page_size=2)
+    if em_cpi:
+        latest = em_cpi[0]
+        prev = em_cpi[1] if len(em_cpi) > 1 else None
+        result['economy']['cpi'] = {
+            'value': float(latest.get('NATIONAL_SAME', None)),
+            'previous': float(prev.get('NATIONAL_SAME', None)) if prev else None,
+            'date': str(latest.get('REPORT_DATE', ''))[:10],
+        }
+        cpi_got = True
+        print(f"    CPI(Eastmoney): {result['economy']['cpi']['value']}% (前值: {result['economy']['cpi']['previous']}%)")
+    if not cpi_got:
+        df_cpi = safe_call(lambda: ak.macro_china_cpi_monthly(), "CPI")
+        if df_cpi is not None and len(df_cpi) > 0:
+            cpi_rows = df_cpi[df_cpi['商品'].str.contains('CPI')]
+            if len(cpi_rows) > 0:
+                cpi_last = cpi_rows.tail(1).iloc[0]
+                val = cpi_last.get('今值')
+                result['economy']['cpi'] = {
+                    'value': float(val) if str(val) != 'nan' else None,
+                    'previous': float(cpi_last.get('前值')) if str(cpi_last.get('前值')) != 'nan' else None,
+                    'date': str(cpi_last['日期'])[:10],
+                }
+    if result['economy'].get('cpi', {}).get('value') is not None:
+        mark_updated('cpi', result['economy']['cpi'])
+
+    # 2c. PPI（东方财富为主 — akshare ppi_yearly 已停更至2025-09）
+    print("  PPI...")
+    ppi_got = False
+    em_ppi = fetch_eastmoney_macro('RPT_ECONOMY_PPI', page_size=2)
+    if em_ppi:
+        latest = em_ppi[0]
+        prev = em_ppi[1] if len(em_ppi) > 1 else None
+        result['economy']['ppi'] = {
+            'value': float(latest.get('BASE_SAME', None)),
+            'previous': float(prev.get('BASE_SAME', None)) if prev else None,
+            'date': str(latest.get('REPORT_DATE', ''))[:10],
+        }
+        ppi_got = True
+        print(f"    PPI(Eastmoney): {result['economy']['ppi']['value']}% (前值: {result['economy']['ppi']['previous']}%)")
+    if not ppi_got:
+        df_ppi = safe_call(lambda: ak.macro_china_ppi_yearly(), "PPI")
+        if df_ppi is not None and len(df_ppi) > 0:
+            ppi_last = df_ppi.tail(1).iloc[0]
+            val = ppi_last.get('今值')
+            result['economy']['ppi'] = {
+                'value': float(val) if str(val) != 'nan' else None,
+                'previous': float(ppi_last.get('前值')) if str(ppi_last.get('前值')) != 'nan' else None,
+                'date': str(ppi_last['日期'])[:10],
+            }
+    if result['economy'].get('ppi', {}).get('value') is not None:
+        mark_updated('ppi', result['economy']['ppi'])
 
     # 2d. 社融规模
     print("  社融规模...")
@@ -253,19 +317,33 @@ def fetch_macro_data():
         if result['economy']['social_financing']['value'] is not None:
             mark_updated('social_financing', result['economy']['social_financing'])
 
-    # 2e. 出口增速
+    # 2e. 出口增速（东方财富为主 — akshare exports_yoy 已停更至2025-09）
     print("  出口增速...")
-    df_export = safe_call(lambda: ak.macro_china_exports_yoy(), "出口")
-    if df_export is not None and len(df_export) > 0:
-        export_last = df_export[df_export['今值'].notna()].tail(1)
-        if len(export_last) > 0:
-            ex = export_last.iloc[0]
-            result['economy']['export_yoy'] = {
-                'value': float(ex['今值']),
-                'previous': float(ex['前值']) if str(ex['前值']) != 'nan' else None,
-                'date': str(ex['日期'])[:10],
-            }
-            mark_updated('export_yoy', result['economy']['export_yoy'])
+    export_got = False
+    em_customs = fetch_eastmoney_macro('RPT_ECONOMY_CUSTOMS', page_size=2)
+    if em_customs:
+        latest = em_customs[0]
+        prev = em_customs[1] if len(em_customs) > 1 else None
+        result['economy']['export_yoy'] = {
+            'value': float(latest.get('EXIT_BASE_SAME', None)),
+            'previous': float(prev.get('EXIT_BASE_SAME', None)) if prev else None,
+            'date': str(latest.get('REPORT_DATE', ''))[:10],
+        }
+        export_got = True
+        print(f"    出口增速(Eastmoney): {result['economy']['export_yoy']['value']}% (前值: {result['economy']['export_yoy']['previous']}%)")
+    if not export_got:
+        df_export = safe_call(lambda: ak.macro_china_exports_yoy(), "出口")
+        if df_export is not None and len(df_export) > 0:
+            export_last = df_export[df_export['今值'].notna()].tail(1)
+            if len(export_last) > 0:
+                ex = export_last.iloc[0]
+                result['economy']['export_yoy'] = {
+                    'value': float(ex['今值']),
+                    'previous': float(ex['前值']) if str(ex['前值']) != 'nan' else None,
+                    'date': str(ex['日期'])[:10],
+                }
+    if result['economy'].get('export_yoy', {}).get('value') is not None:
+        mark_updated('export_yoy', result['economy']['export_yoy'])
 
     # 2f. IPO数量/募资额（周度）— akshare
     print("  IPO数据...")
@@ -392,15 +470,33 @@ def fetch_macro_data():
         except Exception as e_boc:
             print(f"  [WARN] 中行USDCNH获取失败: {e_boc}")
 
-    # 3c. 美元指数DXY（期货）
+    # 3c. 美元指数DXY（东方财富 — akshare futures_foreign_hist DX已停更至2019年）
     print("  美元指数...")
-    df_dxy = safe_call(lambda: ak.futures_foreign_hist(symbol='DX'), "DXY")
-    if df_dxy is not None and len(df_dxy) > 0:
-        dxy_last = df_dxy.tail(1).iloc[0]
-        result['global_macro']['dxy'] = {
-            'value': round(float(dxy_last['close']), 2),
-            'date': str(dxy_last['date'])[:10],
+    try:
+        import urllib.request as _ureq3
+        dxy_url = 'https://push2his.eastmoney.com/api/qt/stock/kline/get'
+        dxy_params = {
+            'secid': '100.UDI',
+            'fields1': 'f1,f2,f3,f4,f5,f6',
+            'fields2': 'f51,f52,f53,f54,f55,f56,f57',
+            'klt': '101', 'fqt': '0', 'end': '20500101', 'lmt': 3,
         }
+        dxy_qs = '&'.join(f'{k}={v}' for k, v in dxy_params.items())
+        dxy_req = _ureq3.Request(f'{dxy_url}?{dxy_qs}', headers={'User-Agent': 'Mozilla/5.0'})
+        dxy_resp = _ureq3.urlopen(dxy_req, timeout=10)
+        dxy_data = json.loads(dxy_resp.read().decode('utf-8'))
+        klines = dxy_data.get('data', {}).get('klines', [])
+        if klines:
+            last_k = klines[-1].split(',')
+            result['global_macro']['dxy'] = {
+                'value': round(float(last_k[2]), 2),  # close price
+                'date': last_k[0],  # date
+            }
+            print(f"    DXY(Eastmoney): {result['global_macro']['dxy']['value']}")
+        else:
+            print("  [WARN] DXY Eastmoney 返回空")
+    except Exception as e:
+        print(f"  [WARN] DXY获取失败: {e}")
 
     # ========== 3d. 大宗商品观测 ==========
     print("\n=== 大宗商品观测 ===")

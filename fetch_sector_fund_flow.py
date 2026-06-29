@@ -119,32 +119,6 @@ def fetch_with_retry(func, max_retries=3, delay=2):
             else:
                 raise e
 
-def get_mock_data():
-    """生成模拟数据（用于API失败时的降级）"""
-    import random
-    sectors = [
-        ("半导体", "行业"), ("通信设备", "行业"), ("机器人", "概念"),
-        ("电力", "行业"), ("医疗器械", "行业"), ("汽车零部件", "行业"),
-        ("光伏", "行业"), ("白酒", "行业"), ("银行", "行业"),
-        ("地产", "行业"), ("汽车零部件", "行业"), ("锂电池", "概念"),
-        ("AI算力", "概念"), ("军工", "行业"), ("农业", "行业"),
-    ]
-    
-    top_list = []
-    for name, stype in sectors:
-        # 随机生成资金流（-30亿到+30亿）
-        net = round(random.uniform(-30, 30), 1)
-        top_list.append({
-            "name": name,
-            "net": net,
-            "net_5d": 0,   # mock数据无5日/20日
-            "net_20d": 0,
-            "type": stype
-        })
-    
-    top_list.sort(key=lambda x: x["net"], reverse=True)
-    return top_list
-
 def fetch_neodata_5d20d_supplement(sector_names):
     """
     【2026-06-28 新增】用 neodata 接口补充 5日/20日累计净流入数据
