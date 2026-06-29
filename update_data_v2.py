@@ -897,6 +897,7 @@ def main():
     w52_high = load_json(os.path.join(DATA_DIR, "52w_high.json"), {"update_time": "", "total": 0, "top_sectors": [], "top_gainers": [], "stocks": []})
     analyst_ratings = load_json(os.path.join(DATA_DIR, "analyst_ratings.json"), {"update_time": "", "upgrades": [], "hot_stocks": []})
     policy_density = load_json(os.path.join(DATA_DIR, "policy_density.json"), {"update_time": "", "density": 0, "level": "低", "signals": []})
+    fetch_errors = load_json(os.path.join(DATA_DIR, ".fetch_errors.json"), {"last_scan": "", "errors": []})
 
     # 计算龙虎榜连续买入天数（依赖 lhb_history.json）
     try:
@@ -1037,6 +1038,7 @@ def main():
         ("MAIN_STOCK",     "var MAIN_STOCK_DATA = window.MAIN_STOCK_DATA = ","{", "}"),
         ("MAIN_WEEK",      "window.MAIN_WEEK_DATA = ",  "{", "}"),
         ("NORTH_FUND",     "window.NORTH_FUND_DATA = ",  "{", "}"),
+        ("FETCH_ERRORS",   "window.FETCH_ERRORS = ",   "{", "}"),
         ("MAHORO_COVERAGE", "var MAHORO_COVERAGE = window.MAHORO_COVERAGE = ","{", "}"),
         ("SUSPENSION_ALERT", "window.SUSPENSION_ALERT = ",  "{", "}"),
         ("STOCK_DEVIATION", "var STOCK_DEVIATION = window.STOCK_DEVIATION = ", "{", "}"),
@@ -1055,7 +1057,7 @@ def main():
     data_objs = [scan_data, watch_data, gold_pool, stock_list, recommend,
                  sh_fib, sz_fib, sector_flow, sh_sz_history, nt_data,
                  concept_ranking, market_alerts, margin_data, etf_subscription, macro_data,                  herding_data,
-                 sector_rs, ipo_score, lhb_data, main_stock, main_week, north_fund, mahoro_coverage, suspension_alert, stock_deviation, fomc_summary, cffex_holdings, inst_trade, worldcup, limit_up_heatmap, w52_high, analyst_ratings, policy_density, top10_daily, multi_resonance_top10, industry_map_data]
+                 sector_rs, ipo_score, lhb_data, main_stock, main_week, north_fund, mahoro_coverage, suspension_alert, stock_deviation, fomc_summary, cffex_holdings, inst_trade, worldcup, limit_up_heatmap, w52_high, analyst_ratings, policy_density, top10_daily, multi_resonance_top10, industry_map_data, fetch_errors]
     replacements = []
 
     for (name, marker, open_ch, close_ch), data in zip(markers, data_objs):
