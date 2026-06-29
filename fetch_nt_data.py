@@ -34,7 +34,7 @@ try:
     HAS_AK = True
 except ImportError:
     HAS_AK = False
-    print("⚠️  akshare not installed, using mock data")
+    print("⚠️  akshare not installed, will use existing data if available")
 
 # ─────────────────────────────────────────
 # 1. ETF监控列表（12只国家队ETF）
@@ -63,30 +63,24 @@ def fetch_etf_realtime():
     alerts = []
 
     if not HAS_AK:
-        # 模拟数据
-        import random
-        for etf in ETF_LIST:
-            change_pct = round(random.uniform(-3, 3), 2)
-            price = round(random.uniform(1, 10), 3)
-            amount = round(random.uniform(1e8, 5e9), 2)
-            etf_data.append({
-                "code": etf["code"],
-                "name": etf["name"],
-                "type": etf["type"],
-                "price": price,
-                "change_pct": change_pct,
-                "volume": int(random.uniform(1e6, 1e8)),
-                "amount": amount,
-                "amplitude": round(random.uniform(1, 5), 2),
-            })
-            if abs(change_pct) >= 3:
-                alerts.append({
-                    "type": "etf",
-                    "severity": "high" if abs(change_pct) >= 5 else "medium",
-                    "message": f"{etf['name']} {'大涨' if change_pct > 0 else '大跌'} {abs(change_pct):.2f}%",
-                    "time": datetime.now().strftime("%H:%M"),
-                })
-        return etf_data, alerts
+        # ════════════════════════════════════════════════════════
+        # 【铁律】akshare不可用时：
+        #   ❌ 绝不使用 MOCK 假数据！
+        #   ✅ 使用现有文件中的数据（不覆盖）；没有则返回空
+        # ════════════════════════════════════════════════════════
+        print("⚠️ akshare 不可用，尝试加载现有 ETF 数据（铁律：宁可用空数据也不造假）")
+        out_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "nt_data.json")
+        if os.path.exists(out_file):
+            try:
+                with open(out_file, "r", encoding="utf-8") as f:
+                    old_data = json.load(f)
+                etf_data = old_data.get("etfFlow", {}).get("etfs", [])
+                alerts = old_data.get("alerts", [])
+                print(f"  已加载现有文件中的 {len(etf_data)} 只 ETF 数据")
+                return etf_data, alerts
+            except Exception as e:
+                print(f"  加载现有文件失败: {e}")
+        return [], []
 
     try:
         # 获取ETF实时行情

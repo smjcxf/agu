@@ -15,16 +15,19 @@ DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 SH_OUT = os.path.join(DATA_DIR, "sh_index_fib.json")
 SZ_OUT = os.path.join(DATA_DIR, "sz_index_fib.json")
 
-# Fib 时间窗口（手动维护，窗口日过后自动追踪反转）
-SH_FIB_WINDOWS = [
-    {"name": "F(3)",  "date": "2026-05-19", "desc": "小反弹窗口"},
-    {"name": "F(5)",  "date": "2026-05-21", "desc": "短期变盘"},
-    {"name": "F(8)",  "date": "2026-05-26", "desc": "8日变盘"},
-    {"name": "F(13)", "date": "2026-06-02", "desc": "13日重要窗口"},
-    {"name": "F(21)", "date": "2026-06-12", "desc": "21日大窗口 · SpaceX IPO日"},
-    {"name": "F(34)", "date": "2026-07-02", "desc": "34日中期窗口"},
-    {"name": "F(55)", "date": "2026-07-31", "desc": "55日长期窗口"},
-]
+# Fib 时间窗口 — 从基准日期动态计算
+FIB_BASE_DATE = "2026-05-22"  # 上证指数最近一个重要转折点，修改此日期即可自动推算全部窗口
+FIB_LEVELS = [3, 5, 8, 13, 21, 34, 55]
+FIB_DESC = {
+    3: "小反弹窗口", 5: "短期变盘", 8: "8日变盘",
+    13: "13日重要窗口", 21: "21日大窗口", 34: "34日中期窗口", 55: "55日长期窗口"
+}
+
+def _calc_fib_windows():
+    base = datetime.strptime(FIB_BASE_DATE, "%Y-%m-%d")
+    return [{"name": f"F({n})", "date": (base + timedelta(days=n)).strftime("%Y-%m-%d"), "desc": FIB_DESC.get(n, "")} for n in FIB_LEVELS]
+
+SH_FIB_WINDOWS = _calc_fib_windows()
 SZ_FIB_WINDOWS = SH_FIB_WINDOWS
 
 def fetch_index_history(symbol, days=120):

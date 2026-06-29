@@ -221,17 +221,19 @@ def main():
             result["update_time"] = old.get("update_time", result["update_time"])
 
     # 保存
-    os.makedirs(DATA_DIR, exist_ok=True)
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(result, f, ensure_ascii=False, indent=2)
-
-    print(f"\n✅ 已保存: {OUTPUT_FILE}")
-    print(f"   主力净流入: {len(top_in)} 只")
-    for s in top_in[:5]:
-        print(f"     {s['name']} +{s['net_in']}{s['unit']} 连{s['day_count']}日")
-    print(f"   主力净流出: {len(top_out)} 只")
-    for s in top_out[:5]:
-        print(f"     {s['name']} -{s['net_out']}{s['unit']} 连{s['day_count']}日")
+    if result.get("top_main_in") and result.get("top_main_out"):
+        os.makedirs(DATA_DIR, exist_ok=True)
+        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+            json.dump(result, f, ensure_ascii=False, indent=2)
+        print(f"\n✅ 已保存: {OUTPUT_FILE}")
+        print(f"   主力净流入: {len(top_in)} 只")
+        for s in top_in[:5]:
+            print(f"     {s['name']} +{s['net_in']}{s['unit']} 连{s['day_count']}日")
+        print(f"   主力净流出: {len(top_out)} 只")
+        for s in top_out[:5]:
+            print(f"     {s['name']} -{s['net_out']}{s['unit']} 连{s['day_count']}日")
+    else:
+        print("\n  ⚠️ 主力资金数据为空，保留旧文件不覆盖")
     print(f"   更新时间: {result['update_time']}")
 
     return result
