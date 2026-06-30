@@ -410,8 +410,8 @@ function renderCompare() {
   } else html += '<div style="color:#999;font-size:12px;">无掉榜</div>';
   html += '</div>';
 
-  // 排名升降
-  html += '<div style="margin-bottom:14px;"><div style="font-weight:600;color:#5e35b1;margin-bottom:6px;">📊 排名变化</div>';
+  // 排名升降（连续两天≥70分）
+  html += '<div style="margin-bottom:14px;"><div style="font-weight:600;color:#5e35b1;margin-bottom:6px;">📊 排名变化 <span style="font-size:11px;font-weight:400;color:#999;">（连续两天≥70分）</span></div>';
   if (rankChanges.length) {
     html += '<table><thead><tr><th>股票</th><th>昨日</th><th>今日</th><th>变化</th></tr></thead><tbody>';
     rankChanges.forEach(function(rc) {
