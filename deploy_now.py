@@ -274,6 +274,22 @@ def _rebuild_dist():
     return True
 
 
+def _fix_unmerged_files():
+    """检测并清理未合并文件（合并冲突状态），防止后续 git commit/pull 失败。"""
+    r = subprocess.run("git status --porcelain", shell=True, capture_output=True, text=True, cwd=PROJECT_ROOT)
+    if r.returncode != 0:
+        return
+    # 未合并文件标记：UU, AA, DD, AU, UA, DU, UD
+    unmerged = [line for line in r.stdout.strip().split('\n') if line and line[:2] != '  ' and ('UU' in line[:2] or 'AA' in line[:2] or 'DD' in line[:2])]
+    if unmerged:
+        log(f"   ⚠️ 检测到未合并文件（合并冲突），执行 git reset --hard origin/main")
+        r2 = subprocess.run("git reset --hard origin/main", shell=True, capture_output=True, text=True, cwd=PROJECT_ROOT)
+        if r2.returncode == 0:
+            log(f"   ✓ 已重置到 origin/main，冲突已清理")
+        else:
+            log(f"   ❌ git reset --hard 失败: {r2.stderr.strip()[:200]}")
+
+
 def _acquire_deploy_lock():
     """Try to acquire deploy lock via git main branch.
 

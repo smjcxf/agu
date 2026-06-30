@@ -86,6 +86,26 @@ def git_sync(force=False):
     """从 GitHub 强制同步最新代码"""
     print("  🔄 从 GitHub 同步最新代码...")
     
+    # 先检查是否有未合并文件（合并冲突状态），有则重置
+    r_status = run("git status --porcelain")
+    if r_status.returncode == 0:
+        unmerged = [l for l in r_status.stdout.split('\n') if l[:2] in ('UU', 'AA', 'DD', 'AU', 'UA', 'DU', 'UD')]
+        if unmerged:
+            print(f"  ⚠️ 检测到未合并文件（合并冲突），执行 git reset --hard origin/main")
+            r_reset = run("git reset --hard origin/main")
+            if r_reset.returncode != 0:
+                print(f"  ❌ git reset --hard 失败: {r_reset.stderr.strip()[:200]}")
+                return False
+            print(f"  ✓ 已重置到 origin/main，冲突已清理")
+            # 重置后直接 pull
+            r = run("git pull --rebase origin main")
+            if r.returncode != 0:
+                err = r.stderr.strip()[:200] if r.stderr else r.stdout.strip()[:200]
+                print(f"  ❌ git pull 失败: {err}")
+                return False
+            print(f"  ✓ 代码已同步")
+            return True
+    
     # 先 stash 本地修改
     r = run("git stash -u -m 'sync-check-stash'")
     stashed = r.returncode == 0 and "No local changes" not in r.stdout
