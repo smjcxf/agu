@@ -116,6 +116,148 @@ def fetch_results():
     return results
 
 
+def build_knockout_schedule(standings, results):
+    """
+    根据小组赛结果生成32强淘汰赛赛程表。
+    
+    规则：
+    - 每组前2名直接晋级（24队）
+    - 12个小组第3中成绩最好的8队晋级
+    - 32队按排名排序后，1 vs 32, 2 vs 31 ... 16 vs 17 配对
+    - 后续轮次由模拟晋级填充（高排名球队胜出），实际开赛后可更新真实比分
+    
+    Returns: list of dict with date, round, home, away, score, venue
+    """
+    # 按小组赛排名整理所有球队
+    all_ranked = []
+    for gid, teams in standings.items():
+        ranked = sorted(teams.items(), key=lambda x: (
+            x[1]['w'] * 3 + x[1]['d'],  # points
+            x[1]['gf'] - x[1]['ga'],     # goal difference
+            x[1]['gf']                   # goals for
+        ), reverse=True)
+        for rank, (name, s) in enumerate(ranked, 1):
+            all_ranked.append({
+                'name': name,
+                'group': gid,
+                'rank': rank,
+                'pts': s['w'] * 3 + s['d'],
+                'gd': s['gf'] - s['ga'],
+                'gf': s['gf'],
+                'ga': s['ga'],
+            })
+    
+    # 24个直接晋级 + 8个最佳第3
+    direct = [t for t in all_ranked if t['rank'] <= 2]
+    thirds = [t for t in all_ranked if t['rank'] == 3]
+    thirds.sort(key=lambda x: (x['pts'], x['gd'], x['gf']), reverse=True)
+    best_thirds = thirds[:8]
+    
+    # 32强种子排序：先按小组赛名次，再按积分、净胜球、进球（均为越高越好）
+    all_32 = direct + best_thirds
+    all_32.sort(key=lambda x: (x['rank'], -x['pts'], -x['gd'], -x['gf']))
+    # 赋予全局种子序号
+    for i, t in enumerate(all_32, 1):
+        t['seed'] = i
+    
+    # 赛程模板：日期 + 轮次 + 场馆（按2026世界杯实际场地）
+    schedule_template = [
+        # 32强：6/28 - 7/3（16场，每天2-3场）
+        ('Jun 28', '32强', '西雅图 · Lumen Field'),
+        ('Jun 28', '32强', '旧金山 · Levi\'s Stadium'),
+        ('Jun 29', '32强', '温哥华 · BC Place'),
+        ('Jun 29', '32强', '墨西哥城 · Estadio Azteca'),
+        ('Jun 30', '32强', '蒙特雷 · Estadio BBVA'),
+        ('Jun 30', '32强', '瓜达拉哈拉 · Estadio Akron'),
+        ('Jul 1', '32强', '多伦多 · BMO Field'),
+        ('Jul 1', '32强', '费城 · Lincoln Financial Field'),
+        ('Jul 2', '32强', '休斯敦 · NRG Stadium'),
+        ('Jul 2', '32强', '丹佛 · Empower Field'),
+        ('Jul 3', '32强', '堪萨斯城 · Arrowhead Stadium'),
+        ('Jul 3', '32强', '纳什维尔 · Geodis Park'),
+        ('Jul 4', '32强', '辛辛那提 · TQL Stadium'),
+        ('Jul 4', '32强', '奥兰多 · Camping World Stadium'),
+        ('Jul 5', '32强', '夏洛特 · Bank of America Stadium'),
+        ('Jul 5', '32强', '巴尔的摩 · M&T Bank Stadium'),
+        # 16强：7/6 - 7/7（8场）
+        ('Jul 6', '16强', '迈阿密 · Hard Rock Stadium'),
+        ('Jul 6', '16强', '洛杉矶 · SoFi Stadium'),
+        ('Jul 6', '16强', '达拉斯 · AT&T Stadium'),
+        ('Jul 6', '16强', '波士顿 · Gillette Stadium'),
+        ('Jul 7', '16强', '纽约/新泽西 · MetLife Stadium'),
+        ('Jul 7', '16强', '亚特兰大 · Mercedes-Benz Stadium'),
+        ('Jul 7', '16强', '西雅图 · Lumen Field'),
+        ('Jul 7', '16强', '旧金山 · Levi\'s Stadium'),
+        # 1/4决赛：7/9 - 7/11（4场）
+        ('Jul 9', '1/4决赛', '亚特兰大 · Mercedes-Benz Stadium'),
+        ('Jul 9', '1/4决赛', '波士顿 · Gillette Stadium'),
+        ('Jul 10', '1/4决赛', '达拉斯 · AT&T Stadium'),
+        ('Jul 11', '1/4决赛', '洛杉矶 · SoFi Stadium'),
+        # 半决赛：7/14 - 7/15（2场）
+        ('Jul 14', '半决赛', '达拉斯 · AT&T Stadium'),
+        ('Jul 15', '半决赛', '洛杉矶 · SoFi Stadium'),
+        # 决赛周
+        ('Jul 18', '三四名决赛', '迈阿密 · Hard Rock Stadium'),
+        ('Jul 19', '决赛', '纽约/新泽西 · MetLife Stadium'),
+    ]
+    
+    # 32强对阵：按种子 1v32, 2v31 ... 16v17
+    r32 = []
+    for i in range(16):
+        t1 = all_32[i]
+        t2 = all_32[31 - i]
+        r32.append((t1, t2))
+    
+    # 模拟晋级：高种子胜出（仅用于后续轮次占位，开赛后用真实数据替换）
+    def winner_of(t1, t2):
+        return t1 if t1['seed'] < t2['seed'] else t2
+    
+    # 16强：R32-1胜者 vs R32-16胜者，依此类推（相邻配对）
+    r16 = []
+    for i in range(0, 16, 2):
+        w1 = winner_of(r32[i][0], r32[i][1])
+        w2 = winner_of(r32[i+1][0], r32[i+1][1])
+        r16.append((w1, w2))
+    
+    # 1/4决赛
+    qf = []
+    for i in range(0, 8, 2):
+        w1 = winner_of(r16[i][0], r16[i][1])
+        w2 = winner_of(r16[i+1][0], r16[i+1][1])
+        qf.append((w1, w2))
+    
+    # 半决赛
+    sf = []
+    for i in range(0, 4, 2):
+        w1 = winner_of(qf[i][0], qf[i][1])
+        w2 = winner_of(qf[i+1][0], qf[i+1][1])
+        sf.append((w1, w2))
+    
+    # 决赛 + 三四名
+    final_w1 = winner_of(sf[0][0], sf[0][1])
+    final_w2 = winner_of(sf[1][0], sf[1][1])
+    third_l1 = sf[0][0] if sf[0][1] == final_w1 else sf[0][1]
+    third_l2 = sf[1][0] if sf[1][1] == final_w2 else sf[1][1]
+    
+    all_matches = r32 + r16 + qf + sf + [(third_l1, third_l2), (final_w1, final_w2)]
+    
+    # 合并到模板
+    knockout = []
+    for (t1, t2), (date, round_name, venue) in zip(all_matches, schedule_template):
+        knockout.append({
+            'date': date,
+            'round': round_name,
+            'home': t1['name'],
+            'away': t2['name'],
+            'score': '',
+            'venue': venue,
+            'home_seed': t1['seed'],
+            'away_seed': t2['seed'],
+        })
+    
+    return knockout
+
+
 def build_standings(results):
     """根据比赛结果计算小组积分"""
     standings = {}
@@ -373,6 +515,11 @@ def main():
     # 计算积分榜
     standings = build_standings(results)
     
+    # 生成淘汰赛赛程表（从小组赛结果推导）
+    log('  生成淘汰赛赛程表...')
+    knockout = build_knockout_schedule(standings, results)
+    log(f'    {len(knockout)} 场淘汰赛')
+    
     # 构建球队输出格式
     groups_data = []
     all_teams = []
@@ -428,6 +575,7 @@ def main():
             's': f"{r['home_goals']}-{r['away_goals']}",
             'hg': r['home_goals'], 'ag': r['away_goals']
         } for r in results],
+        'knockout': knockout,
         'odds': odds,
         'all_teams': [{
             'n': t['name'], 'w': t['w'], 'd': t['d'], 'l': t['l'],
