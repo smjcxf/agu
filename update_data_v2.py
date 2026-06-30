@@ -623,6 +623,7 @@ def _safe_write(filepath, content, max_retries=5, retry_delay=0.5):
     return False
 
 def main():
+    global subprocess
     fast_mode = "--fast" in sys.argv
     if fast_mode:
         print("=" * 60)
@@ -904,9 +905,7 @@ def main():
         subprocess.run([sys.executable, os.path.join(BASE_DIR, "compute_lhb_consecutive.py")],
                        capture_output=True, timeout=30)
     except Exception as e:
-        import traceback
         print(f"  [WARN] LHB连续天数计算跳过: {e}")
-        traceback.print_exc()
     lhb_data     = load_json(os.path.join(DATA_DIR, "lhb_result.json"), {"stocks": [], "scan_time": ""})
     main_stock   = load_json(os.path.join(DATA_DIR, "main_stock.json"), {"update_time": ""})
     main_week    = load_json(os.path.join(DATA_DIR, "main_week.json"), {"update_time": "", "buy_top5": [], "sell_top5": []})
