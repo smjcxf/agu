@@ -1050,14 +1050,12 @@ def main():
         ("ANALYST_RATINGS", "window.ANALYST_RATINGS = ", "{", "}"),
         ("POLICY_DENSITY", "window.POLICY_DENSITY = ",  "{", "}"),
         ("TOP10_DAILY",   "window.TOP10_DAILY = ",    "{", "}"),
-        ("MULTI_RESONANCE", "window.MULTI_RESONANCE = ", "[", "]"),
         ("INDUSTRY_MAP",  "window.INDUSTRY_MAP = ",   "{", "}"),
-        ("FETCH_ERRORS",   "window.FETCH_ERRORS = ",   "{", "}"),
     ]
     data_objs = [scan_data, watch_data, gold_pool, stock_list, recommend,
                  sh_fib, sz_fib, sector_flow, sh_sz_history, nt_data,
                  concept_ranking, market_alerts, margin_data, etf_subscription, macro_data,                  herding_data,
-                 sector_rs, ipo_score, lhb_data, main_stock, main_week, north_fund, mahoro_coverage, suspension_alert, stock_deviation, fomc_summary, cffex_holdings, inst_trade, worldcup, limit_up_heatmap, w52_high, analyst_ratings, policy_density, top10_daily, multi_resonance_top10, industry_map_data, fetch_errors]
+                 sector_rs, ipo_score, lhb_data, main_stock, main_week, north_fund, mahoro_coverage, suspension_alert, stock_deviation, fomc_summary, cffex_holdings, inst_trade, worldcup, limit_up_heatmap, w52_high, analyst_ratings, policy_density, top10_daily, industry_map_data]
     replacements = []
 
     for (name, marker, open_ch, close_ch), data in zip(markers, data_objs):
