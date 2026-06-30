@@ -28,7 +28,7 @@ def main():
         log(f"akshare失败: {e}")
         sys.exit(1)
     
-    if len(df) == 0:
+    if df is None or len(df) == 0:
         log("今日无龙虎榜机构数据（非交易日或尚未公布）")
         sys.exit(0)
     
