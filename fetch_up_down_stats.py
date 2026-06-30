@@ -84,8 +84,8 @@ def fetch_via_sina():
 
 def fetch_up_down_stats():
     """获取涨跌家数统计（带 fallback）"""
-    # 方式1: akshare (3次重试)
-    for attempt in range(3):
+    # 方式1: akshare (2次重试，原3次，akshare频繁RemoteDisconnected加速降级)
+    for attempt in range(2):
         try:
             log(f"akshare第{attempt+1}次尝试...")
             up, down, flat = fetch_via_akshare()
@@ -93,8 +93,8 @@ def fetch_up_down_stats():
             return up, down, flat
         except Exception as e:
             log(f"  失败: {e}")
-            if attempt < 2:
-                time.sleep(5)
+            if attempt < 1:
+                time.sleep(3)
     
     # 方式2: 新浪API fallback
     try:

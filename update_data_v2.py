@@ -22,7 +22,7 @@
   update_schedule.json  → 手动创建 (不更新)
   guanlan_watchlist.json → guanlan_extractor.py (每日09:25/17:00)
 """
-import os, sys, json, time, re
+import os, sys, json, time, re, subprocess
 
 # 拼音首字母（Python端预计算，替代JS端脆弱硬编码字典）
 try:

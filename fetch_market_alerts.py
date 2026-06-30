@@ -14,7 +14,7 @@ import time
 import requests
 
 OUT = "data/market_alerts.json"
-MAX_RETRY = 3
+MAX_RETRY = 2  # 原3次，akshare频繁RemoteDisconnected，降为2次加速降级新浪
 
 # 指数名称 → Sina代码映射（用于补齐深交所指数）
 INDEX_SINA_MAP = {
