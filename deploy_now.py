@@ -219,8 +219,10 @@ def _ensure_dist_fresh():
     if stashed:
         r_pop = run("git stash pop", cwd=PROJECT_ROOT)
         if r_pop.returncode != 0:
-            log(f"   ⚠️ git stash pop 失败（可能有冲突）: {r_pop.stderr.strip()[:150]}")
-            log("   ⚠️ 继续部署，但 dist 可能不是最新")
+            log(f"   ⚠️ git stash pop 冲突，接受本地版本(stash)并清理标记")
+            run("git checkout --theirs .", cwd=PROJECT_ROOT)
+            run("git add .", cwd=PROJECT_ROOT)
+            log("   ✓ 冲突标记已清理，本地版本保留")
 
     # 4. 强制重建 dist
     log("   🔄 强制重建 dist（确保数据注入+JS验证）...")
@@ -280,7 +282,7 @@ def _fix_unmerged_files():
     if r.returncode != 0:
         return
     # 未合并文件标记：UU, AA, DD, AU, UA, DU, UD
-    unmerged = [line for line in r.stdout.strip().split('\n') if line and line[:2] != '  ' and ('UU' in line[:2] or 'AA' in line[:2] or 'DD' in line[:2])]
+    unmerged = [line for line in r.stdout.strip().split('\n') if line and line[:2] != '  ' and line[:2] in ('UU','AA','DD','AU','UA','DU','UD')]
     if unmerged:
         log(f"   ⚠️ 检测到未合并文件（合并冲突），执行 git reset --hard origin/main")
         r2 = subprocess.run("git reset --hard origin/main", shell=True, capture_output=True, text=True, cwd=PROJECT_ROOT)
@@ -594,7 +596,12 @@ def _auto_push_source():
         log("   ✓ 已同步远程最新代码")
     # 恢复本地未提交改动
     if r_stash.returncode == 0 and "No local changes" not in (r_stash.stdout + r_stash.stderr):
-        run("git stash pop", cwd=git_root)
+        r_pop = run("git stash pop", cwd=git_root)
+        if r_pop.returncode != 0:
+            log(f"   ⚠️ git stash pop 冲突，接受本地版本并清理标记")
+            run("git checkout --theirs .", cwd=git_root)
+            run("git add .", cwd=git_root)
+            log("   ✓ 冲突标记已清理")
 
     # 统一 git add（依赖 .gitignore 排除 data/ dist/）
     r = run("git add -A", cwd=git_root)
