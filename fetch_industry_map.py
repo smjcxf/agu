@@ -222,8 +222,16 @@ def main():
     print("=" * 50)
     print("🏗️ P0 行业映射系统")
     print("=" * 50)
-    t0 = time.time()
 
+    # 缓存检查：< 24h 直接跳过
+    if os.path.exists(OUTPUT):
+        mtime = os.path.getmtime(OUTPUT)
+        age_h = (time.time() - mtime) / 3600
+        if age_h < 24:
+            print(f"⏭️ 跳过：industry_map.json 仅 {age_h:.1f}h 前更新（< 24h）")
+            return
+
+    t0 = time.time()
     ensure_dir()
 
     # Step 1: 构建反向映射
