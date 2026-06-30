@@ -273,6 +273,10 @@ def build_fib_json(windows, index_data, history):
         down['total_pct'] = round((index_data['index'] - down['peak_close']) / down['peak_close'] * 100, 2)
         down['current_close'] = index_data['index']
     
+    # 如果实时数据显示已涨回峰值以上，重置连跌天数
+    if down['total_pct'] >= 0:
+        down['days_down'] = 0
+    
     if down['total_pct'] >= 0:
         mode = "上涨中"
     elif down['total_pct'] >= -3:

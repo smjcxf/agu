@@ -10,7 +10,7 @@ enhance_dist 负责注入 MAHORO_COVERAGE、同步 getScore()、同步逻辑详�
   python batch_update.py pre_brief      07:30 晨间速报（仅世界杯，股票无关）
   python batch_update.py pre_market     09:15 盘前（研报+mahoro→全量扫描→增强→部署）
   python batch_update.py morning_scan   09:45 盘中快速扫描
-  python batch_update.py morning_plus   10:00/10:30 扫描+三卡刷新（板块/ETF/AI速览）
+  python batch_update.py morning_plus   10:30 扫描+三卡刷新（板块/ETF/AI速览）
   python batch_update.py morning_report 11:45 午间（研报+mahoro→扫描→增强→部署）
   python batch_update.py afternoon      13:30/14:30/15:30/16:30 午后
   python batch_update.py close          19:30 收盘全量（研报+mahoro→全量fetch→扫描→增强→部署）
@@ -88,7 +88,7 @@ MODES = {
         ],
     },
     "morning_plus": {
-        "desc": "盘中扫描+三卡刷新 (10:00/10:30)",
+        "desc": "盘中扫描+三卡刷新 (10:30)",
         "steps": [
             ("fetch_overnight_brief.py --news-only", 90),
             ("fetch_sector_fund_flow.py", 120),
