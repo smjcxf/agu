@@ -103,7 +103,11 @@ def main():
         hist = s.get("history", [])
         latest = hist[-1] if hist else {}
         if isinstance(latest, dict) and "latest" in latest:
-            latest = latest["latest"]
+            nested = latest["latest"]
+            # 嵌套latest必须有close/pct_chg才使用，否则保留外层完整数据
+            if isinstance(nested, dict) and nested.get("close") and nested.get("pct_chg") is not None:
+                latest = nested
+            # 否则保持latest=hist[-1]（外层已有close/pct_chg等字段）
 
         name = s.get("name", "")
         code = s.get("code", "")
