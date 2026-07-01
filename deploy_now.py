@@ -187,16 +187,16 @@ def _ensure_dist_fresh():
     第二次血的教训：_rebuild_dist() 失败仍继续部署，导致旧版上线。
     改为：重建失败 → 阻塞部署，打印详细错误。
 
-    【双机冲突修复】部署前再做一次 git pull，防止坚果云在 batch 流程中覆盖模板。
-
-    【2026-06-25 修复】git stash 不 stash 未跟踪文件（-u 参数），
-    导致 git pull 因"unstaged changes"失败但静默继续。
-    改为 git stash push -u（含未跟踪文件），并严格检查 pull 返回值。
+    【2026-07-01 双机修复】不再 git pull 全量代码（会导致双机互相覆盖模板），
+    改为只从远程拉取模板文件白名单（index_master.html / index.html / multi_resonance.html）。
     """
+    # 模板白名单：只有这些文件才从 Git 远程同步
+    TEMPLATE_WHITELIST = ["index_master.html", "index.html", "multi_resonance.html"]
+
+    log("   🔄 同步远程最新模板（仅白名单文件）...")
+
     # 1. stash 所有改动（含未跟踪文件）
-    log("   🔄 同步远程最新模板...")
     r = run("git stash -u -m 'deploy-stash'", cwd=PROJECT_ROOT)
-    # git stash 返回0但可能没真正 stash（无改动时打印"No local changes"）
     stashed = (r.returncode == 0 and
                  "No local changes" not in r.stdout and
                  "no changes added" not in r.stdout.lower())
@@ -205,24 +205,40 @@ def _ensure_dist_fresh():
     else:
         log("   ℹ️ 无本地改动需 stash")
 
-    # 2. pull 最新模板（严格检查返回值）
-    r = run("git pull --rebase origin main", cwd=PROJECT_ROOT)
+    # 2. 只拉取模板白名单文件（不拉全量代码）
+    r = run("git fetch origin main --depth=1", cwd=PROJECT_ROOT)
     if r.returncode != 0:
         err = r.stderr.strip()[:200] if r.stderr else r.stdout.strip()[:200]
-        log(f"   ❌ git pull 失败，阻塞部署: {err}")
-        # 恢复 stash
-        if stashed:
-            run("git stash pop", cwd=PROJECT_ROOT)
-        return False
+        log(f"   ⚠️ git fetch 失败，使用本地模板: {err}")
+    else:
+        pulled_count = 0
+        for tpl_name in TEMPLATE_WHITELIST:
+            r_show = run(f"git show origin/main:{tpl_name}", cwd=PROJECT_ROOT)
+            if r_show.returncode == 0 and r_show.stdout.strip():
+                local_path = os.path.join(PROJECT_ROOT, tpl_name)
+                # 只在远程版本更新时覆盖
+                if os.path.exists(local_path):
+                    with open(local_path, "r", encoding="utf-8") as f:
+                        local_content = f.read()
+                    if r_show.stdout.strip() == local_content.strip():
+                        continue  # 相同则跳过
+                with open(local_path, "w", encoding="utf-8") as f:
+                    f.write(r_show.stdout)
+                pulled_count += 1
+                log(f"   ✓ 已同步 {tpl_name}（来自远程 main）")
+        if pulled_count > 0:
+            log(f"   ✓ 共同步 {pulled_count} 个模板文件")
+        else:
+            log(f"   ✓ 模板已是最新，无需同步")
 
     # 3. 恢复本地未提交改动
     if stashed:
         r_pop = run("git stash pop", cwd=PROJECT_ROOT)
         if r_pop.returncode != 0:
-            log(f"   ⚠️ git stash pop 冲突，接受远程版本并清理标记")
+            log(f"   ⚠️ git stash pop 冲突，接受本地版本并清理标记")
             run("git checkout --ours .", cwd=PROJECT_ROOT)
             run("git add .", cwd=PROJECT_ROOT)
-            log("   ✓ 冲突标记已清理，远程版本保留")
+            log("   ✓ 冲突标记已清理，本地版本保留")
 
     # 3.5. 同步模板：确保 index_master.html 基于最新的 index.html（防止双机同步覆盖）
     master_path = os.path.join(PROJECT_ROOT, "index_master.html")
@@ -230,10 +246,14 @@ def _ensure_dist_fresh():
     if os.path.exists(html_path):
         html_mtime = os.path.getmtime(html_path)
         master_mtime = os.path.getmtime(master_path) if os.path.exists(master_path) else 0
-        if html_mtime > master_mtime or os.path.getsize(html_path) != os.path.getsize(master_path):
+        # 修复：只有当 index.html 确实比 index_master.html 更新时才同步
+        # 避免旧 index.html 因大小差异覆盖已修改的 index_master.html
+        if html_mtime > master_mtime:
             import shutil as _shutil
             _shutil.copy2(html_path, master_path)
             log(f"   ✓ index_master.html 已从 index.html 同步（防止旧模板覆盖）")
+        else:
+            log(f"   ✓ index_master.html 比 index.html 新，跳过同步，保留当前模板")
 
     # 4. 强制重建 dist
     log("   🔄 强制重建 dist（确保数据注入+JS验证）...")
@@ -376,7 +396,7 @@ def _release_deploy_lock():
         except OSError:
             pass
 
-    run("git pull --rebase origin main", cwd=PROJECT_ROOT)
+    run("git fetch origin main --depth=1", cwd=PROJECT_ROOT)
     r = run("git rm -f --ignore-unmatch .deploy_lock", cwd=PROJECT_ROOT)
     if r.returncode == 0:
         run('git commit -m "lock: release"', cwd=PROJECT_ROOT)
@@ -597,14 +617,25 @@ def _auto_push_source():
         log(f"      ... 共 {len(dirty)} 个")
 
     # 【双机冲突修复】先拉取对端最新代码再推送，避免覆盖别人刚推的模板变更
-    log("   🔄 拉取远程最新代码...")
+    # 注意：只拉模板白名单文件，不拉全量代码（防止旧版覆盖）
+    log("   🔄 拉取远程最新模板...")
     r_stash = run("git stash -u", cwd=git_root)
-    r_pull = run("git pull --rebase origin main", cwd=git_root)
-    if r_pull.returncode != 0:
-        err = r_pull.stderr.strip()[:150] if r_pull.stderr else r_pull.stdout.strip()[:150]
-        log(f"   ⚠️ git pull 失败: {err}")
+    r_fetch = run("git fetch origin main --depth=1", cwd=git_root)
+    if r_fetch.returncode == 0:
+        # 只同步模板白名单
+        for tpl_name in ["index_master.html", "index.html", "multi_resonance.html"]:
+            r_show = run(f"git show origin/main:{tpl_name}", cwd=git_root)
+            if r_show.returncode == 0 and r_show.stdout.strip():
+                tpl_path = os.path.join(git_root, tpl_name)
+                if os.path.exists(tpl_path):
+                    with open(tpl_path, "r", encoding="utf-8") as f:
+                        local = f.read()
+                    if r_show.stdout.strip() != local.strip():
+                        with open(tpl_path, "w", encoding="utf-8") as f:
+                            f.write(r_show.stdout)
+        log("   ✓ 已同步远程最新模板")
     else:
-        log("   ✓ 已同步远程最新代码")
+        log(f"   ⚠️ git fetch 失败: {r_fetch.stderr.strip()[:100]}")
     # 恢复本地未提交改动
     if r_stash.returncode == 0 and "No local changes" not in (r_stash.stdout + r_stash.stderr):
         r_pop = run("git stash pop", cwd=git_root)

@@ -112,6 +112,77 @@ def score_price(price):
         return 8    # 高价
     return 4        # 超高价
 
+def fetch_apply_dates_from_calendar():
+    """从东方财富新股申购日历获取真实申购日期。
+
+    返回 {code: apply_date_str(YYYYMMDD), ...}
+    只包含近7天内（含未来）的申购记录，确保用户至少提前1天看到研判。
+    """
+    result = {}
+
+    # ═══ 主方案：从东方财富日历页面提取内嵌JSON数据 ═══
+    try:
+        raw = subprocess.run(
+            ["curl", "-s", "--max-time", "15",
+             "-H", "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+             "https://data.eastmoney.com/xg/xg/calendar.html"],
+            capture_output=True, text=True, timeout=20
+        )
+        if raw.returncode == 0 and raw.stdout.strip():
+            import re
+            html = raw.stdout
+
+            # 日历页面内嵌了JSON数组格式的数据，格式：
+            # {"SECUCODE":"301583.SZ","TRADE_DATE":"2026-06-29 00:00:00","DATE_TYPE":"申购","SECURITY_CODE":"301583","SECURITY_NAME_ABBR":"托伦斯",...}
+
+            # 方法1：直接用正则提取所有JSON记录
+            json_pattern = re.compile(
+                r'\{"SECUCODE":"[^"]+","TRADE_DATE":"([^"]+)","DATE_TYPE":"([^"]+)"'
+                r',"SECURITY_CODE":"(\d{6})","SECURITY_NAME_ABBR":"([^"]+)"[^}]*\}'
+            )
+            matches = json_pattern.findall(html)
+
+            for trade_date, date_type, code, name in matches:
+                if date_type != "申购":
+                    continue
+                # 提取日期部分 YYYY-MM-DD
+                apply_date = trade_date.split(" ")[0].replace("-", "")
+                if code and apply_date and len(apply_date) >= 8:
+                    result[code] = apply_date
+
+            if result:
+                print(f"  ✓ 日历页面提取到 {len(result)} 条申购日期")
+                # 打印关键信息
+                for c in list(result.keys())[:5]:
+                    print(f"    📅 {c} → {result[c]}")
+                return result
+
+            # 方法2：如果正则没匹配到，尝试找更大的JSON块
+            json_block_pattern = re.compile(r'(\[{".*?"DATE_TYPE".*?"申购".*?}\])', re.DOTALL)
+            block_match = json_block_pattern.search(html)
+            if block_match:
+                try:
+                    records = json.loads(block_match.group(1))
+                    for rec in records:
+                        if rec.get("DATE_TYPE") != "申购":
+                            continue
+                        code = str(rec.get("SECURITY_CODE") or "")
+                        td = rec.get("TRADE_DATE", "")
+                        apply_date = str(td).split(" ")[0].replace("-", "") if td else ""
+                        if code and apply_date and len(apply_date) >= 8:
+                            result[code] = apply_date
+                    if result:
+                        print(f"  ✓ JSON块解析到 {len(result)} 条申购日期")
+                        return result
+                except json.JSONDecodeError:
+                    pass
+
+    except Exception as e:
+        print(f"  ⚠️ 日历页面抓取失败: {e}")
+
+    return result
+
+
 def fetch_ipo_list():
     """
     从东方财富获取当前可申购新股列表
@@ -132,7 +203,10 @@ def fetch_ipo_list():
         stocks = data.get("data", {}).get("diff", [])
         if stocks:
             today_str = datetime.now().strftime("%Y%m%d")
-            
+
+            # 获取真实申购日期（提前至少1天展示研判）
+            apply_date_map = fetch_apply_dates_from_calendar()
+
             for s in stocks:
                 code = s.get("f12", "")
                 name = s.get("f14", "")
@@ -195,10 +269,18 @@ def fetch_ipo_list():
                     "lottery_rate": 0,
                     "market_code": market_code,
                     "industry": "",
-                    "apply_date": listing_str if not is_unlisted else today_str,
+                    # 使用真实申购日期，未获取到则用今天日期兜底
+                    "apply_date": apply_date_map.get(code, today_str) if not is_unlisted else apply_date_map.get(code, today_str),
                     "is_unlisted": is_unlisted,
                     "apply_code": code
                 })
+
+            # 日志：显示哪些股票获取到了真实申购日期
+            for c in candidates:
+                real_date = apply_date_map.get(c["code"], "")
+                date_note = f"（真实申购日:{real_date}）" if real_date and real_date != today_str else ""
+                if real_date and real_date != today_str:
+                    print(f"    📅 {c['name']}({c['code']}) → {real_date}{date_note}")
             
             unlisted = [c for c in candidates if c.get("is_unlisted")]
             listed_new = [c for c in candidates if not c.get("is_unlisted")]
