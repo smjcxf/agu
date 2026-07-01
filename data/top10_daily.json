@@ -1,27 +1,27 @@
 {
-  "update_time": "2026-07-01 16:20:44",
+  "update_time": "2026-07-01 19:45:07",
   "total_scored": 598,
   "count_80plus": 5,
   "top10": [
     {
       "rank": 1,
-      "code": "300503",
-      "name": "昊志机电",
+      "code": "300566",
+      "name": "激智科技",
       "market": "sz",
       "board": "创业板",
       "sig_count": 3,
-      "close": 101.48,
-      "pct_chg": 9.95,
-      "pct_chg_20d": 36.45,
-      "total_score": 86,
+      "close": 42.24,
+      "pct_chg": 14.32,
+      "pct_chg_20d": 0,
+      "total_score": 84,
       "sectors": [
-        "人形机器人"
+        "光学光电子"
       ],
-      "stop_loss": 76.92,
-      "target_price": 113.66,
+      "stop_loss": 31.78,
+      "target_price": 47.31,
       "score_base": 75,
       "score_enhance": 2,
-      "score_fund": 5,
+      "score_fund": 3,
       "score_sector": 0,
       "score_inst": 4,
       "signals": {
@@ -31,7 +31,7 @@
         "trend": true
       },
       "consecutive_days": 1,
-      "fund_detail": "龙虎榜纯共振",
+      "fund_detail": "龙虎榜+5864万",
       "sector_detail": "",
       "inst_detail": "52周新高"
     },
@@ -103,38 +103,6 @@
     },
     {
       "rank": 4,
-      "code": "300566",
-      "name": "激智科技",
-      "market": "sz",
-      "board": "创业板",
-      "sig_count": 3,
-      "close": 42.24,
-      "pct_chg": 14.32,
-      "pct_chg_20d": 0,
-      "total_score": 81,
-      "sectors": [
-        "光学光电子"
-      ],
-      "stop_loss": 31.78,
-      "target_price": 47.31,
-      "score_base": 75,
-      "score_enhance": 2,
-      "score_fund": 0,
-      "score_sector": 0,
-      "score_inst": 4,
-      "signals": {
-        "chan": true,
-        "jinzuan": false,
-        "jigou": true,
-        "trend": true
-      },
-      "consecutive_days": 1,
-      "fund_detail": "",
-      "sector_detail": "",
-      "inst_detail": "52周新高"
-    },
-    {
-      "rank": 5,
       "code": "688102",
       "name": "斯瑞新材",
       "market": "sh",
@@ -164,6 +132,38 @@
       "fund_detail": "",
       "sector_detail": "",
       "inst_detail": ""
+    },
+    {
+      "rank": 5,
+      "code": "300503",
+      "name": "昊志机电",
+      "market": "sz",
+      "board": "创业板",
+      "sig_count": 3,
+      "close": 101.48,
+      "pct_chg": 9.95,
+      "pct_chg_20d": 36.45,
+      "total_score": 81,
+      "sectors": [
+        "人形机器人"
+      ],
+      "stop_loss": 76.92,
+      "target_price": 113.66,
+      "score_base": 75,
+      "score_enhance": 2,
+      "score_fund": 0,
+      "score_sector": 0,
+      "score_inst": 4,
+      "signals": {
+        "chan": true,
+        "jinzuan": false,
+        "jigou": true,
+        "trend": true
+      },
+      "consecutive_days": 1,
+      "fund_detail": "",
+      "sector_detail": "",
+      "inst_detail": "52周新高"
     },
     {
       "rank": 6,
@@ -265,6 +265,42 @@
     },
     {
       "rank": 9,
+      "code": "600378",
+      "name": "昊华科技",
+      "market": "sh",
+      "board": "主板",
+      "sig_count": 3,
+      "close": 81.0,
+      "pct_chg": 7.46,
+      "pct_chg_20d": 86.59,
+      "total_score": 77,
+      "sectors": [
+        "化学制品",
+        "氢能源",
+        "中芯概念",
+        "军工",
+        "碳交易"
+      ],
+      "stop_loss": 25.14,
+      "target_price": 90.72,
+      "score_base": 75,
+      "score_enhance": -3,
+      "score_fund": 5,
+      "score_sector": 0,
+      "score_inst": 0,
+      "signals": {
+        "chan": true,
+        "jinzuan": false,
+        "jigou": true,
+        "trend": true
+      },
+      "consecutive_days": 1,
+      "fund_detail": "龙虎榜纯共振",
+      "sector_detail": "",
+      "inst_detail": ""
+    },
+    {
+      "rank": 10,
       "code": "300433",
       "name": "蓝思科技",
       "market": "sz",
@@ -297,7 +333,7 @@
       "inst_detail": ""
     },
     {
-      "rank": 10,
+      "rank": 11,
       "code": "688017",
       "name": "绿的谐波",
       "market": "sh",
@@ -329,7 +365,7 @@
       "inst_detail": ""
     },
     {
-      "rank": 11,
+      "rank": 12,
       "code": "300319",
       "name": "麦捷科技",
       "market": "sz",
@@ -359,7 +395,7 @@
       "inst_detail": ""
     },
     {
-      "rank": 12,
+      "rank": 13,
       "code": "300024",
       "name": "机器人",
       "market": "sz",
@@ -378,42 +414,6 @@
       "target_price": 225.5,
       "score_base": 75,
       "score_enhance": 2,
-      "score_fund": 0,
-      "score_sector": 0,
-      "score_inst": 0,
-      "signals": {
-        "chan": true,
-        "jinzuan": false,
-        "jigou": true,
-        "trend": true
-      },
-      "consecutive_days": 1,
-      "fund_detail": "",
-      "sector_detail": "",
-      "inst_detail": ""
-    },
-    {
-      "rank": 13,
-      "code": "600378",
-      "name": "昊华科技",
-      "market": "sh",
-      "board": "主板",
-      "sig_count": 3,
-      "close": 81.0,
-      "pct_chg": 7.46,
-      "pct_chg_20d": 86.59,
-      "total_score": 72,
-      "sectors": [
-        "化学制品",
-        "氢能源",
-        "中芯概念",
-        "军工",
-        "碳交易"
-      ],
-      "stop_loss": 25.14,
-      "target_price": 90.72,
-      "score_base": 75,
-      "score_enhance": -3,
       "score_fund": 0,
       "score_sector": 0,
       "score_inst": 0,
@@ -565,38 +565,6 @@
     },
     {
       "rank": 18,
-      "code": "000100",
-      "name": "TCL科技",
-      "market": "sz",
-      "board": "主板",
-      "sig_count": 2,
-      "close": 6.12,
-      "pct_chg": 5.15,
-      "pct_chg_20d": 0,
-      "total_score": 59,
-      "sectors": [
-        "光学光电子"
-      ],
-      "stop_loss": 5.29,
-      "target_price": 6.85,
-      "score_base": 50,
-      "score_enhance": 0,
-      "score_fund": 5,
-      "score_sector": 0,
-      "score_inst": 4,
-      "signals": {
-        "chan": false,
-        "jinzuan": false,
-        "jigou": true,
-        "trend": true
-      },
-      "consecutive_days": 0,
-      "fund_detail": "龙虎榜纯共振",
-      "sector_detail": "",
-      "inst_detail": "52周新高"
-    },
-    {
-      "rank": 19,
       "code": "300442",
       "name": "润泽科技",
       "market": "sz",
@@ -629,7 +597,7 @@
       "inst_detail": "52周新高"
     },
     {
-      "rank": 20,
+      "rank": 19,
       "code": "300012",
       "name": "华测检测",
       "market": "sz",
@@ -655,6 +623,39 @@
         "jinzuan": false,
         "jigou": true,
         "trend": false
+      },
+      "consecutive_days": 0,
+      "fund_detail": "",
+      "sector_detail": "创新药+74.3亿",
+      "inst_detail": "52周新高"
+    },
+    {
+      "rank": 20,
+      "code": "300558",
+      "name": "贝达药业",
+      "market": "sz",
+      "board": "创业板",
+      "sig_count": 2,
+      "close": 67.95,
+      "pct_chg": 4.43,
+      "pct_chg_20d": 0,
+      "total_score": 59,
+      "sectors": [
+        "化学制药",
+        "创新药"
+      ],
+      "stop_loss": 57.88,
+      "target_price": 76.1,
+      "score_base": 50,
+      "score_enhance": 0,
+      "score_fund": 0,
+      "score_sector": 5,
+      "score_inst": 4,
+      "signals": {
+        "chan": false,
+        "jinzuan": false,
+        "jigou": true,
+        "trend": true
       },
       "consecutive_days": 0,
       "fund_detail": "",
