@@ -141,7 +141,6 @@ MODES = {
             ("fetch_concept_ranking.py", 180),
             ("fetch_market_alerts.py", 180),
             ("fetch_sh_sz_history.py", 120),
-            ("fetch_sh_index_fib.py", 60),
             ("fetch_up_down_stats.py", 120),
             ("update_data_v2.py", 300),
             ("enhance_dist.py", 30),

@@ -10,6 +10,7 @@
 """
 import json
 import os
+import re
 import time
 from datetime import datetime, timedelta
 import requests
@@ -22,6 +23,24 @@ except ImportError:
 
 HISTORY_FILE = "data/sector_fund_flow_history.json"
 OUTPUT_FILE = "data/sector_fund_flow.json"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# 板块代码模式（东方财富内部编码 pt02xxxx / pt01xxxx），不应作为板块名称存入历史
+_INVALID_SECTOR_CODE_RE = re.compile(r"^pt\d+[A-Za-z0-9]+$")
+
+
+def is_valid_sector_name(name):
+    """校验板块名称：过滤空值、纯代码、疑似内部编码"""
+    if not name or not isinstance(name, str):
+        return False
+    name = name.strip()
+    if not name:
+        return False
+    # 过滤 pt 开头的内部代码
+    if _INVALID_SECTOR_CODE_RE.match(name):
+        return False
+    return True
+
 
 def load_history():
     """加载历史数据"""
@@ -131,6 +150,7 @@ def fetch_neodata_5d20d_supplement(sector_names):
 
     # 尝试从缓存文件读取 token
     alt_paths = [
+        os.path.join(BASE_DIR, ".neodata_token"),
         "E:/WorkBuddy/resources/app.asar.unpacked/resources/builtin-skills/.neodata_token",
         os.path.expanduser("~/.workbuddy/.neodata_token")
     ]
@@ -182,6 +202,8 @@ def fetch_neodata_5d20d_supplement(sector_names):
                     if any(k in cols[2] for k in hdr_keywords):
                         continue
                     name = cols[5]
+                    if not is_valid_sector_name(name):
+                        continue
                     try:
                         net_wan = float(cols[12])
                         net5_wan = float(cols[13]) if cols[13] else 0
@@ -248,6 +270,7 @@ def fetch_from_neodata():
     # 也尝试常见路径
     alt_paths = [
         token_file,
+        os.path.join(BASE_DIR, ".neodata_token"),
         "E:/WorkBuddy/resources/app.asar.unpacked/resources/builtin-skills/.neodata_token",
         os.path.expanduser("~/.workbuddy/.neodata_token")
     ]
@@ -293,6 +316,8 @@ def fetch_from_neodata():
                     continue
                 pt_type = cols[1]
                 name = cols[5]
+                if not is_valid_sector_name(name):
+                    continue
                 try:
                     net_wan = float(cols[12])
                     net5_wan = float(cols[13]) if cols[13] else 0
@@ -424,6 +449,10 @@ def fetch_sector_flow():
                     else:
                         net_val = float(row.get("净额", 0) or 0)
                     if name and net_val != 0:
+                        # 过滤无效板块名称/内部代码
+                        if not is_valid_sector_name(name):
+                            print(f"    ⚠️ 跳过无效行业名称: {name}")
+                            continue
                         top_list.append({
                             "name": name,
                             "net": round(net_val, 2),
@@ -453,6 +482,10 @@ def fetch_sector_flow():
                     else:
                         net_val = float(row.get("净额", 0) or 0)
                     if name and net_val != 0:
+                        # 过滤无效板块名称/内部代码
+                        if not is_valid_sector_name(name):
+                            print(f"    ⚠️ 跳过无效概念名称: {name}")
+                            continue
                         # 去重
                         if not any(x["name"] == name for x in top_list):
                             top_list.append({
@@ -524,7 +557,12 @@ def fetch_sector_flow():
     for item in result["top_list"]:
         name = item["name"]
         net = item["net"]
-        
+
+        # 过滤无效名称/内部代码，防止历史数据被污染
+        if not is_valid_sector_name(name):
+            print(f"  ⚠️ 跳过无效板块名称: {name}")
+            continue
+
         if name not in history:
             history[name] = []
         
@@ -545,8 +583,36 @@ def fetch_sector_flow():
         item["trend"] = trend
         result["consecutive"][name] = {"days": days, "trend": trend}
     
-    # 【2026-06-26新增】60日累计净流入（从history累加，至少30天数据才有效）
+    # 构建候选列表：包含当前top_list + 历史中有足够数据但不在今日top_list的板块
+    # 避免数据源/API变更导致旧板块（如"半导体"）从累计趋势中消失
+    candidate_map = {}
     for item in result["top_list"]:
+        candidate_map[item["name"]] = dict(item)
+    
+    for name, hist in history.items():
+        if name in candidate_map:
+            continue
+        if len(hist) < 5:
+            continue
+        # 补充历史-only板块：当日净额取最近一日数据（近似），重点保留5/20/60日累计
+        candidate_map[name] = {
+            "name": name,
+            "net": hist[-1]["net"] if hist else 0,
+            "net_5d": 0,
+            "net_20d": 0,
+            "net_60d": None,
+            "type": "行业" if "概念" not in name else "概念",
+            "consecutive_days": 0,
+            "trend": "neutral",
+        }
+        days, trend = calc_consecutive_days(hist)
+        candidate_map[name]["consecutive_days"] = days
+        candidate_map[name]["trend"] = trend
+    
+    candidate_list = list(candidate_map.values())
+    
+    # 【2026-06-26新增】60日累计净流入（从history累加，至少30天数据才有效）
+    for item in candidate_list:
         name = item["name"]
         hist = history.get(name, [])
         # 5日/20日/60日累计（从历史数据累加）
@@ -564,18 +630,18 @@ def fetch_sector_flow():
     # 【2026-06-26新增】5日和20日趋势（用于资金流向追踪面板）
     # 必须在 net_5d/net_20d 从历史数据注入之后再排序！
     trend_5d = sorted(
-        [x for x in result["top_list"] if x.get("net_5d") is not None and x["net_5d"] != 0],
+        [x for x in candidate_list if x.get("net_5d") is not None and x["net_5d"] != 0],
         key=lambda x: x.get("net_5d", 0), reverse=True
     )
     trend_20d = sorted(
-        [x for x in result["top_list"] if x.get("net_20d") is not None and x["net_20d"] != 0],
+        [x for x in candidate_list if x.get("net_20d") is not None and x["net_20d"] != 0],
         key=lambda x: x.get("net_20d", 0), reverse=True
     )
     result["trend_5d"] = trend_5d[:12]
     result["trend_20d"] = trend_20d[:12]
     
     trend_60d = sorted(
-        [x for x in result["top_list"] if x.get("net_60d") is not None and x["net_60d"] != 0],
+        [x for x in candidate_list if x.get("net_60d") is not None and x["net_60d"] != 0],
         key=lambda x: x.get("net_60d", 0), reverse=True
     )
     result["trend_60d"] = trend_60d[:12]
