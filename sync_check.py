@@ -39,7 +39,7 @@ SAFETY_MARKERS = {
 
 # ─────────── 满意版 index_master.html MD5 锁定 ───────────
 # 坚果云同步可能覆盖满意版 → 部署前校验 MD5，不匹配则阻断并回退
-INDEX_MASTER_MD5 = "a0514f538c0fdbade5ed960091f3d01b"  # 满意版 MD5
+INDEX_MASTER_MD5 = "90a936291ca66861ad3e8a765aa23e85"  # 满意版 MD5
 INDEX_MASTER_MD5_FILE = os.path.join(PROJECT_ROOT, ".index_master_md5_lock")
 
 
