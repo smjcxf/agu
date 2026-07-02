@@ -50,14 +50,19 @@ def calc_density(texts):
     for kw, weight in POLICY_KEYWORDS.items():
         count = len(re.findall(kw, all_text))
         if count > 0:
-            hits[kw] = count * weight
-            score += count * weight
-    density = min(100, score / 15 * 100)
+            # 单个关键词最多贡献5次（防止"出口"等高频词主导）
+            capped_count = min(count, 5)
+            kw_score = capped_count * weight
+            hits[kw] = {"count": count, "capped": capped_count, "score": kw_score}
+            score += kw_score
+    # 阈值45：需要多个关键词或高权重关键词叠加才能达到高分（满分100）
+    # 正常交易日密度通常在20-60之间，80+为罕见高值
+    density = min(100, round(score / 45 * 100, 1))
     return {
-        "density": round(density, 1),
+        "density": density,
         "hits": hits,
         "total_score": score,
-        "level": "高" if density >= 60 else "中" if density >= 30 else "低"
+        "level": "高" if density >= 70 else "中" if density >= 35 else "低"
     }
 
 def fetch_cctv_news(date_str):

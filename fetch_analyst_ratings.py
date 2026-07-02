@@ -99,21 +99,35 @@ def main():
 
     log(f"当日研报: {len(today_reports)} 条, 近一周: {len(week_reports)} 条")
 
-    # 汇总热点个股（近一月研报数多的）
+    # 汇总热点个股（近3日有研报 + 正面评级 = 新增推荐信号）
+    three_days_ago = (datetime.date.today() - datetime.timedelta(days=3)).isoformat()
+    POSITIVE_RATINGS = {"买入", "增持", "强烈推荐", "推荐", "优于大市", "跑赢行业"}
+    
     seen_codes = set()
     hot_list = []
-    for r in sorted(all_reports, key=lambda x: x["report_count_1m"], reverse=True):
+    # 先按日期排序（最新的在前），再按评级优先级排序
+    def rating_priority(r):
+        rt = r.get("rating", "")
+        if rt in ("买入", "强烈推荐"): return 0
+        if rt in ("增持", "推荐"): return 1
+        if rt in ("优于大市", "跑赢行业"): return 2
+        return 99
+    
+    for r in sorted(all_reports, key=lambda x: (x["date"], rating_priority(x)), reverse=True):
         code = r["code"]
         if code not in seen_codes and r["report_count_1m"] > 0:
-            seen_codes.add(code)
-            hot_list.append({
-                "code": code,
-                "name": r["name"],
-                "rating": r["rating"],
-                "institution": r["institution"],
-                "report_count_1m": r["report_count_1m"],
-                "date": r["date"],
-            })
+            # 只收录近3日内有正面评级的 → 代表近期新增关注
+            rt = r.get("rating", "").strip()
+            if rt and rt != "nan" and rt in POSITIVE_RATINGS and r["date"] >= three_days_ago:
+                seen_codes.add(code)
+                hot_list.append({
+                    "code": code,
+                    "name": r["name"],
+                    "rating": rt,
+                    "institution": r["institution"],
+                    "report_count_1m": r["report_count_1m"],
+                    "date": r["date"],
+                })
 
     result["hot_stocks"] = hot_list[:20]
 
@@ -133,9 +147,9 @@ def main():
     if rating_counts:
         result["rating_summary"] = rating_counts
 
-    result["note"] = f"数据源: akshare(TOP{len(codes)}个股), 当日{len(today_reports)}条研报"
+    result["note"] = f"数据源: akshare(TOP{len(codes)}个股), 近3日新增推荐{len(hot_list)}只（买入/增持）"
     if len(today_reports) == 0:
-        result["note"] += " (盘后研报通常T+1发布，周一可能显示上周五数据)"
+        result["note"] += f" (当日研报{len(today_reports)}条, 盘后T+1发布)"
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
