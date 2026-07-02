@@ -24,14 +24,25 @@ INDEX_SINA_MAP = {
     '科创50':  's_sh000688',
 }
 
+# 海外指数 → Sina代码映射（盘中实时，港股日韩跟随A股指数一起刷新）
+FOREIGN_SINA_MAP = {
+    '日经225': 'int_nikkei',
+}
+
+# 海外指数 → 名称（需单独akshare获取的）
+FOREIGN_AKSHARE = {
+    '韩国KOSPI': '首尔综合指数',
+}
+
 
 def log(msg):
     print(f"[{datetime.datetime.now().strftime('%H:%M:%S')}] {msg}")
 
 
 def fetch_sina_indices():
-    """从新浪API获取指数涨跌幅（覆盖全部4个指数）"""
-    codes = ','.join(INDEX_SINA_MAP.values())
+    """从新浪API获取指数涨跌幅（覆盖A股+海外指数）"""
+    all_sina = {**INDEX_SINA_MAP, **FOREIGN_SINA_MAP}
+    codes = ','.join(all_sina.values())
     try:
         r = requests.get(
             f'https://hq.sinajs.cn/list={codes}',
@@ -52,9 +63,8 @@ def fetch_sina_indices():
             data_str = line.split('"')[1]
             parts = data_str.split(',')
             if len(parts) >= 4:
-                # 指数格式（s_前缀）：parts[1]=当前价, parts[2]=涨跌点, parts[3]=涨跌幅%
-                # 股票格式：parts[2]=昨收, parts[3]=当前价
-                if code.startswith('s_'):
+                # A股指数（s_前缀）和海外指数（int_前缀）：parts[3]=涨跌幅%
+                if code.startswith('s_') or code.startswith('int_'):
                     pct = float(parts[3]) if parts[3] else 0
                 else:
                     price = float(parts[3])
@@ -64,7 +74,7 @@ def fetch_sina_indices():
                     else:
                         pct = 0
                 # 反向查找中文名
-                name = next((k for k, v in INDEX_SINA_MAP.items() if v == code), parts[0])
+                name = next((k for k, v in {**INDEX_SINA_MAP, **FOREIGN_SINA_MAP}.items() if v == code), parts[0])
                 result[name] = pct
         return result
     except Exception as e:
@@ -73,9 +83,10 @@ def fetch_sina_indices():
 
 
 def fetch_index_spot():
-    """获取主要指数实时行情（akshare + Sina兜底）"""
+    """获取主要指数实时行情（akshare + Sina兜底，含日经/韩股）"""
     result = []
     targets = ['上证指数', '深证成指', '创业板指', '科创50']
+    foreign_targets = list(FOREIGN_SINA_MAP.keys()) + list(FOREIGN_AKSHARE.keys())
 
     # Step 1: akshare（上交所指数）
     for attempt in range(1, MAX_RETRY + 1):
@@ -95,9 +106,10 @@ def fetch_index_spot():
             if attempt < MAX_RETRY:
                 time.sleep(2)
 
-    # Step 2: Sina补齐深交所缺失的指数
+    # Step 2: Sina补齐深交所+海外缺失的指数
     got = {r['name'] for r in result}
-    missing = [t for t in targets if t not in got]
+    all_targets = targets + foreign_targets
+    missing = [t for t in all_targets if t not in got]
     if missing:
         log(f"  补齐缺失指数: {missing}")
         sina = fetch_sina_indices()
@@ -108,11 +120,46 @@ def fetch_index_spot():
             for m in missing:
                 if m in sina:
                     result.append({'name': m, 'pct': sina[m]})
-                    log(f"    ✓ {m} {sina[m]:+.2f}% (Sina补)")
+                    log(f"    ✓ {m} {sina[m]:+.2f}% (Sina)")
+                elif m in FOREIGN_AKSHARE:
+                    # KOSPI: Sina不支持，用akshare单独获取
+                    kospi = fetch_kospi_spot()
+                    if kospi:
+                        result.append(kospi)
+                        log(f"    ✓ {m} {kospi['pct']:+.2f}% (akshare)")
+                    else:
+                        log(f"    ✗ {m} 无法获取")
                 else:
                     log(f"    ✗ {m} 无法获取")
     
+    # Step 3: 获取KOSPI（即使Sina已尝试，确保数据准确）
+    for ft in foreign_targets:
+        if ft not in {r['name'] for r in result}:
+            if ft in FOREIGN_AKSHARE:
+                kospi = fetch_kospi_spot()
+                if kospi:
+                    result.append(kospi)
+                    log(f"    ✓ {ft} {kospi['pct']:+.2f}% (akshare)")
+    
     return result
+
+
+def fetch_kospi_spot():
+    """获取韩国KOSPI指数最新行情"""
+    try:
+        df = ak.index_global_hist_sina(symbol='首尔综合指数')
+        if df is not None and not df.empty:
+            latest = df.iloc[-1]
+            price = float(latest['close'])
+            if len(df) >= 2:
+                prev = float(df.iloc[-2]['close'])
+                pct = round((price - prev) / prev * 100, 2) if prev > 0 else 0
+            else:
+                pct = 0
+            return {'name': '韩国KOSPI', 'pct': pct}
+    except Exception as e:
+        log(f"  ⚠️ KOSPI获取失败: {e}")
+    return None
 
 
 def fetch_sector_board():
