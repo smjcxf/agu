@@ -477,7 +477,14 @@ def main():
     
     # 计算评分
     results = calculate_scores(candidates, sector_flow)
+
+    # 过滤掉已过申购日期的股票（只保留今天及未来可申购的）
+    today_str = datetime.now().strftime("%Y%m%d")
+    results = [r for r in results if r.get("apply_date", "") >= today_str]
+
+    # 重新生成summary（过滤后可能为空）
     summary = generate_summary(results)
+    eligible_count = len(results)
     
     # 输出
     ipo_data = {
