@@ -414,17 +414,32 @@ def main():
     all_results = applying_results + listed_results + tracking_results
     
     summary = generate_summary(applying_results, listed_results, tracking_results)
-    
-    ipo_data = {
-        "update_time": now,
-        "eligible_count": len(applying_results),
-        "listed_count": len(listed_results),
-        "tracking_count": len(tracking_results),
-        "summary": summary,
-        "stocks": all_results,
-    }
-    
+
+    # ── 数据保护：新数据为空时保留旧数据，不覆盖 ──
     out_path = os.path.join(DATA_DIR, "ipo_score.json")
+    old_data = None
+    if os.path.exists(out_path):
+        try:
+            with open(out_path, "r", encoding="utf-8") as f:
+                old_data = json.load(f)
+        except Exception:
+            pass
+
+    # 如果新数据完全为空但旧数据有股票 → 保留旧数据（仅更新时间戳）
+    if not all_results and old_data and old_data.get("stocks"):
+        print(f"  ⚠️ 新股API返回空结果，保留已有数据（{len(old_data['stocks'])}只）")
+        old_data["update_time"] = now
+        ipo_data = old_data
+    else:
+        ipo_data = {
+            "update_time": now,
+            "eligible_count": len(applying_results),
+            "listed_count": len(listed_results),
+            "tracking_count": len(tracking_results),
+            "summary": summary,
+            "stocks": all_results,
+        }
+
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(ipo_data, f, ensure_ascii=False, indent=2)
     
