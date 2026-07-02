@@ -181,14 +181,10 @@ def sync_remote_data():
 def _ensure_dist_fresh():
     """强制重建 dist，防止部署旧版 UI。
 
-    【2026-07-01 根因修复】：
-      - 不再从 origin/main 拉取模板（main 可能比本地旧，会导致覆盖）
-      - 本地模板永远是权威版本
-      - 模板同步由 _auto_push_source() 在部署前推送到 main
+    【2026-07-03 修复】：调用 _rebuild_dist() 真正重建，之前版本跳过了重建（ok=True 直接返回）。
     """
     log("   🔄 强制重建 dist（本地模板为权威版本）...")
-    ok = True  # SKIPPED: dist already built from index_master.html
-    if not ok:
+    if not _rebuild_dist():
         log("   ❌ dist 重建失败，阻塞部署")
         return False
 
@@ -200,7 +196,7 @@ def _ensure_dist_fresh():
         return False
     with open(dist_html, "r", encoding="utf-8") as f:
         content = f.read()
-    required_vars = ["LHB_DATA", "HERRING_DATA", "NORTH_FUND_DATA", "MAIN_STOCK_DATA"]
+    required_vars = ["LHB_DATA", "HERRING_DATA", "NORTH_FUND_DATA", "MAIN_STOCK_DATA", "LOTTERY_DATA"]
     missing = [v for v in required_vars if f"window.{v}" not in content and f"var {v}" not in content]
     if missing:
         log(f"   ❌ 关键变量未注入，阻塞部署: {missing}")
@@ -211,7 +207,34 @@ def _ensure_dist_fresh():
 
 
 def _rebuild_dist():
-    """调用 update_data_v2.py --fast 重新生成 dist 文件"""
+    """调用 update_data_v2.py --fast 重新生成 dist 文件。
+    
+    【2026-07-03 修复】：部署前先从 origin/main 拉取最新模板，
+    防止本地模板过期导致覆盖他人的修复。
+    """
+    # 0. 先拉取最新模板代码（index_master.html, update_data_v2.py 等）
+    log("   📥 拉取最新模板代码 from origin/main ...")
+    pull_result = subprocess.run(
+        "git fetch origin main --depth=1",
+        shell=True, capture_output=True, text=True, cwd=PROJECT_ROOT, timeout=30
+    )
+    if pull_result.returncode == 0:
+        # 只重置模板和脚本文件（不碰 data/ 和 dist/）
+        reset_files = ["index_master.html", "update_data_v2.py", "deploy_now.py"]
+        for f in reset_files:
+            fpath = os.path.join(PROJECT_ROOT, f)
+            if os.path.exists(fpath):
+                r = subprocess.run(
+                    f"git checkout origin/main -- {f}",
+                    shell=True, capture_output=True, text=True, cwd=PROJECT_ROOT, timeout=15
+                )
+                if r.returncode == 0:
+                    log(f"   ✓ 已更新 {f} (from origin/main)")
+                else:
+                    log(f"   ⚠️ 更新 {f} 失败，使用本地版本")
+    else:
+        log("   ⚠️ git fetch 失败，使用本地模板")
+
     updater = os.path.join(PROJECT_ROOT, "update_data_v2.py")
     if not os.path.exists(updater):
         log("   ⚠️ update_data_v2.py 不存在，无法重建")
