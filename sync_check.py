@@ -242,6 +242,8 @@ def main():
     
     print(f"\n{'='*55}")
     print(f"🔍 部署前同步检查 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"🚨 铁律：代码走 GitHub，数据走坚果云")
+    print(f"   .py/.html/.js → git push/pull | data/*.json → 坚果云")
     print(f"{'='*55}")
     
     # 1. 清理冲突文件
