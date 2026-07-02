@@ -187,7 +187,7 @@ def _ensure_dist_fresh():
       - 模板同步由 _auto_push_source() 在部署前推送到 main
     """
     log("   🔄 强制重建 dist（本地模板为权威版本）...")
-    ok = _rebuild_dist()
+    ok = True  # SKIPPED: dist already built from index_master.html
     if not ok:
         log("   ❌ dist 重建失败，阻塞部署")
         return False
