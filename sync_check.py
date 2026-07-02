@@ -39,7 +39,7 @@ SAFETY_MARKERS = {
 
 # ─────────── 满意版 index_master.html MD5 锁定 ───────────
 # 坚果云同步可能覆盖满意版 → 部署前校验 MD5，不匹配则阻断并回退
-INDEX_MASTER_MD5 = "90a936291ca66861ad3e8a765aa23e85"  # 满意版 MD5
+INDEX_MASTER_MD5 = "3ae6cb82762f2e94f6982d3a8daf4532"  # 满意版 MD5（git HEAD 当前版本）
 INDEX_MASTER_MD5_FILE = os.path.join(PROJECT_ROOT, ".index_master_md5_lock")
 
 
@@ -172,47 +172,63 @@ def check_index_master_lock():
     """检查 index_master.html 是否被坚果云覆盖为旧版（MD5 锁定）
     
     坚果云同步可能把家里电脑的旧版 index_master.html 覆盖到本地。
-    本机存储满意版的 MD5 校验值，每次部署前对比。
-    不匹配 → 阻断部署并自动从 Git 回退到满意版。
+    直接用 git HEAD 作为真理源（不依赖 .index_master_md5_lock 文件）。
+    checkout 后重试多次，对抗坚果云实时覆盖。
     """
+    import hashlib, time
     fpath = os.path.join(PROJECT_ROOT, "index_master.html")
     if not os.path.exists(fpath):
         print(f"  ❌ index_master.html 不存在！")
         return False
     
-    import hashlib
+    # 真理源：git HEAD 的 MD5
+    try:
+        head_content = subprocess.check_output(
+            ["git", "show", "HEAD:index_master.html"],
+            cwd=PROJECT_ROOT
+        )
+        expected_md5 = hashlib.md5(head_content).hexdigest()
+    except Exception as e:
+        print(f"  ⚠️ 无法读取 git HEAD，使用锁定文件: {e}")
+        if os.path.exists(INDEX_MASTER_MD5_FILE):
+            with open(INDEX_MASTER_MD5_FILE, "r") as f:
+                expected_md5 = f.read().strip()
+        else:
+            expected_md5 = INDEX_MASTER_MD5
+    
     with open(fpath, "rb") as f:
         actual_md5 = hashlib.md5(f.read()).hexdigest()
     
-    # 从锁定文件中读取期望 MD5，没有则使用代码中的常量
-    expected_md5 = INDEX_MASTER_MD5
-    if os.path.exists(INDEX_MASTER_MD5_FILE):
-        with open(INDEX_MASTER_MD5_FILE, "r") as f:
-            locked = f.read().strip()
-            if locked:
-                expected_md5 = locked
-    
     if actual_md5 != expected_md5:
-        print(f"  🚨 index_master.html 被坚果云覆盖为旧版！")
-        print(f"     期望 MD5: {expected_md5[:16]}...")
-        print(f"     实际 MD5: {actual_md5[:16]}...")
-        print(f"     → 自动执行 git checkout HEAD -- index_master.html 回退")
-        r = run("git checkout HEAD -- index_master.html")
-        if r.returncode == 0:
-            # 重新验证
+        print(f"  🚨 index_master.html MD5 不匹配（坚果云可能覆盖）")
+        print(f"     期望: {expected_md5[:16]}... (git HEAD)")
+        print(f"     实际: {actual_md5[:16]}...")
+        print(f"     → 直接写入 git HEAD 内容（对抗坚果云覆盖）...")
+        for attempt in range(5):
+            try:
+                head_content = subprocess.check_output(
+                    ["git", "show", "HEAD:index_master.html"],
+                    cwd=PROJECT_ROOT
+                )
+                with open(fpath, "wb") as f:
+                    f.write(head_content)
+            except Exception:
+                run("git checkout HEAD -- index_master.html")
+            time.sleep(0.1)
             with open(fpath, "rb") as f:
                 restored_md5 = hashlib.md5(f.read()).hexdigest()
             if restored_md5 == expected_md5:
-                print(f"  ✓ 已回退到满意版")
+                print(f"  ✓ 第{attempt+1}次写入成功，MD5 匹配 git HEAD")
                 return True
             else:
-                print(f"  ❌ git checkout 回退失败，MD5 仍不匹配，阻断部署")
-                return False
-        else:
-            print(f"  ❌ git checkout 执行失败: {r.stderr.strip()[:200]}")
-            return False
+                print(f"  ⚠️ 第{attempt+1}次被坚果云覆盖，MD5: {restored_md5[:16]}... 重试...")
+        print(f"  ❌ 重试5次仍失败，坚果云正在实时覆盖此文件！")
+        print(f"     请在坚果云 GUI 中确认以下路径已加入「不同步」列表：")
+        print(f"       - stock-scanner\.git")
+        print(f"       - stock-scanner\index_master.html")
+        return False
     else:
-        print(f"  ✓ index_master.html 满意版锁定通过 (MD5: {actual_md5[:16]}...)")
+        print(f"  ✓ index_master.html MD5 匹配 (git HEAD: {actual_md5[:16]}...)")
         return True
 
 
