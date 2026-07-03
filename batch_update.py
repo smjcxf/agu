@@ -144,7 +144,6 @@ MODES = {
             ("fetch_sh_sz_history.py", 120),
             ("fetch_up_down_stats.py", 120),
             ("update_data_v2.py", 300),
-            ("enhance_dist.py", 30),
             ("sync_check.py", 30),      # 坚果云同步检查
             ("deploy_now.py --force", 180),
         ],
