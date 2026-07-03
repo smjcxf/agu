@@ -6,6 +6,24 @@
 
 ---
 
+## 🆘 主网站崩溃时的备用方案
+
+**独立页面是救命稻草！**
+
+如果主网站（`dist/index.html`）出问题、数据空白、或者部署失败：
+- **直接用独立版看数据**，所有数据都在
+- 独立版地址：`https://ah-quant999.github.io/quant-scanner-v6/standalone/index.html`
+- 10个页面全部可用：总览、数据监控、预判信号、金股观测、个股查询、健康看板、竞彩娱乐、逻辑详解、三线追踪、多维追踪
+
+**独立版的数据更新**：
+- 定时任务跑完后会自动重新生成并部署（`refresh_standalone_and_deploy.py`）
+- 如果自动更新失败，手动运行：
+  ```bash
+  python refresh_standalone_and_deploy.py --skip-data
+  ```
+
+---
+
 ## ⚠️ 最重要的事：别覆盖旧版本！
 
 **小九，听好了！**
