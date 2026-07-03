@@ -11,7 +11,7 @@
   },
   "fetch_north_fund": {
     "consecutive_failures": 0,
-    "last_success": "2026-07-02 19:52:00",
+    "last_success": "2026-07-03 21:18:51",
     "last_error": null
   },
   "fetch_macro_data": {
@@ -62,7 +62,7 @@
   },
   "fetch_lhb": {
     "consecutive_failures": 0,
-    "last_success": "2026-07-02 19:53:09",
+    "last_success": "2026-07-03 21:18:43",
     "last_error": null
   },
   "fetch_margin_etf": {
