@@ -45,3 +45,4 @@ dist/data/zsxq_selenium_snapshot.txt
 !enhanced_backup.py
 _gh_pages_deploy/
 .index_master_md5_lock
+standalone/
