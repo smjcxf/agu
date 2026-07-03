@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-07-03 19:38",
+  "update_time": "2026-07-03 23:01",
   "data_type": "real",
   "summary": {
     "in_count": 40,
@@ -210,8 +210,8 @@
     {
       "name": "AI手机",
       "net": 57.46,
-      "net_5d": 0,
-      "net_20d": 0,
+      "net_5d": -713743.81,
+      "net_20d": 10008206.15,
       "type": "概念",
       "consecutive_days": 1,
       "trend": "in"
@@ -282,8 +282,8 @@
     {
       "name": "车联网(车路协同)",
       "net": 48.38,
-      "net_5d": 0,
-      "net_20d": 0,
+      "net_5d": 2731700.58,
+      "net_20d": -9702243.23,
       "type": "概念",
       "consecutive_days": 1,
       "trend": "in"
@@ -363,8 +363,8 @@
     {
       "name": "比亚迪概念",
       "net": 39.8,
-      "net_5d": 0,
-      "net_20d": 0,
+      "net_5d": 11249088.81,
+      "net_20d": 18641201.86,
       "type": "概念",
       "consecutive_days": 1,
       "trend": "in"
@@ -573,8 +573,8 @@
     {
       "name": "AI手机",
       "net": 57.46,
-      "net_5d": 0,
-      "net_20d": 0,
+      "net_5d": -713743.81,
+      "net_20d": 10008206.15,
       "type": "概念",
       "consecutive_days": 1,
       "trend": "in"
@@ -645,8 +645,8 @@
     {
       "name": "车联网(车路协同)",
       "net": 48.38,
-      "net_5d": 0,
-      "net_20d": 0,
+      "net_5d": 2731700.58,
+      "net_20d": -9702243.23,
       "type": "概念",
       "consecutive_days": 1,
       "trend": "in"
@@ -726,8 +726,8 @@
     {
       "name": "比亚迪概念",
       "net": 39.8,
-      "net_5d": 0,
-      "net_20d": 0,
+      "net_5d": 11249088.81,
+      "net_20d": 18641201.86,
       "type": "概念",
       "consecutive_days": 1,
       "trend": "in"
@@ -895,7 +895,69 @@
       "trend": "in"
     }
   },
-  "trend_5d": [],
-  "trend_20d": [],
+  "trend_5d": [
+    {
+      "name": "比亚迪概念",
+      "net": 39.8,
+      "net_5d": 11249088.81,
+      "net_20d": 18641201.86,
+      "type": "概念",
+      "consecutive_days": 1,
+      "trend": "in",
+      "net_60d": null
+    },
+    {
+      "name": "车联网(车路协同)",
+      "net": 48.38,
+      "net_5d": 2731700.58,
+      "net_20d": -9702243.23,
+      "type": "概念",
+      "consecutive_days": 1,
+      "trend": "in",
+      "net_60d": null
+    },
+    {
+      "name": "AI手机",
+      "net": 57.46,
+      "net_5d": -713743.81,
+      "net_20d": 10008206.15,
+      "type": "概念",
+      "consecutive_days": 1,
+      "trend": "in",
+      "net_60d": null
+    }
+  ],
+  "trend_20d": [
+    {
+      "name": "比亚迪概念",
+      "net": 39.8,
+      "net_5d": 11249088.81,
+      "net_20d": 18641201.86,
+      "type": "概念",
+      "consecutive_days": 1,
+      "trend": "in",
+      "net_60d": null
+    },
+    {
+      "name": "AI手机",
+      "net": 57.46,
+      "net_5d": -713743.81,
+      "net_20d": 10008206.15,
+      "type": "概念",
+      "consecutive_days": 1,
+      "trend": "in",
+      "net_60d": null
+    },
+    {
+      "name": "车联网(车路协同)",
+      "net": 48.38,
+      "net_5d": 2731700.58,
+      "net_20d": -9702243.23,
+      "type": "概念",
+      "consecutive_days": 1,
+      "trend": "in",
+      "net_60d": null
+    }
+  ],
   "trend_60d": []
 }
