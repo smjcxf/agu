@@ -658,6 +658,13 @@ def generate_calendar():
             ('2027-04-28', '博通Q1财报'),
             ('2027-07-28', '博通Q2财报'),
             ('2027-10-27', '博通Q3财报'),
+            # CSP Inc (CSPI)
+            ('2026-08-12', 'CSP Q3财报'),
+            ('2026-12-09', 'CSP Q4财报'),
+            ('2027-02-10', 'CSP Q1财报'),
+            ('2027-05-12', 'CSP Q2财报'),
+            ('2027-08-11', 'CSP Q3财报'),
+            ('2027-12-08', 'CSP Q4财报'),
         ]
         for nd, ntitle in us_semi_earnings:
             if nd.startswith(ym_str):
