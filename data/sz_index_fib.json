@@ -1,0 +1,72 @@
+{
+  "current": {
+    "index": 15498.81,
+    "change_pct": 0,
+    "change_points": 0,
+    "days_down": 9,
+    "total_pct": -5.34,
+    "total_points": -873.69,
+    "avg_pct": 0.59,
+    "peak_date": "20260622",
+    "peak_close": 16372.5,
+    "date": "2026-07-03",
+    "mode": "温和下跌"
+  },
+  "windows": [
+    {
+      "name": "F(3)",
+      "date": "2026-05-25",
+      "desc": "小反弹窗口",
+      "days_left": -39,
+      "status": "passed"
+    },
+    {
+      "name": "F(5)",
+      "date": "2026-05-27",
+      "desc": "短期变盘",
+      "days_left": -37,
+      "status": "passed"
+    },
+    {
+      "name": "F(8)",
+      "date": "2026-05-30",
+      "desc": "8日变盘",
+      "days_left": -34,
+      "status": "passed"
+    },
+    {
+      "name": "F(13)",
+      "date": "2026-06-04",
+      "desc": "13日重要窗口",
+      "days_left": -29,
+      "status": "passed"
+    },
+    {
+      "name": "F(21)",
+      "date": "2026-06-12",
+      "desc": "21日大窗口",
+      "days_left": -21,
+      "status": "passed"
+    },
+    {
+      "name": "F(34)",
+      "date": "2026-06-25",
+      "desc": "34日中期窗口",
+      "days_left": -8,
+      "status": "passed"
+    },
+    {
+      "name": "F(55)",
+      "date": "2026-07-16",
+      "desc": "55日长期窗口",
+      "days_left": 13,
+      "status": "future"
+    }
+  ],
+  "next_cycle": [],
+  "judgement": {
+    "summary": "从20260622高点跌9天（-5.34%），温和下跌",
+    "key_window": "🎯 下个窗口: F(55)（2026-07-16）"
+  },
+  "update_time": "2026-07-03 16:12"
+}

@@ -1,0 +1,3179 @@
+{
+  "date": "20260702",
+  "update_time": "2026-07-02 19:53:09",
+  "stocks": [
+    {
+      "code": "000725",
+      "name": "京东方A",
+      "price": 0.0,
+      "pct": 3.7628,
+      "reason": "日振幅值达到15%的前5只证券",
+      "category": "纯共振",
+      "inst_net_万": 180973.0,
+      "inst_buy_万": 392137.9,
+      "inst_sell_万": 211164.9,
+      "yz_net_万": 13539.2,
+      "yz_buy_万": 324868.2,
+      "yz_sell_万": 311329.0,
+      "seats": {
+        "机构": {
+          "buy": 392137.9,
+          "sell": 211164.9
+        },
+        "北向": {
+          "buy": 324868.2,
+          "sell": 275229.8
+        },
+        "未识别": {
+          "buy": 0,
+          "sell": 36099.2
+        }
+      },
+      "consecutive_days": 1,
+      "sector": "光学光电子"
+    },
+    {
+      "code": "002326",
+      "name": "永太科技",
+      "price": 0.0,
+      "pct": 7.6095,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "纯共振",
+      "inst_net_万": 17401.9,
+      "inst_buy_万": 35322.3,
+      "inst_sell_万": 17920.4,
+      "yz_net_万": 56045.6,
+      "yz_buy_万": 98948.8,
+      "yz_sell_万": 42903.2,
+      "seats": {
+        "机构": {
+          "buy": 35322.3,
+          "sell": 17920.4
+        },
+        "北向": {
+          "buy": 62918.3,
+          "sell": 4769.7
+        },
+        "未识别": {
+          "buy": 36030.5,
+          "sell": 38133.5
+        }
+      },
+      "consecutive_days": 1,
+      "sector": "化工行业"
+    },
+    {
+      "code": "600366",
+      "name": "宁波韵升",
+      "price": 0.0,
+      "pct": 4.0025,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "纯共振",
+      "inst_net_万": 13120.7,
+      "inst_buy_万": 13120.7,
+      "inst_sell_万": 0,
+      "yz_net_万": 9006.2,
+      "yz_buy_万": 74381.3,
+      "yz_sell_万": 65375.1,
+      "seats": {
+        "机构": {
+          "buy": 13120.7,
+          "sell": 0
+        },
+        "北向": {
+          "buy": 19389.2,
+          "sell": 13160.9
+        },
+        "未识别": {
+          "buy": 54992.1,
+          "sell": 52214.2
+        }
+      },
+      "consecutive_days": 1,
+      "sector": "小金属"
+    },
+    {
+      "code": "603650",
+      "name": "彤程新材",
+      "price": 0.0,
+      "pct": 5.6439,
+      "reason": "有价格涨跌幅限制的日价格振幅达到15%的前五只证券",
+      "category": "纯共振",
+      "inst_net_万": 11569.7,
+      "inst_buy_万": 11569.7,
+      "inst_sell_万": 0,
+      "yz_net_万": 56404.2,
+      "yz_buy_万": 103048.4,
+      "yz_sell_万": 46644.2,
+      "seats": {
+        "机构": {
+          "buy": 11569.7,
+          "sell": 0
+        },
+        "北向": {
+          "buy": 44774.5,
+          "sell": 16712.1
+        },
+        "游资": {
+          "buy": 18811.3,
+          "sell": 12038.3,
+          "aliases": [
+            "上海分公司",
+            "拉萨东环路"
+          ]
+        },
+        "未识别": {
+          "buy": 39462.5,
+          "sell": 17893.8
+        }
+      },
+      "consecutive_days": 1,
+      "sector": "橡胶制品"
+    },
+    {
+      "code": "000021",
+      "name": "深科技",
+      "price": 0.0,
+      "pct": -10.0064,
+      "reason": "日跌幅偏离值达到7%的前5只证券",
+      "category": "标X",
+      "inst_net_万": -72096.9,
+      "inst_buy_万": 16740.4,
+      "inst_sell_万": 88837.3,
+      "yz_net_万": 45645.8,
+      "yz_buy_万": 61404.7,
+      "yz_sell_万": 15758.9,
+      "seats": {
+        "机构": {
+          "buy": 16740.4,
+          "sell": 88837.3
+        },
+        "北向": {
+          "buy": 39527.5,
+          "sell": 15758.9
+        },
+        "游资": {
+          "buy": 7576.5,
+          "sell": 0,
+          "aliases": [
+            "深圳益田路"
+          ]
+        },
+        "未识别": {
+          "buy": 14300.7,
+          "sell": 0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002273",
+      "name": "水晶光电",
+      "price": 0.0,
+      "pct": -0.0256,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "标X",
+      "inst_net_万": -20811.1,
+      "inst_buy_万": 41467.6,
+      "inst_sell_万": 62278.7,
+      "yz_net_万": 14884.4,
+      "yz_buy_万": 148361.4,
+      "yz_sell_万": 133477.0,
+      "seats": {
+        "机构": {
+          "buy": 41467.6,
+          "sell": 62278.7
+        },
+        "北向": {
+          "buy": 100266.6,
+          "sell": 90228.0
+        },
+        "游资": {
+          "buy": 27355.6,
+          "sell": 0,
+          "aliases": [
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 20739.3,
+          "sell": 43249.0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002384",
+      "name": "东山精密",
+      "price": 0.0,
+      "pct": -9.9996,
+      "reason": "日跌幅偏离值达到7%的前5只证券",
+      "category": "标X",
+      "inst_net_万": 73942.0,
+      "inst_buy_万": 136952.5,
+      "inst_sell_万": 63010.5,
+      "yz_net_万": -117600.3,
+      "yz_buy_万": 68146.2,
+      "yz_sell_万": 185746.5,
+      "seats": {
+        "机构": {
+          "buy": 136952.5,
+          "sell": 63010.5
+        },
+        "北向": {
+          "buy": 68146.2,
+          "sell": 91785.1
+        },
+        "未识别": {
+          "buy": 0,
+          "sell": 93961.3
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002396",
+      "name": "星网锐捷",
+      "price": 0.0,
+      "pct": 0.8535,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "标X",
+      "inst_net_万": 19377.6,
+      "inst_buy_万": 35891.4,
+      "inst_sell_万": 16513.7,
+      "yz_net_万": 2174.1,
+      "yz_buy_万": 14771.8,
+      "yz_sell_万": 12597.7,
+      "seats": {
+        "机构": {
+          "buy": 35891.4,
+          "sell": 16513.7
+        },
+        "北向": {
+          "buy": 14771.8,
+          "sell": 8484.1
+        },
+        "未识别": {
+          "buy": 0,
+          "sell": 4113.6
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002407",
+      "name": "多氟多",
+      "price": 0.0,
+      "pct": -0.7783,
+      "reason": "日换手率达到20%的前5只证券",
+      "category": "标X",
+      "inst_net_万": -48256.9,
+      "inst_buy_万": 88408.2,
+      "inst_sell_万": 136665.1,
+      "yz_net_万": 88786.6,
+      "yz_buy_万": 175759.7,
+      "yz_sell_万": 86973.2,
+      "seats": {
+        "机构": {
+          "buy": 88408.2,
+          "sell": 136665.1
+        },
+        "北向": {
+          "buy": 144380.1,
+          "sell": 86973.2
+        },
+        "未识别": {
+          "buy": 31379.6,
+          "sell": 0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002580",
+      "name": "圣阳股份",
+      "price": 0.0,
+      "pct": 10.0198,
+      "reason": "日涨幅偏离值达到7%的前5只证券",
+      "category": "标X",
+      "inst_net_万": -8509.4,
+      "inst_buy_万": 0,
+      "inst_sell_万": 8509.4,
+      "yz_net_万": 22170.8,
+      "yz_buy_万": 30612.5,
+      "yz_sell_万": 8441.6,
+      "seats": {
+        "机构": {
+          "buy": 0,
+          "sell": 8509.4
+        },
+        "北向": {
+          "buy": 14913.3,
+          "sell": 6206.2
+        },
+        "游资": {
+          "buy": 0,
+          "sell": 2235.4,
+          "aliases": [
+            "拉萨团结路"
+          ]
+        },
+        "未识别": {
+          "buy": 15699.1,
+          "sell": 0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002738",
+      "name": "中矿资源",
+      "price": 0.0,
+      "pct": 0.9246,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "标X",
+      "inst_net_万": -16754.6,
+      "inst_buy_万": 49968.6,
+      "inst_sell_万": 66723.2,
+      "yz_net_万": 31789.6,
+      "yz_buy_万": 113672.6,
+      "yz_sell_万": 81883.0,
+      "seats": {
+        "机构": {
+          "buy": 49968.6,
+          "sell": 66723.2
+        },
+        "北向": {
+          "buy": 82370.2,
+          "sell": 81883.0
+        },
+        "未识别": {
+          "buy": 31302.5,
+          "sell": 0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002747",
+      "name": "埃斯顿",
+      "price": 0.0,
+      "pct": -0.8768,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "标X",
+      "inst_net_万": -9298.6,
+      "inst_buy_万": 65868.4,
+      "inst_sell_万": 75167.0,
+      "yz_net_万": 48153.8,
+      "yz_buy_万": 87699.6,
+      "yz_sell_万": 39545.8,
+      "seats": {
+        "机构": {
+          "buy": 65868.4,
+          "sell": 75167.0
+        },
+        "北向": {
+          "buy": 63699.1,
+          "sell": 39545.8
+        },
+        "未识别": {
+          "buy": 24000.6,
+          "sell": 0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002842",
+      "name": "翔鹭钨业",
+      "price": 0.0,
+      "pct": 9.9978,
+      "reason": "日涨幅偏离值达到7%的前5只证券",
+      "category": "标X",
+      "inst_net_万": 3151.2,
+      "inst_buy_万": 6627.5,
+      "inst_sell_万": 3476.4,
+      "yz_net_万": 23352.1,
+      "yz_buy_万": 42503.9,
+      "yz_sell_万": 19151.8,
+      "seats": {
+        "机构": {
+          "buy": 6627.5,
+          "sell": 3476.4
+        },
+        "北向": {
+          "buy": 20011.9,
+          "sell": 6122.8
+        },
+        "游资": {
+          "buy": 6081.6,
+          "sell": 0,
+          "aliases": [
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 16410.4,
+          "sell": 13029.0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002979",
+      "name": "雷赛智能",
+      "price": 0.0,
+      "pct": 10.0035,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "标X",
+      "inst_net_万": -15978.5,
+      "inst_buy_万": 10598.9,
+      "inst_sell_万": 26577.5,
+      "yz_net_万": 8650.5,
+      "yz_buy_万": 15396.7,
+      "yz_sell_万": 6746.1,
+      "seats": {
+        "机构": {
+          "buy": 10598.9,
+          "sell": 26577.5
+        },
+        "北向": {
+          "buy": 8343.6,
+          "sell": 6746.1
+        },
+        "未识别": {
+          "buy": 7053.0,
+          "sell": 0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "300071",
+      "name": "福石控股",
+      "price": 0.0,
+      "pct": 19.891,
+      "reason": "日涨幅达到15%的前5只证券",
+      "category": "标X",
+      "inst_net_万": -9305.1,
+      "inst_buy_万": 0,
+      "inst_sell_万": 9305.1,
+      "yz_net_万": 16165.9,
+      "yz_buy_万": 20223.0,
+      "yz_sell_万": 4057.1,
+      "seats": {
+        "机构": {
+          "buy": 0,
+          "sell": 9305.1
+        },
+        "北向": {
+          "buy": 3265.2,
+          "sell": 3154.0
+        },
+        "未识别": {
+          "buy": 16957.8,
+          "sell": 903.1
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "300345",
+      "name": "华民股份",
+      "price": 0.0,
+      "pct": 6.2767,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到30%的证券",
+      "category": "标X",
+      "inst_net_万": 12735.4,
+      "inst_buy_万": 15415.1,
+      "inst_sell_万": 2679.7,
+      "yz_net_万": -2906.6,
+      "yz_buy_万": 8586.2,
+      "yz_sell_万": 11492.8,
+      "seats": {
+        "机构": {
+          "buy": 15415.1,
+          "sell": 2679.7
+        },
+        "游资": {
+          "buy": 3077.1,
+          "sell": 3316.3,
+          "aliases": [
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 5509.1,
+          "sell": 8176.5
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "301092",
+      "name": "争光股份",
+      "price": 0.0,
+      "pct": 20.0041,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到30%的证券",
+      "category": "标X",
+      "inst_net_万": 3922.8,
+      "inst_buy_万": 11910.8,
+      "inst_sell_万": 7988.0,
+      "yz_net_万": 11137.3,
+      "yz_buy_万": 17451.0,
+      "yz_sell_万": 6313.8,
+      "seats": {
+        "机构": {
+          "buy": 11910.8,
+          "sell": 7988.0
+        },
+        "北向": {
+          "buy": 8353.4,
+          "sell": 2370.5
+        },
+        "未识别": {
+          "buy": 9097.6,
+          "sell": 3943.3
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "301611",
+      "name": "珂玛科技",
+      "price": 0.0,
+      "pct": -16.4896,
+      "reason": "日跌幅达到15%的前5只证券",
+      "category": "标X",
+      "inst_net_万": -16367.0,
+      "inst_buy_万": 40342.0,
+      "inst_sell_万": 56709.0,
+      "yz_net_万": 39236.5,
+      "yz_buy_万": 56734.9,
+      "yz_sell_万": 17498.4,
+      "seats": {
+        "机构": {
+          "buy": 40342.0,
+          "sell": 56709.0
+        },
+        "北向": {
+          "buy": 48822.5,
+          "sell": 0
+        },
+        "游资": {
+          "buy": 7912.4,
+          "sell": 0,
+          "aliases": [
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 0,
+          "sell": 17498.4
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "600105",
+      "name": "永鼎股份",
+      "price": 0.0,
+      "pct": -10.0064,
+      "reason": "有价格涨跌幅限制的日收盘价格跌幅偏离值达到7%的前五只证券",
+      "category": "标X",
+      "inst_net_万": -26712.5,
+      "inst_buy_万": 9576.0,
+      "inst_sell_万": 36288.5,
+      "yz_net_万": 14998.7,
+      "yz_buy_万": 57144.7,
+      "yz_sell_万": 42146.1,
+      "seats": {
+        "机构": {
+          "buy": 9576.0,
+          "sell": 36288.5
+        },
+        "北向": {
+          "buy": 27822.4,
+          "sell": 16099.0
+        },
+        "游资": {
+          "buy": 9559.4,
+          "sell": 11142.4,
+          "aliases": [
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 19763.0,
+          "sell": 14904.7
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "600378",
+      "name": "昊华科技",
+      "price": 0.0,
+      "pct": 1.4444,
+      "reason": "有价格涨跌幅限制的日价格振幅达到15%的前五只证券",
+      "category": "标X",
+      "inst_net_万": -29245.7,
+      "inst_buy_万": 20737.6,
+      "inst_sell_万": 49983.4,
+      "yz_net_万": 41420.0,
+      "yz_buy_万": 124370.7,
+      "yz_sell_万": 82950.7,
+      "seats": {
+        "机构": {
+          "buy": 20737.6,
+          "sell": 49983.4
+        },
+        "北向": {
+          "buy": 73452.2,
+          "sell": 0
+        },
+        "未识别": {
+          "buy": 50918.6,
+          "sell": 82950.7
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "603078",
+      "name": "江化微",
+      "price": 0.0,
+      "pct": 8.0517,
+      "reason": "有价格涨跌幅限制的日价格振幅达到15%的前五只证券",
+      "category": "标X",
+      "inst_net_万": -12555.3,
+      "inst_buy_万": 0,
+      "inst_sell_万": 12555.3,
+      "yz_net_万": 65842.6,
+      "yz_buy_万": 220861.2,
+      "yz_sell_万": 155018.6,
+      "seats": {
+        "机构": {
+          "buy": 0,
+          "sell": 12555.3
+        },
+        "北向": {
+          "buy": 66165.9,
+          "sell": 30540.2
+        },
+        "游资": {
+          "buy": 41060.7,
+          "sell": 33209.3,
+          "aliases": [
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 113634.6,
+          "sell": 91269.1
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "603505",
+      "name": "金石资源",
+      "price": 0.0,
+      "pct": 10.0135,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "标X",
+      "inst_net_万": -17964.3,
+      "inst_buy_万": 0,
+      "inst_sell_万": 17964.3,
+      "yz_net_万": 17337.4,
+      "yz_buy_万": 48140.0,
+      "yz_sell_万": 30802.5,
+      "seats": {
+        "机构": {
+          "buy": 0,
+          "sell": 17964.3
+        },
+        "北向": {
+          "buy": 13823.8,
+          "sell": 7314.9
+        },
+        "游资": {
+          "buy": 8231.7,
+          "sell": 8077.6,
+          "aliases": [
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 26084.5,
+          "sell": 15410.0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "688361",
+      "name": "中科飞测",
+      "price": 0.0,
+      "pct": -15.6398,
+      "reason": "有价格涨跌幅限制的日收盘价格跌幅达到15%的前五只证券",
+      "category": "标X",
+      "inst_net_万": -250580.1,
+      "inst_buy_万": 0,
+      "inst_sell_万": 250580.1,
+      "yz_net_万": 177850.4,
+      "yz_buy_万": 177850.4,
+      "yz_sell_万": 0,
+      "seats": {
+        "机构": {
+          "buy": 0,
+          "sell": 250580.1
+        },
+        "北向": {
+          "buy": 61959.9,
+          "sell": 0
+        },
+        "游资": {
+          "buy": 48026.0,
+          "sell": 0,
+          "aliases": [
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 67864.5,
+          "sell": 0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "688409",
+      "name": "富创精密",
+      "price": 0.0,
+      "pct": -16.0053,
+      "reason": "有价格涨跌幅限制的日收盘价格跌幅达到15%的前五只证券",
+      "category": "标X",
+      "inst_net_万": -201734.2,
+      "inst_buy_万": 0,
+      "inst_sell_万": 201734.2,
+      "yz_net_万": 104307.1,
+      "yz_buy_万": 118537.5,
+      "yz_sell_万": 14230.4,
+      "seats": {
+        "机构": {
+          "buy": 0,
+          "sell": 201734.2
+        },
+        "北向": {
+          "buy": 44409.3,
+          "sell": 0
+        },
+        "游资": {
+          "buy": 21340.6,
+          "sell": 0,
+          "aliases": [
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 52787.5,
+          "sell": 14230.4
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "000004",
+      "name": "国华退",
+      "price": 0.0,
+      "pct": 10.8108,
+      "reason": "退市整理期",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000010",
+      "name": "*ST美丽",
+      "price": 0.0,
+      "pct": 5.0279,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000016",
+      "name": "*ST康佳A",
+      "price": 0.0,
+      "pct": 4.9587,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000078",
+      "name": "ST海王",
+      "price": 0.0,
+      "pct": 5.1852,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000520",
+      "name": "凤凰航运",
+      "price": 0.0,
+      "pct": 10.0,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000536",
+      "name": "华映科技",
+      "price": 0.0,
+      "pct": 10.0271,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000601",
+      "name": "韶能股份",
+      "price": 0.0,
+      "pct": 9.9379,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000632",
+      "name": "ST三木",
+      "price": 0.0,
+      "pct": 5.0,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000639",
+      "name": "ST西王",
+      "price": 0.0,
+      "pct": 5.1724,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000677",
+      "name": "ST海龙",
+      "price": 0.0,
+      "pct": 5.298,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000698",
+      "name": "ST沈化",
+      "price": 0.0,
+      "pct": 5.1118,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000700",
+      "name": "模塑科技",
+      "price": 0.0,
+      "pct": 9.9739,
+      "reason": "日涨幅偏离值达到7%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000711",
+      "name": "ST京蓝",
+      "price": 0.0,
+      "pct": 5.0314,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000820",
+      "name": "*ST节能",
+      "price": 0.0,
+      "pct": 4.8951,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000821",
+      "name": "ST京机",
+      "price": 0.0,
+      "pct": 4.9608,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000909",
+      "name": "*ST数源",
+      "price": 0.0,
+      "pct": 5.0633,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000972",
+      "name": "中基健康",
+      "price": 0.0,
+      "pct": 10.1493,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "000988",
+      "name": "华工科技",
+      "price": 0.0,
+      "pct": -9.9971,
+      "reason": "日跌幅偏离值达到7%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": -62035.2,
+      "inst_buy_万": 0,
+      "inst_sell_万": 62035.2,
+      "yz_net_万": -42571.5,
+      "yz_buy_万": 79394.6,
+      "yz_sell_万": 121966.0,
+      "seats": {
+        "机构": {
+          "buy": 0,
+          "sell": 62035.2
+        },
+        "北向": {
+          "buy": 28402.1,
+          "sell": 121966.0
+        },
+        "未识别": {
+          "buy": 50992.5,
+          "sell": 0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "001237",
+      "name": "惠康科技",
+      "price": 0.0,
+      "pct": -5.6854,
+      "reason": "日换手率达到20%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": -1066.7,
+      "inst_buy_万": 3422.5,
+      "inst_sell_万": 4489.1,
+      "yz_net_万": -3450.9,
+      "yz_buy_万": 1993.1,
+      "yz_sell_万": 5444.0,
+      "seats": {
+        "机构": {
+          "buy": 3422.5,
+          "sell": 4489.1
+        },
+        "未识别": {
+          "buy": 1993.1,
+          "sell": 5444.0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "001248",
+      "name": "华润新能源",
+      "price": 0.0,
+      "pct": 136.8942,
+      "reason": "无价格涨跌幅限制的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "001313",
+      "name": "粤海饲料",
+      "price": 0.0,
+      "pct": 10.0,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 4879.0,
+      "inst_buy_万": 7861.7,
+      "inst_sell_万": 2982.7,
+      "yz_net_万": 650.6,
+      "yz_buy_万": 2339.8,
+      "yz_sell_万": 1689.2,
+      "seats": {
+        "机构": {
+          "buy": 7861.7,
+          "sell": 2982.7
+        },
+        "北向": {
+          "buy": 2339.8,
+          "sell": 946.1
+        },
+        "未识别": {
+          "buy": 0,
+          "sell": 743.1
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "001358",
+      "name": "兴欣新材",
+      "price": 0.0,
+      "pct": 4.1881,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002005",
+      "name": "ST德豪",
+      "price": 0.0,
+      "pct": 5.1948,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002102",
+      "name": "ST能特",
+      "price": 0.0,
+      "pct": 4.8889,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002109",
+      "name": "ST兴化",
+      "price": 0.0,
+      "pct": 5.1383,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002167",
+      "name": "东方锆业",
+      "price": 0.0,
+      "pct": 7.29,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002175",
+      "name": "*ST东智",
+      "price": 0.0,
+      "pct": 5.0633,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002198",
+      "name": "ST嘉应",
+      "price": 0.0,
+      "pct": 5.0314,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002305",
+      "name": "*ST南置",
+      "price": 0.0,
+      "pct": 4.9451,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002360",
+      "name": "ST同德",
+      "price": 0.0,
+      "pct": 5.0607,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002371",
+      "name": "北方华创",
+      "price": 0.0,
+      "pct": -10.0004,
+      "reason": "日跌幅偏离值达到7%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": -22181.8,
+      "inst_buy_万": 57607.4,
+      "inst_sell_万": 79789.2,
+      "yz_net_万": -16100.9,
+      "yz_buy_万": 139616.6,
+      "yz_sell_万": 155717.4,
+      "seats": {
+        "机构": {
+          "buy": 57607.4,
+          "sell": 79789.2
+        },
+        "北向": {
+          "buy": 127614.6,
+          "sell": 155717.4
+        },
+        "未识别": {
+          "buy": 12002.0,
+          "sell": 0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002403",
+      "name": "爱仕达",
+      "price": 0.0,
+      "pct": 4.1794,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002458",
+      "name": "益生股份",
+      "price": 0.0,
+      "pct": 10.0585,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002463",
+      "name": "沪电股份",
+      "price": 0.0,
+      "pct": -9.9993,
+      "reason": "日跌幅偏离值达到7%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": -19794.5,
+      "inst_buy_万": 55397.2,
+      "inst_sell_万": 75191.7,
+      "yz_net_万": -73200.6,
+      "yz_buy_万": 56512.5,
+      "yz_sell_万": 129713.1,
+      "seats": {
+        "机构": {
+          "buy": 55397.2,
+          "sell": 75191.7
+        },
+        "北向": {
+          "buy": 56512.5,
+          "sell": 85980.3
+        },
+        "游资": {
+          "buy": 0,
+          "sell": 43732.9,
+          "aliases": [
+            "绍兴"
+          ]
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002512",
+      "name": "ST达华",
+      "price": 0.0,
+      "pct": 4.9231,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002522",
+      "name": "浙江众成",
+      "price": 0.0,
+      "pct": -10.0418,
+      "reason": "连续三个交易日内，跌幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002542",
+      "name": "*ST中岩",
+      "price": 0.0,
+      "pct": 5.042,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002547",
+      "name": "*ST春兴",
+      "price": 0.0,
+      "pct": 5.2,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002552",
+      "name": "宝鼎科技",
+      "price": 0.0,
+      "pct": 1.7608,
+      "reason": "日振幅值达到15%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002559",
+      "name": "亚威股份",
+      "price": 0.0,
+      "pct": 10.0143,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": -1032.9,
+      "inst_buy_万": 7454.5,
+      "inst_sell_万": 8487.4,
+      "yz_net_万": 6476.5,
+      "yz_buy_万": 52059.8,
+      "yz_sell_万": 45583.3,
+      "seats": {
+        "机构": {
+          "buy": 7454.5,
+          "sell": 8487.4
+        },
+        "北向": {
+          "buy": 13014.5,
+          "sell": 5772.8
+        },
+        "未识别": {
+          "buy": 39045.3,
+          "sell": 39810.6
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002569",
+      "name": "*ST步森",
+      "price": 0.0,
+      "pct": 5.0068,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002586",
+      "name": "ST围海",
+      "price": 0.0,
+      "pct": 4.9223,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002592",
+      "name": "ST八菱",
+      "price": 0.0,
+      "pct": 5.0243,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002620",
+      "name": "*ST瑞和",
+      "price": 0.0,
+      "pct": 5.0373,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002635",
+      "name": "安洁科技",
+      "price": 0.0,
+      "pct": -5.6,
+      "reason": "日换手率达到20%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002653",
+      "name": "海思科",
+      "price": 0.0,
+      "pct": 8.0044,
+      "reason": "日振幅值达到15%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": -7937.4,
+      "inst_buy_万": 6473.1,
+      "inst_sell_万": 14410.5,
+      "yz_net_万": -547.9,
+      "yz_buy_万": 8943.3,
+      "yz_sell_万": 9491.3,
+      "seats": {
+        "机构": {
+          "buy": 6473.1,
+          "sell": 14410.5
+        },
+        "北向": {
+          "buy": 7435.3,
+          "sell": 9491.3
+        },
+        "游资": {
+          "buy": 1508.0,
+          "sell": 0,
+          "aliases": [
+            "拉萨东环路"
+          ]
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002656",
+      "name": "*ST摩登",
+      "price": 0.0,
+      "pct": 4.9645,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002667",
+      "name": "*ST威领",
+      "price": 0.0,
+      "pct": 4.9645,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002674",
+      "name": "兴业科技",
+      "price": 0.0,
+      "pct": 10.0078,
+      "reason": "日振幅值达到15%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 343.5,
+      "yz_buy_万": 6447.4,
+      "yz_sell_万": 6103.9,
+      "seats": {
+        "游资": {
+          "buy": 1357.0,
+          "sell": 1545.8,
+          "aliases": [
+            "拉萨团结路"
+          ]
+        },
+        "未识别": {
+          "buy": 5090.4,
+          "sell": 4558.1
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "002691",
+      "name": "*ST冀凯",
+      "price": 0.0,
+      "pct": 3.1175,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002717",
+      "name": "*ST岭南",
+      "price": 0.0,
+      "pct": 0.9901,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002808",
+      "name": "恒久退",
+      "price": 0.0,
+      "pct": 8.6957,
+      "reason": "退市整理期",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002826",
+      "name": "易明医药",
+      "price": 0.0,
+      "pct": 9.9819,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002898",
+      "name": "赛隆退",
+      "price": 0.0,
+      "pct": 5.7143,
+      "reason": "退市整理期",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002971",
+      "name": "和远气体",
+      "price": 0.0,
+      "pct": 10.0,
+      "reason": "日涨幅偏离值达到7%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "002977",
+      "name": "*ST天箭",
+      "price": 0.0,
+      "pct": 4.9819,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "111012",
+      "name": "福新转债",
+      "price": 0.0,
+      "pct": 11.1006,
+      "reason": "连续3个交易日内日收盘价格涨幅偏离值达到30%的可转债",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "123188",
+      "name": "水羊转债",
+      "price": 0.0,
+      "pct": 18.6074,
+      "reason": "日涨幅达到15%的前5只可转债",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "200016",
+      "name": "*ST康佳B",
+      "price": 0.0,
+      "pct": 5.7143,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到12%的ST证券、*ST证券和未完成股改证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "300020",
+      "name": "ST银江",
+      "price": 0.0,
+      "pct": 13.2565,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "300029",
+      "name": "天龙退",
+      "price": 0.0,
+      "pct": 6.6667,
+      "reason": "退市整理期",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "300044",
+      "name": "*ST赛为",
+      "price": 0.0,
+      "pct": 3.9568,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "300154",
+      "name": "瑞凌股份",
+      "price": 0.0,
+      "pct": 12.2353,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "300163",
+      "name": "先锋新材",
+      "price": 0.0,
+      "pct": 20.0371,
+      "reason": "日涨幅达到15%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "300694",
+      "name": "蠡湖股份",
+      "price": 0.0,
+      "pct": 9.8422,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 2309.2,
+      "inst_buy_万": 9342.7,
+      "inst_sell_万": 7033.4,
+      "yz_net_万": 641.0,
+      "yz_buy_万": 2384.3,
+      "yz_sell_万": 1743.3,
+      "seats": {
+        "机构": {
+          "buy": 9342.7,
+          "sell": 7033.4
+        },
+        "未识别": {
+          "buy": 2384.3,
+          "sell": 1743.3
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "300740",
+      "name": "水羊股份",
+      "price": 0.0,
+      "pct": 19.9892,
+      "reason": "日涨幅达到15%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "300765",
+      "name": "石药创新",
+      "price": 0.0,
+      "pct": 12.1626,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 7717.1,
+      "inst_buy_万": 22968.6,
+      "inst_sell_万": 15251.5,
+      "yz_net_万": -8650.7,
+      "yz_buy_万": 11279.8,
+      "yz_sell_万": 19930.5,
+      "seats": {
+        "机构": {
+          "buy": 22968.6,
+          "sell": 15251.5
+        },
+        "北向": {
+          "buy": 11279.8,
+          "sell": 14685.1
+        },
+        "未识别": {
+          "buy": 0,
+          "sell": 5245.4
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "300980",
+      "name": "祥源新材",
+      "price": 0.0,
+      "pct": 6.8922,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "301008",
+      "name": "宏昌科技",
+      "price": 0.0,
+      "pct": 19.9925,
+      "reason": "日涨幅达到15%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": 1709.4,
+      "inst_buy_万": 7469.7,
+      "inst_sell_万": 5760.3,
+      "yz_net_万": 3041.9,
+      "yz_buy_万": 3569.7,
+      "yz_sell_万": 527.8,
+      "seats": {
+        "机构": {
+          "buy": 7469.7,
+          "sell": 5760.3
+        },
+        "未识别": {
+          "buy": 3569.7,
+          "sell": 527.8
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "301281",
+      "name": "科源制药",
+      "price": 0.0,
+      "pct": 3.1267,
+      "reason": "连续三个交易日内，涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "301520",
+      "name": "万邦医药",
+      "price": 0.0,
+      "pct": 1.2903,
+      "reason": "日换手率达到30%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "301696",
+      "name": "三瑞智能",
+      "price": 0.0,
+      "pct": 14.2362,
+      "reason": "日换手率达到30%的前5只证券",
+      "category": "不达标",
+      "inst_net_万": -20470.5,
+      "inst_buy_万": 10680.4,
+      "inst_sell_万": 31150.9,
+      "yz_net_万": 4015.9,
+      "yz_buy_万": 25030.0,
+      "yz_sell_万": 21014.1,
+      "seats": {
+        "机构": {
+          "buy": 10680.4,
+          "sell": 31150.9
+        },
+        "北向": {
+          "buy": 13212.1,
+          "sell": 14605.6
+        },
+        "游资": {
+          "buy": 6617.8,
+          "sell": 6408.5,
+          "aliases": [
+            "拉萨东环路",
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 5200.1,
+          "sell": 0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "600076",
+      "name": "康欣新材",
+      "price": 0.0,
+      "pct": -1.0989,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600119",
+      "name": "*ST长投",
+      "price": 0.0,
+      "pct": 4.9107,
+      "reason": "ST、*ST证券连续三个交易日内收盘价格涨幅偏离值累计达到12%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600156",
+      "name": "华升股份",
+      "price": 0.0,
+      "pct": 10.0462,
+      "reason": "有价格涨跌幅限制的日收盘价格涨幅偏离值达到7%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600180",
+      "name": "*ST瑞茂",
+      "price": 0.0,
+      "pct": 5.3435,
+      "reason": "ST、*ST证券连续三个交易日内收盘价格涨幅偏离值累计达到12%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600228",
+      "name": "返利科技",
+      "price": 0.0,
+      "pct": -10.0358,
+      "reason": "有价格涨跌幅限制的日收盘价格跌幅偏离值达到7%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600237",
+      "name": "铜峰电子",
+      "price": 0.0,
+      "pct": -10.0142,
+      "reason": "有价格涨跌幅限制的日收盘价格跌幅偏离值达到7%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600289",
+      "name": "ST信通",
+      "price": 0.0,
+      "pct": 3.7543,
+      "reason": "ST、*ST证券连续三个交易日内收盘价格涨幅偏离值累计达到12%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600322",
+      "name": "津投城开",
+      "price": 0.0,
+      "pct": 8.042,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600360",
+      "name": "华微电子",
+      "price": 0.0,
+      "pct": -0.2829,
+      "reason": "有价格涨跌幅限制的日价格振幅达到15%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600396",
+      "name": "华电辽能",
+      "price": 0.0,
+      "pct": -10.026,
+      "reason": "有价格涨跌幅限制的日收盘价格跌幅偏离值达到7%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600423",
+      "name": "*ST柳化",
+      "price": 0.0,
+      "pct": 5.0847,
+      "reason": "ST、*ST证券连续三个交易日内收盘价格涨幅偏离值累计达到12%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600490",
+      "name": "鹏欣资源",
+      "price": 0.0,
+      "pct": 10.0855,
+      "reason": "有价格涨跌幅限制的日收盘价格涨幅偏离值达到7%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600491",
+      "name": "ST龙元",
+      "price": 0.0,
+      "pct": 5.1546,
+      "reason": "ST、*ST证券连续三个交易日内收盘价格涨幅偏离值累计达到12%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600537",
+      "name": "*ST亿晶",
+      "price": 0.0,
+      "pct": 4.9618,
+      "reason": "ST、*ST证券连续三个交易日内收盘价格涨幅偏离值累计达到12%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "600793",
+      "name": "宜宾纸业",
+      "price": 0.0,
+      "pct": 9.9773,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "601010",
+      "name": "ST文峰",
+      "price": 0.0,
+      "pct": 4.7945,
+      "reason": "ST、*ST证券连续三个交易日内收盘价格涨幅偏离值累计达到12%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "601678",
+      "name": "滨化股份",
+      "price": 0.0,
+      "pct": 10.0,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "601718",
+      "name": "ST际华",
+      "price": 0.0,
+      "pct": 5.298,
+      "reason": "ST、*ST证券连续三个交易日内收盘价格涨幅偏离值累计达到12%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603021",
+      "name": "*ST华鹏",
+      "price": 0.0,
+      "pct": 5.0578,
+      "reason": "ST、*ST证券连续三个交易日内收盘价格涨幅偏离值累计达到12%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603120",
+      "name": "肯特催化",
+      "price": 0.0,
+      "pct": 2.8625,
+      "reason": "有价格涨跌幅限制的日换手率达到20%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603137",
+      "name": "恒尚节能",
+      "price": 0.0,
+      "pct": 9.9789,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603189",
+      "name": "*ST网达",
+      "price": 0.0,
+      "pct": 4.6746,
+      "reason": "ST、*ST证券连续三个交易日内收盘价格涨幅偏离值累计达到12%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603203",
+      "name": "快克智能",
+      "price": 0.0,
+      "pct": -9.9711,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格跌幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603270",
+      "name": "金帝股份",
+      "price": 0.0,
+      "pct": 5.697,
+      "reason": "有价格涨跌幅限制的日换手率达到20%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603272",
+      "name": "*ST联翔",
+      "price": 0.0,
+      "pct": 5.006,
+      "reason": "ST、*ST证券连续三个交易日内收盘价格涨幅偏离值累计达到12%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603273",
+      "name": "天元智能",
+      "price": 0.0,
+      "pct": 10.038,
+      "reason": "有价格涨跌幅限制的日收盘价格涨幅偏离值达到7%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603330",
+      "name": "天洋新材",
+      "price": 0.0,
+      "pct": 4.5828,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603407",
+      "name": "长裕集团",
+      "price": 0.0,
+      "pct": -2.46,
+      "reason": "有价格涨跌幅限制的日换手率达到20%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 4746.2,
+      "yz_buy_万": 20308.5,
+      "yz_sell_万": 15562.2,
+      "seats": {
+        "游资": {
+          "buy": 4731.3,
+          "sell": 2841.6,
+          "aliases": [
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 15577.2,
+          "sell": 12720.6
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "603416",
+      "name": "信捷电气",
+      "price": 0.0,
+      "pct": 9.9945,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603458",
+      "name": "勘设股份",
+      "price": 0.0,
+      "pct": -9.9923,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格跌幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603459",
+      "name": "红板科技",
+      "price": 0.0,
+      "pct": -7.6798,
+      "reason": "有价格涨跌幅限制的日换手率达到20%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603538",
+      "name": "美诺华",
+      "price": 0.0,
+      "pct": 9.9972,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603607",
+      "name": "京华激光",
+      "price": 0.0,
+      "pct": 4.0689,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603717",
+      "name": "天域生物",
+      "price": 0.0,
+      "pct": 10.0826,
+      "reason": "有价格涨跌幅限制的日收盘价格涨幅偏离值达到7%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603759",
+      "name": "海天股份",
+      "price": 0.0,
+      "pct": 10.0719,
+      "reason": "有价格涨跌幅限制的日收盘价格涨幅偏离值达到7%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603823",
+      "name": "百合花",
+      "price": 0.0,
+      "pct": 7.8197,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603825",
+      "name": "ST华扬",
+      "price": 0.0,
+      "pct": 2.8944,
+      "reason": "ST、*ST证券连续三个交易日内收盘价格涨幅偏离值累计达到12%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "603928",
+      "name": "兴业股份",
+      "price": 0.0,
+      "pct": 10.0,
+      "reason": "有价格涨跌幅限制的日价格振幅达到15%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "605006",
+      "name": "山东玻纤",
+      "price": 0.0,
+      "pct": -10.0183,
+      "reason": "有价格涨跌幅限制的日收盘价格跌幅偏离值达到7%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "605020",
+      "name": "永和股份",
+      "price": 0.0,
+      "pct": 10.0023,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "605178",
+      "name": "时空科技",
+      "price": 0.0,
+      "pct": 7.651,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "605189",
+      "name": "富春染织",
+      "price": 0.0,
+      "pct": 10.0302,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 5108.4,
+      "inst_buy_万": 5936.4,
+      "inst_sell_万": 828.0,
+      "yz_net_万": -488.1,
+      "yz_buy_万": 5774.8,
+      "yz_sell_万": 6262.9,
+      "seats": {
+        "机构": {
+          "buy": 5936.4,
+          "sell": 828.0
+        },
+        "未识别": {
+          "buy": 5774.8,
+          "sell": 6262.9
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "605488",
+      "name": "福莱新材",
+      "price": 0.0,
+      "pct": 10.0,
+      "reason": "非ST、*ST和S证券连续三个交易日内收盘价格涨幅偏离值累计达到20%的证券",
+      "category": "不达标",
+      "inst_net_万": 4037.3,
+      "inst_buy_万": 4037.3,
+      "inst_sell_万": 0,
+      "yz_net_万": 4786.9,
+      "yz_buy_万": 16311.7,
+      "yz_sell_万": 11524.8,
+      "seats": {
+        "机构": {
+          "buy": 4037.3,
+          "sell": 0
+        },
+        "北向": {
+          "buy": 0,
+          "sell": 3354.5
+        },
+        "游资": {
+          "buy": 3318.7,
+          "sell": 1977.9,
+          "aliases": [
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 12993.0,
+          "sell": 6192.4
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "688020",
+      "name": "方邦股份",
+      "price": 0.0,
+      "pct": -15.114,
+      "reason": "有价格涨跌幅限制的日收盘价格跌幅达到15%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": -3714.2,
+      "inst_buy_万": 5387.5,
+      "inst_sell_万": 9101.7,
+      "yz_net_万": 5035.7,
+      "yz_buy_万": 28273.6,
+      "yz_sell_万": 23237.9,
+      "seats": {
+        "机构": {
+          "buy": 5387.5,
+          "sell": 9101.7
+        },
+        "北向": {
+          "buy": 12220.6,
+          "sell": 13221.9
+        },
+        "游资": {
+          "buy": 7321.2,
+          "sell": 5074.0,
+          "aliases": [
+            "上海分公司"
+          ]
+        },
+        "未识别": {
+          "buy": 8731.8,
+          "sell": 4942.0
+        }
+      },
+      "consecutive_days": 1
+    },
+    {
+      "code": "688056",
+      "name": "莱伯泰科",
+      "price": 0.0,
+      "pct": -16.1765,
+      "reason": "有价格涨跌幅限制的日收盘价格跌幅达到15%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "688068",
+      "name": "热景生物",
+      "price": 0.0,
+      "pct": 18.4624,
+      "reason": "有价格涨跌幅限制的日收盘价格涨幅达到15%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "688160",
+      "name": "步科股份",
+      "price": 0.0,
+      "pct": 8.0645,
+      "reason": "有价格涨跌幅限制的连续3个交易日内收盘价格涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "688216",
+      "name": "气派科技",
+      "price": 0.0,
+      "pct": 20.0,
+      "reason": "有价格涨跌幅限制的连续3个交易日内收盘价格涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "688221",
+      "name": "前沿生物",
+      "price": 0.0,
+      "pct": 2.783,
+      "reason": "有价格涨跌幅限制的连续3个交易日内收盘价格涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "688247",
+      "name": "宣泰医药",
+      "price": 0.0,
+      "pct": 5.5432,
+      "reason": "有价格涨跌幅限制的连续3个交易日内收盘价格涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "688260",
+      "name": "昀冢科技",
+      "price": 0.0,
+      "pct": -15.1568,
+      "reason": "有价格涨跌幅限制的日收盘价格跌幅达到15%的前五只证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "688305",
+      "name": "科德数控",
+      "price": 0.0,
+      "pct": 12.3736,
+      "reason": "有价格涨跌幅限制的连续3个交易日内收盘价格涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "688355",
+      "name": "明志科技",
+      "price": 0.0,
+      "pct": 5.1917,
+      "reason": "有价格涨跌幅限制的连续3个交易日内收盘价格涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "688432",
+      "name": "有研硅",
+      "price": 0.0,
+      "pct": 0.2402,
+      "reason": "有价格涨跌幅限制的连续3个交易日内收盘价格涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "688571",
+      "name": "杭华股份",
+      "price": 0.0,
+      "pct": 5.3333,
+      "reason": "有价格涨跌幅限制的连续3个交易日内收盘价格涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "688689",
+      "name": "银河微电",
+      "price": 0.0,
+      "pct": 3.2258,
+      "reason": "有价格涨跌幅限制的连续3个交易日内收盘价格涨幅偏离值累计达到30%的证券",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "920072",
+      "name": "科莱瑞迪",
+      "price": 0.0,
+      "pct": -8.129,
+      "reason": "当日换手率达到20%的前5只股票",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "920083",
+      "name": "金戈新材",
+      "price": 0.0,
+      "pct": -3.1648,
+      "reason": "当日换手率达到20%的前5只股票",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "920221",
+      "name": "易实精密",
+      "price": 0.0,
+      "pct": 29.9453,
+      "reason": "当日价格振幅达到30%的前5只股票",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "920222",
+      "name": "益坤电气",
+      "price": 0.0,
+      "pct": -12.1019,
+      "reason": "当日换手率达到20%的前5只股票",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "920367",
+      "name": "新赣江",
+      "price": 0.0,
+      "pct": -6.4822,
+      "reason": "当日换手率达到20%的前5只股票",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "920699",
+      "name": "海达尔",
+      "price": 0.0,
+      "pct": 15.3556,
+      "reason": "北交所股票最近3个有成交的交易日以内收盘价涨跌幅偏离值累计达到+40%(-40%)",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    },
+    {
+      "code": "920725",
+      "name": "惠丰钻石",
+      "price": 0.0,
+      "pct": 9.8782,
+      "reason": "当日换手率达到20%的前5只股票",
+      "category": "不达标",
+      "inst_net_万": 0,
+      "inst_buy_万": 0,
+      "inst_sell_万": 0,
+      "yz_net_万": 0,
+      "yz_buy_万": 0,
+      "yz_sell_万": 0,
+      "seats": {},
+      "consecutive_days": 1
+    }
+  ],
+  "summary": {
+    "纯共振": 4,
+    "标X": 20,
+    "不达标": 135,
+    "总计": 159
+  },
+  "pure_sectors": {
+    "光学光电子": 1,
+    "化工行业": 1,
+    "小金属": 1,
+    "橡胶制品": 1
+  },
+  "pure_sector_top": "光学光电子",
+  "pure_sector_count": 4
+}
