@@ -38,10 +38,16 @@
 
 **小九，听好了！**
 
+### 🔒 已有自动化保护
+- `batch_update.py` **每次运行第一步自动执行 `git pull`**
+- 失败会**重试1次 + 严重告警**（不再静默忽略）
+- 南向资金数据已改为**每日更新**（不再是每周一次）
+
 ❌ **禁止操作**：
 - 不要直接运行 `extract_panels_v6.py` 而不保护竞彩/逻辑页
 - 不要手动编辑 `standalone/worldcup.html` 和 `standalone/guide.html`
 - 不要用旧版 `dist/index.html` 覆盖新版
+- 不要跳过 `git pull` 直接跑定时任务
 
 ✅ **正确流程**：
 1. 先 `git pull` 拉最新代码
