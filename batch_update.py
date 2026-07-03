@@ -392,6 +392,54 @@ def _check_code_version(workspace):
                 pass
 
 
+def _write_handover_log(workspace, mode, my_host, results, still_failed):
+    """每次任务结束后写交接日志，坚果云同步给另一台电脑。
+    日志文件：HANDOVER_LOG.jsonl（每行一个JSON，方便追加）
+    """
+    import json as _j
+    from datetime import datetime as _dt
+
+    log_file = os.path.join(workspace, "HANDOVER_LOG.jsonl")
+    now = _dt.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # 收集关键数据的时间戳
+    data_times = {}
+    key_files = [
+        ("data/scan_result.json", "scan_time"),
+        ("data/gold_pool.json", "update_time"),
+        ("data/north_fund.json", "update_time"),
+        ("data/lhb_result.json", "update_time"),
+    ]
+    for fpath, time_key in key_files:
+        full = os.path.join(workspace, fpath)
+        if os.path.exists(full):
+            try:
+                with open(full, "r", encoding="utf-8") as f:
+                    d = _j.load(f)
+                if isinstance(d, dict):
+                    t = d.get(time_key, "")
+                    if t:
+                        data_times[fpath] = t
+            except Exception:
+                pass
+
+    entry = {
+        "time": now,
+        "mode": mode,
+        "host": my_host,
+        "success": len(still_failed) == 0,
+        "failed_steps": still_failed,
+        "data_times": data_times,
+    }
+
+    try:
+        with open(log_file, "a", encoding="utf-8") as f:
+            f.write(_j.dumps(entry, ensure_ascii=False) + "\n")
+        print(f"  📝 交接日志已写: {my_host} {mode} {'✓' if len(still_failed)==0 else '✗'}")
+    except Exception as e:
+        print(f"  ⚠️ 交接日志写入失败: {e}")
+
+
 def print_header(title):
     print(f"\n{'=' * 60}")
     print(f"  {title}  —  {time.strftime('%Y-%m-%d %H:%M:%S')}")
@@ -571,6 +619,8 @@ def main():
             print(f"\n  ⚠ 重试后仍然超时/失败: {names}")
 
     exit_code = print_summary(list(results.values()), still_failed)
+    # 写交接日志（坚果云同步，另一台电脑可读取）
+    _write_handover_log(WORKSPACE, mode, my_host, results, still_failed)
     # 清理心跳（全部完成）
     try:
         if os.path.exists(HEARTBEAT_FILE):
