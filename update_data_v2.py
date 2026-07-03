@@ -1050,12 +1050,6 @@ def main():
     else:
         print("  ▸ 快速模式：跳过宏观数据刷新")
 
-    # 【兜底】盘前无scanner时scan_time可能是旧日期，同步到当天
-    scan_st = scan_data.get("scan_time", "")
-    today_str = time.strftime("%Y-%m-%d")
-    if not scan_st.startswith(today_str):
-        scan_data["scan_time"] = time.strftime("%Y-%m-%d %H:%M:%S")
-
     print(f"\n  数据:")
     print(f"  ▸ SCAN_DATA:  {len(scan_data.get('all_results',[]))} 条, time={scan_data.get('scan_time','N/A')}")
     print(f"  ▸ WATCH_DATA: {len(watch_data.get('all_results',[]))} 条")
