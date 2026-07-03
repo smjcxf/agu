@@ -143,8 +143,13 @@ def audit_scanner():
         double_count = data.get("double_count", "N/A")
         total_errors = data.get("total_errors", "N/A")
         if total_scanned == 0 or total_scanned == "N/A":
-            log("ERROR", "选股观测台", "scan_result.json 数据",
-                f"total_scanned={total_scanned}, 疑似无扫描结果")
+            # 有实际结果（三线/二线）就不算错误
+            if (triple_count and triple_count > 0) or (double_count and double_count > 0):
+                log("OK", "选股观测台", "scan_result.json 数据",
+                    f"模式={scan_mode}, 三重{triple_count}/双重{double_count}, 错误{total_errors} (total_scanned={total_scanned})")
+            else:
+                log("ERROR", "选股观测台", "scan_result.json 数据",
+                    f"total_scanned={total_scanned}, 三重三重{triple_count}/双重{double_count}, 疑似无扫描结果")
         elif total_errors and total_errors > total_scanned * 0.5:
             log("WARN", "选股观测台", "scan_result.json 数据",
                 f"扫描{total_scanned}只，错误{total_errors}条，错误率较高")
