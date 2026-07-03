@@ -73,6 +73,7 @@ MODES = {
             ("generate_recommend.py", 120),
             ("update_data_v2.py", 300),
             ("enhance_dist.py", 30),
+            ("refresh_standalone_and_deploy.py --skip-data --skip-deploy", 300),
             ("sync_check.py", 30),      # 坚果云同步检查（防旧版覆盖）
             ("deploy_now.py --force", 180),
         ],
@@ -84,6 +85,7 @@ MODES = {
             ("scanner.py", 300),
             ("update_data_v2.py", 300),
             ("enhance_dist.py", 30),
+            ("refresh_standalone_and_deploy.py --skip-data --skip-deploy", 300),
             ("sync_check.py", 30),      # 坚果云同步检查
             ("deploy_now.py --force", 180),
         ],
@@ -100,6 +102,7 @@ MODES = {
             ("scanner.py", 300),
             ("update_data_v2.py", 300),
             ("enhance_dist.py", 30),
+            ("refresh_standalone_and_deploy.py --skip-data --skip-deploy", 300),
             ("sync_check.py", 30),      # 坚果云同步检查
             ("deploy_now.py --force", 180),
         ],
@@ -116,6 +119,7 @@ MODES = {
             ("fetch_sector_fund_flow.py", 180),
             ("update_data_v2.py", 300),
             ("enhance_dist.py", 30),
+            ("refresh_standalone_and_deploy.py --skip-data --skip-deploy", 300),
             ("sync_check.py", 30),      # 坚果云同步检查
             ("deploy_now.py --force", 180),
         ],
@@ -130,6 +134,7 @@ MODES = {
             ("fetch_sector_fund_flow.py", 180),
             ("update_data_v2.py", 300),
             ("enhance_dist.py", 30),
+            ("refresh_standalone_and_deploy.py --skip-data --skip-deploy", 300),
             ("sync_check.py", 30),      # 坚果云同步检查
             ("deploy_now.py --force", 180),
         ],
@@ -144,6 +149,7 @@ MODES = {
             ("fetch_sh_sz_history.py", 120),
             ("fetch_up_down_stats.py", 120),
             ("update_data_v2.py", 300),
+            ("refresh_standalone_and_deploy.py --skip-data --skip-deploy", 300),
             ("sync_check.py", 30),      # 坚果云同步检查
             ("deploy_now.py --force", 180),
         ],
@@ -201,6 +207,7 @@ MODES = {
             # ══ Group 5: 注入+部署（串行） ══
             ("update_data_v2.py", 300),
             ("enhance_dist.py", 30),
+            ("refresh_standalone_and_deploy.py --skip-data --skip-deploy", 300),
             ("check_syntax.py", 30),
             ("sync_check.py", 30),
             ("deploy_now.py", 180),

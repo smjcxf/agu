@@ -1,8 +1,10 @@
 """
 盘中扫描统一入口 — 带错误追踪，失败步骤写入 .fetch_errors.json
 用法: python run_intraday_scan.py
+     python run_intraday_scan.py --skip-standalone   # 跳过独立页面更新
+     python run_intraday_scan.py --only-scan          # 只跑数据获取，不更新数据注入和独立页
 """
-import subprocess, json, os, sys, time
+import subprocess, json, os, sys, time, argparse
 from datetime import datetime
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -19,6 +21,11 @@ STEPS = [
 ]
 
 def run():
+    parser = argparse.ArgumentParser(description='盘中数据扫描')
+    parser.add_argument('--skip-standalone', action='store_true', help='跳过独立页面更新')
+    parser.add_argument('--only-scan', action='store_true', help='只跑数据获取，不更新数据注入和独立页')
+    args = parser.parse_args()
+    
     errors = []
     now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     
@@ -60,7 +67,26 @@ def run():
         if os.path.exists(ERROR_FILE):
             os.remove(ERROR_FILE)
         print('\n✅ 全部步骤成功')
-        return 0
+    
+    # 数据获取完成后，更新数据注入 + 独立页面
+    if not args.only_scan and not args.skip_standalone:
+        print('\n' + '='*50)
+        print('▶ 自动更新独立页面并部署')
+        print('='*50)
+        try:
+            r = subprocess.run(
+                [sys.executable, 'refresh_standalone_and_deploy.py'],
+                cwd=BASE, capture_output=True, text=True, timeout=600
+            )
+            if r.returncode == 0:
+                print('  ✅ 独立页面更新+部署完成')
+            else:
+                print(f'  ⚠️ 独立页面更新失败: {r.stderr[-200:]}')
+                print('  （数据获取已成功，独立页面更新失败不影响主流程）')
+        except Exception as e:
+            print(f'  ⚠️ 独立页面更新异常: {e}')
+    
+    return 0
 
 if __name__ == '__main__':
     sys.exit(run())
