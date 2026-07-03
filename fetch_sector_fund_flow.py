@@ -352,7 +352,7 @@ def fetch_akshare_ths_5d20d_backup(sector_names):
                 net_5d_est = round(vol_5 * pct_5 / 100 / 10000, 2)  # 转为亿
             else:
                 net_5d_est = 0
-            
+
             # 20日估算
             if len(df) >= 20:
                 recent_20 = df.tail(20)
@@ -361,7 +361,7 @@ def fetch_akshare_ths_5d20d_backup(sector_names):
                 net_20d_est = round(vol_20 * pct_20 / 100 / 10000, 2)
             else:
                 net_20d_est = 0
-            
+
             # 60日估算
             if len(df) >= 60:
                 recent_60 = df.tail(60)
@@ -370,6 +370,15 @@ def fetch_akshare_ths_5d20d_backup(sector_names):
                 net_60d_est = round(vol_60 * pct_60 / 100 / 10000, 2)
             else:
                 net_60d_est = None
+            
+            # 【2026-07-03 修复】上限校验: 单板块累计净流入不可能超过5000亿（A股历史极值级别）
+            MAX_REASONABLE = 5000.0
+            if net_5d_est and abs(net_5d_est) > MAX_REASONABLE:
+                print(f"    ⚠️ {name} 5日估算({net_5d_est}亿)超限，丢弃")
+                net_5d_est = 0
+            if net_20d_est and abs(net_20d_est) > MAX_REASONABLE:
+                print(f"    ⚠️ {name} 20日估算({net_20d_est}亿)超限，丢弃")
+                net_20d_est = 0
             
             result[name] = {
                 "net_5d": net_5d_est,
@@ -672,20 +681,10 @@ def fetch_sector_flow():
                 if net_60d is not None and net_60d != 0:
                     item["net_60d"] = net_60d
         
-        # 兜底：对于仍然没有 net_5d/net_20d 的板块，用当日净流入 × 系数估算
-        # 逻辑：如果今日净流入 X 亿，假设5日累计约为 X×3（保守估计活跃板块持续流入）
-        estimated = 0
-        for item in top_list:
-            if item.get("net_5d", 0) == 0 and item.get("net", 0) != 0:
-                net_today = item["net"]
-                # 用当日净额的合理倍数估算（正流入用3倍，负流出也用3倍）
-                est_5d = round(net_today * 3, 2)
-                est_20d = round(net_today * 8, 2)
-                item["net_5d"] = est_5d
-                item["net_20d"] = est_20d
-                estimated += 1
-        if estimated > 0:
-            print(f"  📐 [兜底] {estimated} 个板块使用当日数据估算5日/20日累计")
+        # 【2026-07-03 修复】不再使用暴力系数估算！
+        # 原逻辑: 当日净流入 × 3(5日) / × 8(20日) → 遇到大数值会爆炸（如比亚迪迪念 11万亿亿）
+        # 新逻辑: neodata/同花顺都没有数据的板块 → 保持为0 → 前端显示"--"或"暂无"
+        # 宁可空着也不造假！
 
     # 如果真实数据获取失败，尝试 neodata 备选（仅当日数据）
     if not top_list:
