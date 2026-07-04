@@ -26,12 +26,12 @@
   },
   "fetch_macro_data": {
     "consecutive_failures": 0,
-    "last_success": "2026-07-04 09:19:59",
+    "last_success": "2026-07-04 09:42:50",
     "last_error": null
   },
   "fetch_overnight_brief": {
     "consecutive_failures": 0,
-    "last_success": "2026-07-03 19:40:10",
+    "last_success": "2026-07-04 09:41:03",
     "last_error": null
   },
   "fetch_margin": {
