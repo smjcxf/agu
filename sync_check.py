@@ -231,8 +231,8 @@ def check_index_master_lock():
                 print(f"  ⚠️ 第{attempt+1}次被坚果云覆盖，MD5: {restored_md5[:16]}... 重试...")
         print(f"  ❌ 重试5次仍失败，坚果云正在实时覆盖此文件！")
         print(f"     请在坚果云 GUI 中确认以下路径已加入「不同步」列表：")
-        print(f"       - stock-scanner\.git")
-        print(f"       - stock-scanner\index_master.html")
+        print(r"       - stock-scanner\.git")
+        print(r"       - stock-scanner\index_master.html")
         return False
     else:
         print(f"  ✓ index_master.html MD5 匹配 (git HEAD: {actual_md5[:16]}...)")
