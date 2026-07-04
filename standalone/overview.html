@@ -2,14 +2,14 @@
 <!-- DO NOT DELETE: 主站模板，所有页面基于此生成 (see DO_NOT_DELETE.md) -->
 <html lang="zh-CN">
 <head>
-<meta name="build-stamp" content="20260704082622">
+<meta name="build-stamp" content="20260704084010">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build: 20260704082622 -->
+<!-- build: 20260704084010 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>九宝量化 v6.0 (20260704082622)</title>
+<title>九宝量化 v6.0 (20260704084010)</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25527,7 +25527,7 @@ true
 },
 "last_update": "2026-07-03 19:30:29",
 "total_count": 54,
-"update_time": "2026-07-04 08:26:02"
+"update_time": "2026-07-04 08:39:51"
 };var SH_FIB = window.SH_FIB = {
 "current": {
 "index": 4043.64,
@@ -68167,6 +68167,10 @@ function renderAISummary() {
       // 多维共振（三线+双线）— 仅当数量有意义时显示（>30只说明信号太宽松，不具参考价值）
       var multiCnt = tripleCnt + doubleCnt;
       if (multiCnt > 0 && multiCnt <= 30) sentiment += ' · 多维共振' + multiCnt + '只';
+      // 多维80+（total_score >= 80 的高质量信号股）
+      var td2 = window.TOP10_DAILY || {};
+      var multi80 = (td2.top10 || []).filter(function(p){ return (p.total_score||0) >= 80; }).length;
+      if (multi80 > 0) sentiment += ' · 多维80+ ' + multi80 + '只';
       if (tripleCnt > 0) sentiment += ' · 三线共振' + tripleCnt + '只';
       // 成交额
       var amtHist = (window.SH_SZ_HISTORY && window.SH_SZ_HISTORY.amount_history) || [];
@@ -68224,10 +68228,10 @@ function renderAISummary() {
   rows.push(row('市场健康度', '#43a047', '#e8f5e9', healthHtml, '#f1f8e9'));
 
   // ---- 指数表现（8个核心指数） ----
-  var idxWL = ['\u4e0a\u8bc1\u6307\u6570','\u6df1\u8bc1\u6210\u5206','\u521b\u4e1a\u677f\u6307','\u79d1\u521b50','\u6052\u751f\u6307\u6570','\u6052\u751f\u79d1\u6280\u6307\u6570','\u65e5\u7ecf225','\u97e9\u56fdKOSPI'];
+  var idxWL = ['\u4e0a\u8bc1\u6307\u6570','\u6df1\u8bc1\u6210\u6307','\u521b\u4e1a\u677f\u6307','\u79d1\u521b50','\u6052\u751f\u6307\u6570','\u6052\u751f\u79d1\u6280\u6307\u6570','\u65e5\u7ecf225','\u97e9\u56fdKOSPI'];
   var indices = (ma.indices || []).filter(function(x){ return idxWL.indexOf(x.name) >= 0; }).sort(function(a,b){
-    var oa = a.name==='\u4e0a\u8bc1\u6307\u6570'?1:a.name==='\u6df1\u8bc1\u6210\u5206'?2:a.name==='\u521b\u4e1a\u677f\u6307'?3:a.name==='\u79d1\u521b50'?4:a.name==='\u6052\u751f\u6307\u6570'?5:a.name==='\u6052\u751f\u79d1\u6280\u6307\u6570'?6:a.name==='\u65e5\u7ecf225'?7:a.name==='\u97e9\u56fdKOSPI'?8:99;
-    var ob = b.name==='\u4e0a\u8bc1\u6307\u6570'?1:b.name==='\u6df1\u8bc1\u6210\u5206'?2:b.name==='\u521b\u4e1a\u677f\u6307'?3:b.name==='\u79d1\u521b50'?4:b.name==='\u6052\u751f\u6307\u6570'?5:b.name==='\u6052\u751f\u79d1\u6280\u6307\u6570'?6:b.name==='\u65e5\u7ecf225'?7:b.name==='\u97e9\u56fdKOSPI'?8:99;
+    var oa = a.name==='\u4e0a\u8bc1\u6307\u6570'?1:a.name==='\u6df1\u8bc1\u6210\u6307'?2:a.name==='\u521b\u4e1a\u677f\u6307'?3:a.name==='\u79d1\u521b50'?4:a.name==='\u6052\u751f\u6307\u6570'?5:a.name==='\u6052\u751f\u79d1\u6280\u6307\u6570'?6:a.name==='\u65e5\u7ecf225'?7:a.name==='\u97e9\u56fdKOSPI'?8:99;
+    var ob = b.name==='\u4e0a\u8bc1\u6307\u6570'?1:b.name==='\u6df1\u8bc1\u6210\u6307'?2:b.name==='\u521b\u4e1a\u677f\u6307'?3:b.name==='\u79d1\u521b50'?4:b.name==='\u6052\u751f\u6307\u6570'?5:b.name==='\u6052\u751f\u79d1\u6280\u6307\u6570'?6:b.name==='\u65e5\u7ecf225'?7:b.name==='\u97e9\u56fdKOSPI'?8:99;
     return oa - ob;
   });
   if (indices.length > 0) {
