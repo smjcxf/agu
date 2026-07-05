@@ -46,9 +46,9 @@ jobs:
           echo "::notice::数据年龄: ${DIFF_HOURS}小时"
           
           if [ $DIFF_HOURS -gt 12 ]; then
-            echo "::warning::数据已超过6小时未更新（${DIFF_HOURS}h），定时任务可能中断！"
-          elif [ $DIFF_HOURS -gt 6 ]; then
             echo "::error::数据已超过12小时未更新（${DIFF_HOURS}h），定时任务中断！请立即检查双机状态。"
+          elif [ $DIFF_HOURS -gt 6 ]; then
+            echo "::warning::数据已超过6小时未更新（${DIFF_HOURS}h），定时任务可能中断！"
           fi
           
           # 输出状态徽章用
